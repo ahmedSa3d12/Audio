@@ -9,6 +9,9 @@ class ImageAssets {
   static const String twoCircleImage = '$imagePath/two_circle.png';
   static const String profileImage = '$imagePath/user.png';
   static const String facebookImage = '$imagePath/facebook.png';
+  static const String websiteImage = '$imagePath/website_icon.png';
+  static const String instagramImage = '$imagePath/insta.png';
+  static const String twitterImage = '$imagePath/twitter.png';
   static const String youtubeImage = '$imagePath/youtube.png';
   static const String callImage = '$imagePath/call.png';
   static const String appBarImage = '$imagePath/appbar_background.png';
@@ -25,6 +28,7 @@ class ImageAssets {
   static const String Image2 = '$imagePath/2.png';
   static const String Image3 = '$imagePath/3.png';
   static const String Image4 = '$imagePath/4.png';
+  static const String liveExamImage = '$imagePath/live_exam.png';
 
   // icons
   static const String phoneIcon = '$iconsPath/phone.svg';
@@ -63,6 +67,8 @@ class ImageAssets {
   static const String noteIcon = '$iconsPath/note_icon.svg';
   static const String studyIcon = '$iconsPath/study_icon.svg';
   static const String lockIcon = '$iconsPath/lock.svg';
+  static const String aboutIcon = '$iconsPath/about.svg';
+  static const String pdfIcon = '$iconsPath/pdf_icon.svg';
 
 
   //Lottie

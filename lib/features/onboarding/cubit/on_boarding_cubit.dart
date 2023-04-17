@@ -28,7 +28,7 @@ class OnBoardingCubit extends Cubit<OnBoardingState> {
                 pathImage: null,
                 centerWidget: Padding(
                   padding: EdgeInsets.only(top: 100),
-                  child: ManageNetworkImage(imageUrl: 'https://lottiefiles.com/91736-exams'),
+                  child: ManageNetworkImage(imageUrl: item.image!),
                 ),
                 widgetTitle: Text(
                   item.title!,

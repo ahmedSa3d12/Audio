@@ -79,19 +79,6 @@ class _userScreenState extends State<LoginScreen> {
                                 );
                               },
                             );
-                            // if (state.userModel.data!.dateEndCode
-                            //     .isBefore(DateTime.now())) {
-                              // Navigator.pushAndRemoveUntil(
-                              //   context,
-                              //   PageTransition(
-                              //     type: PageTransitionType.fade,
-                              //     alignment: Alignment.center,
-                              //     duration: const Duration(milliseconds: 1300),
-                              //     child: ProfilePage(isAppBar: true),
-                              //   ),
-                              //   (route) => false,
-                              // );
-                            // } else {
                               Navigator.pushAndRemoveUntil(
                                 context,
                                 PageTransition(
@@ -186,10 +173,10 @@ class _userScreenState extends State<LoginScreen> {
                                       height: 30,
                                     ),
                                     CustomButton(
-
                                       text: 'user'.tr(),
-                                      textcolor: AppColors.primary,
-                                      color: AppColors.white,
+                                      textcolor: AppColors.white,
+
+                                      color: AppColors.orangeThirdPrimary,
                                       onClick: () {
                                         if (keyForm.currentState!.validate()) {
                                           context
@@ -197,8 +184,8 @@ class _userScreenState extends State<LoginScreen> {
                                               .userWithCode(context);
                                         }
                                       },
-                                      paddingHorizontal: 10,
-                                      borderRadius: 10,
+                                      paddingHorizontal: 20,
+                                      borderRadius: 15,
                                     ),
                                     const SizedBox(
                                       height: 30,
@@ -305,6 +292,115 @@ class _userScreenState extends State<LoginScreen> {
                               ),
                               const SizedBox(width: 16.0),
                               InkWell(
+                                onTap: () async {
+                                  if (state is userCommunicationError) {
+                                    createProgressDialog(context, 'wait'.tr());
+                                    cubit.getCommunicationData().whenComplete(
+                                          () {
+                                        Navigator.of(context).pop();
+                                        if (cubit.isCommunicationData) {
+                                          getCommunicationTab(
+                                            'website',
+                                            cubit,
+                                          );
+                                        } else {
+                                          toastMessage(
+                                            'error_to_get_data'.tr(),
+                                            context,
+                                            color: AppColors.error,
+                                          );
+                                        }
+                                      },
+                                    );
+                                  } else {
+                                    getCommunicationTab(
+                                      'website',
+                                      cubit,
+                                    );
+                                  }
+                                },
+                                child: Image.asset(
+                                  ImageAssets.websiteImage,
+                                  width: 40.0,
+                                  height: 40.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              const SizedBox(width: 16.0),
+                              InkWell(
+                                onTap: () async {
+                                  if (state is userCommunicationError) {
+                                    createProgressDialog(context, 'wait'.tr());
+                                    cubit.getCommunicationData().whenComplete(
+                                          () {
+                                        Navigator.of(context).pop();
+                                        if (cubit.isCommunicationData) {
+                                          getCommunicationTab(
+                                            'instagram',
+                                            cubit,
+                                          );
+                                        } else {
+                                          toastMessage(
+                                            'error_to_get_data'.tr(),
+                                            context,
+                                            color: AppColors.error,
+                                          );
+                                        }
+                                      },
+                                    );
+                                  } else {
+                                    getCommunicationTab(
+                                      'instagram',
+                                      cubit,
+                                    );
+                                  }
+                                },
+                                child: Image.asset(
+                                  ImageAssets.instagramImage,
+                                  width: 40.0,
+                                  height: 40.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              const SizedBox(width: 16.0),
+                              InkWell(
+                                onTap: () async {
+                                  if (state is userCommunicationError) {
+                                    createProgressDialog(context, 'wait'.tr());
+                                    cubit.getCommunicationData().whenComplete(
+                                          () {
+                                        Navigator.of(context).pop();
+                                        if (cubit.isCommunicationData) {
+                                          getCommunicationTab(
+                                            'twitter',
+                                            cubit,
+                                          );
+                                        } else {
+                                          toastMessage(
+                                            'error_to_get_data'.tr(),
+                                            context,
+                                            color: AppColors.error,
+                                          );
+                                        }
+                                      },
+                                    );
+                                  } else {
+                                    getCommunicationTab(
+                                      'twitter',
+                                      cubit,
+                                    );
+                                  }
+                                },
+                                child: Image.asset(
+                                  ImageAssets.twitterImage,
+                                  width: 40.0,
+                                  height: 40.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+
+                              const SizedBox(width: 16.0),
+                              InkWell(
                                 onTap: () {
                                   if (state is userCommunicationError) {
                                     createProgressDialog(context, 'wait'.tr());
@@ -338,7 +434,8 @@ class _userScreenState extends State<LoginScreen> {
                         ),
                       );
                     },
-                  )
+                  ),
+                  SizedBox(height: 30),
                 ],
               ),
             ),
@@ -351,6 +448,12 @@ class _userScreenState extends State<LoginScreen> {
       await launchUrl(Uri.parse(cubit.communicationData!.facebookLink));
     } else if (type == 'youtube') {
       await launchUrl(Uri.parse(cubit.communicationData!.youtubeLink));
+    }else if (type == 'twitter') {
+      await launchUrl(Uri.parse(cubit.communicationData!.twitterLink));
+    }else if (type == 'instagram') {
+      await launchUrl(Uri.parse(cubit.communicationData!.instagramLink));
+    }else if (type == 'website') {
+      await launchUrl(Uri.parse(cubit.communicationData!.websiteLink));
     } else {
       showDialog(
         barrierDismissible: false,
@@ -358,13 +461,16 @@ class _userScreenState extends State<LoginScreen> {
         builder: (context) {
           return AlertDialog(
             backgroundColor: AppColors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 8),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(15),
                     color: AppColors.secondPrimary,
                   ),
                   width: double.infinity,
@@ -419,9 +525,10 @@ class _userScreenState extends State<LoginScreen> {
                 InkWell(
                   onTap: () => Navigator.of(context).pop(),
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 12),
+                    height: 45,
+                    padding: EdgeInsets.symmetric(vertical: 0),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(15),
                       color: AppColors.primary,
                     ),
                     width: double.infinity,

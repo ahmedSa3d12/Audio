@@ -188,24 +188,26 @@ class _NavigatorBarState extends State<NavigatorBar> {
           return index == 0 ? false : true;
         },
       ),
-      body: Stack(
-        children: [
-          Positioned(
-            top: 120,
-            right: 0,
-            left: 0,
-            bottom: 0,
-            child: SafeArea(
-              child: pages(),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              right: 0,
+              left: 0,
+              bottom: 0,
+              child: SafeArea(
+                child: pages(),
+              ),
             ),
-          ),
-          Positioned(
-            top: 0,
-            right: 0,
-            left: 0,
-            child: HomePageAppBarWidget(),
-          ),
-        ],
+            Positioned(
+              top: 0,
+              right: 0,
+              left: 0,
+              child: HomePageAppBarWidget(),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -19,7 +19,7 @@ class HomePageAppBarWidget extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          height: 120,
+          height: 140,
           child: CustomPaint(
             size: Size(
               MediaQuery.of(context).size.width,
@@ -114,6 +114,12 @@ class HomePageAppBarWidget extends StatelessWidget {
                                 SizedBox(width: 8),
                                 MySvgWidget(
                                   path: ImageAssets.notificationsIcon,
+                                  size: 25,
+                                  imageColor: AppColors.white,
+                                ),
+                                SizedBox(width: 18),
+                                MySvgWidget(
+                                  path: ImageAssets.aboutIcon,
                                   size: 25,
                                   imageColor: AppColors.white,
                                 ),

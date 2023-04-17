@@ -6,7 +6,8 @@ import 'dart:convert';
 
 import 'all_classes_model.dart';
 
-HomePageModel homePageModelFromJson(String str) => HomePageModel.fromJson(json.decode(str));
+HomePageModel homePageModelFromJson(String str) =>
+    HomePageModel.fromJson(json.decode(str));
 
 String homePageModelToJson(HomePageModel data) => json.encode(data.toJson());
 
@@ -22,16 +23,16 @@ class HomePageModel {
   final String? message;
 
   factory HomePageModel.fromJson(Map<String, dynamic> json) => HomePageModel(
-    data: json["data"] == null ? null : HomePageData.fromJson(json["data"]),
-    code: json["code"],
-    message: json["message"],
-  );
+        data: json["data"] == null ? null : HomePageData.fromJson(json["data"]),
+        code: json["code"],
+        message: json["message"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "data": data?.toJson(),
-    "code": code,
-    "message": message,
-  };
+        "data": data?.toJson(),
+        "code": code,
+        "message": message,
+      };
 }
 
 class HomePageData {
@@ -46,25 +47,46 @@ class HomePageData {
   final dynamic lifeExam;
   final List<SliderModel>? sliders;
   final List<HomePageVideosModel>? videosBasics;
-  final List<ClassLessons>? classes;
-  final List<HomePageVideosModel>? videosResources;
+  final List<AllClasses>? classes;
+  final List<FinalReviewModel>? videosResources;
 
   factory HomePageData.fromJson(Map<String, dynamic> json) => HomePageData(
-    lifeExam: json["life_exam"],
-    sliders: json["sliders"] == null ? [] : List<SliderModel>.from(json["sliders"]!.map((x) => SliderModel.fromJson(x))),
-    videosBasics: json["videos_basics"] == null ? [] : List<HomePageVideosModel>.from(json["videos_basics"]!.map((x) => HomePageVideosModel.fromJson(x))),
-    classes: json["classes"] == null ? [] : List<ClassLessons>.from(json["classes"]!.map((x) => ClassLessons.fromJson(x))),
-    videosResources: json["videos_resources"] == null ? [] : List<HomePageVideosModel>.from(json["videos_resources"]!.map((x) => HomePageVideosModel.fromJson(x))),
-  );
+        lifeExam: json["life_exam"],
+        sliders: json["sliders"] == null
+            ? []
+            : List<SliderModel>.from(
+                json["sliders"]!.map((x) => SliderModel.fromJson(x))),
+        videosBasics: json["videos_basics"] == null
+            ? []
+            : List<HomePageVideosModel>.from(json["videos_basics"]!
+                .map((x) => HomePageVideosModel.fromJson(x))),
+        classes: json["classes"] == null
+            ? []
+            : List<AllClasses>.from(
+                json["classes"]!.map((x) => AllClasses.fromJson(x))),
+        videosResources: json["videos_resources"] == null
+            ? []
+            : List<FinalReviewModel>.from(json["videos_resources"]!
+                .map((x) => FinalReviewModel.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "life_exam": lifeExam,
-    "sliders": sliders == null ? [] : List<dynamic>.from(sliders!.map((x) => x.toJson())),
-    "videos_basics": videosBasics == null ? [] : List<dynamic>.from(videosBasics!.map((x) => x.toJson())),
-    "classes": classes == null ? [] : List<dynamic>.from(classes!.map((x) => x.toJson())),
-    "videos_resources": videosResources == null ? [] : List<dynamic>.from(videosResources!.map((x) => x.toJson())),
-  };
+        "life_exam": lifeExam,
+        "sliders": sliders == null
+            ? []
+            : List<dynamic>.from(sliders!.map((x) => x.toJson())),
+        "videos_basics": videosBasics == null
+            ? []
+            : List<dynamic>.from(videosBasics!.map((x) => x.toJson())),
+        "classes": classes == null
+            ? []
+            : List<dynamic>.from(classes!.map((x) => x.toJson())),
+        "videos_resources": videosResources == null
+            ? []
+            : List<dynamic>.from(videosResources!.map((x) => x.toJson())),
+      };
 }
+
 class SliderModel {
   SliderModel({
     this.id,
@@ -83,22 +105,28 @@ class SliderModel {
   final DateTime? updatedAt;
 
   factory SliderModel.fromJson(Map<String, dynamic> json) => SliderModel(
-    id: json["id"],
-    file: json["file"],
-    type: json["type"],
-    link: json["link"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-  );
+        id: json["id"],
+        file: json["file"],
+        type: json["type"],
+        link: json["link"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "file": file,
-    "type": type,
-    "link": link,
-    "created_at": "${createdAt!.year.toString().padLeft(4, '0')}-${createdAt!.month.toString().padLeft(2, '0')}-${createdAt!.day.toString().padLeft(2, '0')}",
-    "updated_at": "${updatedAt!.year.toString().padLeft(4, '0')}-${updatedAt!.month.toString().padLeft(2, '0')}-${updatedAt!.day.toString().padLeft(2, '0')}",
-  };
+        "id": id,
+        "file": file,
+        "type": type,
+        "link": link,
+        "created_at":
+            "${createdAt!.year.toString().padLeft(4, '0')}-${createdAt!.month.toString().padLeft(2, '0')}-${createdAt!.day.toString().padLeft(2, '0')}",
+        "updated_at":
+            "${updatedAt!.year.toString().padLeft(4, '0')}-${updatedAt!.month.toString().padLeft(2, '0')}-${updatedAt!.day.toString().padLeft(2, '0')}",
+      };
 }
 
 class HomePageVideosModel {
@@ -107,6 +135,7 @@ class HomePageVideosModel {
     this.name,
     this.time,
     this.videoLink,
+    this.backgroundColor,
     this.createdAt,
     this.updatedAt,
   });
@@ -114,15 +143,70 @@ class HomePageVideosModel {
   final int? id;
   final String? name;
   final int? time;
+  final String? backgroundColor;
   final String? videoLink;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  factory HomePageVideosModel.fromJson(Map<String, dynamic> json) => HomePageVideosModel(
+  factory HomePageVideosModel.fromJson(Map<String, dynamic> json) =>
+      HomePageVideosModel(
+        id: json["id"],
+        name: json["name"],
+        time: json["time"],
+        videoLink: json["video_link"],
+        backgroundColor: json["background_color"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "time": time,
+        "video_link": videoLink,
+        "background_color": backgroundColor,
+        "created_at":
+            "${createdAt!.year.toString().padLeft(4, '0')}-${createdAt!.month.toString().padLeft(2, '0')}-${createdAt!.day.toString().padLeft(2, '0')}",
+        "updated_at":
+            "${updatedAt!.year.toString().padLeft(4, '0')}-${updatedAt!.month.toString().padLeft(2, '0')}-${updatedAt!.day.toString().padLeft(2, '0')}",
+      };
+}
+
+class FinalReviewModel {
+  FinalReviewModel({
+    this.id,
+    this.name,
+    this.type,
+    this.backgroundColor,
+    this.image,
+    this.time,
+    this.pathFile,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  final int? id;
+  final String? name;
+  final String? type;
+  final String? backgroundColor;
+  final String? image;
+  final dynamic time;
+  final String? pathFile;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
+  factory FinalReviewModel.fromJson(Map<String, dynamic> json) => FinalReviewModel(
     id: json["id"],
     name: json["name"],
+    type: json["type"],
+    backgroundColor: json["background_color"],
+    image: json["image"],
     time: json["time"],
-    videoLink: json["video_link"],
+    pathFile: json["path_file"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
   );
@@ -130,21 +214,117 @@ class HomePageVideosModel {
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
+    "type": type,
+    "background_color": backgroundColor,
+    "image": image,
     "time": time,
-    "video_link": videoLink,
+    "path_file": pathFile,
     "created_at": "${createdAt!.year.toString().padLeft(4, '0')}-${createdAt!.month.toString().padLeft(2, '0')}-${createdAt!.day.toString().padLeft(2, '0')}",
     "updated_at": "${updatedAt!.year.toString().padLeft(4, '0')}-${updatedAt!.month.toString().padLeft(2, '0')}-${updatedAt!.day.toString().padLeft(2, '0')}",
   };
 }
 
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
 
-  EnumValues(this.map);
+class AllClasses {
+  AllClasses({
+    this.id,
+    this.status,
+    this.image,
+    this.backgroundColor,
+    this.name,
+    this.title,
+    this.totalWatch,
+    this.numOfLessons,
+    this.numOfVideos,
+    this.totalTimes,
+    this.exams,
+    this.createdAt,
+    this.updatedAt,
+  });
 
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
+  final int? id;
+  final String? status;
+  final String? image;
+  final String? backgroundColor;
+  final String? name;
+  final String? title;
+  final dynamic totalWatch;
+  final int? numOfLessons;
+  final int? numOfVideos;
+  final int? totalTimes;
+  final List<AllExams>? exams;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
+  factory AllClasses.fromJson(Map<String, dynamic> json) => AllClasses(
+        id: json["id"],
+        status: json["status"],
+        image: json["image"],
+        backgroundColor: json["background_color"],
+        name: json["name"],
+        title: json["title"],
+        totalWatch: json["total_watch"],
+        numOfLessons: json["num_of_lessons"],
+        numOfVideos: json["num_of_videos"],
+        totalTimes: json["total_times"],
+        exams: json["exams"] == null
+            ? []
+            : List<AllExams>.from(
+                json["exams"]!.map((x) => AllExams.fromJson(x))),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "status": status,
+        "image": image,
+        "background_color": backgroundColor,
+        "name": name,
+        "title": title,
+        "total_watch": totalWatch,
+        "num_of_lessons": numOfLessons,
+        "num_of_videos": numOfVideos,
+        "total_times": totalTimes,
+        "exams": exams == null
+            ? []
+            : List<dynamic>.from(exams!.map((x) => x.toJson())),
+        "created_at":
+            "${createdAt!.year.toString().padLeft(4, '0')}-${createdAt!.month.toString().padLeft(2, '0')}-${createdAt!.day.toString().padLeft(2, '0')}",
+        "updated_at":
+            "${updatedAt!.year.toString().padLeft(4, '0')}-${updatedAt!.month.toString().padLeft(2, '0')}-${updatedAt!.day.toString().padLeft(2, '0')}",
+      };
+}
+
+
+class AllExams {
+  AllExams({
+    this.id,
+    this.name,
+    this.numOfQuestion,
+    this.totalTime,
+  });
+
+  final int? id;
+  final String? name;
+  final int? numOfQuestion;
+  final int? totalTime;
+
+  factory AllExams.fromJson(Map<String, dynamic> json) => AllExams(
+    id: json["id"],
+    name: json["name"],
+    numOfQuestion: json["num_of_question"],
+    totalTime: json["total_time"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "num_of_question": numOfQuestion,
+    "total_time": totalTime,
+  };
 }

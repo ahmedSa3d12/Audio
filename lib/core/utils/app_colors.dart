@@ -4,7 +4,7 @@ import '../preferences/preferences.dart';
 import 'hex_color.dart';
 
 class AppColors {
-  static Color primary = HexColor('#00B3DC');
+  static Color primary = HexColor('#4455D7');
   static Color secondPrimary = HexColor('#4455D7');
   static Color orangeThirdPrimary = HexColor('#FF9201');
   static final AppColors instance = AppColors._internal();
@@ -27,6 +27,8 @@ class AppColors {
   static Color descriptionBoardingColor = HexColor('#777777');
   static Color bottomNavigatorColor = HexColor('#F3F4F9');
   static Color unselectedTabColor = HexColor('#EEEEEE');
+  static Color liveExamBackgroundColor = HexColor('#FFEAD7');
+  static Color liveExamGrayTextColor = HexColor('#646463');
 
   static Color blueLikeColor = HexColor('#2e7dea');
   static Color redDislikeColor = HexColor('#ff2c2c');

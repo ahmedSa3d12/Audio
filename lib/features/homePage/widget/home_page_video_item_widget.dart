@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/core/utils/hex_color.dart';
 
 import '../../../../core/models/home_page_model.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/widgets/my_svg_widget.dart';
+import '../../../core/widgets/title_with_circle_background_widget.dart';
 
 class HomePageVideoWidget extends StatelessWidget {
   const HomePageVideoWidget(
@@ -18,35 +20,8 @@ class HomePageVideoWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 40),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SizedBox(
-            // width: MediaQuery.of(context).size.width * 0.50,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  title.tr(),
-                  style: TextStyle(
-                    // color: AppColors.secondPrimary,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Container(
-                  height: 1,
-                  width: title == 'all_exams'
-                      ? MediaQuery.of(context).size.width * 0.35
-                      : MediaQuery.of(context).size.width * 0.20,
-                  color: AppColors.primary,
-                )
-              ],
-            ),
-          ),
-        ),
+        SizedBox(height: 10),
+        TitleWithCircleBackgroundWidget(title: title),
         SizedBox(height: 20),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -61,7 +36,8 @@ class HomePageVideoWidget extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.45,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      color: AppColors.primary,
+                      color: HexColor(
+                          videosBasics[index].backgroundColor ?? '#E4312A'),
                     ),
                     child: Column(
                       children: [

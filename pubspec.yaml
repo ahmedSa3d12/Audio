@@ -66,7 +66,7 @@ dependencies:
   quick_actions: ^1.0.2
   chewie: ^1.4.0
   flutter_zoom_drawer: ^3.0.4+1
-
+#  pspdfkit_flutter:
 
 dev_dependencies:
   flutter_test:

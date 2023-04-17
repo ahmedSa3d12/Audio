@@ -6,41 +6,19 @@ import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/toast_message_method.dart';
 import '../../../../core/widgets/container_with_two_color_widget.dart';
 import '../../../core/models/all_classes_model.dart';
+import '../../../core/models/home_page_model.dart';
+import '../../../core/widgets/title_with_circle_background_widget.dart';
 
 class HomePageStartStudyWidget extends StatelessWidget {
   const HomePageStartStudyWidget({Key? key, required this.classes}) : super(key: key);
- final  List<ClassLessons> classes ;
+ final  List<AllClasses> classes ;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.25,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'start_study'.tr(),
-                  style: TextStyle(
-                    // color: AppColors.secondPrimary,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Container(
-                  height: 1,
-                  width: MediaQuery.of(context).size.width * 0.22,
-                  color: AppColors.primary,
-                )
-              ],
-            ),
-          ),
-        ),
+        TitleWithCircleBackgroundWidget(title: 'start_study'),
         SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.all(4.0),
@@ -82,8 +60,8 @@ class HomePageStartStudyWidget extends StatelessWidget {
                   }
                 },
                 child: ContainerWithTwoColorWidget(
-                  title: classes[index].name,
-                  imagePath: classes[index].image,
+                  title: classes[index].name!,
+                  imagePath: classes[index].image!,
                   color1: AppColors.blueColor1,
                   color2: AppColors.blueColor2,
                   textColor: AppColors.secondPrimary,

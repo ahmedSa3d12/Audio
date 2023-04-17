@@ -29,7 +29,7 @@ class Preferences {
 
   Future<String> getPrimaryColor() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('primaryColor') ?? '#00B3DC';
+    return prefs.getString('primaryColor') ?? '#4455D7';
   }
 
   Future<void> setPrimaryColor(String color) async {

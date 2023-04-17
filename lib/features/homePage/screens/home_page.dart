@@ -6,9 +6,11 @@ import '../../../../core/widgets/no_data_widget.dart';
 import '../../../../core/widgets/show_loading_indicator.dart';
 import '../../../core/utils/app_colors.dart';
 import '../cubit/home_page_cubit.dart';
+import '../widget/final_review_widget.dart';
 import '../widget/home_page_app_bar_widget.dart';
 import '../widget/home_page_start_study_widget.dart';
 import '../widget/home_page_video_item_widget.dart';
+import '../widget/live_exam_widget.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -26,18 +28,20 @@ class HomePage extends StatelessWidget {
               onRefresh: () async {
                 cubit.getHomePageData();
               },
-              color: AppColors.primary,
+              color: AppColors.white,
               backgroundColor: AppColors.secondPrimary,
               child: ListView(
                 children: [
+                  SizedBox(height: 120),
                   BannerWidget(sliderData: state.model.data!.sliders!),
+                  LiveExamWarningWidget(),
                   HomePageVideoWidget(
                     videosBasics: cubit.videosBasics,
                     title: 'train_yourself',
                   ),
                   HomePageStartStudyWidget(classes: cubit.classes),
-                  HomePageVideoWidget(
-                    videosBasics: cubit.videosResources,
+                  FinalReviewWidget(
+                    model: cubit.videosResources,
                     title: 'all_exams',
                   ),
                 ],

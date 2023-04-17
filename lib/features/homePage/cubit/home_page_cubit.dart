@@ -22,10 +22,10 @@ class HomePageCubit extends Cubit<HomePageState> {
   }
 
   final ServiceApi api;
-  List<ClassLessons> classes = [];
+  List<AllClasses> classes = [];
   List<SliderModel> sliders = [];
   List<HomePageVideosModel> videosBasics = [];
-  List<HomePageVideosModel> videosResources = [];
+  List<FinalReviewModel> videosResources = [];
 
   getHomePageData() async {
     emit(HomePageLoading());

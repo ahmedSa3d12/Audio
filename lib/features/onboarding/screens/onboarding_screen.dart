@@ -27,7 +27,6 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class OnBoardingScreenState extends State<OnBoardingScreen> {
-  List<ContentConfig> listContentConfig = [];
 
   @override
   void initState() {
@@ -39,7 +38,6 @@ class OnBoardingScreenState extends State<OnBoardingScreen> {
     log("End of slides");
     Preferences.instance.setFirstInstall();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    UserModel userModel = await Preferences.instance.getUserModel();
 
     if (prefs.getString('user') != null) {
       if (context.read<SplashCubit>().adsList.isNotEmpty) {

@@ -33,6 +33,9 @@ class CommunicationData {
     required this.id,
     required this.facebookLink,
     required this.youtubeLink,
+    required this.websiteLink,
+    required this.instagramLink,
+    required this.twitterLink,
     required this.phones,
     required this.createdAt,
     required this.updatedAt,
@@ -41,6 +44,9 @@ class CommunicationData {
   int id;
   String facebookLink;
   String youtubeLink;
+  String websiteLink;
+  String instagramLink;
+  String twitterLink;
   List<Phone> phones;
   DateTime createdAt;
   DateTime updatedAt;
@@ -49,6 +55,9 @@ class CommunicationData {
     id: json["id"],
     facebookLink: json["facebook_link"],
     youtubeLink: json["youtube_link"],
+    websiteLink: json["website_link"],
+    instagramLink: json["instagram_link"],
+    twitterLink: json["twitter_link"],
     phones: List<Phone>.from(json["phones"].map((x) => Phone.fromJson(x))),
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
@@ -58,6 +67,9 @@ class CommunicationData {
     "id": id,
     "facebook_link": facebookLink,
     "youtube_link": youtubeLink,
+    "website_link": websiteLink,
+    "instagram_link": instagramLink,
+    "twitter_link": twitterLink,
     "phones": List<dynamic>.from(phones.map((x) => x.toJson())),
     "created_at": "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
     "updated_at": "${updatedAt.year.toString().padLeft(4, '0')}-${updatedAt.month.toString().padLeft(2, '0')}-${updatedAt.day.toString().padLeft(2, '0')}",
