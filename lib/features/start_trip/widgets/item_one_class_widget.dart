@@ -16,6 +16,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
     required this.videoNum,
     required this.hourNum,
     required this.imagePath,
+    required this.status,
     required this.mainColor,
   }) : super(key: key);
 
@@ -26,6 +27,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
   final String videoNum;
   final String hourNum;
   final String imagePath;
+  final String status;
   final Color mainColor;
 
   @override
@@ -73,7 +75,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                           palette: [darken(mainColor, 0.08)],
                           annotations: <CircularChartAnnotation>[
                             CircularChartAnnotation(
-                              widget: classPresentFinished == '0'
+                              widget: status == 'lock'
                                   ? MySvgWidget(
                                       size: 18,
                                       imageColor: AppColors.white,
@@ -246,45 +248,53 @@ class ItemOfOneClassWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: classPresentFinished == '0'
-                      ? MainAxisAlignment.center
-                      : MainAxisAlignment.end,
-                  children: [
-                    if (classPresentFinished == '0') ...{
-                      Text(
-                        'لم يتم فتخ هذا الفصل بعد',
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    } else ...{
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Container(
-                          width: 107,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(color: AppColors.white, width: 2),
-                            borderRadius: BorderRadius.circular(50),
-                            color: darken(mainColor, 0.1),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'ابدأ ذاكر',
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: status == 'lock'
+                            ? MainAxisAlignment.center
+                            : MainAxisAlignment.end,
+                        children: [
+                          if (status == 'lock') ...{
+                            Text(
+                              'لم يتم فتخ هذا الفصل بعد',
                               style: TextStyle(
                                 color: AppColors.white,
+                                fontSize: 12,
                                 fontWeight: FontWeight.bold,
                               ),
+                            )
+                          } else ...{
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Container(
+                                width: 107,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: AppColors.white, width: 2),
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: darken(mainColor, 0.1),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'ابدأ ذاكر',
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
+                          }
+                        ],
                       ),
-                    }
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

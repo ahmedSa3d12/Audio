@@ -1,8 +1,5 @@
-import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../core/models/user_model.dart';
@@ -47,7 +44,6 @@ class LoginCubit extends Cubit<LoginState> {
           );
           emit(userError());
         } else {
-          getDeviceToken();
           Future.delayed(Duration(seconds: 2), () {
             emit(userInitial());
           });
@@ -76,23 +72,4 @@ class LoginCubit extends Cubit<LoginState> {
     );
   }
 
-  getDeviceToken() async {
-    String? token = await FirebaseMessaging.instance.getToken();
-    if (Platform.isAndroid) {
-      softwareType = 'android';
-    } else if (Platform.isIOS) {
-      softwareType = 'ios';
-    }
-    final response = await api.addDeviceToken(token!, softwareType);
-    response.fold(
-      (l) => emit(DeviceTokenError()),
-      (r) {
-        if (r.code == 200) {
-          emit(DeviceTokenSuccess());
-        } else {
-          emit(DeviceTokenError());
-        }
-      },
-    );
-  }
 }

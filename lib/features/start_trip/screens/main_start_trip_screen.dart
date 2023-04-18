@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/app_colors.dart';
+import '../../../core/widgets/title_with_circle_background_widget.dart';
 import '../cubit/start_trip_cubit.dart';
 import 'classes_exam_screen.dart';
 import 'classes_screen.dart';
@@ -16,7 +18,7 @@ class StartTripScreen extends StatefulWidget {
 
 class _StartTripScreenState extends State<StartTripScreen>
     with TickerProviderStateMixin {
-  List<String> titles = ['الفصول', 'امتحانات الفصول', 'المراجعه النهائيه'];
+  List<String> titles = ['explanation'.tr(), 'class_exams'.tr(), 'final_review'.tr()];
   late TabController _tabController;
 
   @override
@@ -33,7 +35,10 @@ class _StartTripScreenState extends State<StartTripScreen>
         builder: (context, state) {
           StartTripCubit cubit = context.read<StartTripCubit>();
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: 105),
+              TitleWithCircleBackgroundWidget(title: 'start_trip'),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -53,7 +58,7 @@ class _StartTripScreenState extends State<StartTripScreen>
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 10),
+                                horizontal: 30, vertical: 10,),
                             decoration: BoxDecoration(
                               color: cubit.currentIndex == index
                                   ? AppColors.orangeThirdPrimary

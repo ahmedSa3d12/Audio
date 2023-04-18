@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 
 import '../../../../core/models/user_model.dart';
 import '../../../../core/preferences/preferences.dart';
-import '../../../core/models/all_classes_model.dart';
+import '../../../core/models/class_data.dart';
 import '../../../core/models/home_page_model.dart';
 import '../../../core/remote/service.dart';
 

@@ -39,7 +39,7 @@ Future<void> setup() async {
   );
   serviceLocator.registerFactory(
         () => StartTripCubit(
-      // serviceLocator()
+      serviceLocator()
     ),
   );
   ///////////////////////////////////////////////////////////////////////////////

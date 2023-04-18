@@ -146,7 +146,11 @@
  "skip": "Skip",
  "next": "Next",
  "all_exams": "All Exams",
- "train_yourself": "Train Yourself"
+ "train_yourself": "Train Yourself",
+ "start_trip": "Start Trip",
+ "explanation": "Explanation of the curriculum",
+ "class_exams": "Class exams",
+ "final_review": "Final Review"
 
 
 

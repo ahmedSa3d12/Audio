@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:new_mazoon/core/models/question_model.dart';
 
 AdsModel adsModelFromJson(String str) => AdsModel.fromJson(json.decode(str));
 
@@ -102,7 +101,7 @@ class LifeExam {
     this.degree,
     this.createdAt,
     this.updatedAt,
-    this.questions,
+    // this.questions,
   });
 
   int? id;
@@ -114,7 +113,7 @@ class LifeExam {
   int? degree;
   DateTime? createdAt;
   DateTime? updatedAt;
-  List<Questions>? questions = [];
+  // List<Questions>? questions = [];
 
   factory LifeExam.fromJson(Map<String, dynamic> json) => LifeExam(
         id: json["id"],
@@ -132,10 +131,10 @@ class LifeExam {
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
-        questions: json["questions"] == null
-            ? []
-            : List<Questions>.from(
-                json["questions"]!.map((x) => Questions.fromJson(x))),
+        // questions: json["questions"] == null
+        //     ? []
+        //     : List<Questions>.from(
+        //         json["questions"]!.map((x) => Questions.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -151,8 +150,8 @@ class LifeExam {
             "${createdAt!.year.toString().padLeft(4, '0')}-${createdAt!.month.toString().padLeft(2, '0')}-${createdAt!.day.toString().padLeft(2, '0')}",
         "updated_at":
             "${updatedAt!.year.toString().padLeft(4, '0')}-${updatedAt!.month.toString().padLeft(2, '0')}-${updatedAt!.day.toString().padLeft(2, '0')}",
-        "questions": questions == null
-            ? []
-            : List<dynamic>.from(questions!.map((x) => x.toJson())),
+        // "questions": questions == null
+        //     ? []
+        //     : List<dynamic>.from(questions!.map((x) => x.toJson())),
       };
 }
