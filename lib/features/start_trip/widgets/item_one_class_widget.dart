@@ -68,6 +68,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
+                      flex: 4,
                       child: SizedBox(
                         width: 90,
                         height: 90,
@@ -106,6 +107,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                       ),
                     ),
                     Expanded(
+                      flex: 5,
                       child: Row(
                         children: [
                           Padding(
@@ -134,6 +136,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                       ),
                                     ),
                                     Expanded(
+                                      flex: 3,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 8.0,
@@ -148,7 +151,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                       ),
                                     ),
                                     Expanded(
-                                      flex: 2,
+                                      flex: 3,
                                       child: Text(
                                         'دروس',
                                         style: TextStyle(
@@ -169,6 +172,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                       ),
                                     ),
                                     Expanded(
+                                      flex: 3,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 8.0,
@@ -183,7 +187,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                       ),
                                     ),
                                     Expanded(
-                                      flex: 2,
+                                      flex: 3,
                                       child: Text(
                                         'فيديو',
                                         style: TextStyle(
@@ -204,6 +208,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                       ),
                                     ),
                                     Expanded(
+                                      flex: 3,
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 8.0,
@@ -218,7 +223,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                       ),
                                     ),
                                     Expanded(
-                                      flex: 2,
+                                      flex: 3,
                                       child: Text(
                                         'ساعه',
                                         style: TextStyle(

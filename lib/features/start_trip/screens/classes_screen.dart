@@ -50,14 +50,14 @@ class ClassesScreen extends StatelessWidget {
             child: GridView.builder(
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: .77,
-                mainAxisSpacing: 15,
-                crossAxisSpacing: 20,
+                childAspectRatio: .80,
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 5,
                 crossAxisCount: 2,
               ),
               itemCount: cubit.classesData.length,
               itemBuilder: (BuildContext context, int index) {
-                print(cubit.classesData[index].totalWatch);
+                print(cubit.classesData[index].totalTimes);
                 return ItemOfOneClassWidget(
                   classNum: cubit.classesData[index].title!,
                   classTitle: cubit.classesData[index].name!,

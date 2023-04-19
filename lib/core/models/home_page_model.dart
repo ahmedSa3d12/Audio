@@ -195,7 +195,7 @@ class FinalReviewModel {
   final String? type;
   final String? backgroundColor;
   final String? image;
-  final dynamic time;
+  final int? time;
   final String? pathFile;
   final DateTime? createdAt;
   final DateTime? updatedAt;

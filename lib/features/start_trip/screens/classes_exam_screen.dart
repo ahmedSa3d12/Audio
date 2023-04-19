@@ -15,7 +15,7 @@ class ClassesExamsScreen extends StatelessWidget {
           fit: BoxFit.contain,
         ),
       ),
-      child: Column(
+      child: ListView(
         children: [
           SizedBox(height: 20),
           ExpansionTileWidget(title: 'اختر الفصل',)
