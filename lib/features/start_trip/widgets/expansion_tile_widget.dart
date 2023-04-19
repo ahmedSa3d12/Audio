@@ -19,21 +19,7 @@ class ExpansionTileWidget extends StatefulWidget {
 }
 
 class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
-  bool isTitle = false;
   bool isExpanded = false;
-
-  List<String> classNumber = [
-    'الفصل الاول',
-    'الفصل الثانى',
-    'الفصل الثالث',
-    'الفصل الرابع',
-    'الفصل الخامس',
-    'الفصل السادس',
-    'الفصل السابع',
-    'الفصل الثامن'
-  ];
-  List<String> classPresents = ['50', '20', '30', '0', '0', '0', '0', '0'];
-  List<String> examsNumbers = ['5', '2', '3', '1', '4', '7', '3', '5'];
 
   @override
   void initState() {
@@ -71,6 +57,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(25),
                   child: ExpansionTile(
+
                     iconColor: AppColors.white,
                     key: keyTile,
                     trailing: Icon(
@@ -87,16 +74,16 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                     ),
                     children: [
                       ...List.generate(
-                        classNumber.length,
+                        cubit.examClasses.length,
                         (index) => ListTile(
                           title: Text(
-                            classNumber[index],
+                            cubit.examClasses[index].title!,
                             style: TextStyle(
-                              color: title == classNumber[index]
+                              color: title == cubit.examClasses[index].title!
                                   ? AppColors.primary
                                   : AppColors.white,
-                              fontSize: title == classNumber[index] ? 20 : 16,
-                              fontWeight: title == classNumber[index]
+                              fontSize: title == cubit.examClasses[index].title! ? 20 : 16,
+                              fontWeight: title == cubit.examClasses[index].title!
                                   ? FontWeight.bold
                                   : null,
                             ),
@@ -104,7 +91,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              classPresents[index] == '0'
+                              cubit.examClasses[index].status == 'lock'
                                   ? MySvgWidget(
                                       size: 16,
                                       imageColor: AppColors.white,
@@ -118,15 +105,15 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                                 padding: EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(25),
-                                  color: title == classNumber[index]
+                                  color: title == cubit.examClasses[index].title!
                                       ? AppColors.primary
                                       : AppColors.white,
                                 ),
                                 child: Center(
                                   child: Text(
-                                    examsNumbers[index],
+                                    cubit.examClasses[index].numOfLessons.toString(),
                                     style: TextStyle(
-                                      color: title == classNumber[index]
+                                      color: title == cubit.examClasses[index].title!
                                           ? AppColors.white
                                           : AppColors.orangeThirdPrimary,
                                       fontSize: 14,
@@ -137,12 +124,11 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                             ],
                           ),
                           onTap: () {
-                            if (classPresents[index] != '0') {
+                            if (cubit.examClasses[index].status != 'lock') {
                               isExpanded ? shrinkTile() : expandTile();
-                              title = classNumber[index];
+                              title = cubit.examClasses[index].title!;
                               setState(() {
-                                isTitle = !isTitle;
-                                title = classNumber[index];
+                                title = cubit.examClasses[index].title!;
                               });
                             } else {
                               toastMessage(
@@ -152,6 +138,14 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                               );
                             }
                           },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Container(
+                          width: double.infinity,
+                          height: 2,
+                          color: AppColors.white,
                         ),
                       ),
                       ListTile(
@@ -170,7 +164,6 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                           isExpanded ? shrinkTile() : expandTile();
                           title = 'امتحانات شاملة على الفصول';
                           setState(() {
-                            isTitle = !isTitle;
                             title = 'امتحانات شاملة على الفصول';
                           });
                         },
@@ -184,8 +177,11 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
               ),
             ),
             Visibility(
-              visible: state is StartTripFinalReviewLoading,
-              child: ShowLoadingIndicator(),
+              visible: state is StartTripExamClassesLoading,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: CircularProgressIndicator(color: AppColors.orangeThirdPrimary,),
+              ),
             )
           ],
         );

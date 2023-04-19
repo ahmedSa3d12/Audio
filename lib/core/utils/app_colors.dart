@@ -29,6 +29,8 @@ class AppColors {
   static Color unselectedTabColor = HexColor('#EEEEEE');
   static Color liveExamBackgroundColor = HexColor('#FFEAD7');
   static Color liveExamGrayTextColor = HexColor('#646463');
+  static Color goldColor = HexColor('#F4BC35');
+  static Color skyColor = HexColor('#48B8E0');
 
   static Color blueLikeColor = HexColor('#2e7dea');
   static Color redDislikeColor = HexColor('#ff2c2c');

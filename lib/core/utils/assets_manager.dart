@@ -29,6 +29,8 @@ class ImageAssets {
   static const String Image3 = '$imagePath/3.png';
   static const String Image4 = '$imagePath/4.png';
   static const String liveExamImage = '$imagePath/live_exam.png';
+  static const String examPdfImage = '$imagePath/exam_pdf.png';
+  static const String examPaperImage = '$imagePath/exam_paper.png';
 
   // icons
   static const String phoneIcon = '$iconsPath/phone.svg';
@@ -69,6 +71,7 @@ class ImageAssets {
   static const String lockIcon = '$iconsPath/lock.svg';
   static const String aboutIcon = '$iconsPath/about.svg';
   static const String pdfIcon = '$iconsPath/pdf_icon.svg';
+  static const String answerPdfIcon = '$iconsPath/answer_pdf_icon.svg';
 
 
   //Lottie
