@@ -33,6 +33,9 @@ class ImageAssets {
   static const String examPaperImage = '$imagePath/exam_paper.png';
 
   // icons
+  static const String loadIcon = '$iconsPath/load.svg';
+  static const String timeIcon = '$iconsPath/timer.svg';
+  static const String questionIcon = '$iconsPath/question.svg';
   static const String phoneIcon = '$iconsPath/phone.svg';
   // static const String homeIcon = '$iconsPath/home.svg';
   static const String openBookIcon = '$iconsPath/open_book.svg';
