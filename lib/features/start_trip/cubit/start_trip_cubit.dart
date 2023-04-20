@@ -3,6 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:new_mazoon/core/remote/service.dart';
 
 import '../../../core/models/class_data.dart';
+import '../../../core/models/classes_exam_data_model.dart';
 import '../../../core/models/exam_classes_model.dart';
 import '../../../core/models/home_page_model.dart';
 
@@ -20,6 +21,7 @@ class StartTripCubit extends Cubit<StartTripState> {
   List<AllClasses> classesData = [];
   List<FinalReviewModel> finalReview = [];
   List<ExamClassesDatum> examClasses = [];
+  List<ClassesExamDatumModel> examClassList = [];
   int currentIndex = 0;
 
   selectTap(int index) {
@@ -59,6 +61,19 @@ class StartTripCubit extends Cubit<StartTripState> {
       (r) {
         examClasses = r.data!;
         emit(StartTripExamClassesLoaded());
+      },
+    );
+  }
+
+  getExamsClassByIdData(int id) async {
+    examClassList = [];
+    emit(StartTripExamsClassByIdLoading());
+    final response = await api.StartTripExamsClassByIdData(id);
+    response.fold(
+      (l) => emit(StartTripExamsClassByIdError()),
+      (r) {
+        examClassList = r.data;
+        emit(StartTripExamsClassByIdLoaded());
       },
     );
   }

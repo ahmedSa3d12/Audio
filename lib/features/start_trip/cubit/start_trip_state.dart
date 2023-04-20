@@ -19,3 +19,7 @@ class StartTripExamClassesLoading extends StartTripState {}
 class StartTripExamClassesLoaded extends StartTripState {}
 class StartTripExamClassesError extends StartTripState {}
 
+class StartTripExamsClassByIdLoading extends StartTripState {}
+class StartTripExamsClassByIdLoaded extends StartTripState {}
+class StartTripExamsClassByIdError extends StartTripState {}
+

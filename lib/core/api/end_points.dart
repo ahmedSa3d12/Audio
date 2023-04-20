@@ -9,6 +9,7 @@ class EndPoints {
   static const String finalReviewUrl = '${baseUrl}auth/home-page/videos-resources';
   static const String examClassesUrl = '${baseUrl}auth/home-page/all-classes';
   static const String allExamClassesUrl = '${baseUrl}auth/home-page/all-exams';
+  static const String examsClassByIdUrl = '${baseUrl}auth/home-page/start-your-journey/findExamByClassById/';
 
 
 

@@ -294,6 +294,7 @@ class MyPainter extends CustomPainter {
 
 
     paint.color = color;
+
     path = Path();
     path.lineTo(size.width / 4, 0);
     path.cubicTo(size.width / 4, 0, size.width, 0, size.width, 0);

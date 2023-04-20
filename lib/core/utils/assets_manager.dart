@@ -75,6 +75,7 @@ class ImageAssets {
   static const String aboutIcon = '$iconsPath/about.svg';
   static const String pdfIcon = '$iconsPath/pdf_icon.svg';
   static const String answerPdfIcon = '$iconsPath/answer_pdf_icon.svg';
+  static const String noLoveIcon = '$iconsPath/no_love.svg';
 
 
   //Lottie

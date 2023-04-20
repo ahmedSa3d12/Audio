@@ -5,6 +5,7 @@ import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../../core/widgets/network_image.dart';
+import '../../lessons_of_class/screens/lesson_class.dart';
 
 class ItemOfOneClassWidget extends StatelessWidget {
   const ItemOfOneClassWidget({
@@ -274,22 +275,34 @@ class ItemOfOneClassWidget extends StatelessWidget {
                             )
                           } else ...{
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Container(
-                                width: 107,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: AppColors.white, width: 2),
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: darken(mainColor, 0.1),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'ابدأ ذاكر',
-                                    style: TextStyle(
-                                      color: AppColors.white,
-                                      fontWeight: FontWeight.bold,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          LessonsClassScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 107,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: AppColors.white, width: 2),
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: darken(mainColor, 0.1),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'ابدأ ذاكر',
+                                      style: TextStyle(
+                                        color: AppColors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ),

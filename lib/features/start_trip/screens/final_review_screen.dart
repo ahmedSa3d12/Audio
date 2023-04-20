@@ -11,25 +11,6 @@ import '../widgets/item_final_review_widget.dart';
 class FinalReviewScreen extends StatelessWidget {
   FinalReviewScreen({Key? key}) : super(key: key);
 
-  List<String> classNumber = [
-    'الفصل الاول',
-    'الفصل الثانى',
-    'الفصل الثالث',
-    'الفصل الرابع'
-  ];
-  List<Color> mainColors = [
-    HexColor('#48B8E0'),
-    HexColor('#E4312A'),
-    HexColor('#009541'),
-    HexColor('#F4BC35'),
-  ];
-  List<String> imagesPath = [
-    ImageAssets.Image1,
-    ImageAssets.Image2,
-    ImageAssets.Image3,
-    ImageAssets.Image4,
-  ];
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<StartTripCubit, StartTripState>(

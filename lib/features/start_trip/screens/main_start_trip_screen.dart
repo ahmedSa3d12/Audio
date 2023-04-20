@@ -18,7 +18,11 @@ class StartTripScreen extends StatefulWidget {
 
 class _StartTripScreenState extends State<StartTripScreen>
     with TickerProviderStateMixin {
-  List<String> titles = ['explanation'.tr(), 'class_exams'.tr(), 'final_review'.tr()];
+  List<String> titles = [
+    'explanation'.tr(),
+    'class_exams'.tr(),
+    'final_review'.tr()
+  ];
   late TabController _tabController;
 
   @override
@@ -58,7 +62,9 @@ class _StartTripScreenState extends State<StartTripScreen>
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 10,),
+                              horizontal: 30,
+                              vertical: 10,
+                            ),
                             decoration: BoxDecoration(
                               color: cubit.currentIndex == index
                                   ? AppColors.orangeThirdPrimary

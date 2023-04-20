@@ -57,7 +57,6 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(25),
                   child: ExpansionTile(
-
                     iconColor: AppColors.white,
                     key: keyTile,
                     trailing: Icon(
@@ -82,10 +81,13 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                               color: title == cubit.examClasses[index].title!
                                   ? AppColors.primary
                                   : AppColors.white,
-                              fontSize: title == cubit.examClasses[index].title! ? 20 : 16,
-                              fontWeight: title == cubit.examClasses[index].title!
-                                  ? FontWeight.bold
-                                  : null,
+                              fontSize: title == cubit.examClasses[index].title!
+                                  ? 20
+                                  : 16,
+                              fontWeight:
+                                  title == cubit.examClasses[index].title!
+                                      ? FontWeight.bold
+                                      : null,
                             ),
                           ),
                           trailing: Row(
@@ -105,15 +107,18 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                                 padding: EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(25),
-                                  color: title == cubit.examClasses[index].title!
-                                      ? AppColors.primary
-                                      : AppColors.white,
+                                  color:
+                                      title == cubit.examClasses[index].title!
+                                          ? AppColors.primary
+                                          : AppColors.white,
                                 ),
                                 child: Center(
                                   child: Text(
-                                    cubit.examClasses[index].numOfLessons.toString(),
+                                    cubit.examClasses[index].numOfLessons
+                                        .toString(),
                                     style: TextStyle(
-                                      color: title == cubit.examClasses[index].title!
+                                      color: title ==
+                                              cubit.examClasses[index].title!
                                           ? AppColors.white
                                           : AppColors.orangeThirdPrimary,
                                       fontSize: 14,
@@ -130,6 +135,9 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                               setState(() {
                                 title = cubit.examClasses[index].title!;
                               });
+                              cubit.getExamsClassByIdData(
+                                cubit.examClasses[index].id!,
+                              );
                             } else {
                               toastMessage(
                                 'هذا الفصل لم يفتح بعد',
@@ -180,7 +188,9 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
               visible: state is StartTripExamClassesLoading,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: CircularProgressIndicator(color: AppColors.orangeThirdPrimary,),
+                child: CircularProgressIndicator(
+                  color: AppColors.orangeThirdPrimary,
+                ),
               ),
             )
           ],

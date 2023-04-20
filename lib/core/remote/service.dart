@@ -7,6 +7,7 @@ import '../error/exceptions.dart';
 import '../error/failures.dart';
 import '../models/ads_model.dart';
 import '../models/class_lesson_model.dart';
+import '../models/classes_exam_data_model.dart';
 import '../models/exam_classes_model.dart';
 import '../models/final_review_model.dart';
 import '../models/home_page_model.dart';
@@ -177,5 +178,23 @@ class ServiceApi {
     }
   }
 
-
+  Future<Either<Failure, ClassesExamDataModel>>
+      StartTripExamsClassByIdData(int id) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.examsClassByIdUrl + id.toString(),
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(ClassesExamDataModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }

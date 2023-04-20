@@ -10,6 +10,7 @@ import '../../../core/utils/hex_color.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../homePage/screens/home_page.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
+import '../../sources_and_references/screens/sources_references_main_screen.dart';
 import '../../start_trip/screens/main_start_trip_screen.dart';
 
 final ZoomDrawerController z = ZoomDrawerController();
@@ -154,7 +155,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
             ),
           ),
           MySvgWidget(
-            path: ImageAssets.noteIcon,
+            path: ImageAssets.studyIcon,
             size: _page != 1 ? 25 : 40,
             imageColor: _page != 1 ? AppColors.secondPrimary : AppColors.white,
           ),
@@ -164,7 +165,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
             imageColor: _page != 2 ? AppColors.secondPrimary : AppColors.white,
           ),
           MySvgWidget(
-            path: ImageAssets.studyIcon,
+            path: ImageAssets.noteIcon,
             size: _page != 3 ? 25 : 40,
             imageColor: _page != 3 ? AppColors.secondPrimary : AppColors.white,
           ),
@@ -216,7 +217,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
     if (_page == 0) {
       return StartTripScreen();
     } else if (_page == 1) {
-      return Container(color: Colors.green);
+      return SourcesAndReferencesMainScreen();
     } else if (_page == 2) {
       return HomePage();
     } else if (_page == 3) {
