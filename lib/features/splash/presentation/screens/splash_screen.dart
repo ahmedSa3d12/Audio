@@ -6,8 +6,10 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../config/routes/app_routes.dart';
+import '../../../examinstructions/screen/examinstructions.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/preferences/preferences.dart';
+import '../../../monthplan/screen/monthplan.dart';
 import '../../../navigation_bottom/screens/navigation_bottom.dart';
 import '../../../onboarding/screens/onboarding_screen.dart';
 import '../cubit/splash_cubit.dart';
@@ -51,8 +53,6 @@ class _SplashScreenState extends State<SplashScreen>
     SharedPreferences prefs = await SharedPreferences.getInstance();
     UserModel userModel = await Preferences.instance.getUserModel();
     if (prefs.getString('onBoarding') != null) {
-
-
       // } else {
       // }
 
@@ -69,19 +69,27 @@ class _SplashScreenState extends State<SplashScreen>
               ),
             ),
           );
-        }
-        else {
+        } else {
           Navigator.pushReplacement(
             context,
             PageTransition(
               type: PageTransitionType.fade,
               alignment: Alignment.center,
               duration: const Duration(milliseconds: 1300),
-              child: Zoom(),
+              child: MonthPlan(),
             ),
           );
         }
       } else {
+        // Navigator.pushReplacement(
+        //   context,
+        //   PageTransition(
+        //     type: PageTransitionType.fade,
+        //     alignment: Alignment.center,
+        //     duration: const Duration(milliseconds: 1300),
+        //     child: ExamInstructions(),
+        //   ),
+        // );
         Navigator.pushNamedAndRemoveUntil(
           context,
           Routes.loginRoute,
@@ -90,7 +98,7 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         );
       }
-    }else{
+    } else {
       Navigator.pushReplacement(
         context,
         PageTransition(

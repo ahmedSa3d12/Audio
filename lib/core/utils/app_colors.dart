@@ -52,8 +52,13 @@ class AppColors {
   static Color grayLite = Colors.grey[700]!;
   static Color gray4 = HexColor('#C4C4C4');
   static Color purple1 = HexColor('#854AA4');
+  static Color purple1light = HexColor('#E3D2FE');
   static Color blue = HexColor('#143A7B');
+  static Color blue1 = HexColor('#CBDFF8');
+  static Color blue2 = HexColor('#8290F8');
+  static Color bluelight = HexColor('#D7EAF9');
   static Color orange = HexColor('#FE7C04');
+  static Color orangelight = HexColor('#FFEAD7');
   static Color opacityWhite = Colors.white.withOpacity(0.5);
   static Color transparent = Colors.transparent;
 
