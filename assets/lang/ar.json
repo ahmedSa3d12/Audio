@@ -9,7 +9,7 @@
   "register_data_enter_exam": "سجل بياناتك للتمكن من دخول الامتحان",
   "mygards_rate": "درجاتى وتقييماتى",
   "grades_performance": "الدرجات وتقييم الاداء",
-  "exam_hero": "ابطال الامتحانات",
+  "exam_hero": "أبطال المنصة",
   "first_exams": "اوائل الامتحانات الجزيئية والشاملة",
   "month_plan": "الخطة الشهرية",
   "month_course": "المسار التعليمى لهذا الشهر",
@@ -68,7 +68,7 @@
   "quiz_minute": "وقت الامتحان",
   "min": "دقيقة",
   "start": "ابدأ الان",
-  "language": "اللغة",
+  "language": "لغة التطبيق",
   "language_type": "العربيه",
   "profile": "الصفحه الشخصيه",
   "report": "تقرير الطالب",
@@ -151,9 +151,13 @@
   "explanation": "شرح المنهج",
   "class_exams": "امتحانات الفصول",
   "final_review": "المراجعه النهائيه",
-  "sources_and_references": "مصادر ومراجع خارجية"
-  "final_review": "المراجعه النهائيه",
-  "best_result": "أفضل نتيجة لهذا الاختبار"
+  "sources_and_references": "مصادر ومراجع خارجية",
+  "best_result": "أفضل نتيجة لهذا الاختبار",
+  "live": "اللايف",
+  "reports": "البلاغات",
+  "downloads": "التحميلات",
+  "invite_friends": "دعوة الأصدقاء",
+  "rate_app": "تقييم التطبيق"
 
 
 

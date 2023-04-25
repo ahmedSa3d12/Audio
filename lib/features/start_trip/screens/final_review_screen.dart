@@ -37,25 +37,31 @@ class FinalReviewScreen extends StatelessWidget {
               left: 15.0,
               right: 15,
             ),
-            child: GridView.builder(
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 0.85,
-                mainAxisSpacing: 15,
-                crossAxisSpacing: 20,
-                crossAxisCount: 2,
-              ),
-              itemCount: cubit.finalReview.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ItemOfFinalReviewWidget(
-                  classNum: cubit.finalReview[index].name!,
-                  time: cubit.finalReview[index].time!,
-                  imagePath: cubit.finalReview[index].image!,
-                  type: cubit.finalReview[index].type!,
-                  mainColor:
-                      HexColor(cubit.finalReview[index].backgroundColor!),
-                );
-              },
+            child: ListView(
+              children: [
+                GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 0.85,
+                    mainAxisSpacing: 15,
+                    crossAxisSpacing: 20,
+                    crossAxisCount: 2,
+                  ),
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: cubit.finalReview.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ItemOfFinalReviewWidget(
+                      classNum: cubit.finalReview[index].name!,
+                      time: cubit.finalReview[index].time!,
+                      imagePath: cubit.finalReview[index].image!,
+                      type: cubit.finalReview[index].type!,
+                      mainColor:
+                          HexColor(cubit.finalReview[index].backgroundColor!),
+                    );
+                  },
+                ),
+                SizedBox(height: 25),
+              ],
             ),
           ),
         );

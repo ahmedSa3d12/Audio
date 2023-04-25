@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/core/utils/assets_manager.dart';
+import 'package:new_mazoon/core/utils/hex_color.dart';
+import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import '../../../core/models/lessons_model.dart';
 import '../../../core/utils/app_colors.dart';
 
 class LessonClassItemWidget extends StatelessWidget {
   const LessonClassItemWidget({
     Key? key,
-    required this.mainColor,
-    required this.title,
-    required this.present,
+    required this.model,
   }) : super(key: key);
 
-  final Color mainColor;
-  final String title;
-  final String present;
+  final AllLessonsModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class LessonClassItemWidget extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: 120,
         decoration: BoxDecoration(
-          color: lighten(mainColor, 0.3),
+          color: HexColor(model.backgroundColor!),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
@@ -34,15 +34,15 @@ class LessonClassItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    model.title!,
                     style: TextStyle(
-                      color: mainColor,
+                      color: darken(HexColor(model.backgroundColor!),0.3),
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
                   ),
                   Text(
-                    'شرح ازدواجية الموجة',
+                    model.name!,
                     style: TextStyle(
                       color: AppColors.grayLite,
                       fontSize: 16,
@@ -51,66 +51,84 @@ class LessonClassItemWidget extends StatelessWidget {
                 ],
               ),
             ),
-            if (present == '0') ...{
+            if (model.status == 'lock') ...{
               Container(
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: mainColor,
+                  color: darken(HexColor(model.backgroundColor!),0.3),
                   borderRadius: BorderRadius.circular(80),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.check,
-                      color: AppColors.white,
-                    ),
-                    Directionality(
-                      textDirection: TextDirection.ltr,
-                      child: Text(
-                        '100 %',
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                  ],
+                child: Center(
+                  child: MySvgWidget(
+                    path: ImageAssets.lockIcon,
+                    size: 16,
+                    imageColor: AppColors.white,
+                  ),
                 ),
               ),
             } else ...{
-              SizedBox(
-                width: 110,
-                height: 110,
-                child: SfCircularChart(
-                  palette: [mainColor],
-                  annotations: <CircularChartAnnotation>[
-                    CircularChartAnnotation(
-                      widget: Text(
-                        present,
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
+              if (model.totalWatch == 100) ...{
+                Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: darken(HexColor(model.backgroundColor!),0.3),
+                    borderRadius: BorderRadius.circular(80),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.check,
+                        color: AppColors.white,
+                      ),
+                      Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Text(
+                          '100 %',
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                  series: <CircularSeries>[
-                    RadialBarSeries<int, String>(
-                      maximumValue: 100,
-                      innerRadius: '20',
-                      dataSource: [int.parse(present)],
-                      cornerStyle: CornerStyle.endCurve,
-                      xValueMapper: (int data, _) => data.toString(),
-                      yValueMapper: (int data, _) =>
-                          double.parse(data.toString()),
-                    )
-                  ],
+                    ],
+                  ),
                 ),
-              )
+              } else ...{
+                SizedBox(
+                  width: 110,
+                  height: 110,
+                  child: SfCircularChart(
+                    palette: [darken(HexColor(model.backgroundColor!),0.3),],
+                    annotations: <CircularChartAnnotation>[
+                      CircularChartAnnotation(
+                        widget: Text(
+                          model.totalWatch.toString(),
+                          style: TextStyle(
+                            color: darken(HexColor(model.backgroundColor!),0.3),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                    series: <CircularSeries>[
+                      RadialBarSeries<int, String>(
+                        maximumValue: 100,
+                        innerRadius: model.totalWatch.toString(),
+                        dataSource: [model.totalWatch!],
+                        cornerStyle: CornerStyle.endCurve,
+                        xValueMapper: (int data, _) => data.toString(),
+                        yValueMapper: (int data, _) =>
+                            double.parse(data.toString()),
+                      )
+                    ],
+                  ),
+                )
+              },
             },
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -120,7 +138,7 @@ class LessonClassItemWidget extends StatelessWidget {
               child: Container(
                 width: 1,
                 height: 100,
-                color: mainColor,
+                color: darken(HexColor(model.backgroundColor!),0.3),
               ),
             ),
             Expanded(
@@ -134,7 +152,7 @@ class LessonClassItemWidget extends StatelessWidget {
                       Expanded(
                         child: Icon(
                           Icons.slow_motion_video,
-                          color: mainColor,
+                          color: darken(HexColor(model.backgroundColor!),0.3),
                           size: 22,
                         ),
                       ),
@@ -145,9 +163,9 @@ class LessonClassItemWidget extends StatelessWidget {
                             horizontal: 8.0,
                           ),
                           child: Text(
-                            '5',
+                            model.numOfVideos.toString(),
                             style: TextStyle(
-                              color: mainColor,
+                              color: darken(HexColor(model.backgroundColor!),0.3),
                               fontSize: 16,
                             ),
                           ),
@@ -158,7 +176,7 @@ class LessonClassItemWidget extends StatelessWidget {
                         child: Text(
                           'فيديو',
                           style: TextStyle(
-                            color: mainColor,
+                            color: darken(HexColor(model.backgroundColor!),0.3),
                             fontSize: 12,
                           ),
                         ),
@@ -170,7 +188,7 @@ class LessonClassItemWidget extends StatelessWidget {
                       Expanded(
                         child: Icon(
                           Icons.access_time_outlined,
-                          color: mainColor,
+                          color: darken(HexColor(model.backgroundColor!),0.3),
                           size: 22,
                         ),
                       ),
@@ -181,9 +199,9 @@ class LessonClassItemWidget extends StatelessWidget {
                             horizontal: 8.0,
                           ),
                           child: Text(
-                            '6',
+                            model.totalTimes.toString(),
                             style: TextStyle(
-                              color: mainColor,
+                              color: darken(HexColor(model.backgroundColor!),0.3),
                               fontSize: 16,
                             ),
                           ),
@@ -194,7 +212,7 @@ class LessonClassItemWidget extends StatelessWidget {
                         child: Text(
                           'ساعه',
                           style: TextStyle(
-                            color: mainColor,
+                            color: darken(HexColor(model.backgroundColor!),0.3),
                             fontSize: 12,
                           ),
                         ),

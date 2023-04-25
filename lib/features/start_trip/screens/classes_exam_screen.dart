@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
-import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
 import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 
 import '../../../core/utils/assets_manager.dart';
-import '../../../core/widgets/download_icon_widget.dart';
-import '../../../core/widgets/my_svg_widget.dart';
 import '../widgets/classes_exam_item_widget.dart';
 import '../widgets/expansion_tile_widget.dart';
 
@@ -30,6 +27,7 @@ class ClassesExamsScreen extends StatelessWidget {
                 ),
           child: RefreshIndicator(
             onRefresh: () async {
+              cubit.examClassList = [];
               cubit.getExamClassesData();
             },
             child: ListView(

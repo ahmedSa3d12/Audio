@@ -12,6 +12,7 @@ import '../../homePage/screens/home_page.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../../sources_and_references/screens/sources_references_main_screen.dart';
 import '../../start_trip/screens/main_start_trip_screen.dart';
+import '../widget/menu_screen_widget.dart';
 
 final ZoomDrawerController z = ZoomDrawerController();
 
@@ -29,88 +30,24 @@ class _ZoomState extends State<Zoom> {
     return ZoomDrawer(
       controller: z,
       isRtl: true,
-      borderRadius: 50,
+      borderRadius: 25,
       style: DrawerStyle.defaultStyle,
       openCurve: Curves.linearToEaseOut,
       slideWidth: MediaQuery.of(context).size.width * 0.75,
       duration: const Duration(milliseconds: 700),
       angle: 0.0,
-      drawerShadowsBackgroundColor: AppColors.transparent,
+      drawerShadowsBackgroundColor: AppColors.primary,
+      shadowLayer1Color: AppColors.transparent,
+      shadowLayer2Color: AppColors.black.withOpacity(0.1),
+      showShadow: true,
       overlayBlur: 0,
       moveMenuScreen: false,
       mainScreenTapClose: true,
-      menuScreenOverlayColor: AppColors.transparent,
+      menuScreenOverlayColor: AppColors.primary,
       menuBackgroundColor: AppColors.white,
       mainScreen: const NavigatorBar(),
-      menuScreen: ClipRRect(
-        borderRadius: BorderRadius.only(
-          bottomRight:  lang == 'en' ?Radius.circular(60):Radius.zero,
-          bottomLeft: lang == 'ar' ? Radius.circular(60):Radius.zero,
-        ),
-        child: Scaffold(
-          backgroundColor: HexColor('#4455D7'),
-          body: Stack(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 25),
-                child: Center(
-                  child: TextButton(
-                    onPressed: () {
-                      z.close?.call();
-                    },
-                    child: Text(
-                      "Push Page",
-                      style: TextStyle(fontSize: 24.0, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: MediaQuery.of(context).size.height / 8,
-                right: lang == 'en' ? -35 : null,
-                left: lang == 'ar' ? -35 : null,
-                child: Container(
-                  width: 130,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: AppColors.white,
-                  ),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          // await launchUrl(Uri.parse('http://m.me/'));
-
-                          z.close?.call();
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Center(
-                            child: Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(60),
-                                color: HexColor('#FE7C04'),
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.arrow_forward,
-                                  color: AppColors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
+      menuScreen: MenuScreenWidget(
+        closeClick: () => z.close?.call(),
       ),
     );
   }

@@ -76,7 +76,7 @@ class _SplashScreenState extends State<SplashScreen>
               type: PageTransitionType.fade,
               alignment: Alignment.center,
               duration: const Duration(milliseconds: 1300),
-              child: MonthPlan(),
+              child: Zoom(),
             ),
           );
         }

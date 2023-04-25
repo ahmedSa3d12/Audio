@@ -76,6 +76,12 @@ class ImageAssets {
   static const String pdfIcon = '$iconsPath/pdf_icon.svg';
   static const String answerPdfIcon = '$iconsPath/answer_pdf_icon.svg';
   static const String noLoveIcon = '$iconsPath/no_love.svg';
+  static const String profileIcon = '$iconsPath/profiles.svg';
+  static const String liveIcon = '$iconsPath/live_icon.svg';
+  static const String reportsIcon = '$iconsPath/reports_icon.svg';
+  static const String downloadsIcon = '$iconsPath/downloads.svg';
+  static const String shareIcon = '$iconsPath/share.svg';
+  static const String rateIcon = '$iconsPath/rate.svg';
 
 
   //Lottie

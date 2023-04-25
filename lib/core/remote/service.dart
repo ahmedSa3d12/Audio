@@ -11,6 +11,7 @@ import '../models/classes_exam_data_model.dart';
 import '../models/exam_classes_model.dart';
 import '../models/final_review_model.dart';
 import '../models/home_page_model.dart';
+import '../models/lessons_class_model.dart';
 import '../models/on_boarding_model.dart';
 import '../models/user_model.dart';
 import '../preferences/preferences.dart';
@@ -193,6 +194,26 @@ class ServiceApi {
         ),
       );
       return Right(ClassesExamDataModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, LessonsClassModel>>
+      lessonsByClassData(int id) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.lessonsByClassUrl + id.toString(),
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(LessonsClassModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

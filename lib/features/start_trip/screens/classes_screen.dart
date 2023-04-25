@@ -47,6 +47,7 @@ class ClassesScreen extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 print(cubit.classesData[index].totalTimes);
                 return ItemOfOneClassWidget(
+                  classId: cubit.classesData[index].id!,
                   classNum: cubit.classesData[index].title!,
                   classTitle: cubit.classesData[index].name!,
                   classPresentFinished:

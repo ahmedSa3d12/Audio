@@ -151,9 +151,13 @@
  "explanation": "Explanation of the curriculum",
  "class_exams": "Class exams",
  "final_review": "Final Review",
- "sources_and_references": "External sources and references"
- "final_review": "Final Review",
- "best_result": "The best result of this test"
+ "sources_and_references": "External sources and references",
+ "best_result": "The best result of this test",
+ "live": "Live",
+ "reports": "Reports",
+ "downloads": "Downloads",
+ "invite_friends": "Invite Friends",
+ "rate_app": "Rate App"
 
 
 

@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/utils/hex_color.dart';
 import 'package:new_mazoon/core/widgets/network_image.dart';
+import 'package:new_mazoon/core/widgets/no_data_widget.dart';
+import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
+import 'package:new_mazoon/features/lessons_of_class/cubit/lessons_class_cubit.dart';
 
 import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/assets_manager.dart';
-import '../../../core/widgets/lesson_paint_class.dart';
 import '../../../test.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../widgets/lesson_class_item_widget.dart';
-import 'dart:math' as math;
 
-class LessonsClassScreen extends StatelessWidget {
-  const LessonsClassScreen({Key? key}) : super(key: key);
+class LessonsClassScreen extends StatefulWidget {
+  const LessonsClassScreen({Key? key, required this.classId}) : super(key: key);
+  final int classId;
+
+  @override
+  State<LessonsClassScreen> createState() => _LessonsClassScreenState();
+}
+
+class _LessonsClassScreenState extends State<LessonsClassScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<LessonsClassCubit>().getLessonsClassData(widget.classId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,128 +36,138 @@ class LessonsClassScreen extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Positioned(
-              top: 0,
-              right: 0,
-              left: 0,
-              bottom: 0,
-              child: Column(
-                children: [
-                  SizedBox(height: 155),
-                  SizedBox(
-                    height: 155,
-                    child: Card(
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            top: 0,
-                            left: 0,
-                            bottom: 0,
-                            child: Transform(
-                              alignment: Alignment.center,
-                              transform: Matrix4.rotationY(math.pi),
-                              child: CustomPaint(
-                                size: Size(
-                                  MediaQuery.of(context).size.width * 0.62,
-                                  115,
-                                ),
-                                painter: LessonPaintClass(Colors.transparent),
-                                isComplex: true,
-                                child: ManageNetworkImage(
-                                  imageUrl:
-                                      "https://elmazone.topbusiness.io/sliders/1.jpg",
-                                ),
-                              ),
+            BlocBuilder<LessonsClassCubit, LessonsClassState>(
+              builder: (context, state) {
+                LessonsClassCubit cubit = context.read<LessonsClassCubit>();
+                if (state is LessonsClassLoading) {
+                  return ShowLoadingIndicator();
+                }
+                if (state is LessonsClassError) {
+                  return NoDataWidget(onclick: () {}, title: 'title');
+                }
+                return Positioned(
+                  top: 0,
+                  right: 0,
+                  left: 0,
+                  bottom: 0,
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      cubit.getLessonsClassData(widget.classId);
+                    },
+                    child: ListView(
+                      children: [
+                        SizedBox(height: 115),
+                        SizedBox(
+                          height: 165,
+                          width: MediaQuery.of(context).size.width * 0.92,
+                          child: Card(
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: CustomPaint(
-                              size: Size(
-                                180,
-                                115,
-                              ),
-                              painter: MyPainter(Colors.blue),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
                             child: Stack(
                               children: [
-                                CustomPaint(
-                                  size: Size(
-                                    250,
-                                    80,
+                                Positioned(
+                                  top: 0,
+                                  left: 0,
+                                  right: MediaQuery.of(context).size.width *
+                                      0.27,
+                                  bottom: 0,
+                                  child: ClipPath(
+                                    clipper: CCustomClipper(),
+                                    child: ManageNetworkImage(
+                                      imageUrl: cubit.oneClass.image ??
+                                          "https://elmazone.topbusiness.io/sliders/1.jpg",
+                                    ),
                                   ),
-                                  painter: MyPainter(darken(Colors.blue, 0.2)),
                                 ),
                                 Positioned(
-                                  top: 6,
-                                  left: 55,
-                                  // top: 0,
-                                  right: 15,
-                                  child: Text(
-                                    'ازدواجية الموجة والجسيم',
-                                    style: TextStyle(
-                                      color: AppColors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      shadows: <Shadow>[
-                                        Shadow(
-                                          offset: Offset(3.0, 3.0),
-                                          blurRadius: 3.0,
-                                          color: Color.fromARGB(255, 0, 0, 0),
+                                  bottom: 0,
+                                  right: 0,
+                                  child: CustomPaint(
+                                    size: Size(
+                                      180,
+                                      115,
+                                    ),
+                                    painter: MyPainter(
+                                      HexColor(
+                                        cubit.oneClass.backgroundColor!,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: Stack(
+                                    children: [
+                                      CustomPaint(
+                                        size: Size(
+                                          250,
+                                          80,
                                         ),
-                                        // Shadow(
-                                        //   offset: Offset(10.0, 10.0),
-                                        //   blurRadius: 8.0,
-                                        //   color: Color.fromARGB(125, 0, 0, 255),
-                                        // ),
-                                      ],
+                                        painter: MyPainter(
+                                          darken(
+                                            HexColor(
+                                              cubit.oneClass
+                                                  .backgroundColor!,
+                                            ),
+                                            0.2,
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 6,
+                                        left: 55,
+                                        // top: 0,
+                                        right: 15,
+                                        child: Text(
+                                          cubit.oneClass.name!,
+                                          style: TextStyle(
+                                            color: AppColors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            shadows: <Shadow>[
+                                              Shadow(
+                                                offset: Offset(3.0, 3.0),
+                                                blurRadius: 3.0,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 2,
+                                  right: 8,
+                                  child: Text(
+                                    cubit.oneClass.title!,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
                                     ),
                                   ),
                                 )
                               ],
                             ),
                           ),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: Text(
-                              'الفصل الاول',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 16),
+                        ...List.generate(
+                          cubit.lessons.length,
+                          (index) => LessonClassItemWidget(
+                            model: cubit.lessons[index],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  LessonClassItemWidget(
-                    mainColor: AppColors.orangeThirdPrimary,
-                    title: 'الدرس الاول',
-                    present: '0',
-                  ),
-                  LessonClassItemWidget(
-                    mainColor: AppColors.skyColor,
-                    title: 'الدرس الثانى',
-                    present: '50',
-                  ),
-                  LessonClassItemWidget(
-                    mainColor: AppColors.primary,
-                    title: 'الدرس الثالث',
-                    present: '80',
-                  ),
-                ],
-              ),
+                );
+              },
             ),
             Positioned(
               top: 0,
@@ -156,4 +180,34 @@ class LessonsClassScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class CCustomClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    Path path_0 = Path();
+    path_0.moveTo(0, size.height * 0.06578947);
+    path_0.cubicTo(0, size.height * 0.02945493, size.width * 0.01139224, 0,
+        size.width * 0.02544529, 0);
+    path_0.lineTo(size.width * 0.65, 0);
+    path_0.lineTo(size.width * 0.99, size.height);
+    path_0.lineTo(size.width * 0.02544529, size.height);
+    path_0.cubicTo(size.width * 0.01139224, size.height, 0,
+        size.height * 0.9705461, 0, size.height * 0.9342105);
+    path_0.lineTo(0, size.height * 0.06578947);
+    path_0.close();
+
+    return path_0;
+
+    // final double heightDelta = size.height / 2.2;
+
+    // Path()
+    //  ..addRect(
+    //      Rect.fromLTWH(35, 120, 260, 160))
+    //  ;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
 }

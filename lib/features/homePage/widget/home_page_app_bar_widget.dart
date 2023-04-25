@@ -7,6 +7,7 @@ import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/widgets/my_svg_widget.dart';
 import '../../../../core/widgets/network_image.dart';
 import '../../../../core/widgets/painting.dart';
+import '../../downloads_videos/screens/downloads_video.dart';
 import '../../navigation_bottom/cubit/navigation_cubit.dart';
 import '../cubit/home_page_cubit.dart';
 
@@ -112,10 +113,18 @@ class HomePageAppBarWidget extends StatelessWidget {
                             Row(
                               children: [
                                 SizedBox(width: 8),
-                                MySvgWidget(
-                                  path: ImageAssets.notificationsIcon,
-                                  size: 25,
-                                  imageColor: AppColors.white,
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DownloadsVideos()));
+                                  },
+                                  child: MySvgWidget(
+                                    path: ImageAssets.notificationsIcon,
+                                    size: 25,
+                                    imageColor: AppColors.white,
+                                  ),
                                 ),
                                 SizedBox(width: 18),
                                 MySvgWidget(

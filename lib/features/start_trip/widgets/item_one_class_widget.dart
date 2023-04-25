@@ -19,6 +19,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
     required this.imagePath,
     required this.status,
     required this.mainColor,
+    required this.classId,
   }) : super(key: key);
 
   final String classNum;
@@ -30,6 +31,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
   final String imagePath;
   final String status;
   final Color mainColor;
+  final int classId;
 
   @override
   Widget build(BuildContext context) {
@@ -283,7 +285,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          LessonsClassScreen(),
+                                          LessonsClassScreen(classId: classId),
                                     ),
                                   );
                                 },
