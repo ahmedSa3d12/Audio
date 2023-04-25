@@ -16,16 +16,20 @@ final int index;
     child: Row(
       children: [
         Container(
+          width: 50,
+          height: 50,
           decoration: BoxDecoration(shape: BoxShape.circle,
             color: color1
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(index.toString(),
-            style: TextStyle(color: color2,fontWeight:FontWeight.bold,
+            child: Center(
+              child: Text(index.toString(),
+              style: TextStyle(color: color2,fontWeight:FontWeight.bold,
 
-            fontSize: 14,
-            ),),
+              fontSize: 14,
+              ),),
+            ),
           ),
         ),
         SizedBox(width: 14,),

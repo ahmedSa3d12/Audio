@@ -121,7 +121,7 @@ class _MonthPlanState extends State<MonthPlan> {
                                           color2: darken(HexColor(cubit
                                               .monthplanList
                                               .elementAt(index)
-                                              .backgroundColor!),.1),
+                                              .backgroundColor!),.5),
                                           title: cubit.monthplanList
                                               .elementAt(index)
                                               .title!,
