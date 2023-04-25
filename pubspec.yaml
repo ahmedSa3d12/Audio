@@ -21,6 +21,7 @@ dependencies:
   flutter_svg: ^2.0.4
   page_transition: "^2.0.9"
   equatable: ^2.0.5
+  neon_circular_timer: ^0.0.7
   shared_preferences: ^2.1.0
   cached_network_image: ^3.2.3
   calendar_date_picker2: ^0.5.2

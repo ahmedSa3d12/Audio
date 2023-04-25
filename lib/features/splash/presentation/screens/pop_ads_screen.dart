@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../../../config/routes/app_routes.dart';
 import '../../../../core/models/ads_model.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/widgets/network_image.dart';
@@ -72,14 +73,9 @@ class _PopAdsScreenState extends State<PopAdsScreen> {
                     child: IconButton(
                       onPressed: () {
                         opacity == 1
-                            ? Navigator.pushReplacement(
+                            ? Navigator.pushReplacementNamed(
                                 context,
-                                PageTransition(
-                                  type: PageTransitionType.fade,
-                                  alignment: Alignment.center,
-                                  duration: const Duration(milliseconds: 1300),
-                                  child: Zoom(),
-                                ),
+                              Routes.homePageScreenRoute,
                               )
                             : null;
                       },

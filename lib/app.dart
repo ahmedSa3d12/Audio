@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
 import 'package:quick_actions/quick_actions.dart';
 // import 'package:screenshot_callback/screenshot_callback.dart';
 
@@ -18,7 +19,7 @@ import 'dart:developer' as developer;
 import 'package:path/path.dart';
 
 import 'core/utils/toast_message_method.dart';
-import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
+// import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
 import 'features/homePage/cubit/home_page_cubit.dart';
 import 'features/lessons_of_class/cubit/lessons_class_cubit.dart';
 import 'features/login/cubit/login_cubit.dart';
@@ -153,11 +154,14 @@ class _ElmazoonState extends State<Elmazoon> {
         BlocProvider(
           create: (_) => injector.serviceLocator<StartTripCubit>(),
         ),
-        BlocProvider(
-          create: (_) => injector.serviceLocator<DownloadsVideosCubit>(),
-        ),
+        // BlocProvider(
+        //   create: (_) => injector.serviceLocator<DownloadsVideosCubit>(),
+        // ),
         BlocProvider(
           create: (_) => injector.serviceLocator<LessonsClassCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<MonthPlanCubit>(),
         ),
       ],
       child: MaterialApp(

@@ -41,26 +41,16 @@ class OnBoardingScreenState extends State<OnBoardingScreen> {
 
     if (prefs.getString('user') != null) {
       if (context.read<SplashCubit>().adsList.isNotEmpty) {
-        Navigator.pushReplacement(
+        Navigator.pushReplacementNamed(
           context,
-          PageTransition(
-            type: PageTransitionType.fade,
-            alignment: Alignment.center,
-            duration: const Duration(milliseconds: 1300),
-            child: PopAdsScreen(
-              adsDatum: context.read<SplashCubit>().adsList.first,
-            ),
-          ),
+        Routes.podAdsPageScreenRoute,
+          arguments: context.read<SplashCubit>().adsList.first
+
         );
       } else {
-        Navigator.pushReplacement(
+        Navigator.pushReplacementNamed(
           context,
-          PageTransition(
-            type: PageTransitionType.fade,
-            alignment: Alignment.center,
-            duration: const Duration(milliseconds: 1300),
-            child: Zoom(),
-          ),
+       Routes.homePageScreenRoute,
         );
       }
     } else {

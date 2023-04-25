@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/api/app_interceptors.dart';
 import 'core/api/base_api_consumer.dart';
 import 'core/api/dio_consumer.dart';
 import 'core/remote/service.dart';
-import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
+// import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
 import 'features/homePage/cubit/home_page_cubit.dart';
 import 'features/lessons_of_class/cubit/lessons_class_cubit.dart';
 import 'features/login/cubit/login_cubit.dart';
@@ -35,6 +36,8 @@ Future<void> setup() async {
   );
   serviceLocator.registerFactory(
     () => HomePageCubit(serviceLocator()),
+  );  serviceLocator.registerFactory(
+    () => MonthPlanCubit(serviceLocator()),
   );
   serviceLocator.registerFactory(
     () => OnBoardingCubit(serviceLocator()),
@@ -44,11 +47,11 @@ Future<void> setup() async {
       serviceLocator()
     ),
   );
-  serviceLocator.registerFactory(
-        () => DownloadsVideosCubit(
-      // serviceLocator()
-    ),
-  );
+  // serviceLocator.registerFactory(
+  //       () => DownloadsVideosCubit(
+  //     // serviceLocator()
+  //   ),
+  // );
   serviceLocator.registerFactory(
         () => LessonsClassCubit(
       serviceLocator()

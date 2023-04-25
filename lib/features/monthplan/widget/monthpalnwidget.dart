@@ -12,7 +12,7 @@ final int index;
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(padding:EdgeInsets.all(80),
+    return  Padding(padding:EdgeInsets.all(8),
     child: Row(
       children: [
         Container(
@@ -35,14 +35,16 @@ final int index;
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(children: [
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
             Text(title,
               style: TextStyle(color: color2,fontWeight:FontWeight.bold,
 
                 fontSize: 14,
               ),),
             Text(desc,
-              style: TextStyle(color: AppColors.black,fontWeight:FontWeight.bold,
+              style: TextStyle(color: AppColors.liveExamGrayTextColor,fontWeight:FontWeight.bold,
 
                 fontSize: 14,
               ),),

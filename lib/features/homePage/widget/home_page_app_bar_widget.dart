@@ -7,7 +7,7 @@ import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/widgets/my_svg_widget.dart';
 import '../../../../core/widgets/network_image.dart';
 import '../../../../core/widgets/painting.dart';
-import '../../downloads_videos/screens/downloads_video.dart';
+// import '../../downloads_videos/screens/downloads_video.dart';
 import '../../navigation_bottom/cubit/navigation_cubit.dart';
 import '../cubit/home_page_cubit.dart';
 
@@ -115,10 +115,10 @@ class HomePageAppBarWidget extends StatelessWidget {
                                 SizedBox(width: 8),
                                 InkWell(
                                   onTap: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                DownloadsVideos()));
+                                    // Navigator.of(context).push(
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) =>
+                                    //             DownloadsVideos()));
                                   },
                                   child: MySvgWidget(
                                     path: ImageAssets.notificationsIcon,

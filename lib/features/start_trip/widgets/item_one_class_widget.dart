@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/my_svg_widget.dart';
@@ -281,12 +282,10 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                   const EdgeInsets.symmetric(horizontal: 8.0),
                               child: InkWell(
                                 onTap: () {
-                                  Navigator.push(
+                                  Navigator.pushNamed(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          LessonsClassScreen(classId: classId),
-                                    ),
+                                 Routes.lessonClassScreenRoute,
+                                   arguments: classId,
                                   );
                                 },
                                 child: Container(

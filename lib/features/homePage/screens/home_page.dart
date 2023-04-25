@@ -18,7 +18,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<HomePageCubit, HomePageState>(
+      body:
+      BlocBuilder<HomePageCubit, HomePageState>(
         builder: (context, state) {
           HomePageCubit cubit = context.read<HomePageCubit>();
           if (state is HomePageLoading) {

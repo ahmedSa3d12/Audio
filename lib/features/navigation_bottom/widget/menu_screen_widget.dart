@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/assets_manager.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/widgets/network_image.dart';
 import '../cubit/navigation_cubit.dart';
@@ -128,7 +129,8 @@ class MenuScreenWidget extends StatelessWidget {
                   MenuListTileWidget(
                     title: 'profile'.tr(),
                     iconPath: ImageAssets.profileIcon,
-                    onclick: () {},
+                    onclick: () {
+                    },
                   ),
                   MenuListTileWidget(
                     title: 'register_paper_exam'.tr(),
@@ -148,7 +150,11 @@ class MenuScreenWidget extends StatelessWidget {
                   MenuListTileWidget(
                     title: 'month_plan'.tr(),
                     iconPath: ImageAssets.calenderIcon,
-                    onclick: () {},
+                    onclick: () {
+                      Navigator.pushNamed(context, Routes.monthplanPageScreenRoute);
+
+
+                    },
                   ),
                   MenuListTileWidget(
                     title: 'live'.tr(),

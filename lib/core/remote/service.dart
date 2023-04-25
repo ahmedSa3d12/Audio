@@ -11,6 +11,7 @@ import '../models/classes_exam_data_model.dart';
 import '../models/exam_classes_model.dart';
 import '../models/final_review_model.dart';
 import '../models/home_page_model.dart';
+import '../models/month_plan_model.dart';
 import '../models/lessons_class_model.dart';
 import '../models/on_boarding_model.dart';
 import '../models/user_model.dart';
@@ -179,8 +180,8 @@ class ServiceApi {
     }
   }
 
-  Future<Either<Failure, ClassesExamDataModel>>
-      StartTripExamsClassByIdData(int id) async {
+  Future<Either<Failure, ClassesExamDataModel>> StartTripExamsClassByIdData(
+      int id) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
     try {
@@ -194,6 +195,27 @@ class ServiceApi {
         ),
       );
       return Right(ClassesExamDataModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, MothPlanModel>> getMonthPlans(String date) async {
+    UserModel userModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    print('lan : $lan');
+    try {
+      final response = await dio.get(
+        EndPoints.monthPlanUrl,
+        queryParameters: {'date': date},
+        options: Options(
+          headers: {
+            'Authorization': userModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(MothPlanModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

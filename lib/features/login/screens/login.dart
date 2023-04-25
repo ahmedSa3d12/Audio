@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../core/utils/assets_manager.dart';
 import '../../../../../core/widgets/circle_image_widget.dart';
+import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/call_method.dart';
 import '../../../core/utils/show_dialog.dart';
@@ -79,14 +80,9 @@ class _userScreenState extends State<LoginScreen> {
                                 );
                               },
                             );
-                              Navigator.pushAndRemoveUntil(
+                              Navigator.pushNamedAndRemoveUntil(
                                 context,
-                                PageTransition(
-                                  type: PageTransitionType.fade,
-                                  alignment: Alignment.center,
-                                  duration: const Duration(milliseconds: 1300),
-                                  child: Zoom(),
-                                ),
+                               Routes.homePageScreenRoute,
                                 (route) => false,
                               );
                             // }
