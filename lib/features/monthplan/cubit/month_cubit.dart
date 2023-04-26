@@ -13,14 +13,19 @@ class MonthPlanCubit extends Cubit<MonthPlanState> {
 
   String date=
   DateFormat('yyyy-MM-dd').format(DateTime.now());
+  DateTime datefoucse=DateTime.now();
+  DateTime datecurrent=DateTime.now();
+
   MonthPlanCubit(this.api) : super(MonthPlanInitial()) {
      // getAdsOfApp();
   }
 
   final ServiceApi api;
 
-  Future<void> getMonthPlan(String date) async {
+  Future<void> getMonthPlan(String date,DateTime dateFoucse,DateTime dateCurrent) async {
     this.date=date;
+    this.datefoucse=dateFoucse;
+    this.datecurrent=dateCurrent;
     emit(MonthPlanLoading());
     final response = await api.getMonthPlans(date);
     response.fold(

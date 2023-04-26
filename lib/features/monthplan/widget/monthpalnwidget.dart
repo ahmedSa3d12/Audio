@@ -48,7 +48,7 @@ final int index;
                 fontSize: 14,
               ),),
             Text(desc,
-              style: TextStyle(color: AppColors.liveExamGrayTextColor,fontWeight:FontWeight.bold,
+              style: TextStyle(color: AppColors.liveExamGrayTextColor,fontWeight:FontWeight.normal,
 
                 fontSize: 14,
               ),),
