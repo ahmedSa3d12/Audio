@@ -38,7 +38,8 @@ class _MonthPlanState extends State<MonthPlan> {
         backgroundColor: AppColors.secondPrimary,
         toolbarHeight: 0,
       ),
-      body: SafeArea(
+      body:
+      SafeArea(
         top: false,
         maintainBottomViewPadding: true,
         child: Stack(

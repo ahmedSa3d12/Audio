@@ -13,6 +13,7 @@ import '../models/final_review_model.dart';
 import '../models/home_page_model.dart';
 import '../models/month_plan_model.dart';
 import '../models/lessons_class_model.dart';
+import '../models/notifications_model.dart';
 import '../models/on_boarding_model.dart';
 import '../models/user_model.dart';
 import '../preferences/preferences.dart';
@@ -195,6 +196,25 @@ class ServiceApi {
         ),
       );
       return Right(ClassesExamDataModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+  Future<Either<Failure, NotificationsModel>> getAllNotification() async {
+    UserModel userModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    print('lan : $lan');
+    try {
+      final response = await dio.get(
+        EndPoints.notificationUrl,
+        options: Options(
+          headers: {
+            'Authorization': userModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(NotificationsModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }
