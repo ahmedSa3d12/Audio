@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
@@ -27,7 +28,17 @@ class SourcesAndReferencesMainScreen extends StatelessWidget {
             children: [
               ...List.generate(
                 colors.length,
-                (index) => MainScreenItemWidget(mainColor: colors[index]),
+                (index) => InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      Routes.sourceReferencesDetailsRoute,
+                    );
+                  },
+                  child: MainScreenItemWidget(
+                    mainColor: colors[index],
+                  ),
+                ),
               )
             ],
           )

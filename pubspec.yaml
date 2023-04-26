@@ -71,6 +71,9 @@ dependencies:
   chewie: ^1.4.0
   flutter_zoom_drawer: ^3.0.4+1
   wave: ^0.2.2
+  stroke_text: ^0.0.2
+  get: ^4.6.5
+
 
 dev_dependencies:
   flutter_test:
@@ -114,3 +117,12 @@ flutter:
         - asset: assets/fonts/Cairo-Medium.ttf
         - asset: assets/fonts/Cairo-Regular.ttf
         - asset: assets/fonts/Cairo-SemiBold.ttf
+    - family: Mada
+      fonts:
+        - asset: assets/fonts/Mada-Black.ttf
+        - asset: assets/fonts/Mada-Bold.ttf
+        - asset: assets/fonts/Mada-ExtraLight.ttf
+        - asset: assets/fonts/Mada-Light.ttf
+        - asset: assets/fonts/Mada-Medium.ttf
+        - asset: assets/fonts/Mada-Regular.ttf
+        - asset: assets/fonts/Mada-SemiBold.ttf

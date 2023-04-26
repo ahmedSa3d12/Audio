@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 
 class DownloadIconWidget extends StatelessWidget {
-  const DownloadIconWidget({Key? key, required this.color}) : super(key: key);
+  const DownloadIconWidget(
+      {Key? key, required this.color, this.iconColor = Colors.white})
+      : super(key: key);
   final Color color;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class DownloadIconWidget extends StatelessWidget {
       child: Center(
         child: Icon(
           Icons.file_download_outlined,
-          color: AppColors.white,
+          color: iconColor,
         ),
       ),
     );

@@ -8,6 +8,7 @@ import '../../core/utils/app_strings.dart';
 import '../../features/lessons_of_class/screens/lesson_class.dart';
 import '../../features/login/screens/login.dart';
 import '../../features/monthplan/screen/monthplan.dart';
+import '../../features/sources_and_references/screens/source_references_details.dart';
 import '../../features/splash/presentation/screens/pop_ads_screen.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 
@@ -19,6 +20,7 @@ class Routes {
   static const String onboardingPageScreenRoute = '/onboardingPageScreen';
   static const String podAdsPageScreenRoute = '/podAdsPageScreen';
   static const String lessonClassScreenRoute = '/lessonClassPageScreen';
+  static const String sourceReferencesDetailsRoute = '/sourceReferencesDetails';
 }
 
 class AppRoutes {
@@ -59,6 +61,14 @@ class AppRoutes {
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 1300),
           child: OnBoardingScreen(),
+        );
+
+      case Routes.sourceReferencesDetailsRoute:
+        return PageTransition(
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 1300),
+          child: SourceReferencesDetails(),
         );
 
       case Routes.podAdsPageScreenRoute:
