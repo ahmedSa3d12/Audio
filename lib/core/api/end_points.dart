@@ -13,6 +13,7 @@ class EndPoints {
   static const String examsClassByIdUrl = '${baseUrl}auth/home-page/start-your-journey/findExamByClassById/';
   static const String monthPlanUrl = '${baseUrl}plans/all';
   static const String lessonsByClassUrl = '${baseUrl}classes/lessonsByClassId/';
+  static const String registerExamUrl = '${baseUrl}auth/papel-sheet-exam/user/';
 
 
 

@@ -9,6 +9,7 @@ import '../models/ads_model.dart';
 import '../models/class_lesson_model.dart';
 import '../models/classes_exam_data_model.dart';
 import '../models/exam_classes_model.dart';
+import '../models/exam_model.dart';
 import '../models/final_review_model.dart';
 import '../models/home_page_model.dart';
 import '../models/month_plan_model.dart';
@@ -256,6 +257,29 @@ class ServiceApi {
         ),
       );
       return Right(LessonsClassModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+  Future<Either<Failure, ExamModel>> registerExam(
+      {required int exma_id, required int time_id}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+
+    try {
+      final response = await dio.post(
+        EndPoints.registerExamUrl + exma_id.toString(),
+        body: {
+          'papel_sheet_exam_time_id': time_id,
+        },
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(ExamModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

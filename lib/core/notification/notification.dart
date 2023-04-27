@@ -10,7 +10,6 @@ import 'package:rxdart/rxdart.dart';
 // import '../../firebase_options.dart';
 import 'notification_listen.dart';
 
-
 class PushNotificationService {
   static final PushNotificationService instance =
       PushNotificationService._internal();
@@ -30,16 +29,15 @@ class PushNotificationService {
 
   RemoteMessage? initialMessage;
 
-
-
   Future initialise() async {
     initialMessage = await FirebaseMessaging.instance.getInitialMessage();
 
     channel = const AndroidNotificationChannel(
-      'high_importance_channel', // id
-      'High Importance Notifications', // title
-      importance: Importance.high,
-    );
+        'high_importance_channel', // id
+        'High Importance Notifications', // title
+        importance: Importance.high,
+        playSound: true,
+        enableVibration: true);
 
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     AndroidInitializationSettings initializationSettingsAndroid =
@@ -96,9 +94,8 @@ class PushNotificationService {
       checkData(message);
     });
     // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-
-
   }
+
   Future<void> showNotification(RemoteMessage message) async {
     flutterLocalNotificationsPlugin.show(
       message.data.hashCode,
