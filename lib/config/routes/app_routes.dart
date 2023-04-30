@@ -4,7 +4,9 @@ import 'package:new_mazoon/features/onboarding/screens/onboarding_screen.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../core/models/ads_model.dart';
+import '../../core/models/times_model.dart';
 import '../../core/utils/app_strings.dart';
+import '../../features/examRegister/presentation/screens/exam_register.dart';
 import '../../features/lessons_of_class/screens/lesson_class.dart';
 import '../../features/login/screens/login.dart';
 import '../../features/monthplan/screen/monthplan.dart';
@@ -15,6 +17,7 @@ import '../../features/splash/presentation/screens/splash_screen.dart';
 class Routes {
   static const String initialRoute = '/';
   static const String loginRoute = '/login';
+  static const String examRegisterRoute = '/examregister';
   static const String homePageScreenRoute = '/homePageScreen';
   static const String monthplanPageScreenRoute = '/monthplanPageScreen';
   static const String onboardingPageScreenRoute = '/onboardingPageScreen';
@@ -40,6 +43,12 @@ class AppRoutes {
         int classId=settings.arguments as int;
         return MaterialPageRoute(
           builder: (context) => LessonsClassScreen(classId: classId),
+        );
+      case Routes.examRegisterRoute:
+        TimeDataModel timeDataModel = settings.arguments as TimeDataModel;
+
+        return MaterialPageRoute(
+          builder: (context) => ExmRegisterPage(timeDataModel: timeDataModel),
         );
       case Routes.monthplanPageScreenRoute:
         return PageTransition(

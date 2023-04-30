@@ -16,7 +16,7 @@ class ImageAssets {
   static const String callImage = '$imagePath/call.png';
   static const String appBarImage = '$imagePath/appbar_background.png';
   static const String userImage = '$imagePath/user.png';
-  static const String userExamImage = '$imagePath/user_exam.png';
+  static const String userExamImage = '$imagePath/register.png';
   static const String suggestImage = '$imagePath/suggest.png';
   static const String correctImage = '$imagePath/correct.png';
   static const String firstImage = '$imagePath/first.png';
@@ -82,6 +82,10 @@ class ImageAssets {
   static const String downloadsIcon = '$iconsPath/downloads.svg';
   static const String shareIcon = '$iconsPath/share.svg';
   static const String rateIcon = '$iconsPath/rate.svg';
+  static const String userNameIcon = '$iconsPath/username.svg';
+  static const String userphoneIcon = '$iconsPath/phone.svg';
+  static const String lockNumIcon = '$iconsPath/locknum.svg';
+  static const String timesIcon = '$iconsPath/times.svg';
 
 
   //Lottie

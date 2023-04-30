@@ -30,12 +30,12 @@ class ExmRegisterPage extends StatefulWidget {
 }
 
 class _ExmRegisterPageState extends State<ExmRegisterPage> {
-  Time? dropdownValue;
 
   @override
   void initState() {
     super.initState();
-    dropdownValue=widget.timeDataModel.data.times.elementAt(0);
+    context.read<ExamRegisterCubit>().times=widget.timeDataModel.data.times;
+    context.read<ExamRegisterCubit>().dropdownValue=widget.timeDataModel.data.times.elementAt(0);
 
   }
 
@@ -67,11 +67,13 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
           padding: const EdgeInsets.all(25.0),
           child: Column(
             children: [
+              SizedBox(height: 110),
+
               Center(
                 child: Image.asset(
                   ImageAssets.userExamImage,
                   fit: BoxFit.cover,
-                  height: 300,
+                  height: 200,
                 ),
               ),
               const SizedBox(height: 25),
@@ -79,10 +81,11 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
                 
                 decoration: BoxDecoration(
                     
-                    border: Border.all(color: AppColors.black,width: 1),borderRadius: BorderRadius.all(Radius.circular(15))),
+                    border: Border.all(color: AppColors.gray5,width: 1),borderRadius: BorderRadius.all(Radius.circular(15))),
                 child: Row(
                   children: [
-                    MySvgWidget(path: ImageAssets.callImage, imageColor: AppColors.black, size: 20),
+                    const SizedBox(width: 25),
+                    Center(child: MySvgWidget(path: ImageAssets.userNameIcon, imageColor: AppColors.liveExamGrayTextColor, size: 20)),
                     const SizedBox(width: 25),
                     Expanded(
                       child: TextFormField(
@@ -95,7 +98,7 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
                         style: TextStyle(
                             backgroundColor: AppColors.transparent,
 
-                            color: AppColors.secondPrimary,
+                            color: AppColors.gray6,
                             fontSize: 15,
                             fontWeight: FontWeight.bold),
                       ),
@@ -108,10 +111,11 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
               Container(
                 decoration: BoxDecoration(
 
-                    border: Border.all(color: AppColors.black,width: 1),borderRadius: BorderRadius.all(Radius.circular(15))),
+                    border: Border.all(color: AppColors.gray5,width: 1),borderRadius: BorderRadius.all(Radius.circular(15))),
                 child: Row(
                   children: [
-                    MySvgWidget(path: ImageAssets.callImage, imageColor: AppColors.black, size: 20),
+                    const SizedBox(width: 25),
+                    Center(child: MySvgWidget(path: ImageAssets.userphoneIcon, imageColor: AppColors.liveExamGrayTextColor, size: 20)),
                     const SizedBox(width: 25),
                     Expanded(
                       child:  TextFormField(
@@ -124,7 +128,7 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
                         style: TextStyle(
                             backgroundColor: AppColors.transparent,
 
-                            color: AppColors.secondPrimary,
+                            color: AppColors.gray6,
                             fontSize: 15,
                             fontWeight: FontWeight.bold),
                       ),
@@ -137,10 +141,11 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
               Container(
                 decoration: BoxDecoration(
 
-                    border: Border.all(color: AppColors.black,width: 1),borderRadius: BorderRadius.all(Radius.circular(15))),
+                    border: Border.all(color: AppColors.gray5,width: 1),borderRadius: BorderRadius.all(Radius.circular(15))),
                 child: Row(
                   children: [
-                    MySvgWidget(path: ImageAssets.callImage, imageColor: AppColors.black, size: 20),
+                    const SizedBox(width: 25),
+                    Center(child: MySvgWidget(path: ImageAssets.lockNumIcon, imageColor: AppColors.liveExamGrayTextColor, size: 20)),
                     const SizedBox(width: 25),
                     Expanded(
                       child:  TextFormField(
@@ -153,7 +158,7 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
                         enabled: false,
                         style: TextStyle(
                           backgroundColor: AppColors.transparent,
-                            color: AppColors.secondPrimary,
+                            color: AppColors.gray6,
                             fontSize: 15,
                             fontWeight: FontWeight.bold),
                       ),
@@ -164,34 +169,36 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
               const SizedBox(height: 10),
 
               Container(
+                height: 55,
                 decoration: BoxDecoration(
 
-                    border: Border.all(color: AppColors.black,width: 1),borderRadius: BorderRadius.all(Radius.circular(15))),
+                    border: Border.all(color: AppColors.gray5,width: 1),borderRadius: BorderRadius.all(Radius.circular(15))),
                 child: Row(
                   children: [
-                    MySvgWidget(path: ImageAssets.callImage, imageColor: AppColors.black, size: 20),
+                    const SizedBox(width: 25),
+                    Center(child: MySvgWidget(path: ImageAssets.timesIcon, imageColor: AppColors.liveExamGrayTextColor, size: 20)),
                     const SizedBox(width: 25),
                     Expanded(
                       child: DropdownButton(
                         isExpanded: true,
-                        icon: Icon(
-                          Icons.expand_circle_down,
-                          size: 30,
-
-                          color: AppColors.secondPrimary,
-                        ),
-                        value:dropdownValue,
-                        iconSize: 15,
+                        // icon: Icon(
+                        //   Icons.expand_circle_down,
+                        //   size: 30,
+                        //
+                        //   color: AppColors.gray6,
+                        // ),
+                        iconEnabledColor: AppColors.gray7,
+                        value:context.read<ExamRegisterCubit>().dropdownValue,
+                        iconSize: 40,
                         elevation: 16,
-                        style: TextStyle(color: AppColors.secondPrimary),
+                        style: TextStyle(color: AppColors.gray6),
                         underline: Container(
                           height: 2,
                           color: AppColors.transparent,
                         ),
                         onChanged: (newValue) {
-                          setState(() {
-                            dropdownValue = newValue;
-                          });
+                          context.read<ExamRegisterCubit>().settimevalue(newValue);
+
                         },
                         items:widget.timeDataModel.data.times
                             .map<DropdownMenuItem<Time>>((Time value) {
@@ -219,9 +226,9 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
               const SizedBox(height: 25),
               CustomButton(
                 text: 'record_data'.tr(),
-                color: AppColors.primary,
+                color: AppColors.orange,
                 onClick: () {
-                  context.read<ExamRegisterCubit>().openexam(widget.timeDataModel, dropdownValue!, context);
+                  context.read<ExamRegisterCubit>().openexam(widget.timeDataModel, context.read<ExamRegisterCubit>().dropdownValue!, context);
                 },
               ),
             ],

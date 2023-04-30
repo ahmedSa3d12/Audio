@@ -19,7 +19,8 @@ class ExamRegisterCubit extends Cubit<ExamRegisterState> {
   TextEditingController phoneName = TextEditingController();
   TextEditingController studentCode = TextEditingController();
   TextEditingController suggest = TextEditingController();
-
+  Time? dropdownValue;
+  List<Time> times=[];
   final ServiceApi api;
   ExamRegisterCubit(this.api) : super(ExamRegisterInitial()){
     getProfileData();
@@ -61,6 +62,11 @@ class ExamRegisterCubit extends Cubit<ExamRegisterState> {
 
           },
     );
+  }
+
+  void settimevalue(Time? newValue) {
+    dropdownValue=newValue;
+    emit(ExamRegisterInitial());
   }
 
 

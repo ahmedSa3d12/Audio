@@ -129,13 +129,14 @@ class MenuScreenWidget extends StatelessWidget {
                   MenuListTileWidget(
                     title: 'profile'.tr(),
                     iconPath: ImageAssets.profileIcon,
-                    onclick: () {
-                    },
+                    onclick: () {},
                   ),
                   MenuListTileWidget(
                     title: 'register_paper_exam'.tr(),
                     iconPath: ImageAssets.userEditIcon,
-                    onclick: () {},
+                    onclick: () {
+                      context.read<NavigationCubit>().getTimes(context);
+                    },
                   ),
                   MenuListTileWidget(
                     title: 'mygards_rate'.tr(),
@@ -151,9 +152,8 @@ class MenuScreenWidget extends StatelessWidget {
                     title: 'month_plan'.tr(),
                     iconPath: ImageAssets.calenderIcon,
                     onclick: () {
-                      Navigator.pushNamed(context, Routes.monthplanPageScreenRoute);
-
-
+                      Navigator.pushNamed(
+                          context, Routes.monthplanPageScreenRoute);
                     },
                   ),
                   MenuListTileWidget(

@@ -20,6 +20,7 @@ import 'package:path/path.dart';
 
 import 'core/utils/toast_message_method.dart';
 // import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
+import 'features/examRegister/cubit/exam_register_cubit.dart';
 import 'features/homePage/cubit/home_page_cubit.dart';
 import 'features/lessons_of_class/cubit/lessons_class_cubit.dart';
 import 'features/login/cubit/login_cubit.dart';
@@ -162,6 +163,9 @@ class _ElmazoonState extends State<Elmazoon> {
         ),
         BlocProvider(
           create: (_) => injector.serviceLocator<MonthPlanCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<ExamRegisterCubit>(),
         ),
       ],
       child: MaterialApp(

@@ -16,6 +16,7 @@ import '../models/month_plan_model.dart';
 import '../models/lessons_class_model.dart';
 import '../models/notifications_model.dart';
 import '../models/on_boarding_model.dart';
+import '../models/times_model.dart';
 import '../models/user_model.dart';
 import '../preferences/preferences.dart';
 
@@ -201,6 +202,25 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
+  Future<Either<Failure, TimeDataModel>> gettimes() async {
+    UserModel userModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.timesUrl,
+        options: Options(
+          headers: {
+            'Authorization': userModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(TimeDataModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
   Future<Either<Failure, NotificationsModel>> getAllNotification() async {
     UserModel userModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
