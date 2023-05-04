@@ -10,6 +10,7 @@ import '../../../../../core/widgets/circle_image_widget.dart';
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/call_method.dart';
+import '../../../core/utils/dialogs.dart';
 import '../../../core/utils/show_dialog.dart';
 import '../../../core/utils/toast_message_method.dart';
 import '../../../core/widgets/custom_button.dart';
@@ -73,11 +74,12 @@ class _userScreenState extends State<LoginScreen> {
                             Future.delayed(
                               Duration(milliseconds: 500),
                               () {
-                                toastMessage(
-                                  'user_success'.tr(),
-                                  context,
-                                  color: AppColors.success,
-                                );
+
+                                // toastMessage(
+                                //   'user_success'.tr(),
+                                //   context,
+                                //   color: AppColors.success,
+                                // );
                               },
                             );
                               Navigator.pushNamedAndRemoveUntil(
@@ -175,9 +177,8 @@ class _userScreenState extends State<LoginScreen> {
                                       color: AppColors.orangeThirdPrimary,
                                       onClick: () {
                                         if (keyForm.currentState!.validate()) {
-                                          context
-                                              .read<LoginCubit>()
-                                              .userWithCode(context);
+                                          // loadingDialog();
+                                          context.read<LoginCubit>().userWithCode(context);
                                         }
                                       },
                                       paddingHorizontal: 20,

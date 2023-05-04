@@ -73,11 +73,19 @@ dependencies:
   wave: ^0.2.2
   stroke_text: ^0.0.2
   get: ^4.6.5
+  flutter_native_splash: ^2.2.19
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: "#42a5f5"
+  android: false
+  ios: false
+  android_gravity: center
+  android_fullscreen: true
 
 flutter_icons:
   android: true

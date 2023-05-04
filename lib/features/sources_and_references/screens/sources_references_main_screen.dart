@@ -1,6 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
+import 'package:new_mazoon/core/widgets/no_data_widget.dart';
+import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
+import 'package:new_mazoon/features/sources_and_references/cubit/source_references_cubit.dart';
+import 'package:new_mazoon/features/sources_and_references/cubit/source_references_cubit.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -24,23 +30,39 @@ class SourcesAndReferencesMainScreen extends StatelessWidget {
           SizedBox(height: 105),
           TitleWithCircleBackgroundWidget(title: 'sources_and_references'),
           SizedBox(height: 25),
-          Column(
-            children: [
-              ...List.generate(
-                colors.length,
-                (index) => InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      Routes.sourceReferencesDetailsRoute,
-                    );
-                  },
-                  child: MainScreenItemWidget(
-                    mainColor: colors[index],
+          BlocBuilder<SourceReferencesCubit, SourceReferencesState>(
+            builder: (context, state) {
+              SourceReferencesCubit cubit =
+                  context.read<SourceReferencesCubit>();
+
+              if (state is SourceReferencesLoading) {
+                return ShowLoadingIndicator();
+              }
+              if (state is SourceReferencesError) {
+                return NoDataWidget(
+                  onclick: () => cubit.sourcesAndReferencesData(),
+                  title: 'no_date'.tr(),
+                );
+              }
+              return ListView(
+                children: [
+                  ...List.generate(
+                    colors.length,
+                    (index) => InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          Routes.sourceReferencesDetailsRoute,
+                        );
+                      },
+                      child: MainScreenItemWidget(
+                        mainColor: colors[index],
+                      ),
+                    ),
                   ),
-                ),
-              )
-            ],
+                ],
+              );
+            },
           )
         ],
       ),

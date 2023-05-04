@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   SizedBox(height: 120),
                   BannerWidget(sliderData: state.model.data!.sliders!),
-                  LiveExamWarningWidget(),
+                  state.model.data!.lifeExam!=null?LiveExamWarningWidget():SizedBox(height: 30,),
                   HomePageVideoWidget(
                     videosBasics: cubit.videosBasics,
                     title: 'train_yourself',

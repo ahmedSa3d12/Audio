@@ -23,7 +23,7 @@ class DotesWidget extends StatelessWidget {
                       width: 40,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
-                        color: AppColors.secondPrimary,
+                        color: AppColors.blueLiteColor,
                       ),
                     ),
                   )
@@ -33,8 +33,9 @@ class DotesWidget extends StatelessWidget {
                       height: 12,
                       width: 12,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: AppColors.hint),
+                        borderRadius: BorderRadius.circular(25),
+                        color: AppColors.hint,
+                      ),
                     ),
                   ))
       ],

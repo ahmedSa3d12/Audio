@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/assets_manager.dart';
 
 import '../../../config/routes/app_routes.dart';
+import '../../../core/preferences/preferences.dart';
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/restart_app_class.dart';
 import '../../../core/widgets/network_image.dart';
 import '../cubit/navigation_cubit.dart';
 import 'list_tile_menu_widget.dart';
@@ -152,6 +154,7 @@ class MenuScreenWidget extends StatelessWidget {
                     title: 'month_plan'.tr(),
                     iconPath: ImageAssets.calenderIcon,
                     onclick: () {
+                      Navigator.pushNamed(context, Routes.monthplanPageScreenRoute);
                       Navigator.pushNamed(
                           context, Routes.monthplanPageScreenRoute);
                     },
@@ -190,6 +193,16 @@ class MenuScreenWidget extends StatelessWidget {
                     title: 'call_us'.tr(),
                     iconPath: ImageAssets.callUsIcon,
                     onclick: () {},
+                  ),
+                  MenuListTileWidget(
+                    title: 'logout'.tr(),
+                    iconPath: ImageAssets.logoutIcon,
+                    onclick: () {
+                      Preferences.instance.clearUserData().then(
+                            (value) =>
+                            HotRestartController.performHotRestart(context),
+                      );
+                    },
                   ),
                 ],
               ),

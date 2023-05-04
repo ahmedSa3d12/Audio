@@ -6,6 +6,7 @@ import '../../../core/models/user_model.dart';
 import '../../../core/preferences/preferences.dart';
 import '../../../core/remote/service.dart';
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/dialogs.dart';
 import '../../../core/utils/toast_message_method.dart';
 import '../models/communication_model.dart';
 
@@ -30,13 +31,17 @@ class LoginCubit extends Cubit<LoginState> {
       (error) => emit(userError()),
       (response) {
         if (response.code == 407) {
-          toastMessage(
-            'code_not_found'.tr(),
-            context,
-            color: AppColors.error,
-          );
+          // Navigator.pop(context);
+          errorGetBar('code_not_found'.tr());
+          // toastMessage(
+          //   'code_not_found'.tr(),
+          //   context,
+          //   color: AppColors.error,
+          // );
           emit(userError());
         } else if (response.code == 408) {
+          // Navigator.pop(context);
+          errorGetBar('code_not_subscribe'.tr());
           toastMessage(
             'code_not_subscribe'.tr(),
             context,
@@ -44,6 +49,8 @@ class LoginCubit extends Cubit<LoginState> {
           );
           emit(userError());
         } else {
+          // Navigator.pop(context);
+          successGetBar('user_success'.tr());
           Future.delayed(Duration(seconds: 2), () {
             emit(userInitial());
           });

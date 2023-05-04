@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
 import 'package:quick_actions/quick_actions.dart';
 // import 'package:screenshot_callback/screenshot_callback.dart';
@@ -28,6 +29,7 @@ import 'features/navigation_bottom/cubit/navigation_cubit.dart';
 import 'features/onboarding/cubit/on_boarding_cubit.dart';
 import 'features/splash/presentation/cubit/splash_cubit.dart';
 import 'features/start_trip/cubit/start_trip_cubit.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class Elmazoon extends StatefulWidget {
   const Elmazoon({Key? key}) : super(key: key);
@@ -47,6 +49,7 @@ class _ElmazoonState extends State<Elmazoon> {
   @override
   void initState() {
     super.initState();
+    FlutterNativeSplash.remove();
     initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen((event) {
@@ -168,7 +171,7 @@ class _ElmazoonState extends State<Elmazoon> {
           create: (_) => injector.serviceLocator<ExamRegisterCubit>(),
         ),
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         theme: appTheme(),
