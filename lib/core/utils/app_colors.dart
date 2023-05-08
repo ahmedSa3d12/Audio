@@ -57,6 +57,7 @@ class AppColors {
   static Color gray6 = HexColor('#A7A7A7');
   static Color gray7 = HexColor('#A0A1A0');
   static Color red = HexColor('#FF0000');
+  static Color bink = HexColor('#FF9F9F');
   static Color purple1 = HexColor('#854AA4');
   static Color purple1light = HexColor('#E3D2FE');
   static Color blue = HexColor('#143A7B');

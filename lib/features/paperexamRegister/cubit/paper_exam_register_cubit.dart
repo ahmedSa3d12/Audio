@@ -3,7 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/models/TimeModel.dart';
+import '../../../core/models/paper_exam_details_model.dart';
 import '../../../core/models/times_model.dart';
 import '../../../core/models/user_model.dart';
 import '../../../core/preferences/preferences.dart';
@@ -12,9 +14,9 @@ import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/show_dialog.dart';
 import '../../../core/utils/toast_message_method.dart';
 
-part 'exam_register_state.dart';
+part 'paper_exam_register_state.dart';
 
-class ExamRegisterCubit extends Cubit<ExamRegisterState> {
+class PaperExamRegisterCubit extends Cubit<PaperExamRegisterState> {
   TextEditingController studentName = TextEditingController();
   TextEditingController phoneName = TextEditingController();
   TextEditingController studentCode = TextEditingController();
@@ -22,7 +24,7 @@ class ExamRegisterCubit extends Cubit<ExamRegisterState> {
   Time? dropdownValue;
   List<Time> times=[];
   final ServiceApi api;
-  ExamRegisterCubit(this.api) : super(ExamRegisterInitial()){
+  PaperExamRegisterCubit(this.api) : super(PaperExamRegisterInitial()){
     getProfileData();
   }
 
@@ -37,19 +39,19 @@ class ExamRegisterCubit extends Cubit<ExamRegisterState> {
     //emit(ProfileGetUserData());
   }
 
-  Future<void> openexam(TimeDataModel timeDataModel,Time dropdownValue,BuildContext context) async {
+  Future<void> openexam(PaperExamDetialsModel timeDataModel,Time dropdownValue,BuildContext context) async {
     createProgressDialog(context, 'wait'.tr());
-    var response = await api.registerExam(exma_id: timeDataModel.data.id,time_id: dropdownValue.id);
+    var response = await api.registerExam(exma_id: timeDataModel.data!.id,time_id: dropdownValue.id);
     response.fold(
           (l) =>  Navigator.of(context).pop(),
           (r) {
           Navigator.of(context).pop();
         if(r.code==200){
-          // Navigator.pushNamed(
-          //     context,
-          //     Routes.confirmexamRegisterRoute,
-          //
-          //   arguments: r);
+          Navigator.pushNamed(
+              context,
+              Routes.paperdetialsexamRegisterRoute,
+
+            arguments: r.data!);
    //   Navigator.pushNamed(context, Routes.examRegisterRoute,arguments: data);
     }
     else{
@@ -66,7 +68,7 @@ class ExamRegisterCubit extends Cubit<ExamRegisterState> {
 
   void settimevalue(Time? newValue) {
     dropdownValue=newValue;
-    emit(ExamRegisterInitial());
+    emit(PaperExamRegisterInitial());
   }
 
 

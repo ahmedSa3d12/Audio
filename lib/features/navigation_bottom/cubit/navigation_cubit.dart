@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 import '../../../config/routes/app_routes.dart';
+import '../../../core/models/paper_exam_details_model.dart';
 import '../../../core/models/times_model.dart';
 import '../../../core/models/user_model.dart';
 import '../../../core/preferences/preferences.dart';
@@ -29,16 +30,21 @@ class NavigationCubit extends Cubit<NavigationState> {
   getTimes(BuildContext context) async {
     createProgressDialog(context, 'wait'.tr());
 
-    final response = await api.gettimes();
+    final response = await api.paperExamDetails();
     response.fold(
           (error) => Navigator.of(context).pop(),
           (response) {
         Navigator.of(context).pop();
-        TimeDataModel data = response;
+        PaperExamDetialsModel data = response;
         if (data.code == 200) {
-          Navigator.pushNamed(context, Routes.examRegisterRoute,
+          Navigator.pushNamed(context, Routes.paperexamRegisterRoute,
               arguments: data);
-        } else {
+        }
+        else if(data.code==201){
+          Navigator.pushNamed(context, Routes.paperdetialsexamRegisterRoute,
+              arguments: data.data);
+        }
+        else {
           toastMessage(
             'no_exam'.tr(),
             context,

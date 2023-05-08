@@ -14,6 +14,7 @@ class EndPoints {
   static const String monthPlanUrl = '${baseUrl}plans/all';
   static const String lessonsByClassUrl = '${baseUrl}classes/lessonsByClassId/';
   static const String registerExamUrl = '${baseUrl}auth/papel-sheet-exam/user/';
+  static const String paperExamDetialsUrl = '${baseUrl}auth/paper-sheet-exam/register-with-student-check-before';
   static const String timesUrl = '${baseUrl}auth/papel-sheet-exam/show';
   static const String sourcesReferencesUrl = '${baseUrl}guide/sources_references/all';
 

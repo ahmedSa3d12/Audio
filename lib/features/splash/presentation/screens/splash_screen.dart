@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   _startDelay() async {
     _timer = Timer(
-      const Duration(milliseconds: 2500),
+      const Duration(milliseconds: 0),
       () {
         // Preferences.instance.clearAllData();
         _goNext();
@@ -108,12 +108,13 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SplashCubit, SplashState>(
-      builder: (context, state) {
-        if (state is SplashLoading) {}
-        if (state is SplashLoaded) {
-          _startDelay();
-        }
+    Image image=Image.asset('assets/images/logo.png');
+    // return BlocBuilder<SplashCubit, SplashState>(
+    //   builder: (context, state) {
+    //     if (state is SplashLoading) {}
+    //     if (state is SplashLoaded) {
+    //       _startDelay();
+    //     }
         return Scaffold(
           body: Center(
             child: Hero(
@@ -121,12 +122,12 @@ class _SplashScreenState extends State<SplashScreen>
               child: SizedBox(
                 width: 300,
                 height: 300,
-                child: Image.asset('assets/images/logo.png'),
+                child: image,
               ),
             ),
           ),
         );
-      },
-    );
+    //   },
+    // );
   }
 }

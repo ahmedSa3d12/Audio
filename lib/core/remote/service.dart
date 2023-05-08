@@ -9,7 +9,8 @@ import '../models/ads_model.dart';
 import '../models/class_lesson_model.dart';
 import '../models/classes_exam_data_model.dart';
 import '../models/exam_classes_model.dart';
-import '../models/exam_model.dart';
+import '../models/paper_exam_details_model.dart';
+import '../models/paper_exam_model.dart';
 import '../models/final_review_model.dart';
 import '../models/home_page_model.dart';
 import '../models/month_plan_model.dart';
@@ -281,7 +282,7 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
-  Future<Either<Failure, ExamModel>> registerExam(
+  Future<Either<Failure, PaperExamDetialsModel>> registerExam(
       {required int exma_id, required int time_id}) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
@@ -299,7 +300,30 @@ class ServiceApi {
           },
         ),
       );
-      return Right(ExamModel.fromJson(response));
+      return Right(PaperExamDetialsModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+ Future<Either<Failure, PaperExamDetialsModel>> paperExamDetails(
+      ) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+
+    try {
+      final response = await dio.get(
+        EndPoints.paperExamDetialsUrl ,
+
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      //print("dldlld");
+     // print(response);
+      return Right(PaperExamDetialsModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

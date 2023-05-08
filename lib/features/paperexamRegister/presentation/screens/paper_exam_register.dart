@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 
 import '../../../../core/models/TimeModel.dart';
+import '../../../../core/models/paper_exam_details_model.dart';
 import '../../../../core/models/times_model.dart';
 import '../../../../core/models/times_model.dart';
 import '../../../../core/models/times_model.dart';
@@ -17,32 +18,32 @@ import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/widgets/custom_app_bar.dart';
 import '../../../../core/widgets/custom_button.dart';
 import '../../../homePage/widget/home_page_app_bar_widget.dart';
-import '../../cubit/exam_register_cubit.dart';
+import '../../cubit/paper_exam_register_cubit.dart';
 
-class ExmRegisterPage extends StatefulWidget {
- final TimeDataModel timeDataModel;
+class PaperExmRegisterPage extends StatefulWidget {
+ final PaperExamDetialsModel timeDataModel;
 
 
-   ExmRegisterPage({Key? key, required this.timeDataModel, }) : super(key: key);
+   PaperExmRegisterPage({Key? key, required this.timeDataModel, }) : super(key: key);
 
   @override
-  State<ExmRegisterPage> createState() => _ExmRegisterPageState();
+  State<PaperExmRegisterPage> createState() => _PaperExmRegisterPageState();
 }
 
-class _ExmRegisterPageState extends State<ExmRegisterPage> {
+class _PaperExmRegisterPageState extends State<PaperExmRegisterPage> {
 
   @override
   void initState() {
     super.initState();
-    context.read<ExamRegisterCubit>().times=widget.timeDataModel.data.times;
-    context.read<ExamRegisterCubit>().dropdownValue=widget.timeDataModel.data.times.elementAt(0);
+    context.read<PaperExamRegisterCubit>().times=widget.timeDataModel.data!.times;
+    context.read<PaperExamRegisterCubit>().dropdownValue=widget.timeDataModel.data!.times.elementAt(0);
 
   }
 
   @override
   Widget build(BuildContext context) {
     print("dldkkdk");
-    print(widget.timeDataModel.data.times.length);
+    print(widget.timeDataModel.data!.times.length);
     return Scaffold(
         appBar: AppBar(
         backgroundColor: AppColors.secondPrimary,
@@ -60,7 +61,7 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
     left: 0,
     bottom: 0,
 
-    child: BlocBuilder<ExamRegisterCubit, ExamRegisterState>(
+    child: BlocBuilder<PaperExamRegisterCubit, PaperExamRegisterState>(
   builder: (context, state) {
     return SingleChildScrollView(
         child: Padding(
@@ -93,7 +94,7 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
                           border: InputBorder.none,
 
                         ),
-                        controller: context.read<ExamRegisterCubit>().studentName,
+                        controller: context.read<PaperExamRegisterCubit>().studentName,
                         enabled: false,
                         style: TextStyle(
                             backgroundColor: AppColors.transparent,
@@ -119,7 +120,7 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
                     const SizedBox(width: 25),
                     Expanded(
                       child:  TextFormField(
-                        controller: context.read<ExamRegisterCubit>().phoneName,
+                        controller: context.read<PaperExamRegisterCubit>().phoneName,
                         enabled: false,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -154,7 +155,7 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
                           border: InputBorder.none,
 
                         ),
-                        controller: context.read<ExamRegisterCubit>().studentCode,
+                        controller: context.read<PaperExamRegisterCubit>().studentCode,
                         enabled: false,
                         style: TextStyle(
                           backgroundColor: AppColors.transparent,
@@ -188,7 +189,7 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
                         //   color: AppColors.gray6,
                         // ),
                         iconEnabledColor: AppColors.gray7,
-                        value:context.read<ExamRegisterCubit>().dropdownValue,
+                        value:context.read<PaperExamRegisterCubit>().dropdownValue,
                         iconSize: 40,
                         elevation: 16,
                         style: TextStyle(color: AppColors.gray6),
@@ -197,10 +198,10 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
                           color: AppColors.transparent,
                         ),
                         onChanged: (newValue) {
-                          context.read<ExamRegisterCubit>().settimevalue(newValue);
+                          context.read<PaperExamRegisterCubit>().settimevalue(newValue);
 
                         },
-                        items:widget.timeDataModel.data.times
+                        items:widget.timeDataModel.data!.times
                             .map<DropdownMenuItem<Time>>((Time value) {
                           return DropdownMenuItem<Time>(
                               value: value,
@@ -228,7 +229,7 @@ class _ExmRegisterPageState extends State<ExmRegisterPage> {
                 text: 'record_data'.tr(),
                 color: AppColors.orange,
                 onClick: () {
-                  context.read<ExamRegisterCubit>().openexam(widget.timeDataModel, context.read<ExamRegisterCubit>().dropdownValue!, context);
+                  context.read<PaperExamRegisterCubit>().openexam(widget.timeDataModel, context.read<PaperExamRegisterCubit>().dropdownValue!, context);
                 },
               ),
             ],
