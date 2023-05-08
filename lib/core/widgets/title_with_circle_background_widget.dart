@@ -52,7 +52,7 @@ class TitleWithCircleBackgroundWidget extends StatelessWidget {
                       title.tr(),
                       style: TextStyle(
                         // color: AppColors.secondPrimary,
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

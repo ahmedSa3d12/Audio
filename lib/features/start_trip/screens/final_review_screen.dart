@@ -51,12 +51,7 @@ class FinalReviewScreen extends StatelessWidget {
                   itemCount: cubit.finalReview.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ItemOfFinalReviewWidget(
-                      classNum: cubit.finalReview[index].name!,
-                      time: cubit.finalReview[index].time!,
-                      imagePath: cubit.finalReview[index].image!,
-                      type: cubit.finalReview[index].type!,
-                      mainColor:
-                          HexColor(cubit.finalReview[index].backgroundColor!),
+                      model: cubit.finalReview[index],
                     );
                   },
                 ),

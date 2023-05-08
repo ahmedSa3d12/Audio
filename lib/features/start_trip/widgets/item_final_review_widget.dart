@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/models/home_page_model.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
+import '../../../core/utils/change_to_mega_byte.dart';
 import '../../../core/utils/hex_color.dart';
 import '../../../core/widgets/download_icon_widget.dart';
 import '../../../core/widgets/my_svg_widget.dart';
@@ -10,24 +12,16 @@ import '../../../core/widgets/network_image.dart';
 class ItemOfFinalReviewWidget extends StatelessWidget {
   const ItemOfFinalReviewWidget({
     Key? key,
-    required this.classNum,
-    required this.imagePath,
-    required this.mainColor,
-    required this.type,
-    required this.time,
+    required this.model,
   }) : super(key: key);
-  final String classNum;
-  final String imagePath;
-  final String type;
-  final int time;
-  final Color mainColor;
+  final FinalReviewModel model;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: mainColor,
+        color: HexColor(model.backgroundColor!),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -44,7 +38,7 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
                 children: [
                   SizedBox(height: 10),
                   MySvgWidget(
-                    path: type == 'video'
+                    path: model.type == 'video'
                         ? ImageAssets.videoIcon
                         : ImageAssets.pdfIcon,
                     imageColor: AppColors.white,
@@ -55,7 +49,7 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
               SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  classNum,
+                  model.name!,
                   style: TextStyle(
                     color: AppColors.white,
                     fontSize: 18,
@@ -70,37 +64,48 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               ManageNetworkImage(
-                imageUrl: imagePath,
+                imageUrl: model.image!,
                 height: 85,
                 width: 85,
               ),
               Expanded(
                 child: Row(
-
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     SizedBox(width: 16),
-                    type == 'video'
+                    model.type == 'video'
                         ? MySvgWidget(
                             path: ImageAssets.clockIcon,
                             imageColor: AppColors.white,
                             size: 16,
                           )
-                        : SizedBox(
-                        width: 25,
-                        height: 25,
-                        child: DownloadIconWidget(color: mainColor)),
-                    SizedBox(width: 10),
+                        : SizedBox(),
+                    SizedBox(width: model.type == 'video'?10:0),
                     Text(
-                      type == 'video'
-                          ? '$time ساعه '
-                          : ' 2 MB',
+                      model.type == 'video'
+                          ? '${model.time} ساعه '
+                          : changeToMegaByte(model.size.toString()),
+                      textDirection: model.type == 'video'
+                          ? TextDirection.rtl
+                          : TextDirection.ltr,
                       style: TextStyle(
                         fontSize: 14,
                         color: AppColors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Spacer(),
+                    SizedBox(width: model.type != 'video'?10:0),
+                    model.type == 'video'
+                        ? SizedBox()
+                        : SizedBox(
+                            width: 25,
+                            height: 25,
+                            child: DownloadIconWidget(
+                              color: HexColor(model.backgroundColor!),
+                            ),
+                          ),
+                    SizedBox(width: model.type == 'video'?0:8),
+                    // Spacer(),
                   ],
                 ),
               ),

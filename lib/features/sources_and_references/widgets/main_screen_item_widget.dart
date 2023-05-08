@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/core/utils/hex_color.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
+import '../../../core/models/sources_references_model.dart';
 import '../../../core/utils/app_colors.dart';
 
 class MainScreenItemWidget extends StatelessWidget {
-  const MainScreenItemWidget({Key? key, required this.mainColor})
+  const MainScreenItemWidget({Key? key, required this.model})
       : super(key: key);
 
-  final Color mainColor;
+  final SourcesReferencesDatum model;
 
   static const _durations = [
     8000,
@@ -28,7 +30,7 @@ class MainScreenItemWidget extends StatelessWidget {
         height: 200,
         width: null,
         decoration: BoxDecoration(
-          color: lighten(mainColor, 0.4),
+          color: lightens(model.color!, 0.4),
           borderRadius: BorderRadius.circular(15),
         ),
         child: ClipRRect(
@@ -41,11 +43,11 @@ class MainScreenItemWidget extends StatelessWidget {
                 right: 0,
                 child: WaveWidget(
                   config: CustomConfig(
-                    colors: [lighten(mainColor, 0.3), lighten(mainColor, 0.2)],
+                    colors: [lightens(model.color!, 0.3), lightens(model.color!, 0.2)],
                     durations: _durations,
                     heightPercentages: _heightPercentages,
                   ),
-                  backgroundColor: mainColor.withOpacity(0.0),
+                  backgroundColor: HexColor(model.color!).withOpacity(0.0),
                   size: Size(double.infinity, 200 / 2),
                   waveAmplitude: 10,
                 ),
@@ -60,16 +62,16 @@ class MainScreenItemWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'كتاب الامتحان',
+                        model.title!,
                         style: TextStyle(
-                          color: mainColor,
+                          color: HexColor(model.color!),
                           fontWeight: FontWeight.bold,
                           fontSize: 22,
                         ),
                       ),
                       SizedBox(height: 12),
                       Text(
-                        'حل اهم اسئلة الكتاب',
+                        model.description!,
                         style: TextStyle(
                           color: AppColors.gray,
                           fontSize: 18,

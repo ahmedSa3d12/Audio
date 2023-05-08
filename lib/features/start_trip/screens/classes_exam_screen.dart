@@ -5,6 +5,7 @@ import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/assets_manager.dart';
+import '../../../core/widgets/pdf_screen.dart';
 import '../../examinstructions/cubit/examinstructions_cubit.dart';
 import '../widgets/classes_exam_item_widget.dart';
 import '../widgets/expansion_tile_widget.dart';
@@ -37,6 +38,7 @@ class ClassesExamsScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 ExpansionTileWidget(
                   title: 'اختر الفصل',
+                  type: 'classes_exam',
                 ),
                 SizedBox(height: 20),
                 state is StartTripExamsClassByIdLoading
@@ -69,7 +71,7 @@ class ClassesExamsScreen extends StatelessWidget {
                                   context
                                       .read<ExaminstructionsCubit>()
                                       .examInstructions(
-                                          cubit.examClassList[index].id,
+                                          cubit.examClassList[index].id!,
                                           "online_exam");
                                   Navigator.pushNamed(
                                       context, Routes.examInstructionsRoute,
@@ -77,7 +79,19 @@ class ClassesExamsScreen extends StatelessWidget {
                                         cubit.examClassList[index].id,
                                         "online_exam"
                                       ]);
-                                } else {}
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PdfScreen(
+                                        pdfTitle:
+                                            cubit.examClassList[index].name!,
+                                        pdfLink: cubit.examClassList[index]
+                                            .pdfExamUpload!,
+                                      ),
+                                    ),
+                                  );
+                                }
                               },
                               child: ClassesExamItemWidget(
                                 model: cubit.examClassList[index],

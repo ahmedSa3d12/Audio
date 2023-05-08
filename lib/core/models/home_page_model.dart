@@ -177,7 +177,19 @@ class HomePageVideosModel {
       };
 }
 
+
 class FinalReviewModel {
+  final int? id;
+  final String? name;
+  final String? type;
+  final String? backgroundColor;
+  final String? image;
+  final int? time;
+  final String? pathFile;
+  final int? size;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
   FinalReviewModel({
     this.id,
     this.name,
@@ -186,19 +198,10 @@ class FinalReviewModel {
     this.image,
     this.time,
     this.pathFile,
+    this.size,
     this.createdAt,
     this.updatedAt,
   });
-
-  final int? id;
-  final String? name;
-  final String? type;
-  final String? backgroundColor;
-  final String? image;
-  final int? time;
-  final String? pathFile;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
 
   factory FinalReviewModel.fromJson(Map<String, dynamic> json) => FinalReviewModel(
     id: json["id"],
@@ -208,6 +211,7 @@ class FinalReviewModel {
     image: json["image"],
     time: json["time"],
     pathFile: json["path_file"],
+    size: json["size"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
   );
@@ -220,12 +224,11 @@ class FinalReviewModel {
     "image": image,
     "time": time,
     "path_file": pathFile,
+    "size": size,
     "created_at": "${createdAt!.year.toString().padLeft(4, '0')}-${createdAt!.month.toString().padLeft(2, '0')}-${createdAt!.day.toString().padLeft(2, '0')}",
     "updated_at": "${updatedAt!.year.toString().padLeft(4, '0')}-${updatedAt!.month.toString().padLeft(2, '0')}-${updatedAt!.day.toString().padLeft(2, '0')}",
   };
 }
-
-
 
 
 class AllExams {

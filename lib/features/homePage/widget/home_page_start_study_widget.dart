@@ -13,6 +13,8 @@ class HomePageStartStudyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('classes.length');
+    print(classes.length);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

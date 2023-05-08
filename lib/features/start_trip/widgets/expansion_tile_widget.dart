@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
+import 'package:new_mazoon/features/sources_and_references/cubit/source_references_cubit.dart';
 import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 
@@ -11,8 +12,10 @@ import '../../../core/widgets/my_svg_widget.dart';
 
 class ExpansionTileWidget extends StatefulWidget {
   final String title;
+  final String type;
 
-  const ExpansionTileWidget({super.key, required this.title});
+  const ExpansionTileWidget(
+      {super.key, required this.title, required this.type});
 
   @override
   State<ExpansionTileWidget> createState() => _ExpansionTileWidgetState();
@@ -101,7 +104,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                                     )
                                   : SizedBox(),
                               SizedBox(width: 8),
-                              Container(
+                              widget.type == 'source'?SizedBox(): Container(
                                 width: 25,
                                 height: 25,
                                 padding: EdgeInsets.all(2),
@@ -135,9 +138,16 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                               setState(() {
                                 title = cubit.examClasses[index].title!;
                               });
-                              cubit.getExamsClassByIdData(
-                                cubit.examClasses[index].id!,
-                              );
+
+                              if (widget.type == 'source') {
+                                context.read<SourceReferencesCubit>().sourcesAndReferencesDataById(
+                                      cubit.examClasses[index].id!,
+                                    );
+                              } else {
+                                cubit.getExamsClassByIdData(
+                                  cubit.examClasses[index].id!,
+                                );
+                              }
                             } else {
                               toastMessage(
                                 'هذا الفصل لم يفتح بعد',

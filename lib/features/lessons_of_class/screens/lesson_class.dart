@@ -43,7 +43,7 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                   return ShowLoadingIndicator();
                 }
                 if (state is LessonsClassError) {
-                  return NoDataWidget(onclick: () {}, title: 'title');
+                  return NoDataWidget(onclick: () {}, title: 'no_date');
                 }
                 return Positioned(
                   top: 0,
@@ -57,102 +57,103 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                     child: ListView(
                       children: [
                         SizedBox(height: 115),
-                        SizedBox(
-                          height: 165,
-                          width: MediaQuery.of(context).size.width * 0.92,
-                          child: Card(
-                            elevation: 5,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  top: 0,
-                                  left: 0,
-                                  right: MediaQuery.of(context).size.width *
-                                      0.27,
-                                  bottom: 0,
-                                  child: ClipPath(
-                                    clipper: CCustomClipper(),
-                                    child: ManageNetworkImage(
-                                      imageUrl: cubit.oneClass.image ??
-                                          "https://elmazone.topbusiness.io/sliders/1.jpg",
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: CustomPaint(
-                                    size: Size(
-                                      180,
-                                      115,
-                                    ),
-                                    painter: MyPainter(
-                                      HexColor(
-                                        cubit.oneClass.backgroundColor!,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: SizedBox(
+                            height: 180,
+                            width: MediaQuery.of(context).size.width -80,
+                            child: Card(
+                              elevation: 20,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 0,
+                                    left: 0,
+                                    right: MediaQuery.of(context).size.width * 0.25,
+                                    bottom: 0,
+                                    child: ClipPath(
+                                      clipper: CCustomClipper(),
+                                      child: ManageNetworkImage(
+                                        imageUrl: cubit.oneClass.image ??
+                                            "https://elmazone.topbusiness.io/sliders/1.jpg",
                                       ),
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: Stack(
-                                    children: [
-                                      CustomPaint(
-                                        size: Size(
-                                          250,
-                                          80,
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: CustomPaint(
+                                      size: Size(
+                                        180,
+                                        115,
+                                      ),
+                                      painter: MyPainter(
+                                        HexColor(
+                                          cubit.oneClass.backgroundColor!,
                                         ),
-                                        painter: MyPainter(
-                                          darken(
-                                            HexColor(
-                                              cubit.oneClass
-                                                  .backgroundColor!,
-                                            ),
-                                            0.2,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Stack(
+                                      children: [
+                                        CustomPaint(
+                                          size: Size(
+                                            250,
+                                            80,
                                           ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: 6,
-                                        left: 55,
-                                        // top: 0,
-                                        right: 15,
-                                        child: Text(
-                                          cubit.oneClass.name!,
-                                          style: TextStyle(
-                                            color: AppColors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            shadows: <Shadow>[
-                                              Shadow(
-                                                offset: Offset(3.0, 3.0),
-                                                blurRadius: 3.0,
-                                                color: Color.fromARGB(
-                                                    255, 0, 0, 0),
+                                          painter: MyPainter(
+                                            darken(
+                                              HexColor(
+                                                cubit.oneClass
+                                                    .backgroundColor!,
                                               ),
-                                            ],
+                                              0.2,
+                                            ),
                                           ),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 2,
-                                  right: 8,
-                                  child: Text(
-                                    cubit.oneClass.title!,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                                        Positioned(
+                                          top: 6,
+                                          left: 55,
+                                          right: 15,
+                                          child: Text(
+                                            cubit.oneClass.name!,
+                                            style: TextStyle(
+                                              color: AppColors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              shadows: <Shadow>[
+                                                Shadow(
+                                                  offset: Offset(3.0, 3.0),
+                                                  blurRadius: 3.0,
+                                                  color: Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ),
-                                )
-                              ],
+                                  Positioned(
+                                    top: 2,
+                                    right: 8,
+                                    child: Text(
+                                      cubit.oneClass.title!,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -173,7 +174,7 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
               top: 0,
               right: 0,
               left: 0,
-              child: HomePageAppBarWidget(),
+              child: HomePageAppBarWidget(isHome: false),
             ),
           ],
         ),

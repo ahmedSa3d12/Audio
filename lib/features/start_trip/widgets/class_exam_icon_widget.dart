@@ -10,10 +10,12 @@ class ClassExamIconWidget extends StatelessWidget {
     required this.iconColor,
     required this.onclick,
     this.textData,
+    this.radius = 18,
   }) : super(key: key);
 
   final String type;
   final String? textData;
+  final double? radius;
   final Color iconColor;
   final VoidCallback onclick;
 
@@ -22,9 +24,11 @@ class ClassExamIconWidget extends StatelessWidget {
     return InkWell(
       onTap: type == 'text' ? null : onclick,
       child: Container(
+        width: 25,
+        height: 25,
         padding: EdgeInsets.all(2),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(radius!),
           color: iconColor,
         ),
         child: Center(
@@ -41,7 +45,7 @@ class ClassExamIconWidget extends StatelessWidget {
                 : MySvgWidget(
                     path: type,
                     imageColor: AppColors.white,
-                    size: 16,
+                    size: 18,
                   ),
           ),
         ),

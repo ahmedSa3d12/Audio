@@ -19,6 +19,8 @@ import '../models/lessons_class_model.dart';
 import '../models/notifications_model.dart';
 import '../models/on_boarding_model.dart';
 import '../models/response_message.dart';
+import '../models/sources_references_model.dart';
+import '../models/sources_referenes_by_id_model.dart';
 import '../models/times_model.dart';
 import '../models/user_model.dart';
 import '../preferences/preferences.dart';
@@ -205,6 +207,7 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
+
   Future<Either<Failure, TimeDataModel>> gettimes() async {
     UserModel userModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
@@ -265,8 +268,7 @@ class ServiceApi {
     }
   }
 
-  Future<Either<Failure, LessonsClassModel>>
-      lessonsByClassData(int id) async {
+  Future<Either<Failure, LessonsClassModel>> lessonsByClassData(int id) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
     try {
@@ -284,6 +286,8 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
+
+
   Future<Either<Failure, PaperExamDetialsModel>> registerExam(
       {required int exma_id, required int time_id}) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
@@ -352,8 +356,7 @@ class ServiceApi {
     }
   }
 
-
-  Future<Either<Failure, LessonsClassModel>>
+  Future<Either<Failure, SourcesReferencesModel>>
       sourcesAndReferencesData() async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
@@ -367,7 +370,27 @@ class ServiceApi {
           },
         ),
       );
-      return Right(LessonsClassModel.fromJson(response));
+      return Right(SourcesReferencesModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, SourcesReferencesByIdModel>>
+      sourcesAndReferencesByIdData(int referenceId, int classId) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        '${EndPoints.sourcesReferencesByIdUrl}$referenceId/$classId',
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(SourcesReferencesByIdModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

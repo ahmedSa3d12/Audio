@@ -6,7 +6,6 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
-import '../../../core/utils/hex_color.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../homePage/screens/home_page.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
@@ -33,7 +32,7 @@ class _ZoomState extends State<Zoom> {
       borderRadius: 25,
       style: DrawerStyle.defaultStyle,
       openCurve: Curves.linearToEaseOut,
-      slideWidth: MediaQuery.of(context).size.width * 0.75,
+      slideWidth: MediaQuery.of(context).size.width * 0.80,
       duration: const Duration(milliseconds: 700),
       angle: 0.0,
       drawerShadowsBackgroundColor: AppColors.primary,

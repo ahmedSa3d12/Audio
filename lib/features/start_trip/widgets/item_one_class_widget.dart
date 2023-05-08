@@ -6,7 +6,6 @@ import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../../core/widgets/network_image.dart';
-import '../../lessons_of_class/screens/lesson_class.dart';
 
 class ItemOfOneClassWidget extends StatelessWidget {
   const ItemOfOneClassWidget({
@@ -99,9 +98,9 @@ class ItemOfOneClassWidget extends StatelessWidget {
                           series: <CircularSeries>[
                             RadialBarSeries<int, String>(
                               maximumValue: 100,
-                              innerRadius: '20',
+                              innerRadius: '18',
                               dataSource: [int.parse(classPresentFinished)],
-                              cornerStyle: CornerStyle.endCurve,
+                              cornerStyle:classPresentFinished=='100'? CornerStyle.bothFlat: CornerStyle.endCurve,
                               xValueMapper: (int data, _) => data.toString(),
                               yValueMapper: (int data, _) =>
                                   double.parse(data.toString()),
@@ -326,6 +325,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
             imageUrl: imagePath,
             height: 50,
             width: 50,
+            borderRadius: 50,
           ),
         )
       ],

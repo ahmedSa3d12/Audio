@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
+import 'package:new_mazoon/core/utils/change_to_mega_byte.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -65,7 +66,7 @@ class ClassesExamItemWidget extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: Text(
-                          model.name,
+                          model.name!,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
                           style: TextStyle(
@@ -79,7 +80,7 @@ class ClassesExamItemWidget extends StatelessWidget {
                         visible: model.type == 'pdf',
                         child: Expanded(
                           child: Text(
-                            '2 MB',
+                            changeToMegaByte(model.examPdfSize.toString()),
                             style: TextStyle(
                               color: AppColors.black,
                               fontSize: 16,

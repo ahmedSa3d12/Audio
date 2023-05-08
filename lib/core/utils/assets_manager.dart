@@ -86,6 +86,9 @@ class ImageAssets {
   static const String userphoneIcon = '$iconsPath/phone.svg';
   static const String lockNumIcon = '$iconsPath/locknum.svg';
   static const String timesIcon = '$iconsPath/times.svg';
+  static const String resourceVideoIcon = '$iconsPath/resource_video.svg';
+  static const String testYourselfIcon = '$iconsPath/test_yourself.svg';
+  static const String yourSuggestIcon = '$iconsPath/your_suggest.svg';
 
 
   //Lottie

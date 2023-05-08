@@ -28,16 +28,6 @@ class ContainerWithTwoColorWidget extends StatelessWidget {
 
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        gradient: isHome!
-            ? null
-            : LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  color1,
-                  color2,
-                ],
-              ),
         color: isHome! ? AppColors.transparent : null,
       ),
       child: Column(

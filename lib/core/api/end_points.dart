@@ -18,6 +18,7 @@ class EndPoints {
   static const String paperExamDetialsUrl = '${baseUrl}auth/paper-sheet-exam/register-with-student-check-before';
   static const String timesUrl = '${baseUrl}auth/papel-sheet-exam/show';
   static const String sourcesReferencesUrl = '${baseUrl}guide/sources_references/all';
+  static const String sourcesReferencesByIdUrl = '${baseUrl}guide/sources_references/by-lesson/';
   static const String examInstructionsUrl = '${baseUrl}instruction/exam/';
 
 

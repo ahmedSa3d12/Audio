@@ -95,7 +95,7 @@ class AppRoutes {
         return PageTransition(
           type: PageTransitionType.fade,
           alignment: Alignment.center,
-          duration: const Duration(milliseconds: 1300),
+          duration: const Duration(milliseconds: 300),
           child: SourceReferencesDetails(),
         );
 

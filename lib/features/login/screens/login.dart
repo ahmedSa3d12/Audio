@@ -74,7 +74,6 @@ class _userScreenState extends State<LoginScreen> {
                             Future.delayed(
                               Duration(milliseconds: 500),
                               () {
-
                                 // toastMessage(
                                 //   'user_success'.tr(),
                                 //   context,
@@ -82,11 +81,11 @@ class _userScreenState extends State<LoginScreen> {
                                 // );
                               },
                             );
-                              Navigator.pushNamedAndRemoveUntil(
-                                context,
-                               Routes.homePageScreenRoute,
-                                (route) => false,
-                              );
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              Routes.homePageScreenRoute,
+                              (route) => false,
+                            );
                             // }
                           },
                         );
@@ -173,12 +172,13 @@ class _userScreenState extends State<LoginScreen> {
                                     CustomButton(
                                       text: 'user'.tr(),
                                       textcolor: AppColors.white,
-
                                       color: AppColors.orangeThirdPrimary,
                                       onClick: () {
                                         if (keyForm.currentState!.validate()) {
                                           // loadingDialog();
-                                          context.read<LoginCubit>().userWithCode(context);
+                                          context
+                                              .read<LoginCubit>()
+                                              .userWithCode(context);
                                         }
                                       },
                                       paddingHorizontal: 20,
@@ -293,7 +293,7 @@ class _userScreenState extends State<LoginScreen> {
                                   if (state is userCommunicationError) {
                                     createProgressDialog(context, 'wait'.tr());
                                     cubit.getCommunicationData().whenComplete(
-                                          () {
+                                      () {
                                         Navigator.of(context).pop();
                                         if (cubit.isCommunicationData) {
                                           getCommunicationTab(
@@ -329,7 +329,7 @@ class _userScreenState extends State<LoginScreen> {
                                   if (state is userCommunicationError) {
                                     createProgressDialog(context, 'wait'.tr());
                                     cubit.getCommunicationData().whenComplete(
-                                          () {
+                                      () {
                                         Navigator.of(context).pop();
                                         if (cubit.isCommunicationData) {
                                           getCommunicationTab(
@@ -365,7 +365,7 @@ class _userScreenState extends State<LoginScreen> {
                                   if (state is userCommunicationError) {
                                     createProgressDialog(context, 'wait'.tr());
                                     cubit.getCommunicationData().whenComplete(
-                                          () {
+                                      () {
                                         Navigator.of(context).pop();
                                         if (cubit.isCommunicationData) {
                                           getCommunicationTab(
@@ -395,7 +395,6 @@ class _userScreenState extends State<LoginScreen> {
                                   fit: BoxFit.cover,
                                 ),
                               ),
-
                               const SizedBox(width: 16.0),
                               InkWell(
                                 onTap: () {
@@ -445,11 +444,11 @@ class _userScreenState extends State<LoginScreen> {
       await launchUrl(Uri.parse(cubit.communicationData!.facebookLink));
     } else if (type == 'youtube') {
       await launchUrl(Uri.parse(cubit.communicationData!.youtubeLink));
-    }else if (type == 'twitter') {
+    } else if (type == 'twitter') {
       await launchUrl(Uri.parse(cubit.communicationData!.twitterLink));
-    }else if (type == 'instagram') {
+    } else if (type == 'instagram') {
       await launchUrl(Uri.parse(cubit.communicationData!.instagramLink));
-    }else if (type == 'website') {
+    } else if (type == 'website') {
       await launchUrl(Uri.parse(cubit.communicationData!.websiteLink));
     } else {
       showDialog(
@@ -481,7 +480,8 @@ class _userScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 25),
+                SizedBox(
+                    height: 25, width: MediaQuery.of(context).size.width - 50),
                 ...List.generate(
                   cubit.communicationData!.phones.length,
                   (index) => InkWell(
@@ -494,11 +494,10 @@ class _userScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          Image.asset(
-                            ImageAssets.callImage,
-                            width: 30.0,
-                            height: 30.0,
-                            fit: BoxFit.cover,
+                          Icon(
+                            Icons.call,
+                            color: AppColors.blueLiteColor,
+                            size: 30,
                           ),
                           SizedBox(width: 20),
                           Expanded(
@@ -506,10 +505,14 @@ class _userScreenState extends State<LoginScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text(cubit
-                                    .communicationData!.phones[index].phone),
                                 Text(
-                                    cubit.communicationData!.phones[index].note)
+                                  cubit.communicationData!.phones[index].phone,
+                                  style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),
+                                ),
+                                Text(
+                                  cubit.communicationData!.phones[index].note,
+                                  style: TextStyle(fontSize: 16),
+                                )
                               ],
                             ),
                           )
@@ -522,11 +525,11 @@ class _userScreenState extends State<LoginScreen> {
                 InkWell(
                   onTap: () => Navigator.of(context).pop(),
                   child: Container(
-                    height: 45,
+                    height: 60,
                     padding: EdgeInsets.symmetric(vertical: 0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: AppColors.primary,
+                      color: AppColors.orangeThirdPrimary,
                     ),
                     width: double.infinity,
                     child: Center(

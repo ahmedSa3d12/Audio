@@ -4,10 +4,12 @@ import '../../core/utils/app_colors.dart';
 import '../../core/utils/app_strings.dart';
 
 ThemeData appTheme() {
+
   return ThemeData(
     primaryColor: AppColors.primary,
     hintColor: AppColors.hint,
-    // brightness: Brightness.dark,
+
+    brightness: Brightness.light,
     // scaffoldBackgroundColor: AppColors.scaffoldBackground,
     fontFamily: AppStrings.fontFamily,
     textTheme: const TextTheme(

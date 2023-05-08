@@ -24,47 +24,56 @@ class SourcesAndReferencesMainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 105),
-          TitleWithCircleBackgroundWidget(title: 'sources_and_references'),
-          SizedBox(height: 25),
-          BlocBuilder<SourceReferencesCubit, SourceReferencesState>(
-            builder: (context, state) {
-              SourceReferencesCubit cubit =
-                  context.read<SourceReferencesCubit>();
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<SourceReferencesCubit>().sourcesAndReferencesData();
+        },
+        child: ListView(
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 105),
+            TitleWithCircleBackgroundWidget(title: 'sources_and_references'),
+            SizedBox(height: 25),
+            BlocBuilder<SourceReferencesCubit, SourceReferencesState>(
+              builder: (context, state) {
+                SourceReferencesCubit cubit =
+                    context.read<SourceReferencesCubit>();
 
-              if (state is SourceReferencesLoading) {
-                return ShowLoadingIndicator();
-              }
-              if (state is SourceReferencesError) {
-                return NoDataWidget(
-                  onclick: () => cubit.sourcesAndReferencesData(),
-                  title: 'no_date'.tr(),
-                );
-              }
-              return ListView(
-                children: [
-                  ...List.generate(
-                    colors.length,
-                    (index) => InkWell(
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          Routes.sourceReferencesDetailsRoute,
-                        );
-                      },
-                      child: MainScreenItemWidget(
-                        mainColor: colors[index],
+                if (state is SourceReferencesLoading) {
+                  return ShowLoadingIndicator();
+                }
+                if (state is SourceReferencesError) {
+                  return NoDataWidget(
+                    onclick: () => cubit.sourcesAndReferencesData(),
+                    title: 'no_date'.tr(),
+                  );
+                }
+                print('cubit.sourcesReferencesList.length');
+                print(cubit.sourcesReferencesList.length);
+                return Column(
+                  children: [
+                    ...List.generate(
+                      cubit.sourcesReferencesList.length,
+                      (index) => InkWell(
+                        onTap: () {
+                          cubit.referenceModel =
+                              cubit.sourcesReferencesList[index];
+                          Navigator.pushNamed(
+                            context,
+                            Routes.sourceReferencesDetailsRoute,
+                          );
+                        },
+                        child: MainScreenItemWidget(
+                          model: cubit.sourcesReferencesList[index],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              );
-            },
-          )
-        ],
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

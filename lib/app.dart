@@ -28,6 +28,7 @@ import 'features/lessons_of_class/cubit/lessons_class_cubit.dart';
 import 'features/login/cubit/login_cubit.dart';
 import 'features/navigation_bottom/cubit/navigation_cubit.dart';
 import 'features/onboarding/cubit/on_boarding_cubit.dart';
+import 'features/sources_and_references/cubit/source_references_cubit.dart';
 import 'features/paperexamdetials/cubit/paper_detials_cubit.dart';
 import 'features/splash/presentation/cubit/splash_cubit.dart';
 import 'features/start_trip/cubit/start_trip_cubit.dart';
@@ -178,11 +179,16 @@ class _ElmazoonState extends State<Elmazoon> {
         BlocProvider(
           create: (_) => injector.serviceLocator<ExaminstructionsCubit>(),
         ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<SourceReferencesCubit>(),
+        ),
       ],
       child: GetMaterialApp(
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         theme: appTheme(),
+        themeMode: ThemeMode.light,
+        darkTheme: ThemeData.light(), // standard dark theme
         localizationsDelegates: context.localizationDelegates,
         debugShowCheckedModeBanner: false,
         title: AppStrings.appName,

@@ -13,7 +13,8 @@ import '../../navigation_bottom/cubit/navigation_cubit.dart';
 import '../cubit/home_page_cubit.dart';
 
 class HomePageAppBarWidget extends StatelessWidget {
-  const HomePageAppBarWidget({Key? key}) : super(key: key);
+  const HomePageAppBarWidget({Key? key, this.isHome = true}) : super(key: key);
+  final bool? isHome;
 
   @override
   Widget build(BuildContext context) {
@@ -167,18 +168,39 @@ class HomePageAppBarWidget extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(width: 18),
-                                MySvgWidget(
-                                  path: ImageAssets.aboutIcon,
-                                  size: 25,
-                                  imageColor: AppColors.white,
+                                Visibility(
+                                  visible: isHome!,
+                                  child: MySvgWidget(
+                                    path: ImageAssets.aboutIcon,
+                                    size: 25,
+                                    imageColor: AppColors.white,
+                                  ),
                                 ),
-                                SizedBox(width: 18),
+                                Visibility(
+                                  visible: isHome!,
+                                  child: SizedBox(width: 18),
+                                ),
                                 MySvgWidget(
                                   path: ImageAssets.loveIcon,
                                   size: 25,
                                   imageColor: AppColors.white,
                                 ),
-                                SizedBox(width: 8),
+                                SizedBox(width: isHome! ? 8 : 25),
+                                InkWell(
+                                  onTap:()=>Navigator.pop(context),
+                                  child: Visibility(
+                                    visible: !isHome!,
+                                    child: Icon(
+                                      Icons.arrow_back_ios_new_sharp,
+                                      color: AppColors.white,
+                                      size: 25,
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                  visible: !isHome!,
+                                  child: SizedBox(width: 8),
+                                ),
                               ],
                             )
                           ],
