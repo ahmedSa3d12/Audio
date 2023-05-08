@@ -6,6 +6,7 @@ import 'package:new_mazoon/core/utils/assets_manager.dart';
 import '../../../config/routes/app_routes.dart';
 import '../../../core/preferences/preferences.dart';
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/dialogs.dart';
 import '../../../core/utils/restart_app_class.dart';
 import '../../../core/widgets/network_image.dart';
 import '../cubit/navigation_cubit.dart';
@@ -205,7 +206,9 @@ class MenuScreenWidget extends StatelessWidget {
                         MenuListTileWidget(
                           title: 'call_us'.tr(),
                           iconPath: ImageAssets.callUsIcon,
-                          onclick: () {},
+                          onclick: () {
+                            openBottomSheet();
+                          },
                         ),
                         MenuListTileWidget(
                           title: 'logout'.tr(),

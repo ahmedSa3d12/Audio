@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 
+import '../widgets/call_us_widget.dart';
 
 /*----------------------------------------------------------------------------*/
 /*------------------------------  Error Get Bar  -----------------------------*/
@@ -18,7 +19,7 @@ errorGetBar(String? message) {
         ),
       ),
       icon: const Icon(Icons.error_outline_outlined, color: Colors.white),
-      backgroundColor:AppColors.error,
+      backgroundColor: AppColors.error,
       barBlur: 5.0,
       borderRadius: 12.0,
       duration: const Duration(seconds: 2),
@@ -43,14 +44,13 @@ successGetBar(String? message) {
       ),
     ),
     icon: const Icon(CupertinoIcons.checkmark_seal, color: Colors.white),
-    backgroundColor:AppColors.success,
+    backgroundColor: AppColors.success,
     barBlur: 5.0,
     borderRadius: 12.0,
     duration: const Duration(milliseconds: 2500),
     isDismissible: true,
     margin: const EdgeInsets.all(8.0),
     snackPosition: SnackPosition.TOP,
-
   ));
 }
 
@@ -110,5 +110,20 @@ loadingDialog() {
     ),
     barrierDismissible: false,
     transitionCurve: Curves.easeInOutBack,
+  );
+}
+
+/*----------------------------------------------------------------------------*/
+/*------------------------------  Bottom Sheet  ----------------------------*/
+/*----------------------------------------------------------------------------*/
+
+void openBottomSheet() {
+  Get.bottomSheet(
+    CallUsWidget(),
+    backgroundColor: Colors.white,
+    elevation: 8,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(40),
+    ),
   );
 }

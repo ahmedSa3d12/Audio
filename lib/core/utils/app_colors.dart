@@ -8,6 +8,7 @@ class AppColors {
   static Color secondPrimary = HexColor('#4455D7');
   static Color orangeThirdPrimary = HexColor('#FF9201');
   static final AppColors instance = AppColors._internal();
+  static Color litePrimary = HexColor('#7F8CF3');
 
   AppColors._internal();
 
