@@ -24,7 +24,8 @@ class HomePage extends StatelessWidget {
           HomePageCubit cubit = context.read<HomePageCubit>();
           if (state is HomePageLoading) {
             return ShowLoadingIndicator();
-          } else if (state is HomePageLoaded) {
+          }
+          else if (state is HomePageLoaded) {
             return RefreshIndicator(
               onRefresh: () async {
                 cubit.getHomePageData();
@@ -48,7 +49,8 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             );
-          } else {
+          }
+          else {
             return NoDataWidget(
               onclick: () => cubit.getHomePageData(),
               title: 'no_date',

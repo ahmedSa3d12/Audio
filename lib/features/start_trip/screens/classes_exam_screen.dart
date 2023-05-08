@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/assets_manager.dart';
+import '../../examinstructions/cubit/examinstructions_cubit.dart';
 import '../widgets/classes_exam_item_widget.dart';
 import '../widgets/expansion_tile_widget.dart';
 
@@ -60,8 +62,26 @@ class ClassesExamsScreen extends StatelessWidget {
                           ),
                           itemCount: cubit.examClassList.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return ClassesExamItemWidget(
-                              model: cubit.examClassList[index],
+                            return InkWell(
+                              onTap: () {
+                                if (cubit.examClassList[index].type ==
+                                    'online') {
+                                  context
+                                      .read<ExaminstructionsCubit>()
+                                      .examInstructions(
+                                          cubit.examClassList[index].id,
+                                          "online_exam");
+                                  Navigator.pushNamed(
+                                      context, Routes.examInstructionsRoute,
+                                      arguments: [
+                                        cubit.examClassList[index].id,
+                                        "online_exam"
+                                      ]);
+                                } else {}
+                              },
+                              child: ClassesExamItemWidget(
+                                model: cubit.examClassList[index],
+                              ),
                             );
                           },
                         ),

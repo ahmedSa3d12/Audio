@@ -161,7 +161,11 @@
  "click_to_download": "Click To Download",
  "exam_place": "Exam Place",
  "target_parts": "Target parts",
- "hour": "Hour"
+ "hour": "Hour",
+ "exam_cancel_suc": "The paper exam has been successfully cancelled",
+ "try": "Trying",
+ "q": "Q"
+
 
 
 

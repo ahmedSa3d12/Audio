@@ -9,6 +9,7 @@ import 'core/api/base_api_consumer.dart';
 import 'core/api/dio_consumer.dart';
 import 'core/remote/service.dart';
 // import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
+import 'features/examinstructions/cubit/examinstructions_cubit.dart';
 import 'features/paperexamRegister/cubit/paper_exam_register_cubit.dart';
 import 'features/homePage/cubit/home_page_cubit.dart';
 import 'features/lessons_of_class/cubit/lessons_class_cubit.dart';
@@ -47,13 +48,18 @@ Future<void> setup() async {
     () => MonthPlanCubit(serviceLocator()),
   );
   serviceLocator.registerFactory(
-    () => PaperDetialsCubit(),
+    () => PaperDetialsCubit(serviceLocator()),
   );
   serviceLocator.registerFactory(
     () => OnBoardingCubit(serviceLocator()),
   );
   serviceLocator.registerFactory(
         () => StartTripCubit(
+      serviceLocator()
+    ),
+  );
+  serviceLocator.registerFactory(
+        () => ExaminstructionsCubit(
       serviceLocator()
     ),
   );

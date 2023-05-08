@@ -39,23 +39,7 @@ class _PaperDetailsExmRegisterPageState
   @override
   void initState() {
     super.initState();
-    context.read<PaperDetialsCubit>().name.text =
-        widget.paperExamModel.nameOfExam!;
-    context.read<PaperDetialsCubit>().examtime.text = 'day'.tr() +
-        " " +
-        DateFormat('EEEE yyyy/MM/dd',
-            EasyLocalization.of(context)!.locale.languageCode)
-            .format(widget.paperExamModel.dateExam!) +
-        "hour".tr() +
-        " " +
-        widget.paperExamModel.time!.replaceRange(
-            widget.paperExamModel.time!.length - 4,
-            widget.paperExamModel.time!.length - 1,
-            "");
-    context.read<PaperDetialsCubit>().examPlace.text =
-        widget.paperExamModel.address!;
-    context.read<PaperDetialsCubit>().examHall.text =
-        widget.paperExamModel.section!;
+  setData(context);
   }
 
   @override
@@ -175,22 +159,27 @@ class _PaperDetailsExmRegisterPageState
                           SizedBox(
                             height: 70,
                           ),
-                          Container(
-                            width: 210,
-                            height: 47,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: AppColors.red),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                color: AppColors.bink),
-                            child: Center(
-                                child: Text(
-                              'cancel'.tr(),
-                              style: TextStyle(
-                                  color: AppColors.red,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18),
-                            )),
+                          InkWell(
+                            onTap: () {
+                              context.read<PaperDetialsCubit>().deleteexam(context);
+                            },
+                            child: Container(
+                              width: 210,
+                              height: 47,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: AppColors.red),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  color: AppColors.bink),
+                              child: Center(
+                                  child: Text(
+                                'cancel'.tr(),
+                                style: TextStyle(
+                                    color: AppColors.red,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              )),
+                            ),
                           )
                         ],
                       ),
@@ -205,5 +194,30 @@ class _PaperDetailsExmRegisterPageState
                 child: HomePageAppBarWidget(),
               ),
             ])));
+  }
+
+  void setData(BuildContext context) {
+    Future.delayed(Duration(seconds: 1),(){
+    context.read<PaperDetialsCubit>().name.text =
+    widget.paperExamModel.nameOfExam!;
+    context.read<PaperDetialsCubit>().examtime.text = 'day'.tr() +
+    " " +
+    DateFormat('EEEE yyyy/MM/dd',
+    EasyLocalization.of(context)!
+        .currentLocale!
+        .languageCode
+    )
+        .format(widget.paperExamModel.dateExam!) +
+    "hour".tr() +
+    " " +
+    widget.paperExamModel.time!.replaceRange(
+    widget.paperExamModel.time!.length - 4,
+    widget.paperExamModel.time!.length - 1,
+    "");
+    context.read<PaperDetialsCubit>().examPlace.text =
+    widget.paperExamModel.address!;
+    context.read<PaperDetialsCubit>().examHall.text =
+    widget.paperExamModel.section!;
+    });
   }
 }

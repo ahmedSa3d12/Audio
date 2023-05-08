@@ -9,6 +9,7 @@ import '../../core/models/paper_exam_data_model.dart';
 import '../../core/models/paper_exam_details_model.dart';
 import '../../core/models/times_model.dart';
 import '../../core/utils/app_strings.dart';
+import '../../features/examinstructions/screen/examinstructions.dart';
 import '../../features/paperexamRegister/presentation/screens/paper_exam_register.dart';
 import '../../features/lessons_of_class/screens/lesson_class.dart';
 import '../../features/login/screens/login.dart';
@@ -29,6 +30,7 @@ class Routes {
   static const String podAdsPageScreenRoute = '/podAdsPageScreen';
   static const String lessonClassScreenRoute = '/lessonClassPageScreen';
   static const String sourceReferencesDetailsRoute = '/sourceReferencesDetails';
+  static const String examInstructionsRoute = '/examInstructions';
 }
 
 class AppRoutes {
@@ -48,6 +50,12 @@ class AppRoutes {
         int classId=settings.arguments as int;
         return MaterialPageRoute(
           builder: (context) => LessonsClassScreen(classId: classId),
+        );
+        case Routes.examInstructionsRoute:
+        List<dynamic> data=settings.arguments as   List<dynamic>;
+
+        return MaterialPageRoute(
+          builder: (context) => ExamInstructions(exam_id: data[0],type: data[1]),
         );
       case Routes.paperexamRegisterRoute:
         PaperExamDetialsModel timeDataModel = settings.arguments as PaperExamDetialsModel;

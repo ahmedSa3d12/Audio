@@ -12,7 +12,8 @@ final String title;
   @override
   Widget build(BuildContext context) {
     return  Column(
-      children: [Container(
+      children: [
+        Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: color2
@@ -20,8 +21,10 @@ final String title;
         child:Padding(
           padding: const EdgeInsets.all(16.0),
           child: MySvgWidget(path: icon,imageColor: color, size: 30,),
+          
         ) ,
-      )],
+      ),
+      Text(title,style: TextStyle(color: AppColors.liveExamGrayTextColor,fontSize: 18),)],
     );
   }
 }
