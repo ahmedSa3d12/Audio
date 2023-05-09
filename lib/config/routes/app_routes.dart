@@ -9,6 +9,7 @@ import '../../core/models/paper_exam_data_model.dart';
 import '../../core/models/paper_exam_details_model.dart';
 import '../../core/models/times_model.dart';
 import '../../core/utils/app_strings.dart';
+import '../../features/exam_hero/screens/exam_hero_screen.dart';
 import '../../features/examinstructions/screen/examinstructions.dart';
 import '../../features/paperexamRegister/presentation/screens/paper_exam_register.dart';
 import '../../features/lessons_of_class/screens/lesson_class.dart';
@@ -31,6 +32,7 @@ class Routes {
   static const String lessonClassScreenRoute = '/lessonClassPageScreen';
   static const String sourceReferencesDetailsRoute = '/sourceReferencesDetails';
   static const String examInstructionsRoute = '/examInstructions';
+  static const String examHeroScreenRoute = '/examHeroScreen';
 }
 
 class AppRoutes {
@@ -101,7 +103,6 @@ class AppRoutes {
 
       case Routes.podAdsPageScreenRoute:
         AdsModelDatum adsModelDatum = settings.arguments as AdsModelDatum;
-
         return PageTransition(
           type: PageTransitionType.fade,
           alignment: Alignment.center,
@@ -110,9 +111,14 @@ class AppRoutes {
             adsDatum: adsModelDatum,
           ),
         );
-      //  MaterialPageRoute(
-      //   builder: (context) => const OnBoardingScreen(),
-      // );
+
+      case Routes.examHeroScreenRoute:
+        return PageTransition(
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 1300),
+          child: ExamHeroScreen(),
+        );
 
       default:
         return undefinedRoute();

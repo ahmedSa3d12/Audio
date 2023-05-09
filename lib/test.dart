@@ -1,312 +1,514 @@
+// Copyright 2013 The Flutter Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// ignore_for_file: public_member_api_docs
+
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'package:path_provider/path_provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-import 'package:new_mazoon/core/utils/app_colors.dart';
+// #docregion platform_imports
+// Import for Android features.
+import 'package:webview_flutter_android/webview_flutter_android.dart';
 
-void main() => runApp(MyApp());
+// Import for iOS features.
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
+// #enddocregion platform_imports
 
-const STAR_POINTS = 5;
-const POLY_POINTS = 15;
 
-enum Clipper { random, wave, star, dash }
+const String kNavigationExamplePage = '''
+<!DOCTYPE html><html>
+<head><title>Navigation Delegate Example</title></head>
+<body>
+<p>
+The navigation delegate is set to block navigation to the youtube website.
+</p>
+<ul>
+<ul><a href="https://www.youtube.com/">https://www.youtube.com/</a></ul>
+<ul><a href="https://www.google.com/">https://www.google.com/</a></ul>
+</ul>
+</body>
+</html>
+''';
 
-class MyApp extends StatelessWidget {
+const String kLocalExamplePage = '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Load file or HTML string example</title>
+</head>
+<body>
+
+<h1>Local demo page</h1>
+<p>
+  This is an example page used to demonstrate how to load a local file or HTML
+  string using the <a href="https://pub.dev/packages/webview_flutter">Flutter
+  webview</a> plugin.
+</p>
+
+</body>
+</html>
+''';
+
+const String kTransparentBackgroundPage = '''
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Transparent background test</title>
+  </head>
+  <style type="text/css">
+    body { background: transparent; margin: 0; padding: 0; }
+    #container { position: relative; margin: 0; padding: 0; width: 100vw; height: 100vh; }
+    #shape { background: red; width: 200px; height: 200px; margin: 0; padding: 0; position: absolute; top: calc(50% - 100px); left: calc(50% - 100px); }
+    p { text-align: center; }
+  </style>
+  <body>
+    <div id="container">
+      <p>Transparent background test</p>
+      <div id="shape"></div>
+    </div>
+  </body>
+  </html>
+''';
+
+class WebViewExample extends StatefulWidget {
+  const WebViewExample({super.key, required this.url});
+
+  final String url;
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
-      debugShowCheckedModeBanner: false,
-    );
+  State<WebViewExample> createState() => _WebViewExampleState();
+}
+
+class _WebViewExampleState extends State<WebViewExample> {
+  late final WebViewController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // #docregion platform_features
+    late final PlatformWebViewControllerCreationParams params;
+    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
+      params = WebKitWebViewControllerCreationParams(
+        allowsInlineMediaPlayback: true,
+        mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
+      );
+    } else {
+      params = const PlatformWebViewControllerCreationParams();
+    }
+
+    final WebViewController controller =
+        WebViewController.fromPlatformCreationParams(params);
+    // #enddocregion platform_features
+
+    controller
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            debugPrint('WebView is loading (progress : $progress%)');
+          },
+          onPageStarted: (String url) {
+            debugPrint('Page started loading: $url');
+          },
+          onPageFinished: (String url) {
+            debugPrint('Page finished loading: $url');
+          },
+          onWebResourceError: (WebResourceError error) {
+            debugPrint('''
+Page resource error:
+  code: ${error.errorCode}
+  description: ${error.description}
+  errorType: ${error.errorType}
+  isForMainFrame: ${error.isForMainFrame}
+          ''');
+          },
+          onNavigationRequest: (NavigationRequest request) {
+            if (request.url.startsWith('https://www.youtube.com/')) {
+              debugPrint('blocking navigation to ${request.url}');
+              return NavigationDecision.prevent;
+            }
+            debugPrint('allowing navigation to ${request.url}');
+            return NavigationDecision.navigate;
+          },
+          onUrlChange: (UrlChange change) {
+            debugPrint('url change to ${change.url}');
+          },
+        ),
+      )
+      ..addJavaScriptChannel(
+        'Toaster',
+        onMessageReceived: (JavaScriptMessage message) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(message.message)),
+          );
+        },
+      )
+      ..loadRequest(Uri.parse(widget.url));
+
+    // #docregion platform_features
+    if (controller.platform is AndroidWebViewController) {
+      AndroidWebViewController.enableDebugging(true);
+      (controller.platform as AndroidWebViewController)
+          .setMediaPlaybackRequiresUserGesture(false);
+    }
+    // #enddocregion platform_features
+
+    _controller = controller;
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  Clipper _clipper = Clipper.random;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Spacer(),
-              ClipPath(
-                clipper: _getClipper(),
-                child: BlueBox(200.0),
-              ),
-              SizedBox(
-                height: 140,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: CustomPaint(
-                        size: Size(
-                          150,
-                          110,
-                        ),
-                        painter: MyPainter(Colors.blue),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: CustomPaint(
-                        size: Size(
-                          250,
-                          80,
-                        ),
-                        painter: MyPainter(darken(Colors.blue,0.2)),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Spacer(),
-              Text("Custom Clipper:"),
-              RadioListTile<Clipper>(
-                title: const Text('Random'),
-                value: Clipper.random,
-                groupValue: _clipper,
-                onChanged: (Clipper? value) {
-                  setState(() {
-                    _clipper = value!;
-                  });
-                },
-              ),
-              RadioListTile<Clipper>(
-                title: const Text('Wave'),
-                value: Clipper.wave,
-                groupValue: _clipper,
-                onChanged: (Clipper? value) {
-                  setState(() {
-                    _clipper = value!;
-                  });
-                },
-              ),
-              RadioListTile<Clipper>(
-                title: const Text('Star'),
-                value: Clipper.star,
-                groupValue: _clipper,
-                onChanged: (Clipper? value) {
-                  setState(() {
-                    _clipper = value!;
-                  });
-                },
-              ),
-              RadioListTile<Clipper>(
-                title: const Text('Dash'),
-                value: Clipper.dash,
-                groupValue: _clipper,
-                onChanged: (Clipper? value) {
-                  setState(() {
-                    _clipper = value!;
-                  });
-                },
-              ),
-            ],
-          ),
-        ),
+      backgroundColor: Colors.green,
+      appBar: AppBar(
+        title: const Text('Flutter WebView example'),
+        // This drop down menu demonstrates that Flutter widgets can be shown over the web view.
+        actions: <Widget>[
+          NavigationControls(webViewController: _controller),
+          SampleMenu(webViewController: _controller),
+        ],
       ),
+      body: WebViewWidget(controller: _controller),
+      floatingActionButton: favoriteButton(),
     );
   }
 
-  CustomClipper<Path> _getClipper() {
-    switch (_clipper) {
-      case Clipper.wave:
-        return WaveClipper();
-        break;
-      case Clipper.random:
-        return RandomClipper();
-        break;
-      case Clipper.star:
-        return StarClipper();
-        break;
-      case Clipper.dash:
-        return DashClipper();
-        break;
-      default:
-        return RandomClipper();
-    }
+  Widget favoriteButton() {
+    return FloatingActionButton(
+      onPressed: () async {
+        final String? url = await _controller.currentUrl();
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Favorited $url')),
+          );
+        }
+      },
+      child: const Icon(Icons.favorite),
+    );
   }
 }
 
-class BlueBox extends StatelessWidget {
-  final size;
+enum MenuOptions {
+  showUserAgent,
+  listCookies,
+  clearCookies,
+  addToCache,
+  listCache,
+  clearCache,
+  navigationDelegate,
+  doPostRequest,
+  loadLocalFile,
+  loadFlutterAsset,
+  loadHtmlString,
+  transparentBackground,
+  setCookie,
+}
 
-  BlueBox(this.size);
+class SampleMenu extends StatelessWidget {
+  SampleMenu({
+    super.key,
+    required this.webViewController,
+  });
+
+  final WebViewController webViewController;
+  late final WebViewCookieManager cookieManager = WebViewCookieManager();
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(color: Colors.blue),
-      child: SizedBox(
-        height: size,
-        width: size,
+    return PopupMenuButton<MenuOptions>(
+      key: const ValueKey<String>('ShowPopupMenu'),
+      onSelected: (MenuOptions value) {
+        switch (value) {
+          case MenuOptions.showUserAgent:
+            _onShowUserAgent();
+            break;
+          case MenuOptions.listCookies:
+            _onListCookies(context);
+            break;
+          case MenuOptions.clearCookies:
+            _onClearCookies(context);
+            break;
+          case MenuOptions.addToCache:
+            _onAddToCache(context);
+            break;
+          case MenuOptions.listCache:
+            _onListCache();
+            break;
+          case MenuOptions.clearCache:
+            _onClearCache(context);
+            break;
+          case MenuOptions.navigationDelegate:
+            _onNavigationDelegateExample();
+            break;
+          case MenuOptions.doPostRequest:
+            _onDoPostRequest();
+            break;
+          case MenuOptions.loadLocalFile:
+            _onLoadLocalFileExample();
+            break;
+          case MenuOptions.loadFlutterAsset:
+            _onLoadFlutterAssetExample();
+            break;
+          case MenuOptions.loadHtmlString:
+            _onLoadHtmlStringExample();
+            break;
+          case MenuOptions.transparentBackground:
+            _onTransparentBackground();
+            break;
+          case MenuOptions.setCookie:
+            _onSetCookie();
+            break;
+        }
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuItem<MenuOptions>>[
+        const PopupMenuItem<MenuOptions>(
+          value: MenuOptions.showUserAgent,
+          child: Text('Show user agent'),
+        ),
+        const PopupMenuItem<MenuOptions>(
+          value: MenuOptions.listCookies,
+          child: Text('List cookies'),
+        ),
+        const PopupMenuItem<MenuOptions>(
+          value: MenuOptions.clearCookies,
+          child: Text('Clear cookies'),
+        ),
+        const PopupMenuItem<MenuOptions>(
+          value: MenuOptions.addToCache,
+          child: Text('Add to cache'),
+        ),
+        const PopupMenuItem<MenuOptions>(
+          value: MenuOptions.listCache,
+          child: Text('List cache'),
+        ),
+        const PopupMenuItem<MenuOptions>(
+          value: MenuOptions.clearCache,
+          child: Text('Clear cache'),
+        ),
+        const PopupMenuItem<MenuOptions>(
+          value: MenuOptions.navigationDelegate,
+          child: Text('Navigation Delegate example'),
+        ),
+        const PopupMenuItem<MenuOptions>(
+          value: MenuOptions.doPostRequest,
+          child: Text('Post Request'),
+        ),
+        const PopupMenuItem<MenuOptions>(
+          value: MenuOptions.loadHtmlString,
+          child: Text('Load HTML string'),
+        ),
+        const PopupMenuItem<MenuOptions>(
+          value: MenuOptions.loadLocalFile,
+          child: Text('Load local file'),
+        ),
+        const PopupMenuItem<MenuOptions>(
+          value: MenuOptions.loadFlutterAsset,
+          child: Text('Load Flutter Asset'),
+        ),
+        const PopupMenuItem<MenuOptions>(
+          key: ValueKey<String>('ShowTransparentBackgroundExample'),
+          value: MenuOptions.transparentBackground,
+          child: Text('Transparent background example'),
+        ),
+        const PopupMenuItem<MenuOptions>(
+          value: MenuOptions.setCookie,
+          child: Text('Set cookie'),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _onShowUserAgent() {
+    // Send a message with the user agent string to the Toaster JavaScript channel we registered
+    // with the WebView.
+    return webViewController.runJavaScript(
+      'Toaster.postMessage("User Agent: " + navigator.userAgent);',
+    );
+  }
+
+  Future<void> _onListCookies(BuildContext context) async {
+    final String cookies = await webViewController
+        .runJavaScriptReturningResult('document.cookie') as String;
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const Text('Cookies:'),
+            _getCookieList(cookies),
+          ],
+        ),
+      ));
+    }
+  }
+
+  Future<void> _onAddToCache(BuildContext context) async {
+    await webViewController.runJavaScript(
+      'caches.open("test_caches_entry"); localStorage["test_localStorage"] = "dummy_entry";',
+    );
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Added a test entry to cache.'),
+      ));
+    }
+  }
+
+  Future<void> _onListCache() {
+    return webViewController.runJavaScript('caches.keys()'
+        // ignore: missing_whitespace_between_adjacent_strings
+        '.then((cacheKeys) => JSON.stringify({"cacheKeys" : cacheKeys, "localStorage" : localStorage}))'
+        '.then((caches) => Toaster.postMessage(caches))');
+  }
+
+  Future<void> _onClearCache(BuildContext context) async {
+    await webViewController.clearCache();
+    await webViewController.clearLocalStorage();
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Cache cleared.'),
+      ));
+    }
+  }
+
+  Future<void> _onClearCookies(BuildContext context) async {
+    final bool hadCookies = await cookieManager.clearCookies();
+    String message = 'There were cookies. Now, they are gone!';
+    if (!hadCookies) {
+      message = 'There are no cookies.';
+    }
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(message),
+      ));
+    }
+  }
+
+  Future<void> _onNavigationDelegateExample() {
+    final String contentBase64 = base64Encode(
+      const Utf8Encoder().convert(kNavigationExamplePage),
+    );
+    return webViewController.loadRequest(
+      Uri.parse('data:text/html;base64,$contentBase64'),
+    );
+  }
+
+  Future<void> _onSetCookie() async {
+    await cookieManager.setCookie(
+      const WebViewCookie(
+        name: 'foo',
+        value: 'bar',
+        domain: 'httpbin.org',
+        path: '/anything',
       ),
     );
-  }
-}
-
-class StarClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var centerX = size.width / 2;
-    var centerY = size.height / 2;
-
-    var path = Path();
-
-    var radius = size.width / 2;
-    var inner = radius / 2;
-    var rotation = pi / 2 * 3;
-    var step = pi / STAR_POINTS;
-
-    path.lineTo(centerX, centerY - radius);
-
-    for (var i = 0; i < STAR_POINTS; i++) {
-      var x = centerX + cos(rotation) * radius;
-      var y = centerY + sin(rotation) * radius;
-      path.lineTo(x, y);
-      rotation += step;
-
-      x = centerX + cos(rotation) * inner;
-      y = centerY + sin(rotation) * inner;
-      path.lineTo(x, y);
-      rotation += step;
-    }
-
-    path.lineTo(centerX, centerY - radius);
-    path.close();
-
-    return path;
+    await webViewController.loadRequest(Uri.parse(
+      'https://httpbin.org/anything',
+    ));
   }
 
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-class RandomClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    var rand = Random();
-
-    path.addPolygon(
-        List.generate(
-          POLY_POINTS,
-          (index) => Offset(
-              rand.nextDouble() * size.width, rand.nextDouble() * size.height),
-        ),
-        true);
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-class WaveClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    path.lineTo(0, size.height );
-    path.quadraticBezierTo(
-      size.width / 3,
-      size.height,
-      size.width,
-      size.height ,
+  Future<void> _onDoPostRequest() {
+    return webViewController.loadRequest(
+      Uri.parse('https://httpbin.org/post'),
+      method: LoadRequestMethod.post,
+      headers: <String, String>{'foo': 'bar', 'Content-Type': 'text/plain'},
+      body: Uint8List.fromList('Test Body'.codeUnits),
     );
-    // path.lineTo(size.width, 0);
-    path.close();
-
-    return path;
   }
 
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+  Future<void> _onLoadLocalFileExample() async {
+    final String pathToIndex = await _prepareLocalFile();
+    await webViewController.loadFile(pathToIndex);
+  }
+
+  Future<void> _onLoadFlutterAssetExample() {
+    return webViewController.loadFlutterAsset('assets/www/index.html');
+  }
+
+  Future<void> _onLoadHtmlStringExample() {
+    return webViewController.loadHtmlString(kLocalExamplePage);
+  }
+
+  Future<void> _onTransparentBackground() {
+    return webViewController.loadHtmlString(kTransparentBackgroundPage);
+  }
+
+  Widget _getCookieList(String cookies) {
+    if (cookies == null || cookies == '""') {
+      return Container();
+    }
+    final List<String> cookieList = cookies.split(';');
+    final Iterable<Text> cookieWidgets =
+        cookieList.map((String cookie) => Text(cookie));
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
+      children: cookieWidgets.toList(),
+    );
+  }
+
+  static Future<String> _prepareLocalFile() async {
+    final String tmpDir = (await getTemporaryDirectory()).path;
+    final File indexFile = File(
+        <String>{tmpDir, 'www', 'index.html'}.join(Platform.pathSeparator));
+
+    await indexFile.create(recursive: true);
+    await indexFile.writeAsString(kLocalExamplePage);
+
+    return indexFile.path;
+  }
 }
 
-class DashClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(0.6929134, 72.083992);
-    path.relativeLineTo(9.7270346, -10.425198);
-    path.relativeLineTo(31.091862, 31.963253);
-    path.relativeLineTo(19.107612, -22.755906);
-    path.relativeLineTo(10.073494, -36.824146);
-    path.relativeLineTo(32.482934, -19.800526);
-    path.relativeLineTo(-6.2572174, -7.8162728);
-    path.relativeLineTo(25.711288, -0.17322826);
-    path.relativeLineTo(-6.603676, 7.989501);
-    path.relativeLineTo(17.88977, 3.301837);
-    path.relativeLineTo(30.225724, 18.23622);
-    path.relativeLineTo(9.02887, 18.587928);
-    path.relativeLineTo(27.443558, 7.6430436);
-    path.relativeLineTo(-27.27034, 6.425194);
-    path.relativeLineTo(0.87139892, 19.454071);
-    path.relativeLineTo(-11.464569, 22.57743);
-    path.relativeLineTo(1.9107666, 13.7217864);
-    path.relativeLineTo(14.939621, 2.6089172);
-    path.relativeLineTo(-19.627288, 4.5144348);
-    path.relativeLineTo(-4.519684, -19.800522);
-    path.relativeLineTo(-9.9002686, 15.112862);
-    path.relativeLineTo(-33.522308, 5.90551);
-    path.relativeLineTo(-30.918632, -13.375328);
-    path.relativeLineTo(-40.120736, -11.1181106);
-    path.relativeLineTo(-10.9448814, -13.02887);
-    path.lineTo(0.6929134, 72.083992);
-    path.close();
+class NavigationControls extends StatelessWidget {
+  const NavigationControls({super.key, required this.webViewController});
 
-    return path;
-  }
+  final WebViewController webViewController;
 
   @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-
-
-class MyPainter extends CustomPainter {
-  final Color color;
-
-  MyPainter(this.color);
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint();
-    Path path = Path();
-
-
-    // Path number 1
-
-
-    paint.color = color;
-
-    path = Path();
-    path.lineTo(size.width / 4, 0);
-    path.cubicTo(size.width / 4, 0, size.width, 0, size.width, 0);
-    path.cubicTo(size.width, 0, size.width, size.height * 0.88, size.width, size.height * 0.88);
-    path.cubicTo(size.width, size.height * 0.95, size.width * 0.98, size.height, size.width * 0.95, size.height);
-    path.cubicTo(size.width * 0.95, size.height, 0, size.height, 0, size.height);
-    path.cubicTo(0, size.height, size.width / 4, 0, size.width / 4, 0);
-    path.cubicTo(size.width / 4, 0, size.width / 4, 0, size.width / 4, 0);
-    canvas.drawPath(path, paint);
-  }
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () async {
+            if (await webViewController.canGoBack()) {
+              await webViewController.goBack();
+            } else {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('No back history item')),
+                );
+              }
+            }
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.arrow_forward_ios),
+          onPressed: () async {
+            if (await webViewController.canGoForward()) {
+              await webViewController.goForward();
+            } else {
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('No forward history item')),
+                );
+              }
+            }
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.replay),
+          onPressed: () => webViewController.reload(),
+        ),
+      ],
+    );
   }
 }

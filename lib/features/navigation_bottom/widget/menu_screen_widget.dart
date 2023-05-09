@@ -9,6 +9,7 @@ import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/dialogs.dart';
 import '../../../core/utils/restart_app_class.dart';
 import '../../../core/widgets/network_image.dart';
+import '../../../test.dart';
 import '../cubit/navigation_cubit.dart';
 import 'list_tile_menu_widget.dart';
 
@@ -38,89 +39,89 @@ class MenuScreenWidget extends StatelessWidget {
                       NavigationCubit cubit = context.read<NavigationCubit>();
                       return state is NavigationGetUserLoading
                           ? Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.primary,
-                        ),
-                      )
+                              child: CircularProgressIndicator(
+                                color: AppColors.primary,
+                              ),
+                            )
                           : Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 10),
-                          ManageNetworkImage(
-                            imageUrl: cubit.userModel!.data!.image,
-                            width: 80,
-                            height: 80,
-                            borderRadius: 90,
-                          ),
-                          SizedBox(height: 10),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8.0),
-                            child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Align(
-                                  alignment: lang == 'ar'
-                                      ? Alignment.topRight
-                                      : Alignment.topLeft,
-                                  child: Text(
-                                    cubit.userModel!.data!.name,
-                                    style: TextStyle(
-                                        color: AppColors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                SizedBox(height: 10),
+                                ManageNetworkImage(
+                                  imageUrl: cubit.userModel!.data!.image,
+                                  width: 80,
+                                  height: 80,
+                                  borderRadius: 90,
                                 ),
+                                SizedBox(height: 10),
                                 Padding(
-                                  padding:
-                                  const EdgeInsets.only(top: 4.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.all(4.0),
+                                      Align(
+                                        alignment: lang == 'ar'
+                                            ? Alignment.topRight
+                                            : Alignment.topLeft,
                                         child: Text(
-                                          lang == 'ar'
-                                              ? cubit.userModel!.data!
-                                              .season.nameAr
-                                              : cubit.userModel!.data!
-                                              .season.nameEn,
+                                          cubit.userModel!.data!.name,
                                           style: TextStyle(
                                               color: AppColors.white,
-                                              fontSize: 10,
-                                              fontWeight:
-                                              FontWeight.bold),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      // SizedBox(width: 10),
                                       Padding(
                                         padding:
-                                        const EdgeInsets.all(4.0),
-                                        child: Text(
-                                          lang == 'ar'
-                                              ? cubit.userModel!.data!
-                                              .term.nameAr
-                                              : cubit.userModel!.data!
-                                              .term.nameEn,
-                                          style: TextStyle(
-                                              color: AppColors.white,
-                                              fontSize: 10,
-                                              fontWeight:
-                                              FontWeight.bold),
+                                            const EdgeInsets.only(top: 4.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                lang == 'ar'
+                                                    ? cubit.userModel!.data!
+                                                        .season.nameAr
+                                                    : cubit.userModel!.data!
+                                                        .season.nameEn,
+                                                style: TextStyle(
+                                                    color: AppColors.white,
+                                                    fontSize: 10,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            // SizedBox(width: 10),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                lang == 'ar'
+                                                    ? cubit.userModel!.data!
+                                                        .term.nameAr
+                                                    : cubit.userModel!.data!
+                                                        .term.nameEn,
+                                                style: TextStyle(
+                                                    color: AppColors.white,
+                                                    fontSize: 10,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                               ],
-                            ),
-                          ),
-                        ],
-                      );
+                            );
                     },
                   ),
                   SizedBox(height: 30),
@@ -130,7 +131,16 @@ class MenuScreenWidget extends StatelessWidget {
                         MenuListTileWidget(
                           title: 'language'.tr(),
                           iconPath: ImageAssets.languageIcon,
-                          onclick: () {},
+                          onclick: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => WebViewExample(
+                                  url: '',
+                                ),
+                              ),
+                            );
+                          },
                         ),
                         MenuListTileWidget(
                           title: 'profile'.tr(),
@@ -152,13 +162,19 @@ class MenuScreenWidget extends StatelessWidget {
                         MenuListTileWidget(
                           title: 'exam_hero'.tr(),
                           iconPath: ImageAssets.cupIcon,
-                          onclick: () {},
+                          onclick: () {
+                            Navigator.pushNamed(
+                              context,
+                              Routes.examHeroScreenRoute,
+                            );
+                          },
                         ),
                         MenuListTileWidget(
                           title: 'month_plan'.tr(),
                           iconPath: ImageAssets.calenderIcon,
                           onclick: () {
-                            Navigator.pushNamed(context, Routes.monthplanPageScreenRoute);
+                            Navigator.pushNamed(
+                                context, Routes.monthplanPageScreenRoute);
                             Navigator.pushNamed(
                                 context, Routes.monthplanPageScreenRoute);
                           },
@@ -216,13 +232,14 @@ class MenuScreenWidget extends StatelessWidget {
                           onclick: () {
                             Preferences.instance.clearUserData().then(
                                   (value) =>
-                                  HotRestartController.performHotRestart(context),
-                            );
+                                      HotRestartController.performHotRestart(
+                                          context),
+                                );
                           },
                         ),
-
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 20),
                           child: Container(
                             width: 20,
                             height: 2,
@@ -271,7 +288,6 @@ class MenuScreenWidget extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 30),
-
                       ],
                     ),
                   ),

@@ -31,6 +31,11 @@ class ImageAssets {
   static const String liveExamImage = '$imagePath/live_exam.png';
   static const String examPdfImage = '$imagePath/exam_pdf.png';
   static const String examPaperImage = '$imagePath/exam_paper.png';
+  static const String callUsCallImage = '$imagePath/call_us_call.png';
+  static const String callUsMessengerImage = '$imagePath/call_us_messenger.png';
+  static const String callUsSmsImage = '$imagePath/call_us_sms.png';
+  static const String callUsWhatsappImage = '$imagePath/call_us_whatsapp.png';
+  static const String starsImage = '$imagePath/stars.png';
 
   // icons
   static const String loadIcon = '$iconsPath/load.svg';

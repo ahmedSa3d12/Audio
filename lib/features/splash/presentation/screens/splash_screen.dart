@@ -51,11 +51,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<void> _getStoreUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    UserModel userModel = await Preferences.instance.getUserModel();
     if (prefs.getString('onBoarding') != null) {
-      // } else {
-      // }
-
       if (prefs.getString('user') != null) {
         if (context.read<SplashCubit>().adsList.isNotEmpty) {
           Navigator.pushReplacementNamed(context, Routes.podAdsPageScreenRoute,
@@ -64,19 +60,9 @@ class _SplashScreenState extends State<SplashScreen>
           Navigator.pushReplacementNamed(
             context,
             Routes.homePageScreenRoute
-
           );
         }
       } else {
-        // Navigator.pushReplacement(
-        //   context,
-        //   PageTransition(
-        //     type: PageTransitionType.fade,
-        //     alignment: Alignment.center,
-        //     duration: const Duration(milliseconds: 1300),
-        //     child: ExamInstructions(),
-        //   ),
-        // );
         Navigator.pushNamedAndRemoveUntil(
           context,
           Routes.loginRoute,

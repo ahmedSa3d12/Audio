@@ -7,6 +7,7 @@ import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
 import 'package:new_mazoon/features/lessons_of_class/cubit/lessons_class_cubit.dart';
 
 import '../../../core/utils/app_colors.dart';
+import '../../../core/widgets/my_painter_widget.dart';
 import '../../../test.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../widgets/lesson_class_item_widget.dart';

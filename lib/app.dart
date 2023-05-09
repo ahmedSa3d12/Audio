@@ -21,6 +21,7 @@ import 'package:path/path.dart';
 
 import 'core/utils/toast_message_method.dart';
 // import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
+import 'features/exam_hero/cubit/exam_hero_cubit.dart';
 import 'features/examinstructions/cubit/examinstructions_cubit.dart';
 import 'features/paperexamRegister/cubit/paper_exam_register_cubit.dart';
 import 'features/homePage/cubit/home_page_cubit.dart';
@@ -181,6 +182,9 @@ class _ElmazoonState extends State<Elmazoon> {
         ),
         BlocProvider(
           create: (_) => injector.serviceLocator<SourceReferencesCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<ExamHeroCubit>(),
         ),
       ],
       child: GetMaterialApp(

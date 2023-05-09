@@ -1,0 +1,132 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/features/exam_hero/cubit/exam_hero_cubit.dart';
+
+import '../../../core/utils/app_colors.dart';
+import '../../../core/widgets/title_with_circle_background_widget.dart';
+import '../../homePage/widget/home_page_app_bar_widget.dart';
+import '../widgets/exam_hero_data_widget.dart';
+
+class ExamHeroScreen extends StatefulWidget {
+  const ExamHeroScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ExamHeroScreen> createState() => _ExamHeroScreenState();
+}
+
+class _ExamHeroScreenState extends State<ExamHeroScreen>   with TickerProviderStateMixin {
+  List<String> titles = [
+    'day'.tr(),
+    'week'.tr(),
+    'month'.tr()
+  ];
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.animateTo(context.read<ExamHeroCubit>().currentIndex);
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.secondPrimary,
+        toolbarHeight: 0,
+      ),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            BlocBuilder<ExamHeroCubit,ExamHeroState>(
+              builder: (context, state) {
+                ExamHeroCubit cubit = context.read<ExamHeroCubit>();
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 120),
+                    TitleWithCircleBackgroundWidget(title: 'exam_hero',),
+                    SizedBox(height: 25),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ...List.generate(
+                            titles.length,
+                                (index) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                                vertical: 8,
+                              ),
+                              child: InkWell(
+                                onTap: () {
+                                  cubit.selectTap(index);
+                                  print(cubit.currentIndex);
+                                  _tabController.animateTo(index);
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 30,
+                                    vertical: 10,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: cubit.currentIndex == index
+                                        ? AppColors.orangeThirdPrimary
+                                        : AppColors.unselectedTabColor,
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      titles[index],
+                                      style: TextStyle(
+                                        color: cubit.currentIndex == index
+                                            ? AppColors.white
+                                            : AppColors.black,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: RefreshIndicator(
+                        onRefresh: () async {
+                          print(88888);
+                        },
+                        child: TabBarView(
+                          controller: _tabController,
+                          physics: NeverScrollableScrollPhysics(),
+                          children: [
+                            ExamHeroDataWidget(),
+                            ExamHeroDataWidget(),
+                            ExamHeroDataWidget(),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                );
+              },
+            ),
+            Positioned(
+              top: 0,
+              right: 0,
+              left: 0,
+              child: HomePageAppBarWidget(isHome: false),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
