@@ -21,6 +21,7 @@ import 'package:path/path.dart';
 
 import 'core/utils/toast_message_method.dart';
 // import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
+import 'features/countdown/cubit/countdown_cubit.dart';
 import 'features/exam_hero/cubit/exam_hero_cubit.dart';
 import 'features/examinstructions/cubit/examinstructions_cubit.dart';
 import 'features/paperexamRegister/cubit/paper_exam_register_cubit.dart';
@@ -34,6 +35,8 @@ import 'features/paperexamdetials/cubit/paper_detials_cubit.dart';
 import 'features/splash/presentation/cubit/splash_cubit.dart';
 import 'features/start_trip/cubit/start_trip_cubit.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+
+import 'features/video_details/cubit/video_details_cubit.dart';
 
 class Elmazoon extends StatefulWidget {
   const Elmazoon({Key? key}) : super(key: key);
@@ -185,6 +188,12 @@ class _ElmazoonState extends State<Elmazoon> {
         ),
         BlocProvider(
           create: (_) => injector.serviceLocator<ExamHeroCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<CountdownCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<VideoDetailsCubit>(),
         ),
       ],
       child: GetMaterialApp(

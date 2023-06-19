@@ -187,7 +187,12 @@ class MenuScreenWidget extends StatelessWidget {
                         MenuListTileWidget(
                           title: 'time_count'.tr(),
                           iconPath: ImageAssets.suggestIcon,
-                          onclick: () {},
+                          onclick: () {
+                            Navigator.pushNamed(
+                              context,
+                              Routes.countdownScreenRoute,
+                            );
+                          },
                         ),
                         MenuListTileWidget(
                           title: 'test_yourself'.tr(),

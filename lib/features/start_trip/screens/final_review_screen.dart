@@ -1,8 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/utils/assets_manager.dart';
 
-import '../../../core/utils/assets_manager.dart';
-import '../../../core/utils/hex_color.dart';
 import '../../../core/widgets/no_data_widget.dart';
 import '../../../core/widgets/show_loading_indicator.dart';
 import '../cubit/start_trip_cubit.dart';
@@ -39,22 +39,45 @@ class FinalReviewScreen extends StatelessWidget {
             ),
             child: ListView(
               children: [
-                GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 0.85,
-                    mainAxisSpacing: 15,
-                    crossAxisSpacing: 20,
-                    crossAxisCount: 2,
-                  ),
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: cubit.finalReview.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ItemOfFinalReviewWidget(
-                      model: cubit.finalReview[index],
-                    );
-                  },
-                ),
+                SizedBox(height: 10),
+                cubit.finalReview.isNotEmpty
+                    ? GridView.builder(
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 0.85,
+                          mainAxisSpacing: 15,
+                          crossAxisSpacing: 20,
+                          crossAxisCount: 2,
+                        ),
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: cubit.finalReview.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ItemOfFinalReviewWidget(
+                            model: cubit.finalReview[index],
+                          );
+                        },
+                      )
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height:MediaQuery.of(context).size.height*0.15),
+                          Image.asset(
+                            ImageAssets.comingSoonImage,
+                            width: 250,
+                            height: 190,
+                          ),
+                          SizedBox(height: 25),
+                          Visibility(
+                            visible: cubit.finalReview.isEmpty,
+                            child: Text(
+                              'coming_soon'.tr(),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      ),
                 SizedBox(height: 25),
               ],
             ),

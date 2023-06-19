@@ -9,6 +9,7 @@ import '../../core/models/paper_exam_data_model.dart';
 import '../../core/models/paper_exam_details_model.dart';
 import '../../core/models/times_model.dart';
 import '../../core/utils/app_strings.dart';
+import '../../features/countdown/screens/countdown_screen.dart';
 import '../../features/exam_hero/screens/exam_hero_screen.dart';
 import '../../features/examinstructions/screen/examinstructions.dart';
 import '../../features/paperexamRegister/presentation/screens/paper_exam_register.dart';
@@ -19,6 +20,7 @@ import '../../features/paperexamdetials/screens/paper_details_exam_register.dart
 import '../../features/sources_and_references/screens/source_references_details.dart';
 import '../../features/splash/presentation/screens/pop_ads_screen.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
+import '../../features/video_details/screens/video_details.dart';
 
 class Routes {
   static const String initialRoute = '/';
@@ -33,6 +35,8 @@ class Routes {
   static const String sourceReferencesDetailsRoute = '/sourceReferencesDetails';
   static const String examInstructionsRoute = '/examInstructions';
   static const String examHeroScreenRoute = '/examHeroScreen';
+  static const String countdownScreenRoute = '/countdownScreen';
+  static const String videoDetailsScreenRoute = '/videoDetailsScreen';
 }
 
 class AppRoutes {
@@ -118,6 +122,21 @@ class AppRoutes {
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 1300),
           child: ExamHeroScreen(),
+        );
+
+      case Routes.countdownScreenRoute:
+        return PageTransition(
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+          child: CountdownScreen(),
+        );
+        case Routes.videoDetailsScreenRoute:
+        return PageTransition(
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+          child: VideoDetails(),
         );
 
       default:

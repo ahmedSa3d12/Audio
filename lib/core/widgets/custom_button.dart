@@ -23,8 +23,10 @@ class CustomButton extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
       child: ElevatedButton(
         onPressed: onClick,
+
         style: ElevatedButton.styleFrom(
           maximumSize: Size.infinite,
+
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius!),
           ),
@@ -32,7 +34,7 @@ class CustomButton extends StatelessWidget {
           backgroundColor: color,
         ),
         child: Text(text,
-        style: TextStyle(color:textcolor ),),
+        style: TextStyle(color:textcolor,fontSize: 12 ),),
       ),
     );
   }

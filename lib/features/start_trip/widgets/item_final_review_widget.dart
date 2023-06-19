@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/models/home_page_model.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
@@ -8,6 +11,7 @@ import '../../../core/utils/hex_color.dart';
 import '../../../core/widgets/download_icon_widget.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../../core/widgets/network_image.dart';
+import '../../../core/widgets/pdf_screen.dart';
 
 class ItemOfFinalReviewWidget extends StatelessWidget {
   const ItemOfFinalReviewWidget({
@@ -18,100 +22,118 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: HexColor(model.backgroundColor!),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 20),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(width: 8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(height: 10),
-                  MySvgWidget(
-                    path: model.type == 'video'
-                        ? ImageAssets.videoIcon
-                        : ImageAssets.pdfIcon,
-                    imageColor: AppColors.white,
-                    size: 20,
-                  ),
-                ],
-              ),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  model.name!,
-                  style: TextStyle(
-                    color: AppColors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
+    return InkWell(
+      onTap: () {
+        model.type=='video'? {
+          context.read<VideoDetailsCubit>().getVideoDetails(model.id!, "video_resource"),
+          Navigator.pushNamed(context, Routes.videoDetailsScreenRoute)
+        }
+            :
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PdfScreen(
+              pdfTitle: model.name!,
+              pdfLink: model.pathFile!,
+            ),
           ),
-          Spacer(),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              ManageNetworkImage(
-                imageUrl: model.image!,
-                height: 85,
-                width: 85,
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: HexColor(model.backgroundColor!),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(width: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(width: 16),
-                    model.type == 'video'
-                        ? MySvgWidget(
-                            path: ImageAssets.clockIcon,
-                            imageColor: AppColors.white,
-                            size: 16,
-                          )
-                        : SizedBox(),
-                    SizedBox(width: model.type == 'video'?10:0),
-                    Text(
-                      model.type == 'video'
-                          ? '${model.time} ساعه '
-                          : changeToMegaByte(model.size.toString()),
-                      textDirection: model.type == 'video'
-                          ? TextDirection.rtl
-                          : TextDirection.ltr,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: AppColors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    SizedBox(height: 10),
+                    MySvgWidget(
+                      path: model.type == 'video'
+                          ? ImageAssets.videoIcon
+                          : ImageAssets.pdfIcon,
+                      imageColor: AppColors.white,
+                      size: 20,
                     ),
-                    SizedBox(width: model.type != 'video'?10:0),
-                    model.type == 'video'
-                        ? SizedBox()
-                        : SizedBox(
-                            width: 25,
-                            height: 25,
-                            child: DownloadIconWidget(
-                              color: HexColor(model.backgroundColor!),
-                            ),
-                          ),
-                    SizedBox(width: model.type == 'video'?0:8),
-                    // Spacer(),
                   ],
                 ),
-              ),
-            ],
-          ),
-        ],
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    model.name!,
+                    style: TextStyle(
+                      color: AppColors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Spacer(),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                ManageNetworkImage(
+                  imageUrl: model.image!,
+                  height: 85,
+                  width: 85,
+                ),
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SizedBox(width: ((MediaQuery.of(context).size.width/2)/2)-100),
+                      model.type == 'video'
+                          ? MySvgWidget(
+                              path: ImageAssets.clockIcon,
+                              imageColor: AppColors.white,
+                              size: 16,
+                            )
+                          : SizedBox(),
+                      SizedBox(width: model.type == 'video'?10:0),
+                      Text(
+                        model.type == 'video'
+                            ? '${model.time} ساعه '
+                            : changeToMegaByte(model.size.toString()),
+                        textDirection: model.type == 'video'
+                            ? TextDirection.rtl
+                            : TextDirection.ltr,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: model.type != 'video'?10:0),
+                      model.type == 'video'
+                          ? SizedBox()
+                          : SizedBox(
+                              width: 25,
+                              height: 25,
+                              child: DownloadIconWidget(
+                                color: HexColor(model.backgroundColor!),
+                              ),
+                            ),
+                      SizedBox(width: model.type == 'video'?0:8),
+                      // Spacer(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

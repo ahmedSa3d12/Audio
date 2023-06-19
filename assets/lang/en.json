@@ -166,7 +166,16 @@
  "try": "Trying",
  "q": "Q",
  "time_count": "Time Count",
- "test_yourself": "Test Yourself"
+ "test_yourself": "Test Yourself",
+ "current_month": "Current Month",
+ "previous_month": "Previous Month",
+ "coming_soon": "There is no content now",
+ "countdown": "Countdown before the end of the year exam",
+ "report_about_mistake": "Report Mistake",
+ "favourite": "Favourite",
+ "attachments": "Attachemnts",
+ "dowanload": "Dowanload",
+ "like": "Like"
 
 
 

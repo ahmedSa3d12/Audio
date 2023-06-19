@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
 import 'package:new_mazoon/features/paperexamdetials/screens/paper_details_exam_register.dart';
+import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/api/app_interceptors.dart';
@@ -10,6 +11,7 @@ import 'core/api/dio_consumer.dart';
 import 'core/remote/service.dart';
 
 // import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
+import 'features/countdown/cubit/countdown_cubit.dart';
 import 'features/exam_hero/cubit/exam_hero_cubit.dart';
 import 'features/examinstructions/cubit/examinstructions_cubit.dart';
 import 'features/paperexamRegister/cubit/paper_exam_register_cubit.dart';
@@ -65,6 +67,11 @@ Future<void> setup() async {
     ),
   );
   serviceLocator.registerFactory(
+        () => VideoDetailsCubit(
+      serviceLocator()
+    ),
+  );
+  serviceLocator.registerFactory(
     () => SourceReferencesCubit(serviceLocator()),
   );
   serviceLocator.registerFactory(
@@ -72,6 +79,9 @@ Future<void> setup() async {
   );
   serviceLocator.registerFactory(
     () => ExamHeroCubit(),
+  );
+  serviceLocator.registerFactory(
+    () => CountdownCubit(),
   );
   ///////////////////////////////////////////////////////////////////////////////
 

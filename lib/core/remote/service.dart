@@ -23,6 +23,7 @@ import '../models/sources_references_model.dart';
 import '../models/sources_referenes_by_id_model.dart';
 import '../models/times_model.dart';
 import '../models/user_model.dart';
+import '../models/video_data_model.dart';
 import '../preferences/preferences.dart';
 
 class ServiceApi {
@@ -415,6 +416,29 @@ class ServiceApi {
         ),
       );
       return Right(ExamInstructionModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+  Future<Either<Failure, VideoDataModel>> getVideoDetails(
+      {required int video_id,required String type}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+
+    try {
+      final response = await dio.get(
+        EndPoints.videoDetailsUrl + video_id.toString(),
+        queryParameters: {
+          'type': type,
+        },
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(VideoDataModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   _startDelay() async {
     _timer = Timer(
-      const Duration(milliseconds: 0),
+      const Duration(milliseconds: 1000),
       () {
         // Preferences.instance.clearAllData();
         _goNext();
@@ -57,10 +57,7 @@ class _SplashScreenState extends State<SplashScreen>
           Navigator.pushReplacementNamed(context, Routes.podAdsPageScreenRoute,
               arguments: context.read<SplashCubit>().adsList.first);
         } else {
-          Navigator.pushReplacementNamed(
-            context,
-            Routes.homePageScreenRoute
-          );
+          Navigator.pushReplacementNamed(context, Routes.homePageScreenRoute);
         }
       } else {
         Navigator.pushNamedAndRemoveUntil(
@@ -94,25 +91,27 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    Image image=Image.asset('assets/images/logo.png');
+    Image image = Image.asset('assets/images/logo.png');
     // return BlocBuilder<SplashCubit, SplashState>(
     //   builder: (context, state) {
     //     if (state is SplashLoading) {}
     //     if (state is SplashLoaded) {
     //       _startDelay();
     //     }
-        return Scaffold(
-          body: Center(
-            child: Hero(
-              tag: 'logo',
-              child: SizedBox(
-                width: 300,
-                height: 300,
-                child: image,
-              ),
+    return Scaffold(
+      body: Center(
+        child: Hero(
+          tag: 'logo',
+          child: SizedBox(
+            height: 50,
+            child: Image.asset(
+              'assets/images/logo.png',
+              height: 100,
             ),
           ),
-        );
+        ),
+      ),
+    );
     //   },
     // );
   }

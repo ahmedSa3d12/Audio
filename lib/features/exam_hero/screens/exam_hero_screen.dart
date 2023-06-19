@@ -47,54 +47,123 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>   with TickerProviderSt
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 120),
+                    SizedBox(height: 100),
                     TitleWithCircleBackgroundWidget(title: 'exam_hero',),
-                    SizedBox(height: 25),
+                    SizedBox(height: 10),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          ...List.generate(
-                            titles.length,
-                                (index) => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0,
-                                vertical: 8,
-                              ),
-                              child: InkWell(
-                                onTap: () {
-                                  cubit.selectTap(index);
-                                  print(cubit.currentIndex);
-                                  _tabController.animateTo(index);
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 30,
-                                    vertical: 10,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: cubit.currentIndex == index
-                                        ? AppColors.orangeThirdPrimary
-                                        : AppColors.unselectedTabColor,
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      titles[index],
-                                      style: TextStyle(
-                                        color: cubit.currentIndex == index
-                                            ? AppColors.white
-                                            : AppColors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                              vertical: 8,
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                cubit.selectTap(0);
+                                print(cubit.currentIndex);
+                                _tabController.animateTo(0);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 30,
+                                  vertical: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: cubit.currentIndex == 0
+                                      ? AppColors.orangeThirdPrimary
+                                      : AppColors.unselectedTabColor,
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    titles[0],
+                                    style: TextStyle(
+                                      color: cubit.currentIndex == 0
+                                          ? AppColors.white
+                                          : AppColors.black,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          )
+                          ),
+                          SizedBox(width: MediaQuery.of(context).size.width*0.04),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                              vertical: 8,
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                cubit.selectTap(1);
+                                print(cubit.currentIndex);
+                                _tabController.animateTo(1);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 30,
+                                  vertical: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: cubit.currentIndex == 1
+                                      ? AppColors.orangeThirdPrimary
+                                      : AppColors.unselectedTabColor,
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    titles[1],
+                                    style: TextStyle(
+                                      color: cubit.currentIndex == 1
+                                          ? AppColors.white
+                                          : AppColors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: MediaQuery.of(context).size.width*0.04),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                              vertical: 8,
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                cubit.selectTap(2);
+                                print(cubit.currentIndex);
+                                _tabController.animateTo(2);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 30,
+                                  vertical: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: cubit.currentIndex == 2
+                                      ? AppColors.orangeThirdPrimary
+                                      : AppColors.unselectedTabColor,
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    titles[2],
+                                    style: TextStyle(
+                                      color: cubit.currentIndex == 2
+                                          ? AppColors.white
+                                          : AppColors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

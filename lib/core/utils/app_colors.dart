@@ -32,7 +32,8 @@ class AppColors {
   static Color liveExamGrayTextColor = HexColor('#646463');
   static Color goldColor = HexColor('#F4BC35');
   static Color skyColor = HexColor('#48B8E0');
-  static Color blueLiteColor = HexColor('##00B3DC');
+  static Color blueLiteColor = HexColor('#00B3DC');
+  static Color redLiteColor = HexColor('#FEECEA');
   static Color greenDownloadColor = HexColor('#009541');
 
   static Color blueLikeColor = HexColor('#2e7dea');
@@ -64,6 +65,8 @@ class AppColors {
   static Color blue = HexColor('#143A7B');
   static Color blue1 = HexColor('#CBDFF8');
   static Color blue2 = HexColor('#8290F8');
+  static Color blue3 = HexColor('#171560');
+  static Color blue4 = HexColor('#303F82');
   static Color bluelight = HexColor('#D7EAF9');
   static Color orange = HexColor('#FE7C04');
   static Color orangelight = HexColor('#FFEAD7');

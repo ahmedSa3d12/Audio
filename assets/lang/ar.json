@@ -166,7 +166,16 @@
   "try": "محاولة",
   "q": "س",
   "time_count": "عد تنازلى",
-  "test_yourself": "اختبر نفسك"
+  "test_yourself": "اختبر نفسك",
+  "current_month": "الشهر الحالى",
+  "previous_month": "الشهر السابق",
+  "coming_soon": "لا يوجد محتوى الان",
+  "countdown": "عد تنازلى قبل امتحان اخر العام",
+  "report_about_mistake": "ابلاغ عن خطأ",
+  "favourite": "المفضله",
+  "attachments": "المرفقات",
+  "dowanload": "تحميل",
+  "like": "لايك"
 
 
 

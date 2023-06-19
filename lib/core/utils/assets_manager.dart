@@ -36,6 +36,9 @@ class ImageAssets {
   static const String callUsSmsImage = '$imagePath/call_us_sms.png';
   static const String callUsWhatsappImage = '$imagePath/call_us_whatsapp.png';
   static const String starsImage = '$imagePath/stars.png';
+  static const String crownImage = '$imagePath/crown.png';
+  static const String comingSoonImage = '$imagePath/coming_soon.png';
+  static const String countdownImage = '$imagePath/countdown.png';
 
   // icons
   static const String loadIcon = '$iconsPath/load.svg';
@@ -94,6 +97,11 @@ class ImageAssets {
   static const String resourceVideoIcon = '$iconsPath/resource_video.svg';
   static const String testYourselfIcon = '$iconsPath/test_yourself.svg';
   static const String yourSuggestIcon = '$iconsPath/your_suggest.svg';
+  static const String eyeIcon = '$iconsPath/eye.svg';
+  static const String like1Icon = '$iconsPath/like1.svg';
+  static const String heartIcon = '$iconsPath/heart.svg';
+  static const String dowanload1Icon = '$iconsPath/dowanload1.svg';
+  static const String attachmentIcon = '$iconsPath/attachment.svg';
 
 
   //Lottie
