@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:new_mazoon/core/models/comment_data_model.dart';
 import '../../features/login/models/communication_model.dart';
 import '../api/base_api_consumer.dart';
 import '../api/end_points.dart';
@@ -439,6 +440,29 @@ class ServiceApi {
         ),
       );
       return Right(VideoDataModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+  Future<Either<Failure, CommentsDataModel>> getcomments(
+      {required int video_id,required String type}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+
+    try {
+      final response = await dio.get(
+        EndPoints.commentsUrl + video_id.toString(),
+        queryParameters: {
+          'type': type,
+        },
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(CommentsDataModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

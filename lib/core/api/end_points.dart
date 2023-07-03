@@ -21,6 +21,7 @@ class EndPoints {
   static const String sourcesReferencesByIdUrl = '${baseUrl}guide/sources_references/by-lesson/';
   static const String examInstructionsUrl = '${baseUrl}instruction/exam/';
   static const String videoDetailsUrl = '${baseUrl}lesson/video/details/';
+  static const String commentsUrl = '${baseUrl}lesson/video/comments/';
 
 
 

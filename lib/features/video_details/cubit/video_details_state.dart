@@ -7,3 +7,6 @@ class VideoDetailsInitial extends VideoDetailsState {}
 class VideoDetailsLoaded extends VideoDetailsState {}
 class VideoDetailsError extends VideoDetailsState {}
 class VideoDetailsLoading extends VideoDetailsState {}
+class CommentsLoaded extends VideoDetailsState {}
+class CommentsError extends VideoDetailsState {}
+class CommentsLoading extends VideoDetailsState {}

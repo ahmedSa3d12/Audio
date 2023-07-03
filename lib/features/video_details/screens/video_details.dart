@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/widgets/custom_button.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
+import 'package:new_mazoon/features/video_details/widget/comments.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
@@ -36,7 +37,7 @@ class _VideoDetailsState extends State<VideoDetails> {
             appBar: AppBar(
               backgroundColor: AppColors.primary,
               title: Text(
-                cubit.videoModel!.name,
+                cubit.videoModel!.name??'',
                 style: TextStyle(color: AppColors.white),
               ),
             ),
@@ -270,7 +271,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                               fontWeight: FontWeight.bold,
                               color: AppColors.blue3),
                         ),
-                      )
+                      ),
+                      Comments()
                     ],
                   ),
                 ),
