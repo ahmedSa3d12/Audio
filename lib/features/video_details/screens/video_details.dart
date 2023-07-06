@@ -76,6 +76,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold),
                             )),
+                            SizedBox(width: 10,),
                             Container(
                                 child: Row(
                               children: [
