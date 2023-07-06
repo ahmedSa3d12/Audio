@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart' as ap;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/core/utils/app_colors.dart';
 
 class AudioPlayer extends StatefulWidget {
   /// Path from where to play recorded audio
@@ -68,11 +69,9 @@ class AudioPlayerState extends State<AudioPlayer> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       children: [
         Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
           children: <Widget>[
             _buildControl(),
             _buildSlider(widget.type=='upload'?MediaQuery.of(context).size.width / 2:MediaQuery.of(context).size.width /2+50),
@@ -105,21 +104,16 @@ class AudioPlayerState extends State<AudioPlayer> {
       color = theme.primaryColor.withOpacity(0.1);
     }
 
-    return ClipOval(
-      child: Material(
-        color: color,
-        child: InkWell(
-          child:
-          SizedBox(width: _controlSize, height: _controlSize, child: icon),
-          onTap: () {
-            if (_audioPlayer.state == ap.PlayerState.playing) {
-              pause();
-            } else {
-              play();
-            }
-          },
-        ),
-      ),
+    return InkWell(
+      child:
+      SizedBox(width: _controlSize, height: _controlSize, child: icon),
+      onTap: () {
+        if (_audioPlayer.state == ap.PlayerState.playing) {
+          pause();
+        } else {
+          play();
+        }
+      },
     );
   }
 

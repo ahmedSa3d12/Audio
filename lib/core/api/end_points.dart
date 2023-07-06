@@ -22,6 +22,9 @@ class EndPoints {
   static const String examInstructionsUrl = '${baseUrl}instruction/exam/';
   static const String videoDetailsUrl = '${baseUrl}lesson/video/details/';
   static const String commentsUrl = '${baseUrl}lesson/video/comments/';
+  static const String addremovefavUrl = '${baseUrl}favorite/video-add-favorite';
+  static const String addcommentsUrl = '${baseUrl}lesson/video/add-comment';
+  static const String addreplayUrl = '${baseUrl}lesson/comment/add-replay/';
 
 
 

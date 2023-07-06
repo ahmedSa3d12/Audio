@@ -1,18 +1,22 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/widgets/custom_button.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:new_mazoon/features/video_details/widget/comments.dart';
+import 'package:record/record.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
+import '../../../core/widgets/audio_recorder_widget.dart';
 import '../../../core/widgets/circle_image_widget.dart';
 import '../../../core/widgets/custom_textfield.dart';
 import '../../../core/widgets/no_data_widget.dart';
 import '../../../core/widgets/show_loading_indicator.dart';
 import '../../../core/widgets/video_widget.dart';
+import '../widget/choose_icon_dialog.dart';
 
 class VideoDetails extends StatefulWidget {
   const VideoDetails({Key? key}) : super(key: key);
@@ -22,6 +26,7 @@ class VideoDetails extends StatefulWidget {
 }
 
 class _VideoDetailsState extends State<VideoDetails> {
+
   @override
   Widget build(BuildContext context) {
     VideoDetailsCubit cubit = context.read<VideoDetailsCubit>();
@@ -33,17 +38,18 @@ class _VideoDetailsState extends State<VideoDetails> {
         if (state is VideoDetailsError) {
           return NoDataWidget(onclick: () {}, title: 'no_date');
         } else {
-          return Scaffold(
+
+        return Scaffold(
             appBar: AppBar(
               backgroundColor: AppColors.primary,
               title: Text(
-                cubit.videoModel!.name??'',
+                cubit.videoModel!=null?cubit.videoModel!.name??'':'',
                 style: TextStyle(color: AppColors.white),
               ),
             ),
             body: Stack(
-              children: [
-                Positioned(
+            children: [
+            Positioned(
                   top: 0,
                   right: 0,
                   left: 0,
@@ -162,62 +168,76 @@ class _VideoDetailsState extends State<VideoDetails> {
                                   ),
                                 ),
                                 Flexible(
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: AppColors.orange),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: MySvgWidget(
-                                              path: ImageAssets.heartIcon,
-                                              imageColor: AppColors.white,
-                                              size: 20,
+                                  child: InkWell(
+                                    onTap: () {
+                                      cubit.favourite("video_resource", cubit.videoModel!.favorite=='un_favorite'?"favorite":"un_favorite");
+                                    },
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: AppColors.orange),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: MySvgWidget(
+                                                path: ImageAssets.heartIcon,
+                                                imageColor: cubit.videoModel!.favorite=="un_favorite"?AppColors.white:AppColors.red,
+                                                size: 20,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        Text(
-                                          "favourite".tr(),
-                                          style: TextStyle(
-                                            fontSize: 12,
+                                          SizedBox(
+                                            height: 4,
                                           ),
-                                        )
-                                      ],
+                                          Text(
+                                            "favourite".tr(),
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
                                 Flexible(
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: AppColors.purple1),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: MySvgWidget(
-                                              path: ImageAssets.dowanload1Icon,
-                                              imageColor: AppColors.white,
-                                              size: 20,
+                                  child: InkWell(
+                                    onTap: () {
+                                      cubit.downloadvideo();
+                                    },
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: AppColors.purple1),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child:cubit.progress!=0?CircularProgressIndicator(
+                                                value: cubit.progress,
+                                              backgroundColor: AppColors.white,
+                                                color: AppColors.primary,
+                                              ):MySvgWidget(
+                                                path: ImageAssets.dowanload1Icon,
+                                                imageColor: AppColors.white,
+                                                size: 20,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: 4,
-                                        ),
-                                        Text(
-                                          "dowanload".tr(),
-                                          style: TextStyle(
-                                            fontSize: 12,
+                                          SizedBox(
+                                            height: 4,
                                           ),
-                                        )
-                                      ],
+                                          Text(
+                                            "dowanload".tr(),
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -292,23 +312,136 @@ class _VideoDetailsState extends State<VideoDetails> {
                           Expanded(
                             child: CustomTextField(
                               title: 'add_comment'.tr(),
+                              controller: cubit.comment_control,
                               validatorMessage: 'add_comment_valid'.tr(),
                               backgroundColor: AppColors.commentBackground,
-                              suffixWidget: IconButton(
-                                icon: Icon(Icons.attach_file),
-                                onPressed: () {},
+onchange: (p0) {
+  cubit.updateicone();
+},
+                              suffixWidget:
+                              InkWell(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (ctx) => AlertDialog(
+                                      title: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 5),
+                                        child: Text('choose'.tr()),
+                                      ),
+                                      contentPadding: EdgeInsets.zero,
+                                      content: SizedBox(
+                                        width: MediaQuery.of(context).size.width - 60,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            ChooseIconDialog(
+                                              title: 'camera'.tr(),
+                                              icon: Icons.camera_alt,
+                                              onTap: () {
+                                                cubit.pickImage(type: 'camera', type1: '1');
+                                                Navigator.of(context).pop();
+                                                // Future.delayed(Duration(milliseconds: 500),
+                                                //         () {
+                                                //       showDialog(
+                                                //         context: context,
+                                                //         barrierDismissible: false,
+                                                //         builder: (ctx) => AlertDialog(
+                                                //           title: Padding(
+                                                //             padding: const EdgeInsets.symmetric(
+                                                //               vertical: 5,
+                                                //             ),
+                                                //             child: Text('photo'.tr()),
+                                                //           ),
+                                                //           contentPadding: EdgeInsets.zero,
+                                                //           content: RecordWidget(
+                                                //             type: 'image',
+                                                //             sendType: type,
+                                                //             id: id,
+                                                //           ),
+                                                //         ),
+                                                //       );
+                                                //     });
+                                              },
+                                            ),
+                                            ChooseIconDialog(
+                                              title: 'photo'.tr(),
+                                              icon: Icons.photo,
+                                              onTap: () {
+                                                cubit.pickImage(type: 'photo', type1: '1');
+                                                Navigator.of(context).pop();
+                                                // Future.delayed(Duration(milliseconds: 500),
+                                                //         () {
+                                                //       showDialog(
+                                                //         context: context,
+                                                //         barrierDismissible: false,
+                                                //         builder: (ctx) => AlertDialog(
+                                                //           title: Padding(
+                                                //             padding: const EdgeInsets.symmetric(
+                                                //               vertical: 5,
+                                                //             ),
+                                                //             child: Text('photo'.tr()),
+                                                //           ),
+                                                //           contentPadding: EdgeInsets.zero,
+                                                //           content: RecordWidget(
+                                                //             type: 'image',
+                                                //             sendType: type,
+                                                //             id: id,
+                                                //           ),
+                                                //         ),
+                                                //       );
+                                                //     });
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text('cancel'.tr()),
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () {
+                                    },
+                                    child: MySvgWidget(
+                                      path: ImageAssets.attachmentIcon,
+                                      imageColor: AppColors.white,
+                                      size: 10,
+
+                                    ),
+                                  ),
+                                ),
                               ),
                               textInputType: TextInputType.text,
                             ),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle, color: AppColors.blue4),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Icon(
-                                Icons.mic,
-                                color: AppColors.white,
+cubit.isRecording? Text(
+"llllll"
+):Container(),
+                          InkWell(
+                            onTap: () {
+                            cubit.comment_control.text.isNotEmpty?  cubit.addcommment("text",'',''):
+
+                            cubit.isRecording?cubit.stop(1):cubit.start();
+                            },
+
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle, color: AppColors.blue4),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Icon(
+                                 cubit.comment_control.text.isNotEmpty?Icons.send:cubit.isRecording?Icons.stop: Icons.mic,
+                                  color: AppColors.white,
+                                ),
                               ),
                             ),
                           )
@@ -322,4 +455,6 @@ class _VideoDetailsState extends State<VideoDetails> {
       },
     );
   }
+
+
 }

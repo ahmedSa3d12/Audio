@@ -54,6 +54,7 @@ class CommentsModel {
   String image;
   String type;
   User user;
+  String time;
   List<Reply> replies;
   DateTime createdAt;
   DateTime updatedAt;
@@ -68,6 +69,7 @@ class CommentsModel {
     required this.replies,
     required this.createdAt,
     required this.updatedAt,
+    required this.time
   });
 
   factory CommentsModel.fromJson(Map<String, dynamic> json) => CommentsModel(
@@ -76,6 +78,7 @@ class CommentsModel {
     audio: json["audio"],
     image: json["image"],
     type: json["type"],
+    time: json["time"],
     user: User.fromJson(json["user"]),
     replies: List<Reply>.from(json["replies"].map((x) => Reply.fromJson(x))),
     createdAt: DateTime.parse(json["created_at"]),
@@ -88,6 +91,7 @@ class CommentsModel {
     "audio": audio,
     "image": image,
     "type": type,
+    "time": time,
     "user": user.toJson(),
     "replies": List<dynamic>.from(replies.map((x) => x.toJson())),
     "created_at": "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
@@ -104,7 +108,7 @@ class Reply {
   User user;
   DateTime createdAt;
   DateTime updatedAt;
-
+String time;
   Reply({
     required this.id,
     required this.comment,
@@ -114,14 +118,16 @@ class Reply {
     required this.user,
     required this.createdAt,
     required this.updatedAt,
+    required this.time,
   });
 
   factory Reply.fromJson(Map<String, dynamic> json) => Reply(
     id: json["id"],
-    comment: json["comment"],
+    comment: json["comment"]??'',
     audio: json["audio"],
     image: json["image"],
     type: json["type"],
+    time: json["time"],
     user: User.fromJson(json["user"]),
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
@@ -133,6 +139,7 @@ class Reply {
     "audio": audio,
     "image": image,
     "type": type,
+    "time": time,
     "user": user.toJson(),
     "created_at": "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
     "updated_at": "${updatedAt.year.toString().padLeft(4, '0')}-${updatedAt.month.toString().padLeft(2, '0')}-${updatedAt.day.toString().padLeft(2, '0')}",

@@ -26,7 +26,6 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
       onTap: () {
         model.type=='video'? {
           context.read<VideoDetailsCubit>().getVideoDetails(model.id!, "video_resource"),
-          context.read<VideoDetailsCubit>().getcomments(model.id!, "video_resource"),
           Navigator.pushNamed(context, Routes.videoDetailsScreenRoute)
         }
             :
