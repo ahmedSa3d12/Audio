@@ -55,6 +55,7 @@ class CommentsModel {
   String type;
   User user;
   String time;
+  bool show=false;
   List<Reply> replies;
   DateTime createdAt;
   DateTime updatedAt;
@@ -109,6 +110,8 @@ class Reply {
   DateTime createdAt;
   DateTime updatedAt;
 String time;
+
+  bool show=false;
   Reply({
     required this.id,
     required this.comment,

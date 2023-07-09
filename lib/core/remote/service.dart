@@ -469,20 +469,23 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
+
   Future<Either<Failure, StatusResponse>> addToFavourite(
-      {required int video_id, required String type,required String action}) async {
+      {required int video_id,
+      required String type,
+      required String action}) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
 
     try {
       final response = await dio.post(
-        EndPoints.addremovefavUrl ,
+        EndPoints.addremovefavUrl,
         body: {
-      "video_basic_id":type=='video_basic'?video_id:'',
-      "video_resource_id":type=='video_resource'?video_id:'',
-      "video_part_id":type=='video_part'?video_id:'',
-      "favorite_type":type,
-      "action":action,
+          "video_basic_id": type == 'video_basic' ? video_id : '',
+          "video_resource_id": type == 'video_resource' ? video_id : '',
+          "video_part_id": type == 'video_part' ? video_id : '',
+          "favorite_type": type,
+          "action": action,
         },
         options: Options(
           headers: {
@@ -498,7 +501,11 @@ class ServiceApi {
   }
 
   Future<Either<Failure, SingleCommentModel>> addComments(
-      {required int video_id, required String type, required String text,required String image,required String audio}) async {
+      {required int video_id,
+      required String type,
+      required String text,
+      required String image,
+      required String audio}) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
 
@@ -531,14 +538,147 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
-  Future<Either<Failure, SingleReplayModel>> addreplay(
-      {required int comment_id, required String type, required String text,required String image,required String audio}) async {
+
+  Future<Either<Failure, SingleCommentModel>> editComments(
+      {required int comment_id,
+      required String type,
+      required String text}) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
 
     try {
       final response = await dio.post(
-        EndPoints.addreplayUrl+comment_id.toString(),
+        EndPoints.editcommentUrl + comment_id.toString(),
+        formDataIsEnabled: true,
+        body: {
+          "comment": text,
+          "type": type,
+        },
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(SingleCommentModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, SingleReplayModel>> editReplay(
+      {required int comment_id,
+      required String type,
+      required String text}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+
+    try {
+      final response = await dio.post(
+        EndPoints.editReplayUrl + comment_id.toString(),
+        formDataIsEnabled: true,
+        body: {
+          "comment": text,
+          "type": type,
+        },
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(SingleReplayModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, StatusResponse>> delecomment(
+      {required int commnet_id}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+
+    try {
+      final response = await dio.delete(
+        EndPoints.deletecommentUrl + commnet_id.toString(),
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(StatusResponse.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, StatusResponse>> addreport(
+      {required int video_id,
+      required String comment,
+      required String type}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+
+    try {
+      final response = await dio.post(
+        EndPoints.reportUrl,
+        body: {
+          "type": type,
+          "report": comment,
+          "video_basic_id": type == 'video_basic' ? video_id : '',
+          "video_resource_id": type == 'video_resource' ? video_id : '',
+          "video_part_id": type == 'video_part' ? video_id : '',
+        },
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(StatusResponse.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, StatusResponse>> delereplay(
+      {required int replay_id}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+
+    try {
+      final response = await dio.delete(
+        EndPoints.deletereplayUrl + replay_id.toString(),
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(StatusResponse.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, SingleReplayModel>> addreplay(
+      {required int comment_id,
+      required String type,
+      required String text,
+      required String image,
+      required String audio}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+
+    try {
+      final response = await dio.post(
+        EndPoints.addreplayUrl + comment_id.toString(),
         formDataIsEnabled: true,
         body: {
           "replay": text,

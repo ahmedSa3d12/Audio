@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:cached_video_player/cached_video_player.dart';
@@ -19,13 +19,17 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 import '../../../core/models/comment_data_model.dart';
 import '../../../core/remote/service.dart';
+import '../../../core/utils/appwidget.dart';
 
 part 'video_details_state.dart';
 
 class VideoDetailsCubit extends Cubit<VideoDetailsState> {
   final ServiceApi api;
+  TextEditingController report_control = TextEditingController();
   TextEditingController comment_control = TextEditingController();
+  TextEditingController editcomment_control = TextEditingController();
   TextEditingController replay_control = TextEditingController();
+  TextEditingController editreplay_control = TextEditingController();
   int? video_id;
   String? type;
   XFile? imageFile;
@@ -40,13 +44,15 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
 
   double progress = 0;
 
+  double pos = 50;
+
   Future<void> start() async {
     try {
       if (await audioRecorder.hasPermission()) {
         await audioRecorder.start();
 
         isRecording = await audioRecorder.isRecording();
-
+        pos = 200;
         emit(CommentsLoaded());
       }
     } catch (e) {
@@ -57,6 +63,7 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
   Future<void> stop(int type) async {
     final path = await audioRecorder.stop();
     isRecording = false;
+    pos = 50;
     if (type == 1) {
       addcommment("audio", '', path.toString());
     } else {
@@ -143,6 +150,42 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
     );
   }
 
+  editcommment(String type, int index) async {
+    final response = await api.editComments(
+      comment_id: comments!.data.elementAt(index)!.id,
+      type: type,
+      text: editcomment_control.text,
+    );
+    response.fold(
+      (l) => {print(l.toString()), emit(CommentsError())},
+      (r) {
+        comments!.data.removeAt(index);
+        comments!.data.insert(index, r.data);
+        editcomment_control.text = '';
+
+        emit(CommentsLoaded());
+      },
+    );
+  }
+
+  editreplay(String type, int index) async {
+    final response = await api.editReplay(
+      comment_id: commentsModel!.replies.elementAt(index).id,
+      type: type,
+      text: editreplay_control.text,
+    );
+    response.fold(
+      (l) => {print(l.toString()), emit(CommentsError())},
+      (r) {
+        commentsModel!.replies.removeAt(index);
+        commentsModel!.replies.insert(index, r.data);
+        editreplay_control.text = '';
+
+        emit(CommentsLoaded());
+      },
+    );
+  }
+
   addreplay(String type, String imagePath, String audio) async {
     final response = await api.addreplay(
         comment_id: commentsModel!.id,
@@ -199,4 +242,79 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
       },
     );
   }
+
+  Future<void> delecomment(int id, int index) async {
+    print("lllll");
+    print(id);
+    final response = await api.delecomment(
+      commnet_id: id,
+    );
+    response.fold(
+      (l) => {print(l.toString()), emit(CommentsError())},
+      (r) {
+        comments!.data.removeAt(index);
+
+        emit(CommentsLoaded());
+      },
+    );
+  }
+
+  Future<void> delereplay(int id, int index) async {
+    print("lllll");
+    print(id);
+    final response = await api.delecomment(
+      commnet_id: id,
+    );
+    response.fold(
+      (l) => {print(l.toString()), emit(CommentsError())},
+      (r) {
+        commentsModel!.replies!.removeAt(index);
+
+        emit(CommentsLoaded());
+      },
+    );
+  }
+
+  void showEdittext(int index) {
+    CommentsModel commentsModel = comments!.data.elementAt(index);
+    commentsModel.show = !commentsModel.show;
+    comments!.data.removeAt(index);
+    comments!.data.insert(index, commentsModel);
+    emit(CommentsLoaded());
+  }
+
+  void showreplayEdittext(int index) {
+    Reply reply = commentsModel!.replies.elementAt(index);
+    reply.show = !reply.show;
+    commentsModel!.replies.removeAt(index);
+    commentsModel!.replies.insert(index, reply);
+    emit(CommentsLoaded());
+  }
+
+  Future<void> report(BuildContext context) async {
+    AppWidget.createProgressDialog(context, 'wait'.tr());
+    print("lllll");
+
+    final response = await api.addreport(
+      video_id: videoModel!.id,
+      type: type!,
+      comment: report_control.text,
+    );
+    response.fold(
+      (l) =>
+          {print(l.toString()), Navigator.pop(context), Navigator.pop(context)},
+      (r) {
+        Navigator.pop(context);
+        Navigator.pop(context);
+        report_control.text = '';
+        emit(CommentsLoaded());
+      },
+    );
+  }
+
+  void setduration(Duration duration) {
+    print("ddlldldl0");
+    print(duration.inHours);
+  }
+
 }

@@ -16,11 +16,12 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.imageColor = Colors.grey,
     required this.backgroundColor,
-    this.isEnable = true, this.onchange,
+    this.isEnable = true, this.onchange, required this.color1,
   }) : super(key: key);
   final Widget? suffixWidget;
   final Color imageColor;
   final Color backgroundColor;
+  final Color color1;
   final String title;
   final String validatorMessage;
   final int minLine;
@@ -42,7 +43,7 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 14),
           hintStyle: TextStyle(
-            color: AppColors.secondPrimary,
+            color: color1,
             fontWeight: FontWeight.bold,
           ),
           hintText: title,

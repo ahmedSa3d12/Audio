@@ -25,6 +25,11 @@ class EndPoints {
   static const String addremovefavUrl = '${baseUrl}favorite/video-add-favorite';
   static const String addcommentsUrl = '${baseUrl}lesson/video/add-comment';
   static const String addreplayUrl = '${baseUrl}lesson/comment/add-replay/';
+  static const String deletecommentUrl = '${baseUrl}video/comment/delete/';
+  static const String deletereplayUrl = '${baseUrl}video/replay/delete/';
+  static const String editcommentUrl = '${baseUrl}video/comment/update/';
+  static const String editReplayUrl = '${baseUrl}video/replay/update/';
+  static const String reportUrl = '${baseUrl}report/student-add-report';
 
 
 

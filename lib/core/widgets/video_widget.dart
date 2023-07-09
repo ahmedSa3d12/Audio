@@ -1,5 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:video_player/video_player.dart';
 
 import '../utils/app_colors.dart';
@@ -62,6 +64,7 @@ class _VideoWidgetState extends State<VideoWidget> {
 
   @override
   void dispose() {
+    context.read<VideoDetailsCubit>().setduration( _videoPlayerController.value.duration);
     _videoPlayerController.dispose();
     _chewieController?.dispose();
     super.dispose();
