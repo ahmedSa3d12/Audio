@@ -12,6 +12,7 @@ class EndPoints {
   static const String allExamClassesUrl = '${baseUrl}auth/home-page/all-exams';
   static const String examsClassByIdUrl = '${baseUrl}auth/home-page/start-your-journey/findExamByClassById/';
   static const String monthPlanUrl = '${baseUrl}plans/all';
+  static const String notesUrl = '${baseUrl}notes/note-all-by-date';
   static const String lessonsByClassUrl = '${baseUrl}classes/lessonsByClassId/';
   static const String registerExamUrl = '${baseUrl}auth/papel-sheet-exam/user/';
   static const String deleteregisterExamUrl = '${baseUrl}auth/paper-sheet-exam/latest-paper-exam-delete';
@@ -30,6 +31,7 @@ class EndPoints {
   static const String editcommentUrl = '${baseUrl}video/comment/update/';
   static const String editReplayUrl = '${baseUrl}video/replay/update/';
   static const String reportUrl = '${baseUrl}report/student-add-report';
+  static const String updateVideoTimeUrl = '${baseUrl}video-update-time/';
 
 
 

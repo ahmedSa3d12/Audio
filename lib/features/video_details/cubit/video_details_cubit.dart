@@ -46,6 +46,10 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
 
   double pos = 50;
 
+  int ishour=0;
+
+  Duration? duration;
+
   Future<void> start() async {
     try {
       if (await audioRecorder.hasPermission()) {
@@ -314,7 +318,31 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
 
   void setduration(Duration duration) {
     print("ddlldldl0");
-    print(duration.inHours);
+    this.duration=duration;
+    emit(CommentsLoaded());
+  }
+
+
+  Future<void> updateTime() async {
+    if(type=="video_part"){
+      if(duration!>Duration(seconds: int.parse(videoModel!.video_minutes.split(":")[0]), minutes: int.parse(videoModel!.video_minutes.split(":")[1]), hours: int.parse(videoModel!.video_minutes.split(":")[2]))){
+
+        final response = await api.updateVideoTime(
+          video_id: videoModel!.id,
+          minutes: duration!.inHours.toString()+":"+duration!.inMinutes.toString()+":"+duration!.inSeconds.toString(),
+
+        );
+        response.fold(
+              (l) =>
+          {print(l.toString()),
+            },
+              (r) {
+         getVideoDetails(video_id!, type!);
+            emit(CommentsLoaded());
+          },
+        );
+      }
+    }
   }
 
 }

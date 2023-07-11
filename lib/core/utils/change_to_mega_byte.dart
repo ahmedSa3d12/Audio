@@ -1,4 +1,7 @@
 String changeToMegaByte(String size) {
+  if(size.isEmpty){
+    size="0";
+  }
   double mySize = double.parse(size);
   print(mySize);
   if (mySize == 1000.0) {

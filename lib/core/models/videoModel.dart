@@ -8,6 +8,7 @@ class VideoModel {
   int totalLike;
   int likeActive;
   int viewActive;
+ String video_minutes;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -23,6 +24,7 @@ class VideoModel {
     required this.viewActive,
     required this.createdAt,
     required this.updatedAt,
+    required this.video_minutes,
   });
 
   factory VideoModel.fromJson(Map<String, dynamic> json) => VideoModel(
@@ -35,6 +37,7 @@ class VideoModel {
     totalLike: json["total_like"],
     likeActive: json["like_active"],
     viewActive: json["view_active"],
+    video_minutes: json["video_minutes"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
   );
@@ -49,6 +52,7 @@ class VideoModel {
     "total_like": totalLike,
     "like_active": likeActive,
     "view_active": viewActive,
+    "video_minutes":video_minutes,
     "created_at": "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
     "updated_at": "${updatedAt.year.toString().padLeft(4, '0')}-${updatedAt.month.toString().padLeft(2, '0')}-${updatedAt.day.toString().padLeft(2, '0')}",
   };

@@ -12,6 +12,7 @@ import '../../../core/widgets/download_icon_widget.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../../core/widgets/network_image.dart';
 import '../../../core/widgets/pdf_screen.dart';
+import '../cubit/start_trip_cubit.dart';
 
 class ItemOfFinalReviewWidget extends StatelessWidget {
   const ItemOfFinalReviewWidget({
@@ -104,7 +105,7 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
                       SizedBox(width: model.type == 'video'?10:0),
                       Text(
                         model.type == 'video'
-                            ? '${model.time} ساعه '
+                            ? '${model.time}  '
                             : changeToMegaByte(model.size.toString()),
                         textDirection: model.type == 'video'
                             ? TextDirection.rtl
@@ -118,13 +119,27 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
                       SizedBox(width: model.type != 'video'?10:0),
                       model.type == 'video'
                           ? SizedBox()
-                          : SizedBox(
-                              width: 25,
-                              height: 25,
-                              child: DownloadIconWidget(
-                                color: HexColor(model.backgroundColor!),
+                          : InkWell(
+                        onTap:() {
+                          context.read<StartTripCubit>().dowanload(model);
+                        },
+                            child: SizedBox(
+                                width: 25,
+                                height: 25,
+                                child:
+                                model.progress != 0
+                                    ? CircularProgressIndicator(
+                                  value: model.progress,
+                                  backgroundColor:
+                                  AppColors.white,
+                                  color: AppColors.primary,
+                                )
+
+                                :DownloadIconWidget(
+                                  color: HexColor(model.backgroundColor!),
+                                ),
                               ),
-                            ),
+                          ),
                       SizedBox(width: model.type == 'video'?0:8),
                       // Spacer(),
                     ],

@@ -10,6 +10,7 @@ import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../homePage/screens/home_page.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
+import '../../notes/screen/noteplan.dart';
 import '../../sources_and_references/screens/sources_references_main_screen.dart';
 import '../../start_trip/screens/main_start_trip_screen.dart';
 import '../widget/menu_screen_widget.dart';
@@ -158,7 +159,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
     } else if (_page == 2) {
       return HomePage();
     } else if (_page == 3) {
-      return Container(color: Colors.yellow);
+      return NotePlan();
     } else {
       return StartTripScreen();
     }

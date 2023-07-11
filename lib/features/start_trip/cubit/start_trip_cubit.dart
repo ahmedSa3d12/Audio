@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:new_mazoon/core/remote/service.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../core/models/class_data.dart';
 import '../../../core/models/classes_exam_data_model.dart';
@@ -77,4 +81,36 @@ class StartTripCubit extends Cubit<StartTripState> {
       },
     );
   }
+  dowanload(FinalReviewModel model) async {
+    int index=finalReview.indexOf(model);
+    final dio = Dio();
+
+    var dir = await (Platform.isIOS
+        ? getApplicationSupportDirectory()
+        : getApplicationDocumentsDirectory());
+    await dio.download(
+      model!.pathFile!,
+      dir.path + "/pdf/" + model!.pathFile!.split("/").toList().last,
+      onReceiveProgress: (count, total) {
+        model.progress = (count / total);
+        // print(progress);
+        finalReview.removeAt(index);
+        finalReview.insert(index, model);
+        emit(StartTripFinalReviewLoaded());
+      },
+    ).whenComplete(
+          () {
+            model.progress = 0;
+            // print(progress);
+            finalReview.removeAt(index);
+            finalReview.insert(index, model);
+            emit(StartTripFinalReviewLoaded());
+        // progress = 0;
+        // emit(VideoDetailsLoaded());
+      },
+    );
+  }
+
+
+
 }

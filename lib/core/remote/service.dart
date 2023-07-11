@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:new_mazoon/core/models/comment_data_model.dart';
+import 'package:new_mazoon/core/models/note_model.dart';
 import 'package:new_mazoon/core/models/status_response_model.dart';
 import '../../features/login/models/communication_model.dart';
 import '../api/base_api_consumer.dart';
@@ -268,6 +269,26 @@ class ServiceApi {
         ),
       );
       return Right(MothPlanModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+  Future<Either<Failure, NoteDataModel>> getNotes(String date) async {
+    UserModel userModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    print('lan : $lan');
+    try {
+      final response = await dio.get(
+        EndPoints.notesUrl,
+        queryParameters: {'date': date},
+        options: Options(
+          headers: {
+            'Authorization': userModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(NoteDataModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -632,6 +653,31 @@ class ServiceApi {
           "video_basic_id": type == 'video_basic' ? video_id : '',
           "video_resource_id": type == 'video_resource' ? video_id : '',
           "video_part_id": type == 'video_part' ? video_id : '',
+        },
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(StatusResponse.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+  Future<Either<Failure, StatusResponse>> updateVideoTime(
+      {required int video_id,
+      required String minutes}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+
+    try {
+      final response = await dio.post(
+        EndPoints.updateVideoTimeUrl+video_id.toString(),
+        body: {
+          "minutes": minutes,
+
         },
         options: Options(
           headers: {

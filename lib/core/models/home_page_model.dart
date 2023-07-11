@@ -184,12 +184,12 @@ class FinalReviewModel {
   final String? type;
   final String? backgroundColor;
   final String? image;
-  final int? time;
+  final String? time;
   final String? pathFile;
   final int? size;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-
+ double progress=0;
   FinalReviewModel({
     this.id,
     this.name,
