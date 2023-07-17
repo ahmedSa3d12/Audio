@@ -63,19 +63,13 @@ Future<void> setup() async {
     () => StartTripCubit(serviceLocator()),
   );
   serviceLocator.registerFactory(
-        () => ExaminstructionsCubit(
-      serviceLocator()
-    ),
+    () => ExaminstructionsCubit(serviceLocator()),
   );
   serviceLocator.registerFactory(
-        () => NoteCubit(
-      serviceLocator()
-    ),
+    () => NoteCubit(serviceLocator()),
   );
   serviceLocator.registerFactory(
-        () => VideoDetailsCubit(
-      serviceLocator()
-    ),
+    () => VideoDetailsCubit(serviceLocator()),
   );
   serviceLocator.registerFactory(
     () => SourceReferencesCubit(serviceLocator()),
