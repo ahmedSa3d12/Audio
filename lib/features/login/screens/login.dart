@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../../../core/utils/assets_manager.dart';
 import '../../../../../core/widgets/circle_image_widget.dart';
 import '../../../config/routes/app_routes.dart';
@@ -41,16 +40,19 @@ class _userScreenState extends State<LoginScreen> {
                   Hero(
                     tag: 'logo',
                     child: Container(
-                      height: 300,
-                      width: 300,
-                      child: SizedBox(
-                        width: 300,
-                        height: 150,
-                        child: Image.asset(
-                          'assets/images/logo.png',
-                        ),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                      width: 361,
+                      height: 213,
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        width: 200,
+                        height: 200,
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: 16,
                   ),
                   BlocBuilder<LoginCubit, LoginState>(
                     builder: (context, state) {
@@ -209,220 +211,229 @@ class _userScreenState extends State<LoginScreen> {
                       return SizedBox(
                         width: double.maxFinite,
                         child: Center(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  if (state is userCommunicationError) {
-                                    createProgressDialog(context, 'wait'.tr());
-                                    cubit.getCommunicationData().whenComplete(
-                                      () {
-                                        Navigator.of(context).pop();
-                                        if (cubit.isCommunicationData) {
-                                          getCommunicationTab(
-                                            'facebook',
-                                            cubit,
-                                          );
-                                        } else {
-                                          toastMessage(
-                                            'error_to_get_data'.tr(),
-                                            context,
-                                            color: AppColors.error,
-                                          );
-                                        }
-                                      },
-                                    );
-                                  } else {
-                                    getCommunicationTab(
-                                      'facebook',
-                                      cubit,
-                                    );
-                                  }
-                                },
-                                child: Image.asset(
-                                  ImageAssets.facebookImage,
-                                  width: 40.0,
-                                  height: 40.0,
-                                  fit: BoxFit.cover,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    if (state is userCommunicationError) {
+                                      createProgressDialog(
+                                          context, 'wait'.tr());
+                                      cubit.getCommunicationData().whenComplete(
+                                        () {
+                                          Navigator.of(context).pop();
+                                          if (cubit.isCommunicationData) {
+                                            getCommunicationTab(
+                                              'facebook',
+                                              cubit,
+                                            );
+                                          } else {
+                                            toastMessage(
+                                              'error_to_get_data'.tr(),
+                                              context,
+                                              color: AppColors.error,
+                                            );
+                                          }
+                                        },
+                                      );
+                                    } else {
+                                      getCommunicationTab(
+                                        'facebook',
+                                        cubit,
+                                      );
+                                    }
+                                  },
+                                  child: Image.asset(
+                                    ImageAssets.facebookImage,
+                                    width: 40.0,
+                                    height: 40.0,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 16.0),
-                              InkWell(
-                                onTap: () async {
-                                  if (state is userCommunicationError) {
-                                    createProgressDialog(context, 'wait'.tr());
-                                    cubit.getCommunicationData().whenComplete(
-                                      () {
-                                        Navigator.of(context).pop();
-                                        if (cubit.isCommunicationData) {
-                                          getCommunicationTab(
-                                            'youtube',
-                                            cubit,
-                                          );
-                                        } else {
-                                          toastMessage(
-                                            'error_to_get_data'.tr(),
-                                            context,
-                                            color: AppColors.error,
-                                          );
-                                        }
-                                      },
-                                    );
-                                  } else {
-                                    getCommunicationTab(
-                                      'youtube',
-                                      cubit,
-                                    );
-                                  }
-                                },
-                                child: Image.asset(
-                                  ImageAssets.youtubeImage,
-                                  width: 40.0,
-                                  height: 40.0,
-                                  fit: BoxFit.cover,
+                                const SizedBox(width: 16.0),
+                                InkWell(
+                                  onTap: () async {
+                                    if (state is userCommunicationError) {
+                                      createProgressDialog(
+                                          context, 'wait'.tr());
+                                      cubit.getCommunicationData().whenComplete(
+                                        () {
+                                          Navigator.of(context).pop();
+                                          if (cubit.isCommunicationData) {
+                                            getCommunicationTab(
+                                              'twitter',
+                                              cubit,
+                                            );
+                                          } else {
+                                            toastMessage(
+                                              'error_to_get_data'.tr(),
+                                              context,
+                                              color: AppColors.error,
+                                            );
+                                          }
+                                        },
+                                      );
+                                    } else {
+                                      getCommunicationTab(
+                                        'twitter',
+                                        cubit,
+                                      );
+                                    }
+                                  },
+                                  child: Image.asset(
+                                    ImageAssets.twitterImage,
+                                    width: 40.0,
+                                    height: 40.0,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 16.0),
-                              InkWell(
-                                onTap: () async {
-                                  if (state is userCommunicationError) {
-                                    createProgressDialog(context, 'wait'.tr());
-                                    cubit.getCommunicationData().whenComplete(
-                                      () {
-                                        Navigator.of(context).pop();
-                                        if (cubit.isCommunicationData) {
-                                          getCommunicationTab(
-                                            'website',
-                                            cubit,
-                                          );
-                                        } else {
-                                          toastMessage(
-                                            'error_to_get_data'.tr(),
-                                            context,
-                                            color: AppColors.error,
-                                          );
-                                        }
-                                      },
-                                    );
-                                  } else {
-                                    getCommunicationTab(
-                                      'website',
-                                      cubit,
-                                    );
-                                  }
-                                },
-                                child: Image.asset(
-                                  ImageAssets.websiteImage,
-                                  width: 40.0,
-                                  height: 40.0,
-                                  fit: BoxFit.cover,
+                                const SizedBox(width: 16.0),
+                                InkWell(
+                                  onTap: () async {
+                                    if (state is userCommunicationError) {
+                                      createProgressDialog(
+                                          context, 'wait'.tr());
+                                      cubit.getCommunicationData().whenComplete(
+                                        () {
+                                          Navigator.of(context).pop();
+                                          if (cubit.isCommunicationData) {
+                                            getCommunicationTab(
+                                              'instagram',
+                                              cubit,
+                                            );
+                                          } else {
+                                            toastMessage(
+                                              'error_to_get_data'.tr(),
+                                              context,
+                                              color: AppColors.error,
+                                            );
+                                          }
+                                        },
+                                      );
+                                    } else {
+                                      getCommunicationTab(
+                                        'instagram',
+                                        cubit,
+                                      );
+                                    }
+                                  },
+                                  child: Image.asset(
+                                    ImageAssets.instagramImage,
+                                    width: 40.0,
+                                    height: 40.0,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 16.0),
-                              InkWell(
-                                onTap: () async {
-                                  if (state is userCommunicationError) {
-                                    createProgressDialog(context, 'wait'.tr());
-                                    cubit.getCommunicationData().whenComplete(
-                                      () {
-                                        Navigator.of(context).pop();
-                                        if (cubit.isCommunicationData) {
-                                          getCommunicationTab(
-                                            'instagram',
-                                            cubit,
-                                          );
-                                        } else {
-                                          toastMessage(
-                                            'error_to_get_data'.tr(),
-                                            context,
-                                            color: AppColors.error,
-                                          );
-                                        }
-                                      },
-                                    );
-                                  } else {
-                                    getCommunicationTab(
-                                      'instagram',
-                                      cubit,
-                                    );
-                                  }
-                                },
-                                child: Image.asset(
-                                  ImageAssets.instagramImage,
-                                  width: 40.0,
-                                  height: 40.0,
-                                  fit: BoxFit.cover,
+                                const SizedBox(width: 16.0),
+                                InkWell(
+                                  onTap: () async {
+                                    if (state is userCommunicationError) {
+                                      createProgressDialog(
+                                          context, 'wait'.tr());
+                                      cubit.getCommunicationData().whenComplete(
+                                        () {
+                                          Navigator.of(context).pop();
+                                          if (cubit.isCommunicationData) {
+                                            getCommunicationTab(
+                                              'website',
+                                              cubit,
+                                            );
+                                          } else {
+                                            toastMessage(
+                                              'error_to_get_data'.tr(),
+                                              context,
+                                              color: AppColors.error,
+                                            );
+                                          }
+                                        },
+                                      );
+                                    } else {
+                                      getCommunicationTab(
+                                        'website',
+                                        cubit,
+                                      );
+                                    }
+                                  },
+                                  child: Image.asset(
+                                    ImageAssets.websiteImage,
+                                    width: 40.0,
+                                    height: 40.0,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 16.0),
-                              InkWell(
-                                onTap: () async {
-                                  if (state is userCommunicationError) {
-                                    createProgressDialog(context, 'wait'.tr());
-                                    cubit.getCommunicationData().whenComplete(
-                                      () {
-                                        Navigator.of(context).pop();
-                                        if (cubit.isCommunicationData) {
-                                          getCommunicationTab(
-                                            'twitter',
-                                            cubit,
-                                          );
-                                        } else {
-                                          toastMessage(
-                                            'error_to_get_data'.tr(),
-                                            context,
-                                            color: AppColors.error,
-                                          );
-                                        }
-                                      },
-                                    );
-                                  } else {
-                                    getCommunicationTab(
-                                      'twitter',
-                                      cubit,
-                                    );
-                                  }
-                                },
-                                child: Image.asset(
-                                  ImageAssets.twitterImage,
-                                  width: 40.0,
-                                  height: 40.0,
-                                  fit: BoxFit.cover,
+                                const SizedBox(width: 16.0),
+                                InkWell(
+                                  onTap: () async {
+                                    if (state is userCommunicationError) {
+                                      createProgressDialog(
+                                          context, 'wait'.tr());
+                                      cubit.getCommunicationData().whenComplete(
+                                        () {
+                                          Navigator.of(context).pop();
+                                          if (cubit.isCommunicationData) {
+                                            getCommunicationTab(
+                                              'youtube',
+                                              cubit,
+                                            );
+                                          } else {
+                                            toastMessage(
+                                              'error_to_get_data'.tr(),
+                                              context,
+                                              color: AppColors.error,
+                                            );
+                                          }
+                                        },
+                                      );
+                                    } else {
+                                      getCommunicationTab(
+                                        'youtube',
+                                        cubit,
+                                      );
+                                    }
+                                  },
+                                  child: Image.asset(
+                                    ImageAssets.youtubeImage,
+                                    width: 40.0,
+                                    height: 40.0,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 16.0),
-                              InkWell(
-                                onTap: () {
-                                  if (state is userCommunicationError) {
-                                    createProgressDialog(context, 'wait'.tr());
-                                    cubit.getCommunicationData().whenComplete(
-                                      () {
-                                        Navigator.of(context).pop();
-                                        if (cubit.isCommunicationData) {
-                                          getCommunicationTab('call', cubit);
-                                        } else {
-                                          toastMessage(
-                                            'error_to_get_data'.tr(),
-                                            context,
-                                            color: AppColors.error,
-                                          );
-                                        }
-                                      },
-                                    );
-                                  } else {
-                                    getCommunicationTab('call', cubit);
-                                  }
-                                },
-                                child: Image.asset(
-                                  ImageAssets.callImage,
-                                  width: 40.0,
-                                  height: 40.0,
-                                  fit: BoxFit.cover,
+                                const SizedBox(width: 16.0),
+                                InkWell(
+                                  onTap: () {
+                                    if (state is userCommunicationError) {
+                                      createProgressDialog(
+                                          context, 'wait'.tr());
+                                      cubit.getCommunicationData().whenComplete(
+                                        () {
+                                          Navigator.of(context).pop();
+                                          if (cubit.isCommunicationData) {
+                                            getCommunicationTab('call', cubit);
+                                          } else {
+                                            toastMessage(
+                                              'error_to_get_data'.tr(),
+                                              context,
+                                              color: AppColors.error,
+                                            );
+                                          }
+                                        },
+                                      );
+                                    } else {
+                                      getCommunicationTab('call', cubit);
+                                    }
+                                  },
+                                  child: Image.asset(
+                                    ImageAssets.callImage,
+                                    width: 40.0,
+                                    height: 40.0,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       );
@@ -438,15 +449,20 @@ class _userScreenState extends State<LoginScreen> {
 
   getCommunicationTab(String type, LoginCubit cubit) async {
     if (type == 'facebook') {
-      await launchUrl(Uri.parse(cubit.communicationData!.facebookLink));
+      await launchUrl(Uri.parse(cubit.communicationData!.facebookLink),
+          mode: LaunchMode.externalApplication);
     } else if (type == 'youtube') {
-      await launchUrl(Uri.parse(cubit.communicationData!.youtubeLink));
+      await launchUrl(Uri.parse(cubit.communicationData!.youtubeLink),
+          mode: LaunchMode.externalApplication);
     } else if (type == 'twitter') {
-      await launchUrl(Uri.parse(cubit.communicationData!.twitterLink));
+      await launchUrl(Uri.parse(cubit.communicationData!.twitterLink),
+          mode: LaunchMode.externalApplication);
     } else if (type == 'instagram') {
-      await launchUrl(Uri.parse(cubit.communicationData!.instagramLink));
+      await launchUrl(Uri.parse(cubit.communicationData!.instagramLink),
+          mode: LaunchMode.externalApplication);
     } else if (type == 'website') {
-      await launchUrl(Uri.parse(cubit.communicationData!.websiteLink));
+      await launchUrl(Uri.parse(cubit.communicationData!.websiteLink),
+          mode: LaunchMode.externalApplication);
     } else {
       showDialog(
         barrierDismissible: false,
@@ -457,81 +473,20 @@ class _userScreenState extends State<LoginScreen> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: AppColors.secondPrimary,
-                  ),
-                  width: double.infinity,
-                  child: Center(
-                    child: Text(
-                      'contact_us_from'.tr(),
-                      style: TextStyle(
-                        color: AppColors.white,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                    height: 25, width: MediaQuery.of(context).size.width - 50),
-                ...List.generate(
-                  cubit.communicationData!.phones.length,
-                  (index) => InkWell(
-                    onTap: () {
-                      phoneCallMethod(
-                        cubit.communicationData!.phones[index].phone,
-                      );
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.call,
-                            color: AppColors.blueLiteColor,
-                            size: 30,
-                          ),
-                          SizedBox(width: 20),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  cubit.communicationData!.phones[index].phone,
-                                  style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),
-                                ),
-                                Text(
-                                  cubit.communicationData!.phones[index].note,
-                                  style: TextStyle(fontSize: 16),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 25),
-                InkWell(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: Container(
-                    height: 60,
-                    padding: EdgeInsets.symmetric(vertical: 0),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: AppColors.orangeThirdPrimary,
+                      color: AppColors.secondPrimary,
                     ),
                     width: double.infinity,
                     child: Center(
                       child: Text(
-                        'close'.tr(),
+                        'contact_us_from'.tr(),
                         style: TextStyle(
                           color: AppColors.white,
                           fontSize: 20,
@@ -539,8 +494,76 @@ class _userScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                      height: 25,
+                      width: MediaQuery.of(context).size.width - 50),
+                  ...List.generate(
+                    cubit.communicationData!.phones.length,
+                    (index) => InkWell(
+                      onTap: () {
+                        phoneCallMethod(
+                          cubit.communicationData!.phones[index].phone,
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.call,
+                              color: AppColors.blueLiteColor,
+                              size: 30,
+                            ),
+                            SizedBox(width: 20),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    cubit
+                                        .communicationData!.phones[index].phone,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    cubit.communicationData!.phones[index].note,
+                                    style: TextStyle(fontSize: 16),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 25),
+                  InkWell(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Container(
+                      height: 60,
+                      padding: EdgeInsets.symmetric(vertical: 0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: AppColors.orangeThirdPrimary,
+                      ),
+                      width: double.infinity,
+                      child: Center(
+                        child: Text(
+                          'close'.tr(),
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         },

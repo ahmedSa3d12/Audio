@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:new_mazoon/core/models/paper_exam_model.dart';
 import 'package:new_mazoon/features/navigation_bottom/screens/navigation_bottom.dart';
-import 'package:new_mazoon/features/onboarding/screens/onboarding_screen.dart';
+import 'package:new_mazoon/features/onboarding/screens/onbordingscreen.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../core/models/ads_model.dart';
 import '../../core/models/paper_exam_data_model.dart';
 import '../../core/models/paper_exam_details_model.dart';
-import '../../core/models/times_model.dart';
 import '../../core/utils/app_strings.dart';
 import '../../features/countdown/screens/countdown_screen.dart';
 import '../../features/exam_hero/screens/exam_hero_screen.dart';
@@ -26,7 +24,8 @@ class Routes {
   static const String initialRoute = '/';
   static const String loginRoute = '/login';
   static const String paperexamRegisterRoute = '/paperexamRegister';
-  static const String paperdetialsexamRegisterRoute = '/paperdetailsexamRegister';
+  static const String paperdetialsexamRegisterRoute =
+      '/paperdetailsexamRegister';
   static const String homePageScreenRoute = '/homePageScreen';
   static const String monthplanPageScreenRoute = '/monthplanPageScreen';
   static const String onboardingPageScreenRoute = '/onboardingPageScreen';
@@ -53,27 +52,31 @@ class AppRoutes {
           builder: (context) => const LoginScreen(),
         );
       case Routes.lessonClassScreenRoute:
-        int classId=settings.arguments as int;
+        int classId = settings.arguments as int;
         return MaterialPageRoute(
           builder: (context) => LessonsClassScreen(classId: classId),
         );
-        case Routes.examInstructionsRoute:
-        List<dynamic> data=settings.arguments as   List<dynamic>;
+      case Routes.examInstructionsRoute:
+        List<dynamic> data = settings.arguments as List<dynamic>;
 
         return MaterialPageRoute(
-          builder: (context) => ExamInstructions(exam_id: data[0],type: data[1]),
+          builder: (context) =>
+              ExamInstructions(exam_id: data[0], type: data[1]),
         );
       case Routes.paperexamRegisterRoute:
-        PaperExamDetialsModel timeDataModel = settings.arguments as PaperExamDetialsModel;
+        PaperExamDetialsModel timeDataModel =
+            settings.arguments as PaperExamDetialsModel;
 
         return MaterialPageRoute(
-          builder: (context) => PaperExmRegisterPage(timeDataModel: timeDataModel),
+          builder: (context) =>
+              PaperExmRegisterPage(timeDataModel: timeDataModel),
         );
-        case Routes.paperdetialsexamRegisterRoute:
-          PaperExam paperExamModel = settings.arguments as PaperExam;
+      case Routes.paperdetialsexamRegisterRoute:
+        PaperExam paperExamModel = settings.arguments as PaperExam;
 
         return MaterialPageRoute(
-          builder: (context) => PaperDetailsExmRegisterPage(paperExamModel: paperExamModel),
+          builder: (context) =>
+              PaperDetailsExmRegisterPage(paperExamModel: paperExamModel),
         );
       case Routes.monthplanPageScreenRoute:
         return PageTransition(
@@ -94,7 +97,7 @@ class AppRoutes {
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 1300),
-          child: OnBoardingScreen(),
+          child: OnBordingScreen(),
         );
 
       case Routes.sourceReferencesDetailsRoute:
@@ -131,7 +134,7 @@ class AppRoutes {
           duration: const Duration(milliseconds: 800),
           child: CountdownScreen(),
         );
-        case Routes.videoDetailsScreenRoute:
+      case Routes.videoDetailsScreenRoute:
         return PageTransition(
           type: PageTransitionType.fade,
           alignment: Alignment.center,

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
-import 'package:new_mazoon/features/paperexamdetials/screens/paper_details_exam_register.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

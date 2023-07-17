@@ -10,7 +10,6 @@ class AppColors {
   static final AppColors instance = AppColors._internal();
   static Color litePrimary = HexColor('#7F8CF3');
   static Color redPrimary = HexColor('#FF7B7B');
-
   AppColors._internal();
 
   factory AppColors() => instance;
@@ -22,6 +21,7 @@ class AppColors {
   static Color containerBackgroundColor = HexColor('#F7DFB1');
   static Color iconBackgroundColor = HexColor('#402D26');
   static Color gray1 = HexColor('#404040');
+  static Color grey2 = HexColor('#D9D9D9');
   static Color unselectedTab = HexColor('#D9D9D9');
   static Color commentBackground = HexColor('#F3F2F2');
   static Color paymentContainer = HexColor('#F0D3AB');
@@ -68,20 +68,19 @@ class AppColors {
   static Color blue2 = HexColor('#8290F8');
   static Color blue3 = HexColor('#171560');
   static Color blue4 = HexColor('#303F82');
+  static Color blue5 = HexColor('#4455D7');
   static Color bluelight = HexColor('#D7EAF9');
   static Color orange = HexColor('#FE7C04');
   static Color orangelight = HexColor('#FFEAD7');
   static Color opacityWhite = Colors.white.withOpacity(0.5);
   static Color transparent = Colors.transparent;
 
-  static  getPrimaryColor()  {
-   Preferences.instance.getPrimaryColor().then((value) => {
-     primary=HexColor(value)
-   });
-
+  static getPrimaryColor() {
+    Preferences.instance
+        .getPrimaryColor()
+        .then((value) => {primary = HexColor(value)});
   }
 }
-
 
 Color darken(Color color, [double amount = .1]) {
   assert(amount >= 0 && amount <= 1);
@@ -100,6 +99,7 @@ Color lightens(String color, [double amount = .1]) {
 
   return hslLight.toColor();
 }
+
 Color lighten(Color color, [double amount = .1]) {
   assert(amount >= 0 && amount <= 1);
 

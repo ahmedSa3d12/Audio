@@ -10,17 +10,11 @@ import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
 import 'package:new_mazoon/features/monthplan/cubit/monthplan_state.dart';
 import 'package:new_mazoon/features/monthplan/widget/monthpalnwidget.dart';
 import 'package:new_mazoon/features/notes/widget/note.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:neon_circular_timer/neon_circular_timer.dart';
 
 import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/assets_manager.dart';
-import '../../../core/widgets/network_image.dart';
+
 import '../../../core/widgets/no_data_widget.dart';
-import '../../../core/widgets/show_loading_indicator.dart';
-import '../../homePage/widget/home_page_app_bar_widget.dart';
+
 import '../cubit/note_cubit.dart';
 // import '../widget/notewidget.dart';
 

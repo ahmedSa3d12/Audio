@@ -81,6 +81,7 @@ dependencies:
   webview_flutter: ^4.2.0
   dropdown_search: ^5.0.6
   table_calendar: ^3.0.7
+  smooth_page_indicator: any
 
 
 dev_dependencies:

@@ -273,6 +273,7 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
+
   Future<Either<Failure, NoteDataModel>> getNotes(String date) async {
     UserModel userModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
@@ -666,18 +667,17 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
+
   Future<Either<Failure, StatusResponse>> updateVideoTime(
-      {required int video_id,
-      required String minutes}) async {
+      {required int video_id, required String minutes}) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
 
     try {
       final response = await dio.post(
-        EndPoints.updateVideoTimeUrl+video_id.toString(),
+        EndPoints.updateVideoTimeUrl + video_id.toString(),
         body: {
           "minutes": minutes,
-
         },
         options: Options(
           headers: {
