@@ -32,7 +32,6 @@ class _NoteWidgetState extends State<NoteWidget> {
           children: [
             Container(
               decoration: BoxDecoration(
-
                   color:lighten( colors[Random().nextInt(2)]),
               border: Border(right: BorderSide(color:
                    colors[Random().nextInt(2)]))

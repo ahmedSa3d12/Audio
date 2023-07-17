@@ -41,8 +41,7 @@ class _NoteState extends State<NotePlan> {
         backgroundColor: AppColors.secondPrimary,
         toolbarHeight: 0,
       ),
-      body:
-      SafeArea(
+      body: SafeArea(
         top: false,
         maintainBottomViewPadding: true,
         child: Stack(
@@ -62,17 +61,14 @@ class _NoteState extends State<NotePlan> {
                         children: [
                           SizedBox(height: 110),
                           Material(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(15)),
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
                             elevation: 2,
                             child: Container(
                                 decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15)),
-                             color: AppColors.white
-                                ),
-                                child:
-                                    BlocBuilder<NoteCubit, NoteState>(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15)),
+                                    color: AppColors.white),
+                                child: BlocBuilder<NoteCubit, NoteState>(
                                   builder: (context, state) {
                                     return ListView(
                                         shrinkWrap: true,
@@ -85,7 +81,8 @@ class _NoteState extends State<NotePlan> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: Text(DateFormat(
                                                     'MMMM',
-                                                    EasyLocalization.of(context)!
+                                                    EasyLocalization.of(
+                                                            context)!
                                                         .currentLocale!
                                                         .languageCode)
                                                 .format(cubit.datecurrent)),
@@ -95,10 +92,14 @@ class _NoteState extends State<NotePlan> {
                                           ),
                                           CalendarCarousel<Event>(
                                             height: 310,
-                                            selectedDayButtonColor: AppColors.redPrimary,
-                                            selectedDayBorderColor: AppColors.redPrimary,
-                                            todayButtonColor: AppColors.unselectedTabColor,
-                                            todayBorderColor: AppColors.unselectedTabColor,
+                                            selectedDayButtonColor:
+                                                AppColors.redPrimary,
+                                            selectedDayBorderColor:
+                                                AppColors.redPrimary,
+                                            todayButtonColor:
+                                                AppColors.unselectedTabColor,
+                                            todayBorderColor:
+                                                AppColors.unselectedTabColor,
                                             scrollDirection: Axis.horizontal,
 
                                             showHeaderButton: false,
@@ -116,8 +117,8 @@ class _NoteState extends State<NotePlan> {
                                             weekdayTextStyle: TextStyle(
                                                 color: AppColors.blue,
                                                 fontWeight: FontWeight.w300),
-                                            daysTextStyle:
-                                                TextStyle(color: AppColors.black),
+                                            daysTextStyle: TextStyle(
+                                                color: AppColors.black),
 
                                             customWeekDayBuilder:
                                                 (weekday, weekdayName) {
@@ -138,8 +139,8 @@ class _NoteState extends State<NotePlan> {
                                             dayPadding: 2,
 
                                             weekDayPadding: EdgeInsets.all(8),
-                                            weekendTextStyle:
-                                                TextStyle(color: AppColors.black),
+                                            weekendTextStyle: TextStyle(
+                                                color: AppColors.black),
                                             nextDaysTextStyle: TextStyle(
                                                 color: AppColors
                                                     .descriptionBoardingColor),
@@ -148,11 +149,12 @@ class _NoteState extends State<NotePlan> {
                                                 color: AppColors.black,
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 17),
-                                            locale: EasyLocalization.of(context)!
-                                                .currentLocale!
-                                                .languageCode,
-                                            todayTextStyle:
-                                                TextStyle(color: AppColors.white),
+                                            locale:
+                                                EasyLocalization.of(context)!
+                                                    .currentLocale!
+                                                    .languageCode,
+                                            todayTextStyle: TextStyle(
+                                                color: AppColors.white),
                                             onDayPressed: (DateTime date,
                                                 List<Event> events) {
                                               cubit.getNotes(
@@ -195,7 +197,7 @@ class _NoteState extends State<NotePlan> {
                           //   strokeWidth: 1,
                           //   strokeCap: StrokeCap.butt,
                           // ),
-
+////////////////////////////////////////
                           BlocBuilder<NoteCubit, NoteState>(
                             builder: (context, state) {
                               if (state is NoteLoading) {
@@ -211,34 +213,34 @@ class _NoteState extends State<NotePlan> {
                                         itemCount: cubit.noteplanList.length,
                                         itemBuilder:
                                             (BuildContext context, int index) {
-                                          return NoteWidget(noteModel: cubit.noteplanList.elementAt(index), index: index,);
+                                          return NoteWidget(
+                                            noteModel: cubit.noteplanList
+                                                .elementAt(index),
+                                            index: index,
+                                          );
                                         },
                                       )
                                     : NoDataWidget(
-                                         onclick: () => () {
-                                           cubit.getNotes(
-                                               cubit.date,
-                                               cubit.datefoucse,
-                                               cubit.datecurrent);
-                                         }
-                                         ,
-
+                                        onclick: () => () {
+                                          cubit.getNotes(
+                                              cubit.date,
+                                              cubit.datefoucse,
+                                              cubit.datecurrent);
+                                        },
                                         title: 'no_date',
                                       );
                               } else {
                                 return NoDataWidget(
                                   onclick: () => {
-                                    cubit.getNotes(
-                                        cubit.date,
-                                        cubit.datefoucse,
+                                    cubit.getNotes(cubit.date, cubit.datefoucse,
                                         cubit.datecurrent),
                                   },
-
                                   title: 'no_date',
                                 );
                               }
                             },
                           )
+                          /////////////////////////////////
                         ],
                       ),
                     )),
@@ -246,7 +248,6 @@ class _NoteState extends State<NotePlan> {
                 },
               ),
             ),
-
           ],
         ),
       ),
