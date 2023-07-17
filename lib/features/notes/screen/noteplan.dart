@@ -22,7 +22,7 @@ import '../../../core/widgets/no_data_widget.dart';
 import '../../../core/widgets/show_loading_indicator.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../cubit/note_cubit.dart';
-import '../widget/notewidget.dart';
+// import '../widget/notewidget.dart';
 
 class NotePlan extends StatefulWidget {
   const NotePlan({Key? key}) : super(key: key);
