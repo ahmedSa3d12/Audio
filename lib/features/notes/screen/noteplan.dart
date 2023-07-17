@@ -211,7 +211,7 @@ class _NoteState extends State<NotePlan> {
                                         itemCount: cubit.noteplanList.length,
                                         itemBuilder:
                                             (BuildContext context, int index) {
-                                          return NoteWidget(noteModel: cubit.noteplanList.elementAt(index), index: null,);
+                                          return NoteWidget(noteModel: cubit.noteplanList.elementAt(index), index: index,);
                                         },
                                       )
                                     : NoDataWidget(
