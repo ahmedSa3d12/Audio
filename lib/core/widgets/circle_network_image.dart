@@ -15,18 +15,21 @@ class ManageCircleNetworkImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-        child: ClipOval(
-      child: CachedNetworkImage(
-        imageUrl: imageUrl,
-        fit: BoxFit.cover,
-        height: height != 0 ? height : null,
-        width: width != 0 ? width : null,
-        placeholder: (context, url) => Center(
-          child: CircularProgressIndicator(
-            color: AppColors.primary,
+        radius: 50,
+        // backgroundImage: NetworkImage(imageUrl),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(200),
+          child: CachedNetworkImage(
+            imageUrl: imageUrl,
+            fit: BoxFit.fitHeight,
+            height: height != 0 ? height : null,
+            width: width != 0 ? width : null,
+            placeholder: (context, url) => Center(
+              child: CircularProgressIndicator(
+                color: AppColors.primary,
+              ),
+            ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 }

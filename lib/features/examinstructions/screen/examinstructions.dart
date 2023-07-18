@@ -64,7 +64,6 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                       ExamInstructionModel examinstructions =
                           state.examInstructionModel;
                       return SingleChildScrollView(
-
                         child: Padding(
                           padding: const EdgeInsets.all(14.0),
                           child: Column(
@@ -93,8 +92,8 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                       color: AppColors.orange,
                                       color2: AppColors.orangelight,
                                       title: examinstructions
-                                          .data!.details!.numOfQuestion
-                                          .toString() +
+                                              .data!.details!.numOfQuestion
+                                              .toString() +
                                           "q".tr()),
                                   SizedBox(width: 20),
                                   InstructionSettingWidget(
@@ -111,10 +110,9 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                       color: AppColors.purple1,
                                       color2: AppColors.purple1light,
                                       title: examinstructions
-                                          .data!.details!.tryingNumber!
-                                          .toString() +
+                                              .data!.details!.tryingNumber!
+                                              .toString() +
                                           "try".tr()),
-
                                   SizedBox(width: 20),
                                 ],
                               ),
@@ -122,8 +120,7 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                 height: 20,
                               ),
                               TitleWithCircleBackgroundWidget(
-                             title: "best_result",
-
+                                title: "best_result",
                               ),
                               SizedBox(
                                 height: 20,
@@ -134,17 +131,18 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(15))),
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 9,vertical: 2),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 9, vertical: 2),
                                   child: Center(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         Align(
                                           alignment: Alignment.center,
-
                                           child: ManageNetworkImage(
-                                            imageUrl:
-                                                examinstructions.data!.user!.image!,
+                                            imageUrl: examinstructions
+                                                .data!.user!.image!,
                                             width: 50,
                                             height: 50,
                                             borderRadius: 90,
@@ -162,7 +160,8 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                 style: TextStyle(
                                                     color: AppColors.black,
                                                     fontSize: 16,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                               Padding(
                                                 padding: const EdgeInsets.only(
@@ -197,7 +196,8 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                                 AppColors.black,
                                                             fontSize: 10,
                                                             fontWeight:
-                                                                FontWeight.bold),
+                                                                FontWeight
+                                                                    .bold),
                                                       ),
                                                     ),
                                                     Row(
@@ -212,13 +212,15 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                           width: 3,
                                                         ),
                                                         Text(
-                                                          examinstructions.data!
-                                                                  .user!.totalTime
+                                                          examinstructions
+                                                                  .data!
+                                                                  .user!
+                                                                  .totalTime
                                                                   .toString() +
                                                               "min".tr(),
                                                           style: TextStyle(
-                                                              color:
-                                                                  AppColors.blue,
+                                                              color: AppColors
+                                                                  .blue,
                                                               fontSize: 10,
                                                               fontWeight:
                                                                   FontWeight
@@ -239,20 +241,20 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                           height: 90,
                                           child: SfCircularChart(
                                             palette: [AppColors.blue],
-                                            annotations: <
-                                                CircularChartAnnotation>[
+                                            annotations: <CircularChartAnnotation>[
                                               CircularChartAnnotation(
                                                 widget: Center(
                                                   child: Center(
                                                     child: Container(
                                                       child: Center(
                                                         child: Text(
-                                                          examinstructions
-                                                                  .data!.user!.per
+                                                          examinstructions.data!
+                                                                  .user!.per
                                                                   .toString() +
                                                               "%",
                                                           style: TextStyle(
-                                                            color: AppColors.blue,
+                                                            color:
+                                                                AppColors.blue,
                                                             fontSize: 11,
                                                             fontWeight:
                                                                 FontWeight.bold,
@@ -261,8 +263,10 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                       ),
                                                       height: 40,
                                                       decoration: BoxDecoration(
-                                                          shape: BoxShape.circle,
-                                                          color: AppColors.white),
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color:
+                                                              AppColors.white),
                                                     ),
                                                   ),
                                                 ),
@@ -286,14 +290,14 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                 xValueMapper: (int data, _) =>
                                                     data.toString(),
                                                 yValueMapper: (int data, _) =>
-                                                    double.parse(data.toString()),
+                                                    double.parse(
+                                                        data.toString()),
                                               )
                                             ],
                                           ),
                                         ),
                                         Container(
                                           margin: EdgeInsets.only(top: 45),
-
                                           child: Align(
                                             alignment: Alignment.bottomCenter,
                                             child: Row(
@@ -311,7 +315,8 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                   style: TextStyle(
                                                       color: AppColors.blue,
                                                       fontSize: 10,
-                                                      fontWeight: FontWeight.bold),
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
                                               ],
                                             ),
@@ -322,39 +327,42 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 20,),
+                              SizedBox(
+                                height: 20,
+                              ),
                               ListView.builder(
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
-                                itemCount: examinstructions.data!.details!.instruction!.length,
+                                itemCount: examinstructions
+                                    .data!.details!.instruction!.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 20),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 20),
                                     child: Row(
                                       children: [
                                         Container(
-
                                           child: Center(
-                                              child:
-                                              Text(
+                                              child: Text(
                                             (index + 1).toString(),
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.bold,
                                                 color: AppColors.blue),
                                           )),
-
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
                                               color: AppColors.bluelight),
                                           width: 30,
                                           height: 30,
                                         ),
-                                        SizedBox(width: 7,),
+                                        SizedBox(
+                                          width: 7,
+                                        ),
                                         Expanded(
                                           child: Text(
-
-                                           examinstructions.data!.details!.instruction![index],
+                                            examinstructions.data!.details!
+                                                .instruction![index],
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 color: AppColors.black),
@@ -365,7 +373,9 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                   );
                                 },
                               ),
-                              SizedBox(height: 20,),
+                              SizedBox(
+                                height: 20,
+                              ),
                               CustomButton(
                                 text: "جاهز للامتحان .... ابدأ الان",
                                 color: AppColors.orange,

@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart' as local;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_mazoon/core/utils/assets_manager.dart';
-import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
+
 import 'package:new_mazoon/core/widgets/network_image.dart';
 import 'package:new_mazoon/features/sources_and_references/cubit/source_references_cubit.dart';
 
@@ -11,7 +10,6 @@ import '../../../core/utils/change_to_mega_byte.dart';
 import '../../../core/widgets/download_icon_widget.dart';
 import '../../../core/widgets/pdf_screen.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
-import '../../start_trip/widgets/class_exam_icon_widget.dart';
 import '../../start_trip/widgets/expansion_tile_widget.dart';
 import '../widgets/source_references_details_item_widget.dart';
 
@@ -100,8 +98,8 @@ class SourceReferencesDetails extends StatelessWidget {
                                 children: [
                                   ManageNetworkImage(
                                     imageUrl: cubit.referenceModel.icon!,
-                                    height: 50,
-                                    width: 117,
+                                    height: 60,
+                                    width: 60,
                                     borderRadius: 8,
                                   ),
                                 ],

@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
 
 class TitleWithCircleBackgroundWidget extends StatelessWidget {
-  const TitleWithCircleBackgroundWidget({Key? key, required this.title}) : super(key: key);
+  const TitleWithCircleBackgroundWidget({Key? key, required this.title})
+      : super(key: key);
 
   final String title;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
-      width: MediaQuery.of(context).size.width/2,
+      width: MediaQuery.of(context).size.width / 2,
       child: Stack(
         children: [
           Positioned(

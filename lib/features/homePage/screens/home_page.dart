@@ -11,9 +11,15 @@ import '../widget/home_page_start_study_widget.dart';
 import '../widget/home_page_video_item_widget.dart';
 import '../widget/live_exam_widget.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +36,7 @@ class HomePage extends StatelessWidget {
               color: AppColors.white,
               backgroundColor: AppColors.secondPrimary,
               child: ListView(
+                physics: const BouncingScrollPhysics(),
                 children: [
                   SizedBox(height: 120),
                   BannerWidget(sliderData: state.model.data!.sliders!),

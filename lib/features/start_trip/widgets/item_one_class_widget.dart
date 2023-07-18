@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/core/utils/numformat.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../config/routes/app_routes.dart';
@@ -43,8 +44,6 @@ class ItemOfOneClassWidget extends StatelessWidget {
           right: 0,
           bottom: 0,
           child: Container(
-            width: 80,
-            height: 207,
             decoration: BoxDecoration(
               color: mainColor,
               borderRadius: BorderRadius.circular(10),
@@ -71,10 +70,10 @@ class ItemOfOneClassWidget extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      flex: 4,
+                      flex: 3,
                       child: SizedBox(
-                        width: 90,
-                        height: 90,
+                        width: MediaQuery.of(context).size.width / 3.9,
+                        height: MediaQuery.of(context).size.width / 3.9,
                         child: SfCircularChart(
                           palette: [darken(mainColor, 0.08)],
                           annotations: <CircularChartAnnotation>[
@@ -100,7 +99,9 @@ class ItemOfOneClassWidget extends StatelessWidget {
                               maximumValue: 100,
                               innerRadius: '18',
                               dataSource: [int.parse(classPresentFinished)],
-                              cornerStyle:classPresentFinished=='100'? CornerStyle.bothFlat: CornerStyle.endCurve,
+                              cornerStyle: classPresentFinished == '100'
+                                  ? CornerStyle.bothFlat
+                                  : CornerStyle.endCurve,
                               xValueMapper: (int data, _) => data.toString(),
                               yValueMapper: (int data, _) =>
                                   double.parse(data.toString()),
@@ -131,104 +132,94 @@ class ItemOfOneClassWidget extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    Expanded(
+                                    Flexible(
                                       child: Icon(
                                         Icons.sticky_note_2_outlined,
                                         color: AppColors.white,
                                         size: 16,
                                       ),
                                     ),
-                                    Expanded(
-                                      flex: 3,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0,
-                                        ),
-                                        child: Text(
-                                          lessonNum,
-                                          style: TextStyle(
-                                            color: AppColors.white,
-                                            fontSize: 16,
-                                          ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 5.0,
+                                      ),
+                                      child: Text(
+                                        lessonNum,
+                                        style: TextStyle(
+                                          color: AppColors.white,
+                                          fontSize: 16,
                                         ),
                                       ),
                                     ),
-                                    Expanded(
-                                      flex: 3,
-                                      child: Text(
-                                        'دروس',
-                                        style: TextStyle(
-                                          color: AppColors.white,
-                                          fontSize: 12,
-                                        ),
+                                    Text(
+                                      'دروس',
+                                      style: TextStyle(
+                                        color: AppColors.white,
+                                        fontSize: 12,
                                       ),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    Expanded(
+                                    Flexible(
                                       child: Icon(
                                         Icons.slow_motion_video,
                                         color: AppColors.white,
                                         size: 16,
                                       ),
                                     ),
-                                    Expanded(
-                                      flex: 3,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0,
-                                        ),
-                                        child: Text(
-                                          videoNum,
-                                          style: TextStyle(
-                                            color: AppColors.white,
-                                            fontSize: 16,
-                                          ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0,
+                                      ),
+                                      child: Text(
+                                        videoNum,
+                                        style: TextStyle(
+                                          color: AppColors.white,
+                                          fontSize: 16,
                                         ),
                                       ),
                                     ),
-                                    Expanded(
-                                      flex: 3,
-                                      child: Text(
-                                        'فيديو',
-                                        style: TextStyle(
-                                          color: AppColors.white,
-                                          fontSize: 12,
-                                        ),
+                                    Text(
+                                      'فيديو',
+                                      style: TextStyle(
+                                        color: AppColors.white,
+                                        fontSize: 12,
                                       ),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    Expanded(
-                                      child: Icon(
-                                        Icons.access_time_outlined,
-                                        color: AppColors.white,
-                                        size: 16,
+                                    Icon(
+                                      Icons.access_time_outlined,
+                                      color: AppColors.white,
+                                      size: 16,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 5.0,
+                                      ),
+                                      child: Text(
+                                        formatedTime(
+                                                timeInSecond:
+                                                    int.parse(hourNum))
+                                            .toStringAsFixed(1)
+                                            .toString(),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.clip,
+                                        style: TextStyle(
+                                          color: AppColors.white,
+                                          fontSize: 16,
+                                        ),
                                       ),
                                     ),
-                                    Expanded(
-                                      flex: 3,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0,
-                                        ),
-                                        child: Text(
-                                          hourNum,
-                                          style: TextStyle(
-                                            color: AppColors.white,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 3,
+                                    Flexible(
                                       child: Text(
                                         'ساعه',
+                                        maxLines: 2,
+                                        overflow: TextOverflow.clip,
                                         style: TextStyle(
                                           color: AppColors.white,
                                           fontSize: 12,
@@ -251,12 +242,12 @@ class ItemOfOneClassWidget extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Container(
                       height: 2,
-                      width: MediaQuery.of(context).size.width / 3 + 20,
+                      width: MediaQuery.of(context).size.width / 2.8,
                       color: AppColors.white,
                     ),
                   ),
                 ),
-                Expanded(
+                Flexible(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -283,8 +274,8 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                 onTap: () {
                                   Navigator.pushNamed(
                                     context,
-                                 Routes.lessonClassScreenRoute,
-                                   arguments: classId,
+                                    Routes.lessonClassScreenRoute,
+                                    arguments: classId,
                                   );
                                 },
                                 child: Container(

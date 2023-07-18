@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
-import 'package:new_mazoon/core/utils/hex_color.dart';
-import 'package:new_mazoon/core/widgets/custom_button.dart';
+import 'package:new_mazoon/core/utils/assets_manager.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
-import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
-import 'package:new_mazoon/features/monthplan/cubit/monthplan_state.dart';
-import 'package:new_mazoon/features/monthplan/widget/monthpalnwidget.dart';
+import 'package:new_mazoon/core/widgets/title_with_circle_background_widget.dart';
+
 import 'package:new_mazoon/features/notes/widget/note.dart';
 
 import '../../../core/utils/app_colors.dart';
@@ -16,6 +14,7 @@ import '../../../core/utils/app_colors.dart';
 import '../../../core/widgets/no_data_widget.dart';
 
 import '../cubit/note_cubit.dart';
+
 // import '../widget/notewidget.dart';
 
 class NotePlan extends StatefulWidget {
@@ -26,11 +25,75 @@ class NotePlan extends StatefulWidget {
 }
 
 class _NoteState extends State<NotePlan> {
+  List<DateTime> _days = [
+    DateTime(2023, 5, 12),
+    DateTime(2023, 7, 20),
+    DateTime(2023, 7, 15)
+  ]; //Date to display the icon
+  EventList<Event> _getMarkedDateMap(
+      List<DateTime> days, BuildContext context) {
+    EventList<Event> _markedDateMap = new EventList<Event>(events: {});
+    for (DateTime _date in days) {
+      _markedDateMap.add(
+          _date,
+          new Event(
+            date: _date,
+            icon: _getIcon(_date), //create icon
+          ));
+    }
+    return _markedDateMap;
+  }
+
+  Widget _getIcon(DateTime date) {
+    bool _isToday = isSameDay(date, DateTime.now()); //is today？
+    CalendarCarousel _calendar_default = CalendarCarousel();
+    Color _today_col = _calendar_default.todayButtonColor;
+    //today's background
+
+    return Container(
+        decoration: new BoxDecoration(
+          // color: _isToday ? AppColors.redPrimary : AppColors.white,
+          borderRadius: BorderRadius.circular(1000),
+        ),
+        child: Column(children: [
+          Flexible(
+            child: Text(
+              '',
+              style: TextStyle(
+                  color: _isToday
+                      ? AppColors.white
+                      : AppColors.black, //getDayCol(date),
+                  fontWeight: FontWeight.w400),
+            ),
+          ),
+          SizedBox(
+            height: 2,
+          ),
+          Icon(
+            Icons.brightness_1,
+            color: _isToday ? AppColors.white : AppColors.liveExamGrayTextColor,
+            size: MediaQuery.of(context).size.width / 44,
+          ), //Icon to display with date
+        ]));
+  }
+
+  static bool isSameDay(DateTime day1, DateTime day2) {
+    return ((day1.difference(day2).inDays) == 0 && (day1.day == day2.day));
+  }
+
   @override
   Widget build(BuildContext context) {
     NoteCubit cubit = context.read<NoteCubit>();
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.greenDownloadColor,
+        child: MySvgWidget(
+            path: ImageAssets.addIcon,
+            imageColor: AppColors.white,
+            size: MediaQuery.of(context).size.width / 16),
+        onPressed: () {},
+      ),
       appBar: AppBar(
         backgroundColor: AppColors.secondPrimary,
         toolbarHeight: 0,
@@ -68,6 +131,8 @@ class _NoteState extends State<NotePlan> {
                                         shrinkWrap: true,
                                         physics: NeverScrollableScrollPhysics(),
                                         children: [
+                                          TitleWithCircleBackgroundWidget(
+                                              title: "اضف ملاحظاتك"),
                                           SizedBox(
                                             height: 20,
                                           ),
@@ -85,6 +150,13 @@ class _NoteState extends State<NotePlan> {
                                             height: 20,
                                           ),
                                           CalendarCarousel<Event>(
+                                            markedDatesMap: _getMarkedDateMap(
+                                                _days, context),
+                                            markedDateShowIcon: true,
+                                            markedDateIconMaxShown: 1,
+                                            markedDateMoreShowTotal: null,
+                                            markedDateIconBuilder: (event) =>
+                                                event.icon,
                                             height: 310,
                                             selectedDayButtonColor:
                                                 AppColors.redPrimary,
@@ -95,9 +167,7 @@ class _NoteState extends State<NotePlan> {
                                             todayBorderColor:
                                                 AppColors.unselectedTabColor,
                                             scrollDirection: Axis.horizontal,
-
                                             showHeaderButton: false,
-
                                             onCalendarChanged: (p0) {
                                               cubit.getNotes(
                                                   DateFormat('yyyy-MM-dd')
@@ -107,13 +177,15 @@ class _NoteState extends State<NotePlan> {
                                             },
                                             showOnlyCurrentMonthDate: true,
                                             showHeader: false,
-
                                             weekdayTextStyle: TextStyle(
                                                 color: AppColors.blue,
                                                 fontWeight: FontWeight.w300),
                                             daysTextStyle: TextStyle(
+                                                fontWeight: FontWeight.w700,
                                                 color: AppColors.black),
-
+                                            selectedDayTextStyle: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                color: AppColors.white),
                                             customWeekDayBuilder:
                                                 (weekday, weekdayName) {
                                               return Padding(
@@ -131,14 +203,12 @@ class _NoteState extends State<NotePlan> {
                                             },
                                             pageSnapping: true,
                                             dayPadding: 2,
-
                                             weekDayPadding: EdgeInsets.all(8),
                                             weekendTextStyle: TextStyle(
                                                 color: AppColors.black),
                                             nextDaysTextStyle: TextStyle(
                                                 color: AppColors
                                                     .descriptionBoardingColor),
-
                                             headerTextStyle: TextStyle(
                                                 color: AppColors.black,
                                                 fontWeight: FontWeight.bold,
@@ -148,7 +218,8 @@ class _NoteState extends State<NotePlan> {
                                                     .currentLocale!
                                                     .languageCode,
                                             todayTextStyle: TextStyle(
-                                                color: AppColors.white),
+                                                color: AppColors.black,
+                                                fontWeight: FontWeight.w700),
                                             onDayPressed: (DateTime date,
                                                 List<Event> events) {
                                               cubit.getNotes(
@@ -157,17 +228,10 @@ class _NoteState extends State<NotePlan> {
                                                   date,
                                                   date);
                                             },
-
-                                            // weekendTextStyle: TextStyle(
-                                            //   color: Colors.red,
-                                            // ),
-
                                             weekFormat: false,
                                             showWeekDays: true,
                                             selectedDateTime: cubit.datecurrent,
                                             daysHaveCircularBorder: true,
-
-                                            /// null for not rendering any border, true for circular border, false for rectangular border
                                           )
                                         ]);
                                   },

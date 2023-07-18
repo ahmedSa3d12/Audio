@@ -81,36 +81,57 @@ class StartTripCubit extends Cubit<StartTripState> {
       },
     );
   }
+
   dowanload(FinalReviewModel model) async {
-    int index=finalReview.indexOf(model);
+    int index = finalReview.indexOf(model);
     final dio = Dio();
 
     var dir = await (Platform.isIOS
         ? getApplicationSupportDirectory()
         : getApplicationDocumentsDirectory());
     await dio.download(
-      model!.pathFile!,
-      dir.path + "/pdf/" + model!.pathFile!.split("/").toList().last,
+      model.pathFile!,
+      dir.path + "/pdf/" + model.pathFile!.split("/").toList().last,
       onReceiveProgress: (count, total) {
         model.progress = (count / total);
-        // print(progress);
+        print(model.progress);
         finalReview.removeAt(index);
         finalReview.insert(index, model);
         emit(StartTripFinalReviewLoaded());
       },
     ).whenComplete(
-          () {
-            model.progress = 0;
-            // print(progress);
-            finalReview.removeAt(index);
-            finalReview.insert(index, model);
-            emit(StartTripFinalReviewLoaded());
-        // progress = 0;
-        // emit(VideoDetailsLoaded());
+      () {
+        model.progress = 0;
+        finalReview.removeAt(index);
+        finalReview.insert(index, model);
+        emit(StartTripFinalReviewLoaded());
       },
     );
   }
 
+  downloadPdf(ClassesExamDatumModel model) async {
+    final dio = Dio();
+    int index = examClassList.indexOf(model);
 
-
+    var dir = await (Platform.isIOS
+        ? getApplicationSupportDirectory()
+        : getApplicationDocumentsDirectory());
+    await dio.download(
+      model.pdfExamUpload,
+      dir.path + "/pdf/" + model.pdfExamUpload.split("/").toList().last,
+      onReceiveProgress: (count, total) {
+        model.progress = (count / total);
+        examClassList.removeAt(index);
+        examClassList.insert(index, model);
+        emit(StartTripExamClassesLoaded());
+      },
+    ).whenComplete(
+      () {
+        model.progress = 0;
+        examClassList.removeAt(index);
+        examClassList.insert(index, model);
+        emit(StartTripExamClassesLoaded());
+      },
+    );
+  }
 }

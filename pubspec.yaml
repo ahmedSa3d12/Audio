@@ -18,6 +18,7 @@ dependencies:
   http_client: ^1.5.2
   flutter_cache_manager: ^3.3.1
   flutter_calendar_carousel: ^2.4.1
+
   dio: ^4.0.6
   flutter_svg: ^2.0.4
   page_transition: "^2.0.9"
@@ -80,8 +81,8 @@ dependencies:
   flutter_chat_bubble: ^2.0.2
   webview_flutter: ^4.2.0
   dropdown_search: ^5.0.6
-  table_calendar: ^3.0.7
   smooth_page_indicator: any
+  table_calendar: ^3.0.9
 
 
 dev_dependencies:

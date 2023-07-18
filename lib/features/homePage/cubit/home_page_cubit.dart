@@ -34,9 +34,9 @@ class HomePageCubit extends Cubit<HomePageState> {
       (error) => emit(HomePageError()),
       (res) {
         classes = res.data!.classes!;
-        sliders=res.data!.sliders!;
-        videosBasics=res.data!.videosBasics!;
-        videosResources=res.data!.videosResources!;
+        sliders = res.data!.sliders!;
+        videosBasics = res.data!.videosBasics!;
+        videosResources = res.data!.videosResources!;
 
         emit(HomePageLoaded(res));
       },

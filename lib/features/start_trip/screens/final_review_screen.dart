@@ -62,7 +62,9 @@ class FinalReviewScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(height:MediaQuery.of(context).size.height*0.15),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.15),
                           Image.asset(
                             ImageAssets.comingSoonImage,
                             width: 250,

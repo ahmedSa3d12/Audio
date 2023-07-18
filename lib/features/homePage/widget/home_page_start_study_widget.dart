@@ -8,8 +8,9 @@ import '../../../core/models/class_data.dart';
 import '../../../core/widgets/title_with_circle_background_widget.dart';
 
 class HomePageStartStudyWidget extends StatelessWidget {
-  const HomePageStartStudyWidget({Key? key, required this.classes}) : super(key: key);
- final  List<AllClasses> classes ;
+  const HomePageStartStudyWidget({Key? key, required this.classes})
+      : super(key: key);
+  final List<AllClasses> classes;
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +26,17 @@ class HomePageStartStudyWidget extends StatelessWidget {
           child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               // childAspectRatio: .9,
               mainAxisSpacing: 30,
               crossAxisSpacing: 0,
               crossAxisCount: 3,
             ),
             itemCount: classes.length,
-            itemBuilder:
-                (BuildContext context, int index) {
+            itemBuilder: (BuildContext context, int index) {
               return InkWell(
                 onTap: () {
-                  if (classes[index].status ==
-                      'lock') {
+                  if (classes[index].status == 'lock') {
                     toastMessage(
                       'open_class'.tr(),
                       context,

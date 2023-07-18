@@ -8,7 +8,6 @@ import 'package:new_mazoon/features/lessons_of_class/cubit/lessons_class_cubit.d
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/widgets/my_painter_widget.dart';
-import '../../../test.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../widgets/lesson_class_item_widget.dart';
 
@@ -62,7 +61,7 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: SizedBox(
                             height: 180,
-                            width: MediaQuery.of(context).size.width -80,
+                            width: MediaQuery.of(context).size.width - 80,
                             child: Card(
                               elevation: 20,
                               shape: RoundedRectangleBorder(
@@ -73,7 +72,8 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                   Positioned(
                                     top: 0,
                                     left: 0,
-                                    right: MediaQuery.of(context).size.width * 0.25,
+                                    right: MediaQuery.of(context).size.width *
+                                        0.25,
                                     bottom: 0,
                                     child: ClipPath(
                                       clipper: CCustomClipper(),
@@ -111,8 +111,7 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                           painter: MyPainter(
                                             darken(
                                               HexColor(
-                                                cubit.oneClass
-                                                    .backgroundColor!,
+                                                cubit.oneClass.backgroundColor!,
                                               ),
                                               0.2,
                                             ),

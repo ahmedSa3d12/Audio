@@ -10,7 +10,6 @@ import '../widgets/item_one_class_widget.dart';
 class ClassesScreen extends StatelessWidget {
   ClassesScreen({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<StartTripCubit, StartTripState>(

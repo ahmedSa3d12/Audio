@@ -24,9 +24,10 @@ class ClassExamIconWidget extends StatelessWidget {
     return InkWell(
       onTap: type == 'text' ? null : onclick,
       child: Container(
-        width: 25,
-        height: 25,
+        // width: 25,
+        // height: 25,
         padding: EdgeInsets.all(2),
+        margin: EdgeInsets.all(2),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius!),
           color: iconColor,
@@ -37,15 +38,21 @@ class ClassExamIconWidget extends StatelessWidget {
             child: type == 'text'
                 ? Text(
                     textData!,
+                    maxLines: 1,
                     style: TextStyle(
-                      color: AppColors.white,
-                      fontSize: 12,
-                    ),
+                        color: AppColors.white,
+                        fontSize: 10,
+                        overflow: TextOverflow.clip),
                   )
-                : MySvgWidget(
-                    path: type,
-                    imageColor: AppColors.white,
-                    size: 18,
+                : Container(
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(5)),
+                    padding: const EdgeInsets.all(2.0),
+                    child: MySvgWidget(
+                      path: type,
+                      imageColor: AppColors.white,
+                      size: 18,
+                    ),
                   ),
           ),
         ),

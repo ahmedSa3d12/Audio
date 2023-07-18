@@ -25,20 +25,22 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        model.type=='video'? {
-          context.read<VideoDetailsCubit>().getVideoDetails(model.id!, "video_resource"),
-          Navigator.pushNamed(context, Routes.videoDetailsScreenRoute)
-        }
-            :
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PdfScreen(
-              pdfTitle: model.name!,
-              pdfLink: model.pathFile!,
-            ),
-          ),
-        );
+        model.type == 'video'
+            ? {
+                context
+                    .read<VideoDetailsCubit>()
+                    .getVideoDetails(model.id!, "video_resource"),
+                Navigator.pushNamed(context, Routes.videoDetailsScreenRoute)
+              }
+            : Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PdfScreen(
+                    pdfTitle: model.name!,
+                    pdfLink: model.pathFile!,
+                  ),
+                ),
+              );
       },
       child: Container(
         decoration: BoxDecoration(
@@ -94,7 +96,9 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      SizedBox(width: ((MediaQuery.of(context).size.width/2)/2)-100),
+                      SizedBox(
+                          width: ((MediaQuery.of(context).size.width / 2) / 2) -
+                              100),
                       model.type == 'video'
                           ? MySvgWidget(
                               path: ImageAssets.clockIcon,
@@ -102,7 +106,7 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
                               size: 16,
                             )
                           : SizedBox(),
-                      SizedBox(width: model.type == 'video'?10:0),
+                      SizedBox(width: model.type == 'video' ? 10 : 0),
                       Text(
                         model.type == 'video'
                             ? '${model.time}  '
@@ -116,31 +120,28 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(width: model.type != 'video'?10:0),
+                      SizedBox(width: model.type != 'video' ? 10 : 0),
                       model.type == 'video'
                           ? SizedBox()
                           : InkWell(
-                        onTap:() {
-                          context.read<StartTripCubit>().dowanload(model);
-                        },
-                            child: SizedBox(
+                              onTap: () {
+                                context.read<StartTripCubit>().dowanload(model);
+                              },
+                              child: SizedBox(
                                 width: 25,
                                 height: 25,
-                                child:
-                                model.progress != 0
+                                child: model.progress != 0
                                     ? CircularProgressIndicator(
-                                  value: model.progress,
-                                  backgroundColor:
-                                  AppColors.white,
-                                  color: AppColors.primary,
-                                )
-
-                                :DownloadIconWidget(
-                                  color: HexColor(model.backgroundColor!),
-                                ),
+                                        value: model.progress,
+                                        backgroundColor: AppColors.white,
+                                        color: AppColors.primary,
+                                      )
+                                    : DownloadIconWidget(
+                                        color: HexColor(model.backgroundColor!),
+                                      ),
                               ),
-                          ),
-                      SizedBox(width: model.type == 'video'?0:8),
+                            ),
+                      SizedBox(width: model.type == 'video' ? 0 : 8),
                       // Spacer(),
                     ],
                   ),

@@ -6,9 +6,6 @@ import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/widgets/no_data_widget.dart';
 import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
 import 'package:new_mazoon/features/sources_and_references/cubit/source_references_cubit.dart';
-import 'package:new_mazoon/features/sources_and_references/cubit/source_references_cubit.dart';
-import 'package:wave/config.dart';
-import 'package:wave/wave.dart';
 
 import '../../../core/widgets/title_with_circle_background_widget.dart';
 import '../widgets/main_screen_item_widget.dart';

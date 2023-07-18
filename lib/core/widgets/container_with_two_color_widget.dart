@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
 import '../utils/assets_manager.dart';
+import 'circle_network_image.dart';
 import 'network_image.dart';
 
 class ContainerWithTwoColorWidget extends StatelessWidget {
@@ -25,7 +26,6 @@ class ContainerWithTwoColorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: isHome! ? AppColors.transparent : null,
@@ -36,14 +36,15 @@ class ContainerWithTwoColorWidget extends StatelessWidget {
           imagePath.isEmpty
               ? Image.asset(ImageAssets.logoImage)
               : Expanded(
-            flex: 6,
-                child: ManageNetworkImage(
+                  flex: 6,
+                  child: ManageCircleNetworkImage(
                     imageUrl: imagePath,
-                    borderRadius: 90,
-                    width: 110,
-                    height: 110,
+
+                    // borderRadius: 90,
+                    width: 200,
+                    height: 200,
                   ),
-              ),
+                ),
           // const Spacer(),
           SizedBox(height: 4),
           Expanded(

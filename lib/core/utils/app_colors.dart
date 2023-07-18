@@ -49,6 +49,7 @@ class AppColors {
 
   static Color hint = Colors.grey;
   static Color blackLite = Colors.black54;
+
   static Color error = Colors.red;
   static Color success = Colors.green;
   static Color white = Colors.white;

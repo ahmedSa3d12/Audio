@@ -23,7 +23,8 @@ class ImageAssets {
   static const String secondImage = '$imagePath/second.png';
   static const String thirdImage = '$imagePath/third.png';
   static const String masterCardImage = '$imagePath/master_card.png';
-  static const String chooseClassMessageImage = '$imagePath/choose_class_message.png';
+  static const String chooseClassMessageImage =
+      '$imagePath/choose_class_message.png';
   static const String Image1 = '$imagePath/1.png';
   static const String Image2 = '$imagePath/2.png';
   static const String Image3 = '$imagePath/3.png';
@@ -102,11 +103,11 @@ class ImageAssets {
   static const String heartIcon = '$iconsPath/heart.svg';
   static const String dowanload1Icon = '$iconsPath/dowanload1.svg';
   static const String attachmentIcon = '$iconsPath/attachment.svg';
-
+  static const String deleteIcon = '$iconsPath/delete.svg';
+  static const String addIcon = '$iconsPath/add.svg';
 
   //Lottie
   static const String noItems = '$lottiePath/no_item.json';
   static const String noExam = '$lottiePath/no_exam.json';
   static const String noLessons = '$lottiePath/no_lessons.json';
-
 }

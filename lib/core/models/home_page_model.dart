@@ -6,7 +6,6 @@ import 'dart:convert';
 
 import 'class_data.dart';
 
-
 HomePageModel homePageModelFromJson(String str) =>
     HomePageModel.fromJson(json.decode(str));
 
@@ -143,7 +142,7 @@ class HomePageVideosModel {
 
   final int? id;
   final String? name;
-  final int? time;
+  final String? time;
   final String? backgroundColor;
   final String? videoLink;
   final DateTime? createdAt;
@@ -177,7 +176,6 @@ class HomePageVideosModel {
       };
 }
 
-
 class FinalReviewModel {
   final int? id;
   final String? name;
@@ -189,7 +187,7 @@ class FinalReviewModel {
   final int? size;
   final DateTime? createdAt;
   final DateTime? updatedAt;
- double progress=0;
+  double progress = 0;
   FinalReviewModel({
     this.id,
     this.name,
@@ -203,33 +201,39 @@ class FinalReviewModel {
     this.updatedAt,
   });
 
-  factory FinalReviewModel.fromJson(Map<String, dynamic> json) => FinalReviewModel(
-    id: json["id"],
-    name: json["name"],
-    type: json["type"],
-    backgroundColor: json["background_color"],
-    image: json["image"],
-    time: json["time"],
-    pathFile: json["path_file"],
-    size: json["size"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-  );
+  factory FinalReviewModel.fromJson(Map<String, dynamic> json) =>
+      FinalReviewModel(
+        id: json["id"],
+        name: json["name"],
+        type: json["type"],
+        backgroundColor: json["background_color"],
+        image: json["image"],
+        time: json["time"],
+        pathFile: json["path_file"],
+        size: json["size"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "type": type,
-    "background_color": backgroundColor,
-    "image": image,
-    "time": time,
-    "path_file": pathFile,
-    "size": size,
-    "created_at": "${createdAt!.year.toString().padLeft(4, '0')}-${createdAt!.month.toString().padLeft(2, '0')}-${createdAt!.day.toString().padLeft(2, '0')}",
-    "updated_at": "${updatedAt!.year.toString().padLeft(4, '0')}-${updatedAt!.month.toString().padLeft(2, '0')}-${updatedAt!.day.toString().padLeft(2, '0')}",
-  };
+        "id": id,
+        "name": name,
+        "type": type,
+        "background_color": backgroundColor,
+        "image": image,
+        "time": time,
+        "path_file": pathFile,
+        "size": size,
+        "created_at":
+            "${createdAt!.year.toString().padLeft(4, '0')}-${createdAt!.month.toString().padLeft(2, '0')}-${createdAt!.day.toString().padLeft(2, '0')}",
+        "updated_at":
+            "${updatedAt!.year.toString().padLeft(4, '0')}-${updatedAt!.month.toString().padLeft(2, '0')}-${updatedAt!.day.toString().padLeft(2, '0')}",
+      };
 }
-
 
 class AllExams {
   AllExams({
@@ -245,16 +249,16 @@ class AllExams {
   final int? totalTime;
 
   factory AllExams.fromJson(Map<String, dynamic> json) => AllExams(
-    id: json["id"],
-    name: json["name"],
-    numOfQuestion: json["num_of_question"],
-    totalTime: json["total_time"],
-  );
+        id: json["id"],
+        name: json["name"],
+        numOfQuestion: json["num_of_question"],
+        totalTime: json["total_time"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "num_of_question": numOfQuestion,
-    "total_time": totalTime,
-  };
+        "id": id,
+        "name": name,
+        "num_of_question": numOfQuestion,
+        "total_time": totalTime,
+      };
 }
