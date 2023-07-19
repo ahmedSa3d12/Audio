@@ -17,6 +17,7 @@ import 'core/utils/restart_app_class.dart';
 // import 'firebase_options.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+//test
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
