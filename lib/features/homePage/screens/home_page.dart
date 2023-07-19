@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   SizedBox(height: 120),
                   BannerWidget(sliderData: state.model.data!.sliders!),
+                  //
                   state.model.data!.lifeExam != null
                       ? LiveExamWarningWidget()
                       : SizedBox(

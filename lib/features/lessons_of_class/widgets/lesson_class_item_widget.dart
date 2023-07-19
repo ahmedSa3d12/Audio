@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_mazoon/core/utils/assets_manager.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
+import 'package:new_mazoon/core/utils/numformat.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../core/models/lessons_model.dart';
@@ -17,28 +18,31 @@ class LessonClassItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15),
+      padding: const EdgeInsets.all(10),
       child: Container(
         padding: EdgeInsets.all(8),
         width: MediaQuery.of(context).size.width,
-        height: 120,
+        height: MediaQuery.of(context).size.width / 3.5,
         decoration: BoxDecoration(
           color: HexColor(model.backgroundColor!),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              flex: 4,
+              flex: 5,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     model.title!,
                     style: TextStyle(
-                      color: darken(HexColor(model.backgroundColor!),0.3),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      color: darken(HexColor(model.backgroundColor!), 0.3),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 18,
                     ),
                   ),
                   Text(
@@ -56,7 +60,7 @@ class LessonClassItemWidget extends StatelessWidget {
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: darken(HexColor(model.backgroundColor!),0.3),
+                  color: darken(HexColor(model.backgroundColor!), 0.3),
                   borderRadius: BorderRadius.circular(80),
                 ),
                 child: Center(
@@ -73,7 +77,7 @@ class LessonClassItemWidget extends StatelessWidget {
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: darken(HexColor(model.backgroundColor!),0.3),
+                    color: darken(HexColor(model.backgroundColor!), 0.3),
                     borderRadius: BorderRadius.circular(80),
                   ),
                   child: Column(
@@ -99,16 +103,20 @@ class LessonClassItemWidget extends StatelessWidget {
                 ),
               } else ...{
                 SizedBox(
-                  width: 110,
-                  height: 110,
+                  width: 70,
+                  height: 70,
                   child: SfCircularChart(
-                    palette: [darken(HexColor(model.backgroundColor!),0.3),],
+                    margin: EdgeInsets.zero,
+                    palette: [
+                      darken(HexColor(model.backgroundColor!), 0.3),
+                    ],
                     annotations: <CircularChartAnnotation>[
                       CircularChartAnnotation(
                         widget: Text(
                           model.totalWatch.toString(),
                           style: TextStyle(
-                            color: darken(HexColor(model.backgroundColor!),0.3),
+                            color:
+                                darken(HexColor(model.backgroundColor!), 0.3),
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -138,83 +146,87 @@ class LessonClassItemWidget extends StatelessWidget {
               child: Container(
                 width: 1,
                 height: 100,
-                color: darken(HexColor(model.backgroundColor!),0.3),
+                color: darken(HexColor(model.backgroundColor!), 0.3),
               ),
             ),
             Expanded(
-              flex: 2,
+              flex: 4,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Row(
                     children: [
-                      Expanded(
-                        child: Icon(
-                          Icons.slow_motion_video,
-                          color: darken(HexColor(model.backgroundColor!),0.3),
-                          size: 22,
+                      Icon(
+                        Icons.slow_motion_video,
+                        color: darken(HexColor(model.backgroundColor!), 0.3),
+                        size: 22,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                        ),
+                        child: Text(
+                          model.numOfVideos.toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(
+                              color:
+                                  darken(HexColor(model.backgroundColor!), 0.3),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400),
                         ),
                       ),
-                      Expanded(
-                        flex: 3,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0,
-                          ),
-                          child: Text(
-                            model.numOfVideos.toString(),
-                            style: TextStyle(
-                              color: darken(HexColor(model.backgroundColor!),0.3),
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
+                      Flexible(
                         child: Text(
                           'فيديو',
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
                           style: TextStyle(
-                            color: darken(HexColor(model.backgroundColor!),0.3),
-                            fontSize: 12,
-                          ),
+                              color:
+                                  darken(HexColor(model.backgroundColor!), 0.3),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400),
                         ),
                       ),
                     ],
                   ),
                   Row(
                     children: [
-                      Expanded(
-                        child: Icon(
-                          Icons.access_time_outlined,
-                          color: darken(HexColor(model.backgroundColor!),0.3),
-                          size: 22,
+                      Icon(
+                        Icons.access_time_outlined,
+                        color: darken(HexColor(model.backgroundColor!), 0.3),
+                        size: 22,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0,
+                        ),
+                        child: Text(
+                          formatedTime(
+                                  timeInSecond:
+                                      int.parse(model.totalTimes.toString()))
+                              .toStringAsFixed(1)
+                              .toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
+                          style: TextStyle(
+                              color:
+                                  darken(HexColor(model.backgroundColor!), 0.3),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400),
                         ),
                       ),
-                      Expanded(
-                        flex: 3,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0,
-                          ),
-                          child: Text(
-                            model.totalTimes.toString(),
-                            style: TextStyle(
-                              color: darken(HexColor(model.backgroundColor!),0.3),
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
+                      Flexible(
                         child: Text(
                           'ساعه',
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
                           style: TextStyle(
-                            color: darken(HexColor(model.backgroundColor!),0.3),
-                            fontSize: 12,
-                          ),
+                              color:
+                                  darken(HexColor(model.backgroundColor!), 0.3),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400),
                         ),
                       ),
                     ],

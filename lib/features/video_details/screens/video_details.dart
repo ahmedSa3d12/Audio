@@ -1,17 +1,14 @@
 import 'package:easy_localization/easy_localization.dart' as trans;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/widgets/custom_button.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:new_mazoon/features/video_details/widget/comments.dart';
-import 'package:record/record.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
-import '../../../core/widgets/audio_recorder_widget.dart';
-import '../../../core/widgets/circle_image_widget.dart';
+
 import '../../../core/widgets/custom_textfield.dart';
 import '../../../core/widgets/music_animation.dart';
 import '../../../core/widgets/no_data_widget.dart';
@@ -22,15 +19,27 @@ import '../widget/report.dart';
 import 'package:get/get.dart' as git;
 
 class VideoDetails extends StatefulWidget {
-  const VideoDetails({Key? key}) : super(key: key);
-
+  VideoDetails({this.type, this.videoId, Key? key}) : super(key: key);
+  final int? videoId;
+  final String? type;
   @override
   State<VideoDetails> createState() => _VideoDetailsState();
 }
 
 class _VideoDetailsState extends State<VideoDetails> {
   @override
+  void initState() {
+    context
+        .read<VideoDetailsCubit>()
+        .getVideoDetails(widget.videoId!, widget.type!);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    ///////////
+
+    /////////
     VideoDetailsCubit cubit = context.read<VideoDetailsCubit>();
     return BlocBuilder<VideoDetailsCubit, VideoDetailsState>(
       builder: (context, state) {
@@ -41,15 +50,15 @@ class _VideoDetailsState extends State<VideoDetails> {
           return NoDataWidget(onclick: () {}, title: 'no_date');
         } else {
           return WillPopScope(
-            onWillPop: () async  {
-             context.read<VideoDetailsCubit>().updateTime();
+            onWillPop: () async {
+              context.read<VideoDetailsCubit>().updateTime();
               return true;
             },
             child: Scaffold(
               appBar: AppBar(
                 backgroundColor: AppColors.primary,
                 title: Text(
-                  cubit.videoModel != null ? cubit.videoModel!.name ?? '' : '',
+                  cubit.videoModel != null ? cubit.videoModel!.name : '',
                   style: TextStyle(color: AppColors.white),
                 ),
               ),
@@ -78,13 +87,12 @@ class _VideoDetailsState extends State<VideoDetails> {
                                   child: Text(
                                 cubit.videoModel!.name,
                                 style: TextStyle(
-                                    color: AppColors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold),
+                                  color: AppColors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               )),
-                              SizedBox(
-                                width: 10,
-                              ),
+                              Spacer(),
                               Container(
                                   child: Row(
                                 children: [
@@ -124,9 +132,6 @@ class _VideoDetailsState extends State<VideoDetails> {
                                   )
                                 ],
                               )),
-                              SizedBox(
-                                width: 20,
-                              ),
                             ],
                           ),
                         ),
@@ -134,7 +139,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                           height: 10,
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(4.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Container(
                               padding: EdgeInsets.symmetric(
                                 horizontal: 10,
@@ -142,37 +147,43 @@ class _VideoDetailsState extends State<VideoDetails> {
                               ),
                               decoration: BoxDecoration(
                                 color: AppColors.unselectedTabColor,
-                                borderRadius: BorderRadius.circular(25),
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               child: Row(
                                 children: [
                                   Flexible(
-                                    child: Center(
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: AppColors.blue),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: MySvgWidget(
-                                                path: ImageAssets.like1Icon,
-                                                imageColor: AppColors.white,
-                                                size: 20,
+                                    child: InkWell(
+                                      onTap: () {
+                                        //like video
+                                      },
+                                      child: Center(
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: AppColors.blue),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: MySvgWidget(
+                                                  path: ImageAssets.like1Icon,
+                                                  imageColor: AppColors.white,
+                                                  size: 20,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            height: 4,
-                                          ),
-                                          Text(
-                                            trans.tr("like"),
-                                            style: TextStyle(
-                                              fontSize: 12,
+                                            SizedBox(
+                                              height: 4,
                                             ),
-                                          )
-                                        ],
+                                            Text(
+                                              trans.tr("like"),
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -180,7 +191,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                     child: InkWell(
                                       onTap: () {
                                         cubit.favourite(
-                                            "video_resource",
+                                            cubit.type!,
                                             cubit.videoModel!.favorite ==
                                                     'un_favorite'
                                                 ? "favorite"
@@ -241,7 +252,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                         value: cubit.progress,
                                                         backgroundColor:
                                                             AppColors.white,
-                                                        color: AppColors.primary,
+                                                        color:
+                                                            AppColors.primary,
                                                       )
                                                     : MySvgWidget(
                                                         path: ImageAssets
@@ -267,7 +279,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                     ),
                                   ),
                                   Visibility(
-                                    visible: cubit.type == "video_resource"
+                                    visible: cubit.type == "video_resource" ||
+                                            cubit.type == 'video_basic'
                                         ? false
                                         : true,
                                     child: Flexible(
@@ -282,8 +295,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 child: MySvgWidget(
-                                                  path:
-                                                      ImageAssets.attachmentIcon,
+                                                  path: ImageAssets
+                                                      .attachmentIcon,
                                                   imageColor: AppColors.white,
                                                   size: 20,
                                                 ),
@@ -303,6 +316,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                       ),
                                     ),
                                   ),
+                                  Flexible(child: Container()),
                                   Flexible(
                                     flex: 2,
                                     child: CustomButton(
@@ -310,7 +324,6 @@ class _VideoDetailsState extends State<VideoDetails> {
                                       color: AppColors.error,
                                       onClick: () {
                                         openBottomreportSheet();
-
                                       },
                                     ),
                                   )
@@ -322,13 +335,12 @@ class _VideoDetailsState extends State<VideoDetails> {
                           child: Text(
                             trans.tr("comments"),
                             style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
                                 color: AppColors.blue3),
                           ),
                         ),
                         Comments(),
-
                       ],
                     ),
                   ),
@@ -337,10 +349,10 @@ class _VideoDetailsState extends State<VideoDetails> {
                       right: 0,
                       left: 0,
                       child: Column(
-
                         children: [
-                          Visibility(visible: cubit.isRecording,
-                            child:MusicList() ,
+                          Visibility(
+                            visible: cubit.isRecording,
+                            child: MusicList(),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -353,11 +365,13 @@ class _VideoDetailsState extends State<VideoDetails> {
                                 ),
                                 Expanded(
                                   child: CustomTextField(
-                                    title:  trans.tr('add_comment'),
+                                    title: trans.tr('add_comment'),
                                     controller: cubit.comment_control,
-                                    validatorMessage:  trans.tr('add_comment_valid'),
-                                    backgroundColor: AppColors.commentBackground,
-                                     color1: AppColors.secondPrimary,
+                                    validatorMessage:
+                                        trans.tr('add_comment_valid'),
+                                    backgroundColor:
+                                        AppColors.commentBackground,
+                                    color1: AppColors.secondPrimary,
                                     onchange: (p0) {
                                       cubit.updateicone();
                                     },
@@ -367,25 +381,29 @@ class _VideoDetailsState extends State<VideoDetails> {
                                           context: context,
                                           builder: (ctx) => AlertDialog(
                                             title: Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  vertical: 5),
-                                              child: Text( trans.tr('choose')),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 5),
+                                              child: Text(trans.tr('choose')),
                                             ),
                                             contentPadding: EdgeInsets.zero,
                                             content: SizedBox(
-                                              width:
-                                                  MediaQuery.of(context).size.width -
-                                                      60,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width -
+                                                  60,
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
                                                   ChooseIconDialog(
-                                                    title:  trans.tr('camera'),
+                                                    title: trans.tr('camera'),
                                                     icon: Icons.camera_alt,
                                                     onTap: () {
                                                       cubit.pickImage(
-                                                          type: 'camera', type1: '1');
-                                                      Navigator.of(context).pop();
+                                                          type: 'camera',
+                                                          type1: '1');
+                                                      Navigator.of(context)
+                                                          .pop();
                                                       // Future.delayed(Duration(milliseconds: 500),
                                                       //         () {
                                                       //       showDialog(
@@ -410,12 +428,14 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                     },
                                                   ),
                                                   ChooseIconDialog(
-                                                    title:  trans.tr('photo'),
+                                                    title: trans.tr('photo'),
                                                     icon: Icons.photo,
                                                     onTap: () {
                                                       cubit.pickImage(
-                                                          type: 'photo', type1: '1');
-                                                      Navigator.of(context).pop();
+                                                          type: 'photo',
+                                                          type1: '1');
+                                                      Navigator.of(context)
+                                                          .pop();
                                                       // Future.delayed(Duration(milliseconds: 500),
                                                       //         () {
                                                       //       showDialog(
@@ -455,13 +475,10 @@ class _VideoDetailsState extends State<VideoDetails> {
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: InkWell(
-                                          onTap: () {},
-                                          child: MySvgWidget(
-                                            path: ImageAssets.attachmentIcon,
-                                            imageColor: AppColors.white,
-                                            size: 10,
-                                          ),
+                                        child: MySvgWidget(
+                                          path: ImageAssets.attachmentIcon,
+                                          imageColor: AppColors.white,
+                                          size: 10,
                                         ),
                                       ),
                                     ),

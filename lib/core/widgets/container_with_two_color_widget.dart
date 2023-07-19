@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
 import '../utils/assets_manager.dart';
 import 'circle_network_image.dart';
-import 'network_image.dart';
 
 class ContainerWithTwoColorWidget extends StatelessWidget {
   const ContainerWithTwoColorWidget({
@@ -35,27 +34,22 @@ class ContainerWithTwoColorWidget extends StatelessWidget {
           // const Spacer(),
           imagePath.isEmpty
               ? Image.asset(ImageAssets.logoImage)
-              : Expanded(
-                  flex: 6,
-                  child: ManageCircleNetworkImage(
-                    imageUrl: imagePath,
-
-                    // borderRadius: 90,
-                    width: 200,
-                    height: 200,
-                  ),
+              : ManageCircleNetworkImage(
+                  radius: MediaQuery.of(context).size.width / 8,
+                  imageUrl: imagePath,
+                  width: MediaQuery.of(context).size.width / 2,
+                  height: MediaQuery.of(context).size.width / 2,
                 ),
           // const Spacer(),
           SizedBox(height: 4),
-          Expanded(
+          Flexible(
             flex: 2,
             child: Text(
               title,
               textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
+              overflow: TextOverflow.clip,
+              maxLines: 1,
               style: TextStyle(
-                // color: textColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
               ),

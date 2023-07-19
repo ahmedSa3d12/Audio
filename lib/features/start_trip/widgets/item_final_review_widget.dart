@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
-
 import '../../../config/routes/app_routes.dart';
 import '../../../core/models/home_page_model.dart';
 import '../../../core/utils/app_colors.dart';
@@ -30,7 +29,14 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
                 context
                     .read<VideoDetailsCubit>()
                     .getVideoDetails(model.id!, "video_resource"),
-                Navigator.pushNamed(context, Routes.videoDetailsScreenRoute)
+                context
+                    .read<VideoDetailsCubit>()
+                    .getcomments(model.id!, "video_resource"),
+                Navigator.pushNamed(context, Routes.videoDetailsScreenRoute,
+                    arguments: {
+                      'type': 'video_resource',
+                      'videoId': model.id!,
+                    })
               }
             : Navigator.push(
                 context,

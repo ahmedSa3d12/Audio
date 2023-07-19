@@ -1,6 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
+import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 
 import '../../../../core/models/home_page_model.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -29,55 +33,65 @@ class HomePageVideoWidget extends StatelessWidget {
             children: [
               ...List.generate(
                 videosBasics.length,
-                (index) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Container(
-                    height: 120,
-                    width: MediaQuery.of(context).size.width * 0.45,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      color: HexColor(
-                          videosBasics[index].backgroundColor ?? '#E4312A'),
-                    ),
-                    child: Column(
-                      children: [
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text(
-                            videosBasics[index].name!,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Row(
-                          children: [
-                            // Spacer(),
-                            SizedBox(width: 16),
-                            MySvgWidget(
-                              path: ImageAssets.clockIcon,
-                              imageColor: AppColors.white,
-                              size: 16,
-                            ),
-                            SizedBox(width: 10),
-                            // Spacer(),
-                            Text(
-                              '${videosBasics[index].time!} ساعه ',
+                (index) => InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.videoDetailsScreenRoute,
+                        arguments: {
+                          'type': 'video_basic',
+                          'videoId': videosBasics[index].id!,
+                        });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Container(
+                      height: 120,
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: HexColor(
+                            videosBasics[index].backgroundColor ?? '#E4312A'),
+                      ),
+                      child: Column(
+                        children: [
+                          Spacer(),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Text(
+                              videosBasics[index].name!,
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 16,
                                 color: AppColors.white,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Spacer(),
-                          ],
-                        ),
-                        Spacer(),
-                      ],
+                          ),
+                          Spacer(),
+                          Row(
+                            children: [
+                              // Spacer(),
+                              SizedBox(width: 16),
+                              MySvgWidget(
+                                path: ImageAssets.clockIcon,
+                                imageColor: AppColors.white,
+                                size: 16,
+                              ),
+                              SizedBox(width: 10),
+                              // Spacer(),
+                              Text(
+                                '${videosBasics[index].time!} ساعه ',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Spacer(),
+                            ],
+                          ),
+                          Spacer(),
+                        ],
+                      ),
                     ),
                   ),
                 ),

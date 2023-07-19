@@ -46,7 +46,7 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
 
   double pos = 50;
 
-  int ishour=0;
+  int ishour = 0;
 
   Duration? duration;
 
@@ -109,7 +109,7 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
     response.fold(
       (l) => emit(VideoDetailsError()),
       (r) {
-        videoModel = r.data!;
+        videoModel = r.data;
         getcomments(videoModel!.id!, type);
 
         emit(VideoDetailsLoaded());
@@ -121,11 +121,22 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
     this.video_id = video_id;
     this.type = type;
     emit(CommentsLoading());
+    print("loading comment");
+    print('type');
+    print(type);
+    print(video_id);
+
     final response = await api.getcomments(video_id: video_id, type: type);
     response.fold(
-      (l) => emit(CommentsError()),
+      (l) {
+        emit(CommentsError());
+        print('error comment');
+      },
       (r) {
-        comments = r.comments!;
+        print("loaded comment");
+        comments = r.comments;
+
+        print(comments!.data.length);
         emit(CommentsLoaded());
       },
     );
@@ -137,6 +148,7 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
 
   addcommment(String type, String imagePath, String audio) async {
     final response = await api.addComments(
+        videoType: this.type!,
         video_id: videoModel!.id,
         type: type,
         text: comment_control.text,
@@ -318,31 +330,35 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
 
   void setduration(Duration duration) {
     print("ddlldldl0");
-    this.duration=duration;
+    this.duration = duration;
     emit(CommentsLoaded());
   }
 
-
   Future<void> updateTime() async {
-    if(type=="video_part"){
-      if(duration!>Duration(seconds: int.parse(videoModel!.video_minutes.split(":")[0]), minutes: int.parse(videoModel!.video_minutes.split(":")[1]), hours: int.parse(videoModel!.video_minutes.split(":")[2]))){
-
+    if (type == "video_part") {
+      if (duration! >
+          Duration(
+              seconds: int.parse(videoModel!.video_minutes.split(":")[0]),
+              minutes: int.parse(videoModel!.video_minutes.split(":")[1]),
+              hours: int.parse(videoModel!.video_minutes.split(":")[2]))) {
         final response = await api.updateVideoTime(
           video_id: videoModel!.id,
-          minutes: duration!.inHours.toString()+":"+duration!.inMinutes.toString()+":"+duration!.inSeconds.toString(),
-
+          minutes: duration!.inHours.toString() +
+              ":" +
+              duration!.inMinutes.toString() +
+              ":" +
+              duration!.inSeconds.toString(),
         );
         response.fold(
-              (l) =>
-          {print(l.toString()),
-            },
-              (r) {
-         getVideoDetails(video_id!, type!);
+          (l) => {
+            print(l.toString()),
+          },
+          (r) {
+            getVideoDetails(video_id!, type!);
             emit(CommentsLoaded());
           },
         );
       }
     }
   }
-
 }

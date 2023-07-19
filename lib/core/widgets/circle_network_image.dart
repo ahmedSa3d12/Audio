@@ -5,23 +5,28 @@ import '../utils/app_colors.dart';
 
 class ManageCircleNetworkImage extends StatelessWidget {
   const ManageCircleNetworkImage(
-      {Key? key, required this.imageUrl, this.height = 0, this.width = 0})
+      {Key? key,
+      required this.imageUrl,
+      required this.radius,
+      this.height = 0,
+      this.width = 0})
       : super(key: key);
 
   final String imageUrl;
   final double height;
   final double width;
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-        radius: 50,
-        // backgroundImage: NetworkImage(imageUrl),
+        radius: radius,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(200),
+          borderRadius:
+              BorderRadius.circular(MediaQuery.of(context).size.width / 8),
           child: CachedNetworkImage(
             imageUrl: imageUrl,
-            fit: BoxFit.fitHeight,
+            fit: BoxFit.cover,
             height: height != 0 ? height : null,
             width: width != 0 ? width : null,
             placeholder: (context, url) => Center(

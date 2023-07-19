@@ -104,7 +104,6 @@ class _ElmazoonState extends State<Elmazoon> {
     ]).then((void _) {
       setState(() {
         if (shortcut == 'no action set') {
-
           // Preferences.instance.clearAllData();
           //
           // shortcut = 'actions ready';

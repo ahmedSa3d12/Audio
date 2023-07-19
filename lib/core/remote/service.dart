@@ -503,9 +503,9 @@ class ServiceApi {
       final response = await dio.post(
         EndPoints.addremovefavUrl,
         body: {
-          "video_basic_id": type == 'video_basic' ? video_id : '',
-          "video_resource_id": type == 'video_resource' ? video_id : '',
-          "video_part_id": type == 'video_part' ? video_id : '',
+          "video_basic_id": type == 'video_basic' ? video_id : "",
+          "video_resource_id": type == 'video_resource' ? video_id : "",
+          "video_part_id": type == 'video_part' ? video_id : "",
           "favorite_type": type,
           "action": action,
         },
@@ -527,20 +527,21 @@ class ServiceApi {
       required String type,
       required String text,
       required String image,
+      required String videoType,
       required String audio}) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
-
     try {
       print("sssss");
-      print(image);
+      print(videoType);
       final response = await dio.post(
         EndPoints.addcommentsUrl,
         formDataIsEnabled: true,
         body: {
           "comment": text,
           "type": type,
-          "video_resource_id": video_id,
+          "video_resource_id": videoType == 'video_resource' ? video_id : "",
+          "video_basic_id": videoType == 'video_basic' ? video_id : "",
           if (image.isNotEmpty) ...{
             'image': await MultipartFile.fromFile(image),
           },

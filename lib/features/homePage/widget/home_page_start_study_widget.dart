@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/features/lessons_of_class/screens/lesson_class.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/toast_message_method.dart';
@@ -43,18 +45,14 @@ class HomePageStartStudyWidget extends StatelessWidget {
                       color: AppColors.error,
                     );
                   } else {
-                    // context
-                    //     .read<ExamCubit>()
-                    //     .examSubjectClassIndex = index;
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) =>
-                    //         ClassNameScreen(
-                    //           model: classes[index],
-                    //         ),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LessonsClassScreen(
+                          classId: classes[index].id!,
+                        ),
+                      ),
+                    );
                   }
                 },
                 child: ContainerWithTwoColorWidget(

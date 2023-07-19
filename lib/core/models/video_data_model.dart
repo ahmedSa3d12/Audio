@@ -12,14 +12,14 @@ class VideoDataModel {
   });
 
   factory VideoDataModel.fromJson(Map<String, dynamic> json) => VideoDataModel(
-    data: VideoModel.fromJson(json["data"]),
-    message: json["message"],
-    code: json["code"],
-  );
+        data: VideoModel.fromJson(json["data"]),
+        message: json["message"],
+        code: json["code"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "data": data.toJson(),
-    "message": message,
-    "code": code,
-  };
+        "data": data.toJson(),
+        "message": message,
+        "code": code,
+      };
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/features/lessons_of_class/screens/lesson_details.dart';
 import 'package:new_mazoon/features/navigation_bottom/screens/navigation_bottom.dart';
 import 'package:new_mazoon/features/onboarding/screens/onbordingscreen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -36,6 +37,8 @@ class Routes {
   static const String examHeroScreenRoute = '/examHeroScreen';
   static const String countdownScreenRoute = '/countdownScreen';
   static const String videoDetailsScreenRoute = '/videoDetailsScreen';
+
+  static const String lessonDetails = '/lessonDetails';
 }
 
 class AppRoutes {
@@ -134,12 +137,20 @@ class AppRoutes {
           duration: const Duration(milliseconds: 800),
           child: CountdownScreen(),
         );
+      case Routes.lessonDetails:
+        return PageTransition(
+          child: LessonDetails(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
       case Routes.videoDetailsScreenRoute:
+        Map<String, dynamic> data = settings.arguments as Map<String, dynamic>;
         return PageTransition(
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),
-          child: VideoDetails(),
+          child: VideoDetails(type: data['type'], videoId: data['videoId']),
         );
 
       default:

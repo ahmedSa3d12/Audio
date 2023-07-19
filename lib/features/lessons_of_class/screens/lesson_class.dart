@@ -1,12 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
 import 'package:new_mazoon/core/widgets/network_image.dart';
 import 'package:new_mazoon/core/widgets/no_data_widget.dart';
 import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
 import 'package:new_mazoon/features/lessons_of_class/cubit/lessons_class_cubit.dart';
+import 'package:new_mazoon/features/lessons_of_class/screens/lesson_details.dart';
 
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/toast_message_method.dart';
 import '../../../core/widgets/my_painter_widget.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../widgets/lesson_class_item_widget.dart';
@@ -160,8 +164,29 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                         SizedBox(height: 16),
                         ...List.generate(
                           cubit.lessons.length,
-                          (index) => LessonClassItemWidget(
-                            model: cubit.lessons[index],
+                          (index) => InkWell(
+                            onTap: () {
+                              if (cubit.lessons[index].status == 'lock') {
+                                toastMessage(
+                                  'open_lesson'.tr(),
+                                  context,
+                                  color: AppColors.error,
+                                );
+                              } else {
+                                Navigator.pushNamed(
+                                  context,
+                                  Routes.lessonDetails,
+                                );
+                              }
+
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => LessonDetails()));
+                            },
+                            child: LessonClassItemWidget(
+                              model: cubit.lessons[index],
+                            ),
                           ),
                         ),
                       ],

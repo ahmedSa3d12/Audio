@@ -10,7 +10,6 @@ import '../../../../core/widgets/painting.dart';
 
 // import '../../downloads_videos/screens/downloads_video.dart';
 import '../../navigation_bottom/cubit/navigation_cubit.dart';
-import '../cubit/home_page_cubit.dart';
 
 class HomePageAppBarWidget extends StatelessWidget {
   const HomePageAppBarWidget({Key? key, this.isHome = true}) : super(key: key);
@@ -187,7 +186,7 @@ class HomePageAppBarWidget extends StatelessWidget {
                                 ),
                                 SizedBox(width: isHome! ? 8 : 25),
                                 InkWell(
-                                  onTap:()=>Navigator.pop(context),
+                                  onTap: () => Navigator.pop(context),
                                   child: Visibility(
                                     visible: !isHome!,
                                     child: Icon(
