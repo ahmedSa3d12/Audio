@@ -4,12 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/widgets/title_with_circle_background_widget.dart';
 import 'package:new_mazoon/features/start_trip/screens/classes_exam_screen.dart';
-import 'package:new_mazoon/features/start_trip/screens/final_review_screen.dart';
 
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../../start_trip/cubit/start_trip_cubit.dart';
 import '../../start_trip/screens/classes_screen.dart';
-import '../cubit/lessons_class_cubit.dart';
 
 class LessonDetails extends StatefulWidget {
   const LessonDetails({super.key});
