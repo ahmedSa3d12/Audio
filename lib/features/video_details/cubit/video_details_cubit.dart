@@ -110,7 +110,7 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
       (l) => emit(VideoDetailsError()),
       (r) {
         videoModel = r.data;
-        getcomments(videoModel!.id!, type);
+        getcomments(videoModel!.id, type);
 
         emit(VideoDetailsLoaded());
       },

@@ -174,15 +174,9 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                 );
                               } else {
                                 Navigator.pushNamed(
-                                  context,
-                                  Routes.lessonDetails,
-                                );
+                                    context, Routes.lessonDetails,
+                                    arguments: cubit.lessons[index]);
                               }
-
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => LessonDetails()));
                             },
                             child: LessonClassItemWidget(
                               model: cubit.lessons[index],

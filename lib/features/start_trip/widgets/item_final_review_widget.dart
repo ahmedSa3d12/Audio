@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:new_mazoon/core/utils/numformat.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import '../../../config/routes/app_routes.dart';
 import '../../../core/models/home_page_model.dart';
@@ -77,7 +79,7 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
                   ],
                 ),
                 SizedBox(width: 8),
-                Expanded(
+                Flexible(
                   child: Text(
                     model.name!,
                     style: TextStyle(
@@ -113,17 +115,24 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
                             )
                           : SizedBox(),
                       SizedBox(width: model.type == 'video' ? 10 : 0),
-                      Text(
-                        model.type == 'video'
-                            ? '${model.time}  '
-                            : changeToMegaByte(model.size.toString()),
-                        textDirection: model.type == 'video'
-                            ? TextDirection.rtl
-                            : TextDirection.ltr,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
+                      Flexible(
+                        child: Padding(
+                          padding:
+                              EdgeInsets.all(model.type == 'video' ? 8.0 : 0),
+                          child: Text(
+                            model.type == 'video'
+                                ? extractHourAndMinutes(model.time!)
+                                    .toString() //model.time.toString().padLeft(2, '0')
+                                : changeToMegaByte(model.size.toString()),
+                            textDirection: model.type == 'video'
+                                ? TextDirection.rtl
+                                : TextDirection.ltr,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: AppColors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                       SizedBox(width: model.type != 'video' ? 10 : 0),
@@ -158,5 +167,18 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  extractHourAndMinutes(String timeString) {
+    // Split the timeString by the colon ':' to get the hours, minutes, and seconds parts.
+    List<String> timeParts = timeString.split(':');
+
+    // Get the hour and minute values as integers.
+    int hour = int.parse(timeParts[0]);
+    int minute = int.parse(timeParts[1]);
+
+    print("Hour: $hour");
+    print("Minutes: $minute");
+    return '$minute : $hour';
   }
 }

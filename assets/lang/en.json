@@ -178,7 +178,12 @@
  "like": "Like",
  "edit": "Edit"
 ,  "expnain":"Examination",
-"less_exam":"Lesson Exam"
+"less_exam":"Lesson Exam",
+"records":"records",
+"summary":"summary",
+"homework":"homework",
+"rate_us":"Rate your performance"
+
 
 
 

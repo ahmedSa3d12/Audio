@@ -104,31 +104,34 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                                     )
                                   : SizedBox(),
                               SizedBox(width: 8),
-                              widget.type == 'source'?SizedBox(): Container(
-                                width: 25,
-                                height: 25,
-                                padding: EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(25),
-                                  color:
-                                      title == cubit.examClasses[index].title!
-                                          ? AppColors.primary
-                                          : AppColors.white,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    cubit.examClasses[index].numOfLessons
-                                        .toString(),
-                                    style: TextStyle(
-                                      color: title ==
-                                              cubit.examClasses[index].title!
-                                          ? AppColors.white
-                                          : AppColors.orangeThirdPrimary,
-                                      fontSize: 14,
+                              widget.type == 'source'
+                                  ? SizedBox()
+                                  : Container(
+                                      width: 25,
+                                      height: 25,
+                                      padding: EdgeInsets.all(2),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25),
+                                        color: title ==
+                                                cubit.examClasses[index].title!
+                                            ? AppColors.primary
+                                            : AppColors.white,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          cubit.examClasses[index].numOfLessons
+                                              .toString(),
+                                          style: TextStyle(
+                                            color: title ==
+                                                    cubit.examClasses[index]
+                                                        .title!
+                                                ? AppColors.white
+                                                : AppColors.orangeThirdPrimary,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                           onTap: () {
@@ -140,7 +143,9 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                               });
 
                               if (widget.type == 'source') {
-                                context.read<SourceReferencesCubit>().sourcesAndReferencesDataById(
+                                context
+                                    .read<SourceReferencesCubit>()
+                                    .sourcesAndReferencesDataById(
                                       cubit.examClasses[index].id!,
                                     );
                               } else {

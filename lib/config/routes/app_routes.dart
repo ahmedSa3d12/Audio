@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/features/attachment/screens/attachmentscreen.dart';
 import 'package:new_mazoon/features/lessons_of_class/screens/lesson_details.dart';
 import 'package:new_mazoon/features/navigation_bottom/screens/navigation_bottom.dart';
 import 'package:new_mazoon/features/onboarding/screens/onbordingscreen.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../core/models/ads_model.dart';
+import '../../core/models/lessons_model.dart';
 import '../../core/models/paper_exam_data_model.dart';
 import '../../core/models/paper_exam_details_model.dart';
+import '../../core/models/videoModel.dart';
 import '../../core/utils/app_strings.dart';
 import '../../features/countdown/screens/countdown_screen.dart';
 import '../../features/exam_hero/screens/exam_hero_screen.dart';
@@ -39,6 +42,8 @@ class Routes {
   static const String videoDetailsScreenRoute = '/videoDetailsScreen';
 
   static const String lessonDetails = '/lessonDetails';
+
+  static const String attachmentScreen = '/AttachmentScreen';
 }
 
 class AppRoutes {
@@ -61,7 +66,6 @@ class AppRoutes {
         );
       case Routes.examInstructionsRoute:
         List<dynamic> data = settings.arguments as List<dynamic>;
-
         return MaterialPageRoute(
           builder: (context) =>
               ExamInstructions(exam_id: data[0], type: data[1]),
@@ -69,7 +73,6 @@ class AppRoutes {
       case Routes.paperexamRegisterRoute:
         PaperExamDetialsModel timeDataModel =
             settings.arguments as PaperExamDetialsModel;
-
         return MaterialPageRoute(
           builder: (context) =>
               PaperExmRegisterPage(timeDataModel: timeDataModel),
@@ -138,8 +141,9 @@ class AppRoutes {
           child: CountdownScreen(),
         );
       case Routes.lessonDetails:
+        AllLessonsModel model = settings.arguments as AllLessonsModel;
         return PageTransition(
-          child: LessonDetails(),
+          child: LessonDetails(model: model),
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),
@@ -152,7 +156,16 @@ class AppRoutes {
           duration: const Duration(milliseconds: 800),
           child: VideoDetails(type: data['type'], videoId: data['videoId']),
         );
+      case Routes.attachmentScreen:
+        VideoModel model = settings.arguments as VideoModel;
+        return PageTransition(
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 1300),
+          child: AttachmentScreen(model: model),
+        );
 
+//AttachmentScreen
       default:
         return undefinedRoute();
     }

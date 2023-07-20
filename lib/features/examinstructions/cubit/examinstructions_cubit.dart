@@ -15,16 +15,14 @@ part 'examinstructions_state.dart';
 class ExaminstructionsCubit extends Cubit<ExaminstructionsState> {
   final ServiceApi api;
   ExaminstructionsCubit(this.api) : super(ExaminstructionsInitial());
-  Future<void> examInstructions(int exam_id,String type) async {
+  Future<void> examInstructions(int exam_id, String type) async {
     emit(ExaminstructionsLoading());
 
-    var response = await api.examInstructions(exma_id: exam_id,type: type);
+    var response = await api.examInstructions(exma_id: exam_id, type: type);
     response.fold(
-          (l) => emit(ExaminstructionsError()),
-          (r) {
-
-      
-       emit(ExaminstructionsLoaded(r));
+      (l) => emit(ExaminstructionsError()),
+      (r) {
+        emit(ExaminstructionsLoaded(r));
 
         // else{
         //   toastMessage(
@@ -33,9 +31,7 @@ class ExaminstructionsCubit extends Cubit<ExaminstructionsState> {
         //     color: AppColors.error,
         //   );
         // }
-
       },
     );
   }
-
 }

@@ -1,10 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
-import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 
 import '../../../../core/models/home_page_model.dart';
 import '../../../../core/utils/app_colors.dart';

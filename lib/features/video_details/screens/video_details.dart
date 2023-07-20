@@ -6,6 +6,7 @@ import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:new_mazoon/features/video_details/widget/comments.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 
@@ -84,15 +85,17 @@ class _VideoDetailsState extends State<VideoDetails> {
                           child: Row(
                             children: [
                               Flexible(
+                                  fit: FlexFit.tight,
                                   child: Text(
-                                cubit.videoModel!.name,
-                                style: TextStyle(
-                                  color: AppColors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              )),
-                              Spacer(),
+                                    cubit.videoModel!.name,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                      color: AppColors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  )),
                               Container(
                                   child: Row(
                                 children: [
@@ -284,34 +287,41 @@ class _VideoDetailsState extends State<VideoDetails> {
                                         ? false
                                         : true,
                                     child: Flexible(
-                                      child: Center(
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: AppColors.primary),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: MySvgWidget(
-                                                  path: ImageAssets
-                                                      .attachmentIcon,
-                                                  imageColor: AppColors.white,
-                                                  size: 20,
+                                      child: InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, Routes.attachmentScreen,
+                                              arguments: cubit.videoModel);
+                                        },
+                                        child: Center(
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: AppColors.primary),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: MySvgWidget(
+                                                    path: ImageAssets
+                                                        .attachmentIcon,
+                                                    imageColor: AppColors.white,
+                                                    size: 20,
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: 4,
-                                            ),
-                                            Text(
-                                              trans.tr("attachments"),
-                                              style: TextStyle(
-                                                fontSize: 12,
+                                              SizedBox(
+                                                height: 4,
                                               ),
-                                            )
-                                          ],
+                                              Text(
+                                                trans.tr("attachments"),
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),

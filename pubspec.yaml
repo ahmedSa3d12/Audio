@@ -83,7 +83,8 @@ dependencies:
   dropdown_search: ^5.0.6
   smooth_page_indicator: any
   table_calendar: ^3.0.9
-
+  percent_indicator: ^4.2.3
+  intl: 
 
 dev_dependencies:
   flutter_test:

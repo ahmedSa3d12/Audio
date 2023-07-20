@@ -13,6 +13,7 @@ import '../models/class_lesson_model.dart';
 import '../models/classes_exam_data_model.dart';
 import '../models/exam_classes_model.dart';
 import '../models/exam_instruction_model.dart';
+import '../models/lessonexammodel.dart';
 import '../models/paper_exam_details_model.dart';
 import '../models/paper_exam_model.dart';
 import '../models/final_review_model.dart';
@@ -29,6 +30,7 @@ import '../models/sources_referenes_by_id_model.dart';
 import '../models/times_model.dart';
 import '../models/user_model.dart';
 import '../models/video_data_model.dart';
+import '../models/videolessonmodel.dart';
 import '../preferences/preferences.dart';
 
 class ServiceApi {
@@ -745,6 +747,50 @@ class ServiceApi {
         ),
       );
       return Right(SingleReplayModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, VideosofLessonModel>> videosOfLessonData(
+      int lessonId) async {
+    print("sssss");
+    print(lessonId);
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.VideoByLessonUrl + "$lessonId",
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(VideosofLessonModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, LessonExamModel>> examOfLessonData(
+      int lessonId) async {
+    print("sssss");
+    print(lessonId);
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.ExamByLessonUrl + "$lessonId",
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(LessonExamModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

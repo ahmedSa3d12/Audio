@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/widgets/title_with_circle_background_widget.dart';
-import 'package:new_mazoon/features/start_trip/screens/classes_exam_screen.dart';
+import 'package:new_mazoon/features/lessons_of_class/screens/videosoflessonscreen.dart';
 
+import '../../../core/models/lessons_model.dart';
+import '../../../core/utils/getsize.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
-import '../../start_trip/cubit/start_trip_cubit.dart';
-import '../../start_trip/screens/classes_screen.dart';
+import '../cubit/lessons_class_cubit.dart';
+import 'lessonexam.dart';
 
 class LessonDetails extends StatefulWidget {
-  const LessonDetails({super.key});
+  LessonDetails({required this.model, super.key});
+  AllLessonsModel model;
 
   @override
   State<LessonDetails> createState() => _LessonDetailsState();
@@ -18,6 +21,7 @@ class LessonDetails extends StatefulWidget {
 
 class _LessonDetailsState extends State<LessonDetails>
     with TickerProviderStateMixin {
+  ///lesson of class
   List<String> titles = [
     'expnain'.tr(),
     'less_exam'.tr(),
@@ -27,8 +31,14 @@ class _LessonDetailsState extends State<LessonDetails>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-    _tabController.animateTo(context.read<StartTripCubit>().currentIndex);
+    _tabController = TabController(length: titles.length, vsync: this);
+    _tabController.animateTo(context.read<LessonsClassCubit>().currentIndex);
+
+    BlocProvider.of<LessonsClassCubit>(context)
+        .getVideosofLessonsData(widget.model.id!);
+    //need handle in UI
+    BlocProvider.of<LessonsClassCubit>(context)
+        .getExamsofLessonsData(widget.model.id!);
   }
 
   @override
@@ -38,22 +48,25 @@ class _LessonDetailsState extends State<LessonDetails>
         backgroundColor: AppColors.secondPrimary,
         toolbarHeight: 0,
       ),
-      body: BlocBuilder<StartTripCubit, StartTripState>(
+      body: BlocBuilder<LessonsClassCubit, LessonsClassState>(
         builder: (context, state) {
-          StartTripCubit cubit = context.read<StartTripCubit>();
-
+          var controller = context.read<LessonsClassCubit>();
           return SafeArea(
             child: Stack(
               children: [
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 115),
+                    SizedBox(height: getSize(context) / 4.2),
                     Positioned(
                       top: 0,
                       right: 0,
                       left: 0,
                       bottom: 0,
-                      child: TitleWithCircleBackgroundWidget(title: "title"),
+                      child: TitleWithCircleBackgroundWidget(
+                          /////////////
+                          title: widget.model.title ?? ''),
                     ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -68,8 +81,8 @@ class _LessonDetailsState extends State<LessonDetails>
                               ),
                               child: InkWell(
                                 onTap: () {
-                                  cubit.selectTap(index);
-                                  print(cubit.currentIndex);
+                                  controller.selectTap(index);
+                                  print(controller.currentIndex);
                                   _tabController.animateTo(index);
                                 },
                                 child: Container(
@@ -78,7 +91,7 @@ class _LessonDetailsState extends State<LessonDetails>
                                     vertical: 10,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: cubit.currentIndex == index
+                                    color: controller.currentIndex == index
                                         ? AppColors.orangeThirdPrimary
                                         : AppColors.unselectedTabColor,
                                     borderRadius: BorderRadius.circular(25),
@@ -87,7 +100,7 @@ class _LessonDetailsState extends State<LessonDetails>
                                     child: Text(
                                       titles[index],
                                       style: TextStyle(
-                                        color: cubit.currentIndex == index
+                                        color: controller.currentIndex == index
                                             ? AppColors.white
                                             : AppColors.black,
                                         fontWeight: FontWeight.bold,
@@ -110,8 +123,9 @@ class _LessonDetailsState extends State<LessonDetails>
                           controller: _tabController,
                           physics: NeverScrollableScrollPhysics(),
                           children: [
-                            ClassesScreen(),
-                            ClassesExamsScreen(),
+                            VideoLessonScreen(),
+                            LessonExamScreen(),
+                            // ClassesExamsScreen(),
                           ],
                         ),
                       ),

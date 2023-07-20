@@ -105,6 +105,11 @@ class ImageAssets {
   static const String attachmentIcon = '$iconsPath/attachment.svg';
   static const String deleteIcon = '$iconsPath/delete.svg';
   static const String addIcon = '$iconsPath/add.svg';
+  static const String doneIcon = '$iconsPath/done.svg';
+  static const String homework = '$iconsPath/homework.svg';
+  static const String pdf = '$iconsPath/pdf.svg';
+  static const String rate_us = '$iconsPath/rate_us.svg';
+  static const String rec = '$iconsPath/rec.svg';
 
   //Lottie
   static const String noItems = '$lottiePath/no_item.json';
