@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:new_mazoon/features/attachment/cubit/attachmentcubit.dart';
 import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
 import 'package:quick_actions/quick_actions.dart';
 // import 'package:screenshot_callback/screenshot_callback.dart';
@@ -168,6 +169,7 @@ class _ElmazoonState extends State<Elmazoon> {
         BlocProvider(
           create: (_) => injector.serviceLocator<NoteCubit>(),
         ),
+
         // BlocProvider(
         //   create: (_) => injector.serviceLocator<DownloadsVideosCubit>(),
         // ),
@@ -197,6 +199,9 @@ class _ElmazoonState extends State<Elmazoon> {
         ),
         BlocProvider(
           create: (_) => injector.serviceLocator<VideoDetailsCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<AttachmentCubit>(),
         ),
       ],
       child: GetMaterialApp(

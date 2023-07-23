@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:new_mazoon/core/utils/assets_manager.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 import 'package:new_mazoon/core/widgets/title_with_circle_background_widget.dart';
 
@@ -113,195 +114,205 @@ class _NoteState extends State<NotePlan> {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
+                        padding: EdgeInsets.all(getSize(context) / 32),
                         child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 110),
-                          Material(
-                            borderRadius: BorderRadius.all(Radius.circular(15)),
-                            elevation: 2,
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15)),
-                                    color: AppColors.white),
-                                child: BlocBuilder<NoteCubit, NoteState>(
-                                  builder: (context, state) {
-                                    return ListView(
-                                        shrinkWrap: true,
-                                        physics: NeverScrollableScrollPhysics(),
-                                        children: [
-                                          TitleWithCircleBackgroundWidget(
-                                              title: "اضف ملاحظاتك"),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(DateFormat(
-                                                    'MMMM',
-                                                    EasyLocalization.of(
-                                                            context)!
-                                                        .currentLocale!
-                                                        .languageCode)
-                                                .format(cubit.datecurrent)),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          CalendarCarousel<Event>(
-                                            markedDatesMap: _getMarkedDateMap(
-                                                _days, context),
-                                            markedDateShowIcon: true,
-                                            markedDateIconMaxShown: 1,
-                                            markedDateMoreShowTotal: null,
-                                            markedDateIconBuilder: (event) =>
-                                                event.icon,
-                                            height: 310,
-                                            selectedDayButtonColor:
-                                                AppColors.redPrimary,
-                                            selectedDayBorderColor:
-                                                AppColors.redPrimary,
-                                            todayButtonColor:
-                                                AppColors.unselectedTabColor,
-                                            todayBorderColor:
-                                                AppColors.unselectedTabColor,
-                                            scrollDirection: Axis.horizontal,
-                                            showHeaderButton: false,
-                                            onCalendarChanged: (p0) {
-                                              cubit.getNotes(
-                                                  DateFormat('yyyy-MM-dd')
-                                                      .format(p0),
-                                                  p0,
-                                                  p0);
-                                            },
-                                            showOnlyCurrentMonthDate: true,
-                                            showHeader: false,
-                                            weekdayTextStyle: TextStyle(
-                                                color: AppColors.blue,
-                                                fontWeight: FontWeight.w300),
-                                            daysTextStyle: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                color: AppColors.black),
-                                            selectedDayTextStyle: TextStyle(
-                                                fontWeight: FontWeight.w700,
+                          child: Column(
+                            children: [
+                              SizedBox(height: 110),
+                              BlocBuilder<NoteCubit, NoteState>(
+                                builder: (context, state) {
+                                  return ListView(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      children: [
+                                        TitleWithCircleBackgroundWidget(
+                                            title: "اضف ملاحظاتك"),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(DateFormat(
+                                                  'MMMM',
+                                                  EasyLocalization.of(context)!
+                                                      .currentLocale!
+                                                      .languageCode)
+                                              .format(cubit.datecurrent)),
+                                        ),
+                                        SizedBox(
+                                          height: getSize(context) / 12,
+                                        ),
+                                        Material(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                  getSize(context) / 32)),
+                                          elevation: 5,
+                                          child: Container(
+                                            padding: EdgeInsets.all(
+                                                getSize(context) / 32),
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(
+                                                        getSize(context) / 32)),
                                                 color: AppColors.white),
-                                            customWeekDayBuilder:
-                                                (weekday, weekdayName) {
-                                              return Padding(
-                                                padding:
-                                                    const EdgeInsets.all(3.0),
-                                                child: Text(
-                                                  weekdayName,
-                                                  style: TextStyle(
-                                                      color: AppColors.blue,
-                                                      fontSize: 13,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
+                                            child: CalendarCarousel<Event>(
+                                              markedDatesMap: _getMarkedDateMap(
+                                                  _days, context),
+                                              markedDateShowIcon: true,
+                                              markedDateIconMaxShown: 1,
+                                              markedDateMoreShowTotal: null,
+                                              markedDateIconBuilder: (event) =>
+                                                  event.icon,
+                                              height: getSize(context) / 1.5,
+                                              selectedDayButtonColor:
+                                                  AppColors.redPrimary,
+                                              selectedDayBorderColor:
+                                                  AppColors.redPrimary,
+                                              todayButtonColor:
+                                                  AppColors.unselectedTabColor,
+                                              todayBorderColor:
+                                                  AppColors.unselectedTabColor,
+                                              scrollDirection: Axis.horizontal,
+                                              showHeaderButton: false,
+                                              onCalendarChanged: (p0) {
+                                                cubit.getNotes(
+                                                    DateFormat('yyyy-MM-dd')
+                                                        .format(p0),
+                                                    p0,
+                                                    p0);
+                                              },
+                                              showOnlyCurrentMonthDate: true,
+                                              showHeader: false,
+                                              weekdayTextStyle: TextStyle(
+                                                  color: AppColors.blue,
+                                                  fontWeight: FontWeight.w300),
+                                              daysTextStyle: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  color: AppColors.black),
+                                              selectedDayTextStyle: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  color: AppColors.white),
+                                              customWeekDayBuilder:
+                                                  (weekday, weekdayName) {
+                                                return Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  child: Text(
+                                                    weekdayName,
+                                                    style: TextStyle(
+                                                        color: AppColors.blue,
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                );
+                                              },
+                                              pageSnapping: true,
+                                              dayPadding: 2,
+                                              weekDayPadding: EdgeInsets.all(8),
+                                              weekendTextStyle: TextStyle(
+                                                  color: AppColors.black),
+                                              nextDaysTextStyle: TextStyle(
+                                                  color: AppColors
+                                                      .descriptionBoardingColor),
+                                              headerTextStyle: TextStyle(
+                                                  color: AppColors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 17),
+                                              locale:
+                                                  EasyLocalization.of(context)!
+                                                      .currentLocale!
+                                                      .languageCode,
+                                              todayTextStyle: TextStyle(
+                                                  color: AppColors.black,
+                                                  fontWeight: FontWeight.w700),
+                                              onDayPressed: (DateTime date,
+                                                  List<Event> events) {
+                                                cubit.getNotes(
+                                                    DateFormat('yyyy-MM-dd')
+                                                        .format(date),
+                                                    date,
+                                                    date);
+                                              },
+                                              weekFormat: false,
+                                              showWeekDays: true,
+                                              selectedDateTime:
+                                                  cubit.datecurrent,
+                                              daysHaveCircularBorder: true,
+                                            ),
+                                          ),
+                                        )
+                                      ]);
+                                },
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              // NeonCircularTimer(
+                              //   width: 200,
+                              //   duration: 20,
+                              //   backgroudColor: AppColors.white,
+                              //   isTimerTextShown: true,
+                              //   neumorphicEffect: true,
+                              //   innerFillColor: Colors.amber,
+                              //   initialDuration: 0,
+                              //   isReverse: true,
+                              //   isReverseAnimation: true,
+                              //   neonColor: Colors.orange,
+                              //   controller: null,
+                              //   strokeWidth: 1,
+                              //   strokeCap: StrokeCap.butt,
+                              // ),
+////////////////////////////////////////
+                              BlocBuilder<NoteCubit, NoteState>(
+                                builder: (context, state) {
+                                  if (state is NoteLoading) {
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        color: AppColors.primary,
+                                      ),
+                                    );
+                                  } else if (state is NoteLoaded) {
+                                    return cubit.noteplanList.isNotEmpty
+                                        ? ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount:
+                                                cubit.noteplanList.length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return NoteWidget(
+                                                noteModel: cubit.noteplanList
+                                                    .elementAt(index),
+                                                index: index,
                                               );
                                             },
-                                            pageSnapping: true,
-                                            dayPadding: 2,
-                                            weekDayPadding: EdgeInsets.all(8),
-                                            weekendTextStyle: TextStyle(
-                                                color: AppColors.black),
-                                            nextDaysTextStyle: TextStyle(
-                                                color: AppColors
-                                                    .descriptionBoardingColor),
-                                            headerTextStyle: TextStyle(
-                                                color: AppColors.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 17),
-                                            locale:
-                                                EasyLocalization.of(context)!
-                                                    .currentLocale!
-                                                    .languageCode,
-                                            todayTextStyle: TextStyle(
-                                                color: AppColors.black,
-                                                fontWeight: FontWeight.w700),
-                                            onDayPressed: (DateTime date,
-                                                List<Event> events) {
-                                              cubit.getNotes(
-                                                  DateFormat('yyyy-MM-dd')
-                                                      .format(date),
-                                                  date,
-                                                  date);
-                                            },
-                                            weekFormat: false,
-                                            showWeekDays: true,
-                                            selectedDateTime: cubit.datecurrent,
-                                            daysHaveCircularBorder: true,
                                           )
-                                        ]);
-                                  },
-                                )),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          // NeonCircularTimer(
-                          //   width: 200,
-                          //   duration: 20,
-                          //   backgroudColor: AppColors.white,
-                          //   isTimerTextShown: true,
-                          //   neumorphicEffect: true,
-                          //   innerFillColor: Colors.amber,
-                          //   initialDuration: 0,
-                          //   isReverse: true,
-                          //   isReverseAnimation: true,
-                          //   neonColor: Colors.orange,
-                          //   controller: null,
-                          //   strokeWidth: 1,
-                          //   strokeCap: StrokeCap.butt,
-                          // ),
-////////////////////////////////////////
-                          BlocBuilder<NoteCubit, NoteState>(
-                            builder: (context, state) {
-                              if (state is NoteLoading) {
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    color: AppColors.primary,
-                                  ),
-                                );
-                              } else if (state is NoteLoaded) {
-                                return cubit.noteplanList.isNotEmpty
-                                    ? ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: cubit.noteplanList.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return NoteWidget(
-                                            noteModel: cubit.noteplanList
-                                                .elementAt(index),
-                                            index: index,
+                                        : NoDataWidget(
+                                            onclick: () => () {
+                                              cubit.getNotes(
+                                                  cubit.date,
+                                                  cubit.datefoucse,
+                                                  cubit.datecurrent);
+                                            },
+                                            title: 'no_date',
                                           );
-                                        },
-                                      )
-                                    : NoDataWidget(
-                                        onclick: () => () {
-                                          cubit.getNotes(
-                                              cubit.date,
-                                              cubit.datefoucse,
-                                              cubit.datecurrent);
-                                        },
-                                        title: 'no_date',
-                                      );
-                              } else {
-                                return NoDataWidget(
-                                  onclick: () => {
-                                    cubit.getNotes(cubit.date, cubit.datefoucse,
-                                        cubit.datecurrent),
-                                  },
-                                  title: 'no_date',
-                                );
-                              }
-                            },
-                          )
-                          /////////////////////////////////
-                        ],
-                      ),
-                    )),
+                                  } else {
+                                    return NoDataWidget(
+                                      onclick: () => {
+                                        cubit.getNotes(
+                                            cubit.date,
+                                            cubit.datefoucse,
+                                            cubit.datecurrent),
+                                      },
+                                      title: 'no_date',
+                                    );
+                                  }
+                                },
+                              )
+                              /////////////////////////////////
+                            ],
+                          ),
+                        )),
                   );
                 },
               ),

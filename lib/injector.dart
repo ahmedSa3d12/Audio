@@ -10,6 +10,7 @@ import 'core/api/dio_consumer.dart';
 import 'core/remote/service.dart';
 
 // import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
+import 'features/attachment/cubit/attachmentcubit.dart';
 import 'features/countdown/cubit/countdown_cubit.dart';
 import 'features/exam_hero/cubit/exam_hero_cubit.dart';
 import 'features/examinstructions/cubit/examinstructions_cubit.dart';
@@ -94,6 +95,11 @@ Future<void> setup() async {
   serviceLocator.registerLazySingleton<BaseApiConsumer>(
       () => DioConsumer(client: serviceLocator()));
   serviceLocator.registerLazySingleton(() => AppInterceptors());
+  serviceLocator.registerFactory(
+    () => AttachmentCubit(
+      serviceLocator(),
+    ),
+  );
 
   // Dio
   serviceLocator.registerLazySingleton(

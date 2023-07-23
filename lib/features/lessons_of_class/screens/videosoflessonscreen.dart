@@ -78,15 +78,42 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                           color: AppColors.unselectedTabColor),
                                     ),
                                   ),
-                                  Container(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(
-                                          getSize(context) / 44),
-                                      child: Image.asset(
-                                        'assets/images/videoex.png',
-                                        width: getSize(context) / 3,
+                                  Stack(
+                                    children: [
+                                      Container(
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              getSize(context) / 44),
+                                          child: Image.network(
+                                            ///
+                                            cubit.videosofLessons[index]
+                                                .background_image,
+                                            width: getSize(context) / 3,
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      Positioned(
+                                        bottom: getSize(context) / 38,
+                                        left: getSize(context) / 38,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: AppColors.black,
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      getSize(context) / 100)),
+                                          padding: EdgeInsets.all(
+                                              getSize(context) / 100),
+                                          child: Text(
+                                            cubit.videosofLessons[index]
+                                                .videoMinutes,
+                                            style: TextStyle(
+                                                color: AppColors.white,
+                                                fontSize:
+                                                    getSize(context) / 44),
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
                                   Column(
                                     children: [
@@ -198,11 +225,12 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                     SizedBox(width: getSize(context) / 18),
                                     cubit.videosofLessons[index].progress >= 100
                                         ? CircleAvatar(
-                                            backgroundColor: AppColors.white,
-                                            child: SvgPicture.asset(
-                                              ImageAssets.doneIcon,
-                                            ),
-                                          )
+                                            backgroundColor:
+                                                AppColors.greenDownloadColor,
+                                            child: MySvgWidget(
+                                                path: ImageAssets.doneIcon,
+                                                imageColor: AppColors.white,
+                                                size: getSize(context) / 28))
                                         : cubit.videosofLessons[index].status ==
                                                 'lock'
                                             ? CircleAvatar(

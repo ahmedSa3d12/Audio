@@ -37,32 +37,34 @@ class VideoLessonData {
   int totalLike;
   int likeActive;
   String videoMinutes;
+  String background_image;
   int viewActive;
   DateTime createdAt;
   DateTime updatedAt;
 
-  VideoLessonData({
-    required this.id,
-    required this.name,
-    required this.status,
-    required this.subscribe,
-    required this.progress,
-    required this.link,
-    required this.time,
-    required this.rate,
-    required this.totalWatch,
-    required this.totalLike,
-    required this.likeActive,
-    required this.videoMinutes,
-    required this.viewActive,
-    required this.createdAt,
-    required this.updatedAt,
-  });
+  VideoLessonData(
+      {required this.id,
+      required this.name,
+      required this.status,
+      required this.subscribe,
+      required this.progress,
+      required this.link,
+      required this.time,
+      required this.rate,
+      required this.totalWatch,
+      required this.totalLike,
+      required this.likeActive,
+      required this.videoMinutes,
+      required this.viewActive,
+      required this.createdAt,
+      required this.updatedAt,
+      required this.background_image});
 
   factory VideoLessonData.fromJson(Map<String, dynamic> json) =>
       VideoLessonData(
         id: json["id"],
         name: json["name"],
+        background_image: json['background_image'],
         status: json["status"],
         subscribe: json["subscribe"],
         progress: json["progress"],
@@ -91,6 +93,7 @@ class VideoLessonData {
         "total_like": totalLike,
         "like_active": likeActive,
         "video_minutes": videoMinutes,
+        "background_image": background_image,
         "view_active": viewActive,
         "created_at":
             "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",

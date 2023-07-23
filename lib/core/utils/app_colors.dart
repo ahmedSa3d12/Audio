@@ -10,6 +10,7 @@ class AppColors {
   static final AppColors instance = AppColors._internal();
   static Color litePrimary = HexColor('#7F8CF3');
   static Color redPrimary = HexColor('#FF7B7B');
+
   AppColors._internal();
 
   factory AppColors() => instance;
@@ -75,7 +76,7 @@ class AppColors {
   static Color orangelight = HexColor('#FFEAD7');
   static Color opacityWhite = Colors.white.withOpacity(0.5);
   static Color transparent = Colors.transparent;
-
+  static Color offWiite = HexColor('#FEF9F3');
   static getPrimaryColor() {
     Preferences.instance
         .getPrimaryColor()

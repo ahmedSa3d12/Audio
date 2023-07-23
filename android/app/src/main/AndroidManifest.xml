@@ -29,7 +29,7 @@
 
     <application
         android:usesCleartextTraffic="true"
-        android:label="El Mazoon"
+        android:label="@string/appname"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

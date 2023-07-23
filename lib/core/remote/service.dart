@@ -9,13 +9,14 @@ import '../api/end_points.dart';
 import '../error/exceptions.dart';
 import '../error/failures.dart';
 import '../models/ads_model.dart';
+import '../models/audiolessonmodel.dart';
 import '../models/class_lesson_model.dart';
 import '../models/classes_exam_data_model.dart';
 import '../models/exam_classes_model.dart';
 import '../models/exam_instruction_model.dart';
+import '../models/examlessonmodel.dart';
 import '../models/lessonexammodel.dart';
 import '../models/paper_exam_details_model.dart';
-import '../models/paper_exam_model.dart';
 import '../models/final_review_model.dart';
 import '../models/home_page_model.dart';
 import '../models/month_plan_model.dart';
@@ -791,6 +792,72 @@ class ServiceApi {
         ),
       );
       return Right(LessonExamModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, AudioLessonModel>> audioOfLessonData(
+      int lessonId) async {
+    print("sssss");
+    print(lessonId);
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.AudioOfLesson + "$lessonId",
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(AudioLessonModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, AudioLessonModel>> pdfOfLessonData(
+      int lessonId) async {
+    print("sssss");
+    print(lessonId);
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.PdfOfLesson + "$lessonId",
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(AudioLessonModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, LessonExamModel2>> homeworkOfLessonData(
+      int lessonId) async {
+    print("sssss");
+    print(lessonId);
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.homeworkOfLesson + "$lessonId",
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(LessonExamModel2.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

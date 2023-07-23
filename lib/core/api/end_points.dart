@@ -22,6 +22,11 @@ class EndPoints {
   static const String ExamByLessonUrl =
       '${baseUrl}lesson/all-exams-by-lessonId/';
 
+  static const String AudioOfLesson = '${baseUrl}lesson/all-audios-by-videoId/';
+  static const String PdfOfLesson = '${baseUrl}lesson/all-pdf-by-videoId/';
+  static const String homeworkOfLesson =
+      '${baseUrl}lesson/all-exams-by-videoId/';
+
   static const String registerExamUrl = '${baseUrl}auth/papel-sheet-exam/user/';
   static const String deleteregisterExamUrl =
       '${baseUrl}auth/paper-sheet-exam/latest-paper-exam-delete';
