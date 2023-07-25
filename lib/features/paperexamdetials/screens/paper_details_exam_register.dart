@@ -2,21 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_mazoon/core/models/paper_exam_model.dart';
-import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 
-import '../../../../core/models/TimeModel.dart';
-import '../../../../core/models/times_model.dart';
-import '../../../../core/models/times_model.dart';
-import '../../../../core/models/times_model.dart';
-import '../../../../core/models/times_model.dart';
-import '../../../../core/models/times_model.dart';
-import '../../../../core/models/times_model.dart';
-import '../../../../core/models/times_model.dart';
 import '../../../../core/utils/app_colors.dart';
-import '../../../../core/utils/assets_manager.dart';
-import '../../../../core/widgets/custom_app_bar.dart';
-import '../../../../core/widgets/custom_button.dart';
+
 import '../../../core/models/paper_exam_data_model.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../cubit/paper_detials_cubit.dart';
@@ -39,7 +27,7 @@ class _PaperDetailsExmRegisterPageState
   @override
   void initState() {
     super.initState();
-  setData(context);
+    setData(context);
   }
 
   @override
@@ -161,7 +149,9 @@ class _PaperDetailsExmRegisterPageState
                           ),
                           InkWell(
                             onTap: () {
-                              context.read<PaperDetialsCubit>().deleteexam(context);
+                              context
+                                  .read<PaperDetialsCubit>()
+                                  .deleteexam(context);
                             },
                             child: Container(
                               width: 210,
@@ -197,27 +187,24 @@ class _PaperDetailsExmRegisterPageState
   }
 
   void setData(BuildContext context) {
-    Future.delayed(Duration(seconds: 1),(){
-    context.read<PaperDetialsCubit>().name.text =
-    widget.paperExamModel.nameOfExam!;
-    context.read<PaperDetialsCubit>().examtime.text = 'day'.tr() +
-    " " +
-    DateFormat('EEEE yyyy/MM/dd',
-    EasyLocalization.of(context)!
-        .currentLocale!
-        .languageCode
-    )
-        .format(widget.paperExamModel.dateExam!) +
-    "hour".tr() +
-    " " +
-    widget.paperExamModel.time!.replaceRange(
-    widget.paperExamModel.time!.length - 4,
-    widget.paperExamModel.time!.length - 1,
-    "");
-    context.read<PaperDetialsCubit>().examPlace.text =
-    widget.paperExamModel.address!;
-    context.read<PaperDetialsCubit>().examHall.text =
-    widget.paperExamModel.section!;
+    Future.delayed(Duration(seconds: 1), () {
+      context.read<PaperDetialsCubit>().name.text =
+          widget.paperExamModel.nameOfExam!;
+      context.read<PaperDetialsCubit>().examtime.text = 'day'.tr() +
+          " " +
+          DateFormat('EEEE yyyy/MM/dd',
+                  EasyLocalization.of(context)!.currentLocale!.languageCode)
+              .format(widget.paperExamModel.dateExam!) +
+          "hour".tr() +
+          " " +
+          widget.paperExamModel.time!.replaceRange(
+              widget.paperExamModel.time!.length - 4,
+              widget.paperExamModel.time!.length - 1,
+              "");
+      context.read<PaperDetialsCubit>().examPlace.text =
+          widget.paperExamModel.address!;
+      context.read<PaperDetialsCubit>().examHall.text =
+          widget.paperExamModel.section!;
     });
   }
 }

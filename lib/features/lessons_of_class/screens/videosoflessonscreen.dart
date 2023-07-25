@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -244,7 +243,7 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                               )
                                             : CircleAvatar(
                                                 backgroundColor:
-                                                    AppColors.white,
+                                                    AppColors.transparent,
                                                 child: Container())
                                   ],
                                 ),

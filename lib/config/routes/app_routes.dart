@@ -14,6 +14,7 @@ import '../../core/utils/app_strings.dart';
 import '../../features/countdown/screens/countdown_screen.dart';
 import '../../features/exam_hero/screens/exam_hero_screen.dart';
 import '../../features/examinstructions/screen/examinstructions.dart';
+import '../../features/lessonExamScreen/screens/lessonexamscreen.dart';
 import '../../features/paperexamRegister/presentation/screens/paper_exam_register.dart';
 import '../../features/lessons_of_class/screens/lesson_class.dart';
 import '../../features/login/screens/login.dart';
@@ -44,6 +45,8 @@ class Routes {
   static const String lessonDetails = '/lessonDetails';
 
   static const String attachmentScreen = '/AttachmentScreen';
+
+  static const String lessonExamScreen = '/LessonExamScreen';
 }
 
 class AppRoutes {
@@ -164,7 +167,13 @@ class AppRoutes {
           duration: const Duration(milliseconds: 1300),
           child: AttachmentScreen(model: model),
         );
-
+      case Routes.lessonExamScreen:
+        return PageTransition(
+          child: LessonExamScreen(),
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+          type: PageTransitionType.fade,
+        );
 //AttachmentScreen
       default:
         return undefinedRoute();

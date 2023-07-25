@@ -1,18 +1,20 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 
 import '../utils/app_colors.dart';
 
 class TitleWithCircleBackgroundWidget extends StatelessWidget {
-  const TitleWithCircleBackgroundWidget({Key? key, required this.title})
+  TitleWithCircleBackgroundWidget({Key? key, required this.title, this.width})
       : super(key: key);
-
+  double? width;
   final String title;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50,
-      width: MediaQuery.of(context).size.width / 2,
+      width: width ?? MediaQuery.of(context).size.width / 2,
       child: Stack(
         children: [
           Positioned(
@@ -52,8 +54,7 @@ class TitleWithCircleBackgroundWidget extends StatelessWidget {
                     Text(
                       title.tr(),
                       style: TextStyle(
-                        // color: AppColors.secondPrimary,
-                        fontSize: 20,
+                        fontSize: getSize(context) / 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

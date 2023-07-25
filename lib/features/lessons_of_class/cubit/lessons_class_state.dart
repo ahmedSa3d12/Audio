@@ -18,3 +18,11 @@ class VideoLessonsLoaded extends LessonsClassState {}
 class VideoLessonsError extends LessonsClassState {}
 
 class ChangeCurrentIndexTap extends LessonsClassState {}
+
+class ExamLessonsLoading extends LessonsClassState {}
+
+class ExamLessonsLoaded extends LessonsClassState {}
+
+class ExamLessonsError extends LessonsClassState {}
+
+class LessonExamClassesLoaded extends LessonsClassState {}

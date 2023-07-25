@@ -1,41 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
-import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 
 import '../../../config/routes/app_routes.dart';
+import '../../../core/models/lessons_model.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/pdf_screen.dart';
 import '../../examinstructions/cubit/examinstructions_cubit.dart';
-import '../../start_trip/widgets/classes_exam_item_widget.dart';
+import '../cubit/lessons_class_cubit.dart';
+import '../widgets/lessonexamwidgey3.dart';
 
-class LessonExamScreen extends StatelessWidget {
-  const LessonExamScreen({Key? key}) : super(key: key);
+class LessonExamScreen extends StatefulWidget {
+  LessonExamScreen({required this.model, Key? key}) : super(key: key);
+  AllLessonsModel model;
+
+  @override
+  State<LessonExamScreen> createState() => _LessonExamScreenState();
+}
+
+class _LessonExamScreenState extends State<LessonExamScreen> {
+  bool isloading = false;
+  @override
+  void initState() {
+    context.read<LessonsClassCubit>().getExamsofLessonsData(widget.model.id!);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<StartTripCubit, StartTripState>(
+    return BlocConsumer<LessonsClassCubit, LessonsClassState>(
+      listener: (context, state) {
+        if (state is ExamLessonsLoading) {
+          isloading = true;
+        } else {
+          isloading = false;
+        }
+      },
       builder: (context, state) {
-        StartTripCubit cubit = context.read<StartTripCubit>();
+        LessonsClassCubit cubit = context.read<LessonsClassCubit>();
         return Container(
-          decoration: (state is StartTripExamsClassByIdLoading ||
-                  cubit.examClassList.isNotEmpty)
-              ? null
-              : BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(ImageAssets.chooseClassMessageImage),
-                    fit: BoxFit.contain,
-                  ),
-                ),
+          decoration:
+              (state is ExamLessonsLoading || cubit.examsofLessons.isNotEmpty)
+                  ? null
+                  : BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(ImageAssets.chooseClassMessageImage),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
           child: RefreshIndicator(
             onRefresh: () async {
-              cubit.examClassList = [];
-              cubit.getExamClassesData();
+              cubit.examsofLessons = [];
+              cubit.getExamsofLessonsData(widget.model.id!);
             },
             child: ListView(
               children: [
                 SizedBox(height: 20),
-                state is StartTripExamsClassByIdLoading
+                state is ExamLessonsLoading
                     ? SizedBox(
                         height: MediaQuery.of(context).size.height / 2,
                         child: Center(
@@ -56,21 +77,21 @@ class LessonExamScreen extends StatelessWidget {
                             crossAxisSpacing: 20,
                             crossAxisCount: 2,
                           ),
-                          itemCount: cubit.examClassList.length,
+                          itemCount: cubit.examsofLessons.length,
                           itemBuilder: (BuildContext context, int index) {
                             return InkWell(
                               onTap: () {
-                                if (cubit.examClassList[index].type ==
+                                if (cubit.examsofLessons[index].type ==
                                     'online') {
                                   context
                                       .read<ExaminstructionsCubit>()
                                       .examInstructions(
-                                          cubit.examClassList[index].id!,
+                                          cubit.examsofLessons[index].id,
                                           "online_exam");
                                   Navigator.pushNamed(
                                       context, Routes.examInstructionsRoute,
                                       arguments: [
-                                        cubit.examClassList[index].id,
+                                        cubit.examsofLessons[index].id,
                                         "online_exam"
                                       ]);
                                 } else {
@@ -79,16 +100,16 @@ class LessonExamScreen extends StatelessWidget {
                                     MaterialPageRoute(
                                       builder: (context) => PdfScreen(
                                         pdfTitle:
-                                            cubit.examClassList[index].name!,
-                                        pdfLink: cubit.examClassList[index]
+                                            cubit.examsofLessons[index].name,
+                                        pdfLink: cubit.examsofLessons[index]
                                             .pdfExamUpload!,
                                       ),
                                     ),
                                   );
                                 }
                               },
-                              child: ClassesExamItemWidget(
-                                model: cubit.examClassList[index],
+                              child: LessonsExamItemWidget(
+                                model: cubit.examsofLessons[index],
                               ),
                             );
                           },

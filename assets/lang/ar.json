@@ -177,15 +177,12 @@
   "dowanload": "تحميل",
   "like": "لايك",
   "edit": "تعديل",
-  "expnain":"الشرح",
-  "less_exam":"امتحانات الدروس",
-  "records":"ريكورد",
-  "summary":"ملخص",
-  "homework":"واجب",
-  "rate_us":"قيم نفسك"
-
-
-
-
-
+  "expnain": "الشرح",
+  "less_exam": "امتحانات الدروس",
+  "records": "ريكورد",
+  "summary": "ملخص",
+  "homework": "واجب",
+  "rate_us": "قيم نفسك",
+  "ready_exam": "جاهز للامتحان .... ابدأ الان",
+  "rest_time":"الوقت المتبقى"
 }

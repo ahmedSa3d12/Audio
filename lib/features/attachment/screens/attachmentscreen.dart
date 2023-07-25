@@ -43,175 +43,172 @@ class _AttachmentScreenState extends State<AttachmentScreen> {
             backgroundColor: AppColors.secondPrimary,
             toolbarHeight: 0,
           ),
-          body: SafeArea(
-            child: Stack(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: getSize(context) / 4.2),
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      left: 0,
-                      bottom: 0,
-                      child: TitleWithCircleBackgroundWidget(
-                          title: widget.model.name),
-                    ),
-                    SizedBox(height: getSize(context) / 22),
-                    Flexible(
-                        child: SingleChildScrollView(
-                      child: Column(children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    myBodyIs = 0;
-                                    cubit.audioOfLessonData(widget.model.id);
-                                  });
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
-                                      ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(500),
-                                          child: Container(
+          body: Stack(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: getSize(context) / 4.2),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    left: 0,
+                    bottom: 0,
+                    child: TitleWithCircleBackgroundWidget(
+                        title: widget.model.name),
+                  ),
+                  SizedBox(height: getSize(context) / 22),
+                  Flexible(
+                      child: SingleChildScrollView(
+                    child: Column(children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  myBodyIs = 0;
+                                  cubit.audioOfLessonData(widget.model.id);
+                                });
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(500),
+                                        child: Container(
+                                          padding: EdgeInsets.all(20),
+                                          color: myBodyIs == 0
+                                              ? AppColors.orange
+                                              : AppColors.unselectedTabColor,
+                                          child: MySvgWidget(
+                                              path: ImageAssets.rec,
+                                              imageColor: myBodyIs == 0
+                                                  ? AppColors.white
+                                                  : AppColors.blue5,
+                                              size: getSize(context) / 20),
+                                        )),
+                                    Text("records".tr())
+                                  ],
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  myBodyIs = 1;
+                                  cubit.pdfOfLessonData(widget.model.id);
+                                });
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(500),
+                                        child: Container(
+                                          padding: EdgeInsets.all(20),
+                                          color: myBodyIs == 1
+                                              ? AppColors.orange
+                                              : AppColors.unselectedTabColor,
+                                          child: MySvgWidget(
+                                              path: ImageAssets.pdf,
+                                              imageColor: myBodyIs == 1
+                                                  ? AppColors.white
+                                                  : AppColors.blue5,
+                                              size: getSize(context) / 20),
+                                        )),
+                                    Text("summary".tr())
+                                  ],
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  myBodyIs = 2;
+                                  cubit.homeworkOfLessonData(widget.model.id);
+                                });
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(500),
+                                        child: Container(
+                                          padding: EdgeInsets.all(20),
+                                          color: myBodyIs == 2
+                                              ? AppColors.orange
+                                              : AppColors.unselectedTabColor,
+                                          child: MySvgWidget(
+                                              path: ImageAssets.homework,
+                                              imageColor: myBodyIs == 2
+                                                  ? AppColors.white
+                                                  : AppColors.blue5,
+                                              size: getSize(context) / 20),
+                                        )),
+                                    Text("homework".tr())
+                                  ],
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  myBodyIs = 3;
+                                });
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(500),
+                                        child: Container(
                                             padding: EdgeInsets.all(20),
-                                            color: myBodyIs == 0
+                                            color: myBodyIs == 3
                                                 ? AppColors.orange
                                                 : AppColors.unselectedTabColor,
                                             child: MySvgWidget(
-                                                path: ImageAssets.rec,
-                                                imageColor: myBodyIs == 0
+                                                path: ImageAssets.rate_us,
+                                                imageColor: myBodyIs == 3
                                                     ? AppColors.white
                                                     : AppColors.blue5,
-                                                size: getSize(context) / 20),
-                                          )),
-                                      Text("records".tr())
-                                    ],
-                                  ),
+                                                size: 20))),
+                                    Text("rate_us".tr())
+                                  ],
                                 ),
                               ),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    myBodyIs = 1;
-                                    cubit.pdfOfLessonData(widget.model.id);
-                                  });
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
-                                      ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(500),
-                                          child: Container(
-                                            padding: EdgeInsets.all(20),
-                                            color: myBodyIs == 1
-                                                ? AppColors.orange
-                                                : AppColors.unselectedTabColor,
-                                            child: MySvgWidget(
-                                                path: ImageAssets.pdf,
-                                                imageColor: myBodyIs == 1
-                                                    ? AppColors.white
-                                                    : AppColors.blue5,
-                                                size: getSize(context) / 20),
-                                          )),
-                                      Text("summary".tr())
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    myBodyIs = 2;
-                                    cubit.homeworkOfLessonData(widget.model.id);
-                                  });
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
-                                      ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(500),
-                                          child: Container(
-                                            padding: EdgeInsets.all(20),
-                                            color: myBodyIs == 2
-                                                ? AppColors.orange
-                                                : AppColors.unselectedTabColor,
-                                            child: MySvgWidget(
-                                                path: ImageAssets.homework,
-                                                imageColor: myBodyIs == 2
-                                                    ? AppColors.white
-                                                    : AppColors.blue5,
-                                                size: getSize(context) / 20),
-                                          )),
-                                      Text("homework".tr())
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    myBodyIs = 3;
-                                  });
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
-                                      ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(500),
-                                          child: Container(
-                                              padding: EdgeInsets.all(20),
-                                              color: myBodyIs == 3
-                                                  ? AppColors.orange
-                                                  : AppColors
-                                                      .unselectedTabColor,
-                                              child: MySvgWidget(
-                                                  path: ImageAssets.rate_us,
-                                                  imageColor: myBodyIs == 3
-                                                      ? AppColors.white
-                                                      : AppColors.blue5,
-                                                  size: 20))),
-                                      Text("rate_us".tr())
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        myBodyIs == 0
-                            ? RecordScreenScreen()
-                            : myBodyIs == 1
-                                ? SummaryScreen()
-                                : myBodyIs == 2
-                                    ? HomeWorkScreen()
-                                    : RateYourSelfScreen()
-                      ]),
-                    ))
-                  ],
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  left: 0,
-                  child: HomePageAppBarWidget(isHome: false),
-                ),
-              ],
-            ),
+                      ),
+                      myBodyIs == 0
+                          ? RecordScreenScreen()
+                          : myBodyIs == 1
+                              ? SummaryScreen()
+                              : myBodyIs == 2
+                                  ? HomeWorkScreen()
+                                  : RateYourSelfScreen()
+                    ]),
+                  ))
+                ],
+              ),
+              Positioned(
+                top: 0,
+                right: 0,
+                left: 0,
+                child: HomePageAppBarWidget(isHome: false),
+              ),
+            ],
           ),
         );
       },

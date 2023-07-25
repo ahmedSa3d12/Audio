@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:new_mazoon/core/models/class_data.dart';
 import 'package:new_mazoon/core/remote/service.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../core/models/lessonexammodel.dart';
 import '../../../core/models/lessons_model.dart';
@@ -55,13 +59,39 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
   List<LessonExamData> examsofLessons = [];
 
   getExamsofLessonsData(int lessonId) async {
-    emit(VideoLessonsLoading());
+    emit(ExamLessonsLoading());
     final response = await api.examOfLessonData(lessonId);
     response.fold(
-      (l) => emit(VideoLessonsError()),
+      (l) => emit(ExamLessonsError()),
       (r) {
         examsofLessons = r.data;
-        emit(VideoLessonsLoaded());
+        emit(ExamLessonsLoaded());
+      },
+    );
+  }
+
+  downloadPdfOfLesson(LessonExamData model) async {
+    final dio = Dio();
+    int index = examsofLessons.indexOf(model);
+
+    var dir = await (Platform.isIOS
+        ? getApplicationSupportDirectory()
+        : getApplicationDocumentsDirectory());
+    await dio.download(
+      model.pdfExamUpload,
+      dir.path + "/pdf/" + model.pdfExamUpload.split("/").toList().last,
+      onReceiveProgress: (count, total) {
+        model.progress = (count / total);
+        examsofLessons.removeAt(index);
+        examsofLessons.insert(index, model);
+        emit(LessonExamClassesLoaded());
+      },
+    ).whenComplete(
+      () {
+        model.progress = 0;
+        examsofLessons.removeAt(index);
+        examsofLessons.insert(index, model);
+        emit(LessonExamClassesLoaded());
       },
     );
   }

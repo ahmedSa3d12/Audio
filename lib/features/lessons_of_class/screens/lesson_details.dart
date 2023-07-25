@@ -65,8 +65,10 @@ class _LessonDetailsState extends State<LessonDetails>
                       left: 0,
                       bottom: 0,
                       child: TitleWithCircleBackgroundWidget(
+                          width: double.infinity,
                           /////////////
-                          title: widget.model.title ?? ''),
+                          title:
+                              '${widget.model.title} : ${widget.model.name}'),
                     ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -124,7 +126,7 @@ class _LessonDetailsState extends State<LessonDetails>
                           physics: NeverScrollableScrollPhysics(),
                           children: [
                             VideoLessonScreen(),
-                            LessonExamScreen(),
+                            LessonExamScreen(model: widget.model),
                             // ClassesExamsScreen(),
                           ],
                         ),

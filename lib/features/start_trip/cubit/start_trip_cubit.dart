@@ -10,6 +10,7 @@ import '../../../core/models/class_data.dart';
 import '../../../core/models/classes_exam_data_model.dart';
 import '../../../core/models/exam_classes_model.dart';
 import '../../../core/models/home_page_model.dart';
+import '../../../core/models/lessonexammodel.dart';
 
 part 'start_trip_state.dart';
 

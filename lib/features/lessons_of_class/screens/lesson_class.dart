@@ -7,7 +7,6 @@ import 'package:new_mazoon/core/widgets/network_image.dart';
 import 'package:new_mazoon/core/widgets/no_data_widget.dart';
 import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
 import 'package:new_mazoon/features/lessons_of_class/cubit/lessons_class_cubit.dart';
-import 'package:new_mazoon/features/lessons_of_class/screens/lesson_details.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/toast_message_method.dart';

@@ -16,6 +16,8 @@ class EndPoints {
       '${baseUrl}auth/home-page/start-your-journey/findExamByClassById/';
   static const String monthPlanUrl = '${baseUrl}plans/all';
   static const String notesUrl = '${baseUrl}notes/note-all-by-date';
+  static const String datesOfNotesUrl = '${baseUrl}notes/dates-of-notes';
+
   static const String lessonsByClassUrl = '${baseUrl}classes/lessonsByClassId/';
   static const String VideoByLessonUrl =
       '${baseUrl}lesson/all-video-by-lessonId/';

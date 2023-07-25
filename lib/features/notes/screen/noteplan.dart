@@ -16,8 +16,6 @@ import '../../../core/widgets/no_data_widget.dart';
 
 import '../cubit/note_cubit.dart';
 
-// import '../widget/notewidget.dart';
-
 class NotePlan extends StatefulWidget {
   const NotePlan({Key? key}) : super(key: key);
 
@@ -26,11 +24,7 @@ class NotePlan extends StatefulWidget {
 }
 
 class _NoteState extends State<NotePlan> {
-  List<DateTime> _days = [
-    DateTime(2023, 5, 12),
-    DateTime(2023, 7, 20),
-    DateTime(2023, 7, 15)
-  ]; //Date to display the icon
+  List<DateTime> _days = [];
   EventList<Event> _getMarkedDateMap(
       List<DateTime> days, BuildContext context) {
     EventList<Event> _markedDateMap = new EventList<Event>(events: {});
@@ -39,47 +33,59 @@ class _NoteState extends State<NotePlan> {
           _date,
           new Event(
             date: _date,
-            icon: _getIcon(_date), //create icon
+            icon: _getIcon(_date),
           ));
     }
     return _markedDateMap;
   }
 
   Widget _getIcon(DateTime date) {
-    bool _isToday = isSameDay(date, DateTime.now()); //is today？
+    bool _isToday = isSameDay(date, DateTime.now());
     CalendarCarousel _calendar_default = CalendarCarousel();
     Color _today_col = _calendar_default.todayButtonColor;
-    //today's background
 
     return Container(
         decoration: new BoxDecoration(
-          // color: _isToday ? AppColors.redPrimary : AppColors.white,
           borderRadius: BorderRadius.circular(1000),
         ),
         child: Column(children: [
-          Flexible(
+          Expanded(
+            flex: 7,
             child: Text(
               '',
               style: TextStyle(
-                  color: _isToday
-                      ? AppColors.white
-                      : AppColors.black, //getDayCol(date),
+                  color: _isToday ? AppColors.white : AppColors.black,
                   fontWeight: FontWeight.w400),
             ),
           ),
-          SizedBox(
-            height: 2,
+          Expanded(
+            child: SizedBox(
+              height: getSize(context) / 10,
+            ),
           ),
-          Icon(
-            Icons.brightness_1,
-            color: _isToday ? AppColors.white : AppColors.liveExamGrayTextColor,
-            size: MediaQuery.of(context).size.width / 44,
+          Expanded(
+            child: Icon(
+              Icons.brightness_1,
+              color:
+                  _isToday ? AppColors.white : AppColors.liveExamGrayTextColor,
+              size: MediaQuery.of(context).size.width / 44,
+            ),
           ), //Icon to display with date
         ]));
   }
 
   static bool isSameDay(DateTime day1, DateTime day2) {
     return ((day1.difference(day2).inDays) == 0 && (day1.day == day2.day));
+  }
+
+  @override
+  void initState() {
+    context.read<NoteCubit>().getDatesOfNotes().then((value) {
+      for (int i = 0; i < context.read<NoteCubit>().datesOfNotes.length; i++) {
+        _days.add(context.read<NoteCubit>().datesOfNotes[i].date);
+      }
+    });
+    super.initState();
   }
 
   @override

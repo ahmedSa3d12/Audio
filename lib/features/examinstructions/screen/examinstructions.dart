@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/widgets/custom_button.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 import 'package:new_mazoon/features/examinstructions/widget/instructionsettingwidget.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/models/exam_instruction_model.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
@@ -117,216 +119,259 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                 ],
                               ),
                               SizedBox(
-                                height: 20,
+                                height: getSize(context) / 22,
                               ),
-                              TitleWithCircleBackgroundWidget(
-                                title: "best_result",
-                              ),
+                              examinstructions.data!.user == null
+                                  ? Container()
+                                  : TitleWithCircleBackgroundWidget(
+                                      title: "best_result",
+                                    ),
                               SizedBox(
-                                height: 20,
+                                height: getSize(context) / 22,
                               ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: AppColors.bluelight,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15))),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 9, vertical: 2),
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: ManageNetworkImage(
-                                            imageUrl: examinstructions
-                                                .data!.user!.image!,
-                                            width: 50,
-                                            height: 50,
-                                            borderRadius: 90,
-                                          ),
-                                        ),
-                                        SizedBox(width: 16),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                              examinstructions.data!.user == null
+                                  ? Container()
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                          color: AppColors.bluelight,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 9, vertical: 2),
+                                        child: Center(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                examinstructions
-                                                    .data!.user!.name!,
-                                                style: TextStyle(
-                                                    color: AppColors.black,
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: examinstructions.data!
+                                                            .user!.image ==
+                                                        null
+                                                    ? MySvgWidget(
+                                                        path: ImageAssets
+                                                            .loadIcon,
+                                                        imageColor:
+                                                            AppColors.black,
+                                                        size: getSize(context) /
+                                                            22)
+                                                    : ManageNetworkImage(
+                                                        imageUrl:
+                                                            examinstructions
+                                                                .data!
+                                                                .user!
+                                                                .image!,
+                                                        width: 50,
+                                                        height: 50,
+                                                        borderRadius: 90,
+                                                      ),
                                               ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 4.0),
+                                              SizedBox(width: 16),
+                                              Expanded(
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
-                                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
+                                                    Text(
+                                                      examinstructions
+                                                          .data!.user!.name!,
+                                                      style: TextStyle(
+                                                          color:
+                                                              AppColors.black,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsets.all(
-                                                              4.0),
-                                                      child: Text(
-                                                        EasyLocalization.of(
-                                                                        context)!
-                                                                    .currentLocale!
-                                                                    .languageCode ==
-                                                                'ar'
-                                                            ? examinstructions
-                                                                .data!
-                                                                .user!
-                                                                .city!
-                                                                .nameAr!
-                                                            : examinstructions
-                                                                .data!
-                                                                .user!
-                                                                .city!
-                                                                .nameEn!,
+                                                          const EdgeInsets.only(
+                                                              top: 4.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(4.0),
+                                                            child: Text(
+                                                              EasyLocalization.of(
+                                                                              context)!
+                                                                          .currentLocale!
+                                                                          .languageCode ==
+                                                                      'ar'
+                                                                  ? examinstructions
+                                                                      .data!
+                                                                      .user!
+                                                                      .city!
+                                                                      .nameAr!
+                                                                  : examinstructions
+                                                                      .data!
+                                                                      .user!
+                                                                      .city!
+                                                                      .nameEn!,
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      AppColors
+                                                                          .black,
+                                                                  fontSize: 10,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              MySvgWidget(
+                                                                  path: ImageAssets
+                                                                      .timeIcon,
+                                                                  imageColor:
+                                                                      AppColors
+                                                                          .blue,
+                                                                  size: 20),
+                                                              SizedBox(
+                                                                width: 3,
+                                                              ),
+                                                              Text(
+                                                                examinstructions
+                                                                        .data!
+                                                                        .user!
+                                                                        .totalTime
+                                                                        .toString() +
+                                                                    "min".tr(),
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        AppColors
+                                                                            .blue,
+                                                                    fontSize:
+                                                                        10,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                            ],
+                                                          )
+                                                          // SizedBox(width: 10),
+                                                          ,
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 90,
+                                                height: 90,
+                                                child: SfCircularChart(
+                                                  palette: [AppColors.blue],
+                                                  annotations: <CircularChartAnnotation>[
+                                                    CircularChartAnnotation(
+                                                      widget: Center(
+                                                        child: Center(
+                                                          child: Container(
+                                                            child: Center(
+                                                              child: Text(
+                                                                examinstructions
+                                                                        .data!
+                                                                        .user!
+                                                                        .per
+                                                                        .toString() +
+                                                                    "%",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color:
+                                                                      AppColors
+                                                                          .blue,
+                                                                  fontSize: 11,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            height: 40,
+                                                            decoration: BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                color: AppColors
+                                                                    .white),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                  series: <CircularSeries>[
+                                                    RadialBarSeries<int,
+                                                        String>(
+                                                      maximumValue: 100,
+                                                      innerRadius: '20',
+                                                      dataSource: [
+                                                        examinstructions
+                                                            .data!.user!.per!
+                                                            .toInt()
+                                                      ],
+                                                      strokeWidth: 8,
+                                                      cornerStyle:
+                                                          examinstructions
+                                                                      .data!
+                                                                      .user!
+                                                                      .per ==
+                                                                  100
+                                                              ? CornerStyle
+                                                                  .bothFlat
+                                                              : CornerStyle
+                                                                  .endCurve,
+                                                      xValueMapper:
+                                                          (int data, _) =>
+                                                              data.toString(),
+                                                      yValueMapper: (int data,
+                                                              _) =>
+                                                          double.parse(
+                                                              data.toString()),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              Container(
+                                                margin:
+                                                    EdgeInsets.only(top: 45),
+                                                child: Align(
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                  child: Row(
+                                                    children: [
+                                                      MySvgWidget(
+                                                          path: ImageAssets
+                                                              .timeIcon,
+                                                          imageColor:
+                                                              AppColors.blue,
+                                                          size: 20),
+                                                      SizedBox(
+                                                        width: 3,
+                                                      ),
+                                                      Text(
+                                                        examinstructions.data!
+                                                            .user!.timeExam!,
                                                         style: TextStyle(
                                                             color:
-                                                                AppColors.black,
+                                                                AppColors.blue,
                                                             fontSize: 10,
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold),
                                                       ),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        MySvgWidget(
-                                                            path: ImageAssets
-                                                                .timeIcon,
-                                                            imageColor:
-                                                                AppColors.blue,
-                                                            size: 20),
-                                                        SizedBox(
-                                                          width: 3,
-                                                        ),
-                                                        Text(
-                                                          examinstructions
-                                                                  .data!
-                                                                  .user!
-                                                                  .totalTime
-                                                                  .toString() +
-                                                              "min".tr(),
-                                                          style: TextStyle(
-                                                              color: AppColors
-                                                                  .blue,
-                                                              fontSize: 10,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                      ],
-                                                    )
-                                                    // SizedBox(width: 10),
-                                                    ,
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 90,
-                                          height: 90,
-                                          child: SfCircularChart(
-                                            palette: [AppColors.blue],
-                                            annotations: <CircularChartAnnotation>[
-                                              CircularChartAnnotation(
-                                                widget: Center(
-                                                  child: Center(
-                                                    child: Container(
-                                                      child: Center(
-                                                        child: Text(
-                                                          examinstructions.data!
-                                                                  .user!.per
-                                                                  .toString() +
-                                                              "%",
-                                                          style: TextStyle(
-                                                            color:
-                                                                AppColors.blue,
-                                                            fontSize: 11,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      height: 40,
-                                                      decoration: BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          color:
-                                                              AppColors.white),
-                                                    ),
+                                                    ],
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                            series: <CircularSeries>[
-                                              RadialBarSeries<int, String>(
-                                                maximumValue: 100,
-                                                innerRadius: '20',
-                                                dataSource: [
-                                                  examinstructions
-                                                      .data!.user!.per!
-                                                      .toInt()
-                                                ],
-                                                strokeWidth: 8,
-                                                cornerStyle: examinstructions
-                                                            .data!.user!.per ==
-                                                        100
-                                                    ? CornerStyle.bothFlat
-                                                    : CornerStyle.endCurve,
-                                                xValueMapper: (int data, _) =>
-                                                    data.toString(),
-                                                yValueMapper: (int data, _) =>
-                                                    double.parse(
-                                                        data.toString()),
                                               )
                                             ],
                                           ),
                                         ),
-                                        Container(
-                                          margin: EdgeInsets.only(top: 45),
-                                          child: Align(
-                                            alignment: Alignment.bottomCenter,
-                                            child: Row(
-                                              children: [
-                                                MySvgWidget(
-                                                    path: ImageAssets.timeIcon,
-                                                    imageColor: AppColors.blue,
-                                                    size: 20),
-                                                SizedBox(
-                                                  width: 3,
-                                                ),
-                                                Text(
-                                                  examinstructions
-                                                      .data!.user!.timeExam!,
-                                                  style: TextStyle(
-                                                      color: AppColors.blue,
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ),
                               SizedBox(
                                 height: 20,
                               ),
@@ -374,12 +419,25 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                 },
                               ),
                               SizedBox(
-                                height: 20,
+                                height: getSize(context) / 32,
                               ),
-                              CustomButton(
-                                text: "جاهز للامتحان .... ابدأ الان",
-                                color: AppColors.orange,
-                                onClick: () {},
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, Routes.lessonExamScreen);
+                                },
+                                child: Container(
+                                    width: getSize(context) / 1.1,
+                                    height: getSize(context) / 7,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.orange,
+                                        borderRadius: BorderRadius.circular(
+                                            getSize(context) / 22)),
+                                    child: Text(
+                                      'ready_exam'.tr(),
+                                      style: TextStyle(color: AppColors.white),
+                                    )),
                               )
                             ],
                           ),

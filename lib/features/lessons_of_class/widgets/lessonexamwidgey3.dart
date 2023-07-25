@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/utils/change_to_mega_byte.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
-import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 
-import '../../../core/models/classes_exam_data_model.dart';
+import '../../../core/models/lessonexammodel.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/download_icon_widget.dart';
-import 'class_exam_icon_widget.dart';
+import '../../start_trip/widgets/class_exam_icon_widget.dart';
+import '../cubit/lessons_class_cubit.dart';
 
-class ClassesExamItemWidget extends StatelessWidget {
-  const ClassesExamItemWidget({Key? key, required this.model})
+class LessonsExamItemWidget extends StatelessWidget {
+  const LessonsExamItemWidget({Key? key, required this.model})
       : super(key: key);
 
-  final ClassesExamDatumModel model;
+  final LessonExamData model;
 
   @override
   Widget build(BuildContext context) {
-    StartTripCubit cubit = context.read<StartTripCubit>();
+    LessonsClassCubit cubit = context.read<LessonsClassCubit>();
     return Card(
       elevation: 5,
       shape: RoundedRectangleBorder(
@@ -31,7 +32,7 @@ class ClassesExamItemWidget extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                height: 110,
+                height: getSize(context) / 4,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: model.type == 'pdf'
@@ -39,21 +40,20 @@ class ClassesExamItemWidget extends StatelessWidget {
                       : HexColor('#FDC286'),
                 ),
                 child: SizedBox(
-                  height: 65,
-                  width: 55,
+                  height: getSize(context) / 6,
+                  width: getSize(context) / 6,
                   child: Center(
                     child: Image.asset(
                       model.type == 'pdf'
                           ? ImageAssets.examPdfImage
                           : ImageAssets.examPaperImage,
-                      height: 65,
-                      width: 55,
+                      height: getSize(context) / 7,
+                      width: getSize(context) / 7,
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 8),
-              Expanded(
+              Flexible(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -62,9 +62,9 @@ class ClassesExamItemWidget extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: Text(
-                          model.name!,
+                          model.name,
                           overflow: TextOverflow.ellipsis,
-                          maxLines: 3,
+                          maxLines: 2,
                           style: TextStyle(
                             color: AppColors.black,
                             fontSize: 17,
@@ -84,9 +84,7 @@ class ClassesExamItemWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // SizedBox(height: model.type == 'pdf'?10: 35),
                       SizedBox(
-                        // width: 210,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -111,7 +109,7 @@ class ClassesExamItemWidget extends StatelessWidget {
                               ),
                             ),
                             Expanded(
-                              flex: 2,
+                              flex: 3,
                               child: ClassExamIconWidget(
                                 radius: 1000,
                                 type: ImageAssets.noLoveIcon,
@@ -151,12 +149,12 @@ class ClassesExamItemWidget extends StatelessWidget {
           Visibility(
             visible: model.type == 'pdf',
             child: Positioned(
-              top: 95,
-              right: 10,
+              top: getSize(context) / 6,
+              right: getSize(context) / 44,
               child: InkWell(
                 onTap: () async {
                   print('object');
-                  cubit.downloadPdf(model);
+                  cubit.downloadPdfOfLesson(model);
                 },
                 child: SizedBox(
                   width: 25,
@@ -168,7 +166,7 @@ class ClassesExamItemWidget extends StatelessWidget {
                           color: AppColors.primary,
                         )
                       : DownloadIconWidget(
-                          color: HexColor(model.backgroundColor!),
+                          color: HexColor(model.backgroundColor),
                         ),
                 ),
               ),

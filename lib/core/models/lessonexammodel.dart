@@ -33,12 +33,12 @@ class LessonExamData {
   dynamic pdfExamUpload;
   dynamic answerPdfFile;
   dynamic answerVideoFile;
-  int numOfQuestion;
+  int? numOfQuestion;
   int totalTime;
   int examPdfSize;
   int answerPdfSize;
   int answerVideoSize;
-
+  double progress = 0;
   LessonExamData({
     required this.id,
     required this.name,

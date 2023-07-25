@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:new_mazoon/core/models/comment_data_model.dart';
+import 'package:new_mazoon/core/models/datesofnotes.dart';
 import 'package:new_mazoon/core/models/note_model.dart';
 import 'package:new_mazoon/core/models/status_response_model.dart';
 import '../../features/login/models/communication_model.dart';
@@ -293,6 +294,26 @@ class ServiceApi {
         ),
       );
       return Right(NoteDataModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, DatesOfNotes>> getDatesOfNotes() async {
+    UserModel userModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    print('lan : $lan');
+    try {
+      final response = await dio.get(
+        EndPoints.datesOfNotesUrl,
+        options: Options(
+          headers: {
+            'Authorization': userModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(DatesOfNotes.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }
