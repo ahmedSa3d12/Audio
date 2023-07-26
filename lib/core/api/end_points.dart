@@ -8,6 +8,7 @@ class EndPoints {
   static const String notificationUrl = '${baseUrl}auth/all-notifications';
   static const String explanationUrl =
       '${baseUrl}auth/home-page/start-your-journey';
+  static const String examsOflesson = '/ExamEntry/all-of-questions/';
   static const String finalReviewUrl =
       '${baseUrl}auth/home-page/videos-resources';
   static const String examClassesUrl = '${baseUrl}auth/home-page/all-classes';

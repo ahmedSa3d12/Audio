@@ -1,52 +1,27 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/features/homePage/widget/home_page_app_bar_widget.dart';
+import '../cubit/lessonexamstate.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/assets_manager.dart';
-import '../../../core/widgets/my_svg_widget.dart';
+import '../cubit/questionlessonexamcubit.dart';
 
 class LessonExamScreen extends StatefulWidget {
-  const LessonExamScreen({super.key});
-
+  LessonExamScreen(
+      {required this.exam_type, required this.lessonId, super.key});
+  int lessonId;
+  String exam_type;
   @override
   State<LessonExamScreen> createState() => _LessonExamScreenState();
 }
 
 class _LessonExamScreenState extends State<LessonExamScreen> {
-  List data = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '6',
-    '2',
-    '3',
-    '4',
-    '6',
-    '2',
-    '3',
-    '4',
-    '6',
-    '2',
-    '3',
-    '4',
-    '6',
-    '2',
-    '3',
-    '4',
-    '6',
-    '2',
-    '3',
-    '4',
-    '6',
-    '2',
-    '3',
-    '4',
-    '6'
-  ];
+  List data = [];
   ScrollController _scrollController = ScrollController();
 
   void scrollToNextItem() {
@@ -65,294 +40,573 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
     );
   }
 
+  int _minutesLeft = 0;
+  int _secondsLeft = 0;
+  bool _isActive = false;
+  Timer? _timer;
+
+  void _startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_minutesLeft == 0 && _secondsLeft == 0) {
+          _isActive = false;
+          _timer!.cancel();
+        } else if (_secondsLeft == 0) {
+          _minutesLeft--;
+          _secondsLeft = 59;
+        } else {
+          _secondsLeft--;
+        }
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    context.read<QuestionsLessonExamCubit>().getQuestionsOfLessonExam(
+        lessonId: widget.lessonId, exam_type: widget.exam_type);
+
+    setState(() {
+      _isActive = true;
+      _minutesLeft = context
+          .read<QuestionsLessonExamCubit>()
+          .questionOfLessonData!
+          .quizMinute;
+      _secondsLeft = 0;
+    });
+    _startTimer();
+    super.initState();
+  }
+
   @override
   void dispose() {
+    _timer!.cancel();
     _scrollController.dispose();
     super.dispose();
   }
 
+  bool isLoading = false;
+  int index = 0;
   String str =
       'عدد طرق اختيار عددين فرديين من 4 اعداد زوجية, 5 اعداد فردية = ..........';
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        toolbarHeight: 0,
-        backgroundColor: AppColors.secondPrimary,
-      ),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Container(
-              width: double.infinity,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: getSize(context) / 3.5),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'rest_time'.tr(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: AppColors.black,
-                          fontSize: getSize(context) / 22,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: getSize(context) / 44),
-                    Container(
-                      alignment: Alignment.center,
-                      child: CircularPercentIndicator(
-                        radius: 45.0,
-                        lineWidth: 9.0,
-                        percent: 0.60,
-                        backgroundColor: Colors.transparent,
-                        center: SizedBox(
-                          width: 76.93,
-                          height: 25.50,
-                          child: Text(
-                            '00:05:50',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: AppColors.blue5,
-                              fontSize: getSize(context) / 28,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                        progressColor: AppColors.blue5,
-                      ),
-                    ),
-                    SizedBox(height: getSize(context) / 44),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Row(
-                        children: [
-                          IconButton(
-                              color: AppColors.blue5,
-                              onPressed: () {
-                                setState(() {
-                                  scrollToNextItem();
-                                });
-                              },
-                              icon: Transform.rotate(
-                                angle: 3,
-                                alignment: Alignment.center,
-                                child: Icon(
-                                    color: AppColors.blue5,
-                                    Icons.arrow_back_ios_new_outlined),
-                              )),
-                          Flexible(
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: getSize(context) / 8,
-                              child: SingleChildScrollView(
-                                controller: _scrollController,
-                                physics: const BouncingScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: [
-                                    ...data.map((e) => InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              str = e;
-                                            });
-                                          },
-                                          child: Padding(
+    return BlocConsumer<QuestionsLessonExamCubit, QuestionsOfLessonExamState>(
+      listener: (context, state) {
+        if (state is LoadingLessonExam) {
+          isLoading = true;
+        } else {
+          isLoading = false;
+        }
+      },
+      builder: (context, state) {
+        var cubit = context.read<QuestionsLessonExamCubit>();
+        return isLoading
+            ? Scaffold(
+                body: CircularPercentIndicator(radius: 25),
+              )
+            : Scaffold(
+                appBar: AppBar(
+                  elevation: 0,
+                  toolbarHeight: 0,
+                  backgroundColor: AppColors.secondPrimary,
+                ),
+                body: SafeArea(
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: getSize(context) / 4),
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'rest_time'.tr(),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: AppColors.black,
+                                          fontSize: getSize(context) / 22,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 3,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: CircularPercentIndicator(
+                                        radius: 45.0,
+                                        lineWidth: 9.0,
+                                        percent: ((_minutesLeft * 60 +
+                                                        _secondsLeft) -
+                                                    (cubit.questionOfLessonData!
+                                                            .quizMinute *
+                                                        60))
+                                                .abs() /
+                                            (cubit.questionOfLessonData!
+                                                    .quizMinute *
+                                                60),
+                                        backgroundColor: Colors.transparent,
+                                        center: SizedBox(
+                                          width: 76.93,
+                                          height: 25.50,
+                                          child: Text(
+                                            '$_minutesLeft:${_secondsLeft.toString().padLeft(2, '0')}',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: AppColors.blue5,
+                                              fontSize: getSize(context) / 28,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ),
+                                        progressColor: AppColors.blue5,
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: Row(
+                                        children: [
+                                          IconButton(
+                                              color: AppColors.blue5,
+                                              onPressed: () {
+                                                setState(() {
+                                                  scrollToNextItem();
+                                                });
+                                              },
+                                              icon: Transform.rotate(
+                                                angle: 3,
+                                                alignment: Alignment.center,
+                                                child: Icon(
+                                                    color: AppColors.blue5,
+                                                    Icons
+                                                        .arrow_back_ios_new_outlined),
+                                              )),
+                                          Flexible(
+                                              fit: FlexFit.tight,
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                child: ListView.builder(
+                                                  shrinkWrap: true,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  controller: _scrollController,
+                                                  physics:
+                                                      const BouncingScrollPhysics(),
+                                                  itemCount: cubit
+                                                      .questionOfLessonData!
+                                                      .questions
+                                                      .length,
+                                                  itemBuilder:
+                                                      (context, index3) {
+                                                    return Container(
+                                                        child: InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          index = index3;
+                                                        });
+                                                      },
+                                                      child: Padding(
+                                                        padding: EdgeInsets.all(
+                                                            getSize(context) /
+                                                                100),
+                                                        child: CircleAvatar(
+                                                            backgroundColor: index3 ==
+                                                                    index
+                                                                ? AppColors
+                                                                    .blue5
+                                                                : cubit
+                                                                            .questionOfLessonData!
+                                                                            .questions[
+                                                                                index3]
+                                                                            .isSolving ==
+                                                                        true
+                                                                    ? AppColors
+                                                                        .greenDownloadColor
+                                                                    : AppColors
+                                                                        .unselectedTabColor,
+                                                            child: Text(
+                                                              index3.toString(),
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      getSize(context) /
+                                                                          22,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: AppColors
+                                                                      .white),
+                                                            )),
+                                                      ),
+                                                    ));
+                                                  },
+                                                ),
+                                              )),
+                                          IconButton(
+                                              color: AppColors.blue5,
+                                              onPressed: () {
+                                                scrollToPreviousItem();
+                                              },
+                                              icon: Icon(
+                                                color: AppColors.blue5,
+                                                Icons
+                                                    .arrow_back_ios_new_outlined,
+                                              )),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 10,
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.all(
+                                                getSize(context) / 32),
                                             padding: EdgeInsets.all(
-                                                getSize(context) / 100),
-                                            child: CircleAvatar(
-                                                backgroundColor:
-                                                    AppColors.blue5,
+                                                getSize(context) / 32),
+                                            decoration: BoxDecoration(
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      offset: Offset(2, 3),
+                                                      color: AppColors.gray4,
+                                                      blurRadius: 8,
+                                                      spreadRadius: 0.5)
+                                                ],
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colors.white),
+                                            child: SingleChildScrollView(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      "${index + 1}-${cubit.questionOfLessonData!.questions[index].questionType == 'choice' ? '${'choose_q'.tr()}' : '${'write_q'.tr()}'}",
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              getSize(context) /
+                                                                  24,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                          color:
+                                                              AppColors.black)),
+                                                  Text(
+                                                      cubit
+                                                          .questionOfLessonData!
+                                                          .questions[index]
+                                                          .question,
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              getSize(context) /
+                                                                  24,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                          color:
+                                                              AppColors.black)),
+                                                  ListView.builder(
+                                                    shrinkWrap: true,
+                                                    physics:
+                                                        const BouncingScrollPhysics(),
+                                                    itemCount: cubit
+                                                        .questionOfLessonData!
+                                                        .questions[index]
+                                                        .answers
+                                                        .length,
+                                                    itemBuilder:
+                                                        (context, index2) {
+                                                      return Container(
+                                                          margin: EdgeInsets.symmetric(
+                                                              vertical: getSize(
+                                                                      context) /
+                                                                  32),
+                                                          padding: EdgeInsets.all(
+                                                              getSize(context) /
+                                                                  44),
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius.circular(
+                                                                      getSize(context) /
+                                                                          32),
+                                                              color:
+                                                                  AppColors
+                                                                      .bink,
+                                                              border: Border.all(
+                                                                  color: Colors
+                                                                      .red
+                                                                      .shade400,
+                                                                  width: 2)),
+                                                          child: RadioListTile(
+                                                            activeColor:
+                                                                AppColors.white,
+                                                            value: cubit
+                                                                .questionOfLessonData!
+                                                                .questions[
+                                                                    index]
+                                                                .answers[index2]
+                                                                .answer,
+                                                            groupValue: cubit
+                                                                .questionOfLessonData!
+                                                                .questions[
+                                                                    index]
+                                                                .answers[index2]
+                                                                .selectedValue,
+                                                            onChanged: (e) {
+                                                              setState(() {
+                                                                cubit
+                                                                    .questionOfLessonData!
+                                                                    .questions[
+                                                                        index]
+                                                                    .answers[
+                                                                        index2]
+                                                                    .selectedValue = e.toString();
+                                                              });
+                                                              cubit
+                                                                  .solveQuestion(
+                                                                      index);
+                                                            },
+                                                            title: Row(
+                                                              children: [
+                                                                Text(
+                                                                    cubit
+                                                                        .questionOfLessonData!
+                                                                        .questions[
+                                                                            index]
+                                                                        .answers[
+                                                                            index2]
+                                                                        .answerNumber,
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            getSize(context) /
+                                                                                28,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w900,
+                                                                        color: AppColors
+                                                                            .white)),
+                                                                SizedBox(
+                                                                  width: getSize(
+                                                                          context) /
+                                                                      88,
+                                                                ),
+                                                                Text(
+                                                                    cubit
+                                                                        .questionOfLessonData!
+                                                                        .questions[
+                                                                            index]
+                                                                        .answers[
+                                                                            index2]
+                                                                        .answer,
+                                                                    style: TextStyle(
+                                                                        fontSize: getSize(context) / 24,
+                                                                        fontWeight: FontWeight.w900,
+
+                                                                        ///check status
+                                                                        color: AppColors.white)),
+                                                              ],
+                                                            ),
+                                                          ));
+                                                    },
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            // child: ListView.builder(
+                                            //   shrinkWrap: true,
+                                            //   physics:
+                                            //       const BouncingScrollPhysics(),
+                                            //   scrollDirection: Axis.vertical,
+                                            //   itemCount: 5,
+                                            //   itemBuilder: (context, index) {
+                                            //     return SingleChildScrollView(
+                                            //       child: Column(
+                                            //         mainAxisAlignment:
+                                            //             MainAxisAlignment
+                                            //                 .center,
+                                            //         crossAxisAlignment:
+                                            //             CrossAxisAlignment
+                                            //                 .start,
+                                            //         children: [
+                                            //           Text(
+                                            //               "${index + 1}-${cubit.questionOfLessonData!.questions[index].questionType == 'choice' ? '${'choose_q'.tr()}' : '${'write_q'.tr()}'}",
+                                            //               style: TextStyle(
+                                            //                   fontSize:
+                                            //                       getSize(context) /
+                                            //                           24,
+                                            //                   fontWeight:
+                                            //                       FontWeight
+                                            //                           .w900,
+                                            //                   color: AppColors
+                                            //                       .black)),
+                                            //           Text(
+                                            //               cubit
+                                            //                   .questionOfLessonData!
+                                            //                   .questions[index]
+                                            //                   .question,
+                                            //               style: TextStyle(
+                                            //                   fontSize:
+                                            //                       getSize(context) /
+                                            //                           24,
+                                            //                   fontWeight:
+                                            //                       FontWeight
+                                            //                           .w900,
+                                            //                   color: AppColors
+                                            //                       .black)),
+                                            //           ListView.builder(
+                                            //             shrinkWrap: true,
+                                            //             physics:
+                                            //                 const BouncingScrollPhysics(),
+                                            //             itemCount: cubit
+                                            //                 .questionOfLessonData!
+                                            //                 .questions[index]
+                                            //                 .answers
+                                            //                 .length,
+                                            //             itemBuilder:
+                                            //                 (context, index2) {
+                                            //               return Container(
+                                            //                   margin: EdgeInsets.symmetric(
+                                            //                       vertical:
+                                            //                           getSize(context) /
+                                            //                               32),
+                                            //                   padding:
+                                            //                       EdgeInsets.all(
+                                            //                           getSize(context) /
+                                            //                               44),
+                                            //                   decoration: BoxDecoration(
+                                            //                       borderRadius:
+                                            //                           BorderRadius.circular(
+                                            //                               getSize(context) /
+                                            //                                   32),
+                                            //                       color:
+                                            //                           AppColors
+                                            //                               .bink,
+                                            //                       border: Border.all(
+                                            //                           color: Colors
+                                            //                               .red
+                                            //                               .shade400,
+                                            //                           width:
+                                            //                               2)),
+                                            //                   child:
+                                            //                       RadioListTile(
+                                            //                     activeColor:
+                                            //                         AppColors
+                                            //                             .white,
+                                            //                     value: cubit
+                                            //                         .questionOfLessonData!
+                                            //                         .questions[
+                                            //                             index]
+                                            //                         .answers[
+                                            //                             index2]
+                                            //                         .answer,
+                                            //                     groupValue:
+                                            //                         selectedValue,
+                                            //                     onChanged: (e) {
+                                            //                       setState(() {
+                                            //                         selectedValue =
+                                            //                             e.toString();
+                                            //                       });
+                                            //                     },
+                                            //                     title: Row(
+                                            //                       children: [
+                                            //                         Text(
+                                            //                             cubit
+                                            //                                 .questionOfLessonData!
+                                            //                                 .questions[
+                                            //                                     index]
+                                            //                                 .answers[
+                                            //                                     index2]
+                                            //                                 .answerNumber,
+                                            //                             style: TextStyle(
+                                            //                                 fontSize: getSize(context) /
+                                            //                                     28,
+                                            //                                 fontWeight:
+                                            //                                     FontWeight.w900,
+                                            //                                 color: AppColors.white)),
+                                            //                         SizedBox(
+                                            //                           width:
+                                            //                               getSize(context) /
+                                            //                                   88,
+                                            //                         ),
+                                            //                         Text(
+                                            //                             cubit
+                                            //                                 .questionOfLessonData!
+                                            //                                 .questions[index]
+                                            //                                 .answers[index2]
+                                            //                                 .answer,
+                                            //                             style: TextStyle(
+                                            //                                 fontSize: getSize(context) / 24,
+                                            //                                 fontWeight: FontWeight.w900,
+
+                                            //                                 ///check status
+                                            //                                 color: AppColors.white)),
+                                            //                       ],
+                                            //                     ),
+                                            //                   ));
+                                            //             },
+                                            //           )
+                                            //         ],
+                                            //       ),
+                                            //     );
+                                            //   },
+                                            // ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {},
+                                            child: Container(
+                                                margin: EdgeInsets.all(
+                                                    getSize(context) / 22),
+                                                decoration: BoxDecoration(
+                                                    color: AppColors
+                                                        .greenDownloadColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            getSize(context) /
+                                                                22)),
+                                                padding: EdgeInsets.all(
+                                                    getSize(context) / 28),
                                                 child: Text(
-                                                  e,
+                                                  'إنهاء الامتحان',
                                                   style: TextStyle(
-                                                      fontSize:
-                                                          getSize(context) / 22,
-                                                      fontWeight:
-                                                          FontWeight.bold,
                                                       color: AppColors.white),
                                                 )),
                                           ),
-                                        ))
-                                  ],
-                                ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                          IconButton(
-                              color: AppColors.blue5,
-                              onPressed: () {
-                                scrollToPreviousItem();
-                              },
-                              icon: Icon(
-                                color: AppColors.blue5,
-                                Icons.arrow_back_ios_new_outlined,
-                              )),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: getSize(context) / 44),
-                    Container(
-                      margin: EdgeInsets.all(getSize(context) / 32),
-                      padding: EdgeInsets.all(getSize(context) / 32),
-                      decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset(2, 3),
-                                color: AppColors.gray4,
-                                blurRadius: 8,
-                                spreadRadius: 0.5)
+                            )
                           ],
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("1- اختر الاجابة الصحيحة :",
-                              style: TextStyle(
-                                  fontSize: getSize(context) / 24,
-                                  fontWeight: FontWeight.w900,
-                                  color: AppColors.black)),
-                          Text(str,
-                              style: TextStyle(
-                                  fontSize: getSize(context) / 28,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.black)),
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                vertical: getSize(context) / 32),
-                            padding: EdgeInsets.all(getSize(context) / 44),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    getSize(context) / 32),
-                                color: AppColors.bink,
-                                border: Border.all(
-                                    color: Colors.red.shade400, width: 2)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor: AppColors.white,
-                                  radius: getSize(context) / 22,
-                                  child: MySvgWidget(
-                                      path: ImageAssets.wrong,
-                                      imageColor: AppColors.red,
-                                      size: getSize(context) / 22),
-                                ),
-                                Flexible(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                        "simply dummy text of the printing and typesetting industry",
-                                        style: TextStyle(
-                                            fontSize: getSize(context) / 24,
-                                            fontWeight: FontWeight.w900,
-
-                                            ///check status
-                                            color: AppColors.white)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                vertical: getSize(context) / 32),
-                            padding: EdgeInsets.all(getSize(context) / 44),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    getSize(context) / 32),
-                                color: Color(0xffeeeeee),
-                                border:
-                                    Border.all(color: Colors.grey, width: 2)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor: AppColors.white,
-                                  radius: getSize(context) / 22,
-                                  child: MySvgWidget(
-                                      path: ImageAssets.doneIcon,
-                                      imageColor: AppColors.greenDownloadColor,
-                                      size: getSize(context) / 22),
-                                ),
-                                Flexible(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                        "simply dummy  an  essentially unchanged. It was popularis",
-                                        style: TextStyle(
-                                            fontSize: getSize(context) / 24,
-                                            fontWeight: FontWeight.w900,
-                                            color: AppColors.black)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                vertical: getSize(context) / 32),
-                            padding: EdgeInsets.all(getSize(context) / 44),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                    getSize(context) / 32),
-                                color: AppColors.bink,
-                                border: Border.all(
-                                    color: Colors.red.shade400, width: 2)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor: AppColors.white,
-                                  radius: getSize(context) / 22,
-                                  child: MySvgWidget(
-                                      path: ImageAssets.wrong,
-                                      imageColor: AppColors.red,
-                                      size: getSize(context) / 22),
-                                ),
-                                Flexible(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                        "simply dummy text of the printing and typesetting industry",
-                                        style: TextStyle(
-                                            fontSize: getSize(context) / 24,
-                                            fontWeight: FontWeight.w900,
-
-                                            ///check status
-                                            color: AppColors.white)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
 
-            ///
-            Positioned(
-              top: 0,
-              right: 0,
-              left: 0,
-              child: HomePageAppBarWidget(isHome: false),
-            ),
-          ],
-        ),
-      ),
+                      ///
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        left: 0,
+                        child: HomePageAppBarWidget(isHome: false),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+      },
     );
   }
 }

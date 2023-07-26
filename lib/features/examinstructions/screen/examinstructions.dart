@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +18,7 @@ import '../../../core/widgets/no_data_widget.dart';
 import '../../../core/widgets/show_loading_indicator.dart';
 import '../../../core/widgets/title_with_circle_background_widget.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
+import '../../lessonExamScreen/cubit/questionlessonexamcubit.dart';
 import '../cubit/examinstructions_cubit.dart';
 
 class ExamInstructions extends StatefulWidget {
@@ -423,8 +426,17 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  Navigator.pushNamed(
-                                      context, Routes.lessonExamScreen);
+                                  context
+                                      .read<QuestionsLessonExamCubit>()
+                                      .getQuestionsOfLessonExam(
+                                          lessonId: widget.exam_id,
+                                          exam_type: "lesson");
+                                  Timer(Duration(milliseconds: 375), () {
+                                    Navigator.pushNamed(arguments: {
+                                      "exam_type": "lesson",
+                                      "lessonId": widget.exam_id
+                                    }, context, Routes.lessonExamScreen);
+                                  });
                                 },
                                 child: Container(
                                     width: getSize(context) / 1.1,

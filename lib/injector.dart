@@ -14,6 +14,7 @@ import 'features/attachment/cubit/attachmentcubit.dart';
 import 'features/countdown/cubit/countdown_cubit.dart';
 import 'features/exam_hero/cubit/exam_hero_cubit.dart';
 import 'features/examinstructions/cubit/examinstructions_cubit.dart';
+import 'features/lessonExamScreen/cubit/questionlessonexamcubit.dart';
 import 'features/notes/cubit/note_cubit.dart';
 import 'features/paperexamRegister/cubit/paper_exam_register_cubit.dart';
 import 'features/homePage/cubit/home_page_cubit.dart';
@@ -97,6 +98,11 @@ Future<void> setup() async {
   serviceLocator.registerLazySingleton(() => AppInterceptors());
   serviceLocator.registerFactory(
     () => AttachmentCubit(
+      serviceLocator(),
+    ),
+  );
+  serviceLocator.registerFactory(
+    () => QuestionsLessonExamCubit(
       serviceLocator(),
     ),
   );

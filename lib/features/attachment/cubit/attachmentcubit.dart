@@ -3,7 +3,6 @@ import 'package:new_mazoon/features/attachment/cubit/attachmentstate.dart';
 
 import '../../../core/models/audiolessonmodel.dart';
 import '../../../core/models/examlessonmodel.dart';
-import '../../../core/models/lessonexammodel.dart';
 import '../../../core/remote/service.dart';
 
 class AttachmentCubit extends Cubit<AttachmentState> {

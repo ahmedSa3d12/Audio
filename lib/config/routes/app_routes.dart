@@ -168,8 +168,11 @@ class AppRoutes {
           child: AttachmentScreen(model: model),
         );
       case Routes.lessonExamScreen:
+        Map<String, dynamic> data = settings.arguments as Map<String, dynamic>;
+
         return PageTransition(
-          child: LessonExamScreen(),
+          child: LessonExamScreen(
+              exam_type: data['exam_type'], lessonId: data['lessonId']),
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),
           type: PageTransitionType.fade,
