@@ -52,4 +52,6 @@ class EndPoints {
   static const String editReplayUrl = '${baseUrl}video/replay/update/';
   static const String reportUrl = '${baseUrl}report/student-add-report';
   static const String updateVideoTimeUrl = '${baseUrl}video-update-time/';
+
+  static const String applyLessonExam = '${baseUrl}ExamEntry/exam/';
 }

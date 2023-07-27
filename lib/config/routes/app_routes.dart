@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:new_mazoon/features/attachment/screens/attachmentscreen.dart';
+import 'package:new_mazoon/features/lessonExamScreen/screens/resultexamscreen.dart';
 import 'package:new_mazoon/features/lessons_of_class/screens/lesson_details.dart';
 import 'package:new_mazoon/features/navigation_bottom/screens/navigation_bottom.dart';
 import 'package:new_mazoon/features/onboarding/screens/onbordingscreen.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../core/models/ads_model.dart';
+import '../../core/models/applylessonexammodel.dart';
 import '../../core/models/lessons_model.dart';
 import '../../core/models/paper_exam_data_model.dart';
 import '../../core/models/paper_exam_details_model.dart';
@@ -47,6 +49,8 @@ class Routes {
   static const String attachmentScreen = '/AttachmentScreen';
 
   static const String lessonExamScreen = '/LessonExamScreen';
+
+  static const String resultOfLessonExam = '/ResultExamLessonScreen';
 }
 
 class AppRoutes {
@@ -177,7 +181,17 @@ class AppRoutes {
           duration: const Duration(milliseconds: 800),
           type: PageTransitionType.fade,
         );
-//AttachmentScreen
+      case Routes.resultOfLessonExam:
+        ResponseOfApplyLessonExmamData model =
+            settings.arguments as ResponseOfApplyLessonExmamData;
+
+        return PageTransition(
+          child: ResultExamLessonScreen(model: model),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+      //resultOfLessonExam
       default:
         return undefinedRoute();
     }

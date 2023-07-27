@@ -15,12 +15,9 @@ class ExamHeroScreen extends StatefulWidget {
   State<ExamHeroScreen> createState() => _ExamHeroScreenState();
 }
 
-class _ExamHeroScreenState extends State<ExamHeroScreen>   with TickerProviderStateMixin {
-  List<String> titles = [
-    'day'.tr(),
-    'week'.tr(),
-    'month'.tr()
-  ];
+class _ExamHeroScreenState extends State<ExamHeroScreen>
+    with TickerProviderStateMixin {
+  List<String> titles = ['day'.tr(), 'week'.tr(), 'month'.tr()];
   late TabController _tabController;
 
   @override
@@ -29,7 +26,6 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>   with TickerProviderSt
     _tabController = TabController(length: 3, vsync: this);
     _tabController.animateTo(context.read<ExamHeroCubit>().currentIndex);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +37,16 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>   with TickerProviderSt
       body: SafeArea(
         child: Stack(
           children: [
-            BlocBuilder<ExamHeroCubit,ExamHeroState>(
+            BlocBuilder<ExamHeroCubit, ExamHeroState>(
               builder: (context, state) {
                 ExamHeroCubit cubit = context.read<ExamHeroCubit>();
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 100),
-                    TitleWithCircleBackgroundWidget(title: 'exam_hero',),
+                    TitleWithCircleBackgroundWidget(
+                      title: 'exam_hero',
+                    ),
                     SizedBox(height: 10),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -90,7 +88,8 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>   with TickerProviderSt
                               ),
                             ),
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width*0.04),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.04),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 16.0,
@@ -127,7 +126,8 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>   with TickerProviderSt
                               ),
                             ),
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width*0.04),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.04),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 16.0,

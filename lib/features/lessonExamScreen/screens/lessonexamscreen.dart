@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/features/homePage/widget/home_page_app_bar_widget.dart';
+import '../../../core/models/applylessonexammodel.dart';
 import '../cubit/lessonexamstate.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -89,7 +91,7 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
   int index = 0;
   String str =
       'عدد طرق اختيار عددين فرديين من 4 اعداد زوجية, 5 اعداد فردية = ..........';
-
+  // bool loadApplyExam = false;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<QuestionsLessonExamCubit, QuestionsOfLessonExamState>(
@@ -115,485 +117,386 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                 body: SafeArea(
                   child: Stack(
                     children: [
-                      Container(
-                        width: double.infinity,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: getSize(context) / 4),
-                            Flexible(
+                      cubit.questionOfLessonData!.questions.isEmpty
+                          ? Container(
+                              ///
+                              child: Center(child: Text('notfound')),
+                            )
+                          : Container(
+                              width: double.infinity,
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'rest_time'.tr(),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: AppColors.black,
-                                          fontSize: getSize(context) / 22,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 3,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      child: CircularPercentIndicator(
-                                        radius: 45.0,
-                                        lineWidth: 9.0,
-                                        percent: ((_minutesLeft * 60 +
-                                                        _secondsLeft) -
-                                                    (cubit.questionOfLessonData!
-                                                            .quizMinute *
-                                                        60))
-                                                .abs() /
-                                            (cubit.questionOfLessonData!
-                                                    .quizMinute *
-                                                60),
-                                        backgroundColor: Colors.transparent,
-                                        center: SizedBox(
-                                          width: 76.93,
-                                          height: 25.50,
-                                          child: Text(
-                                            '$_minutesLeft:${_secondsLeft.toString().padLeft(2, '0')}',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: AppColors.blue5,
-                                              fontSize: getSize(context) / 28,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ),
-                                        progressColor: AppColors.blue5,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      child: Row(
-                                        children: [
-                                          IconButton(
-                                              color: AppColors.blue5,
-                                              onPressed: () {
-                                                setState(() {
-                                                  scrollToNextItem();
-                                                });
-                                              },
-                                              icon: Transform.rotate(
-                                                angle: 3,
-                                                alignment: Alignment.center,
-                                                child: Icon(
-                                                    color: AppColors.blue5,
-                                                    Icons
-                                                        .arrow_back_ios_new_outlined),
-                                              )),
-                                          Flexible(
-                                              fit: FlexFit.tight,
-                                              child: Container(
-                                                alignment: Alignment.center,
-                                                child: ListView.builder(
-                                                  shrinkWrap: true,
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  controller: _scrollController,
-                                                  physics:
-                                                      const BouncingScrollPhysics(),
-                                                  itemCount: cubit
-                                                      .questionOfLessonData!
-                                                      .questions
-                                                      .length,
-                                                  itemBuilder:
-                                                      (context, index3) {
-                                                    return Container(
-                                                        child: InkWell(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          index = index3;
-                                                        });
-                                                      },
-                                                      child: Padding(
-                                                        padding: EdgeInsets.all(
-                                                            getSize(context) /
-                                                                100),
-                                                        child: CircleAvatar(
-                                                            backgroundColor: index3 ==
-                                                                    index
-                                                                ? AppColors
-                                                                    .blue5
-                                                                : cubit
-                                                                            .questionOfLessonData!
-                                                                            .questions[
-                                                                                index3]
-                                                                            .isSolving ==
-                                                                        true
-                                                                    ? AppColors
-                                                                        .greenDownloadColor
-                                                                    : AppColors
-                                                                        .unselectedTabColor,
-                                                            child: Text(
-                                                              index3.toString(),
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      getSize(context) /
-                                                                          22,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: AppColors
-                                                                      .white),
-                                                            )),
-                                                      ),
-                                                    ));
-                                                  },
-                                                ),
-                                              )),
-                                          IconButton(
-                                              color: AppColors.blue5,
-                                              onPressed: () {
-                                                scrollToPreviousItem();
-                                              },
-                                              icon: Icon(
-                                                color: AppColors.blue5,
-                                                Icons
-                                                    .arrow_back_ios_new_outlined,
-                                              )),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 10,
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.all(
-                                                getSize(context) / 32),
-                                            padding: EdgeInsets.all(
-                                                getSize(context) / 32),
-                                            decoration: BoxDecoration(
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                      offset: Offset(2, 3),
-                                                      color: AppColors.gray4,
-                                                      blurRadius: 8,
-                                                      spreadRadius: 0.5)
-                                                ],
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                color: Colors.white),
-                                            child: SingleChildScrollView(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                      "${index + 1}-${cubit.questionOfLessonData!.questions[index].questionType == 'choice' ? '${'choose_q'.tr()}' : '${'write_q'.tr()}'}",
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              getSize(context) /
-                                                                  24,
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          color:
-                                                              AppColors.black)),
-                                                  Text(
-                                                      cubit
-                                                          .questionOfLessonData!
-                                                          .questions[index]
-                                                          .question,
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              getSize(context) /
-                                                                  24,
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          color:
-                                                              AppColors.black)),
-                                                  ListView.builder(
-                                                    shrinkWrap: true,
-                                                    physics:
-                                                        const BouncingScrollPhysics(),
-                                                    itemCount: cubit
-                                                        .questionOfLessonData!
-                                                        .questions[index]
-                                                        .answers
-                                                        .length,
-                                                    itemBuilder:
-                                                        (context, index2) {
-                                                      return Container(
-                                                          margin: EdgeInsets.symmetric(
-                                                              vertical: getSize(
-                                                                      context) /
-                                                                  32),
-                                                          padding: EdgeInsets.all(
-                                                              getSize(context) /
-                                                                  44),
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius.circular(
-                                                                      getSize(context) /
-                                                                          32),
-                                                              color:
-                                                                  AppColors
-                                                                      .bink,
-                                                              border: Border.all(
-                                                                  color: Colors
-                                                                      .red
-                                                                      .shade400,
-                                                                  width: 2)),
-                                                          child: RadioListTile(
-                                                            activeColor:
-                                                                AppColors.white,
-                                                            value: cubit
-                                                                .questionOfLessonData!
-                                                                .questions[
-                                                                    index]
-                                                                .answers[index2]
-                                                                .answer,
-                                                            groupValue: cubit
-                                                                .questionOfLessonData!
-                                                                .questions[
-                                                                    index]
-                                                                .answers[index2]
-                                                                .selectedValue,
-                                                            onChanged: (e) {
-                                                              setState(() {
-                                                                cubit
-                                                                    .questionOfLessonData!
-                                                                    .questions[
-                                                                        index]
-                                                                    .answers[
-                                                                        index2]
-                                                                    .selectedValue = e.toString();
-                                                              });
-                                                              cubit
-                                                                  .solveQuestion(
-                                                                      index);
-                                                            },
-                                                            title: Row(
-                                                              children: [
-                                                                Text(
-                                                                    cubit
-                                                                        .questionOfLessonData!
-                                                                        .questions[
-                                                                            index]
-                                                                        .answers[
-                                                                            index2]
-                                                                        .answerNumber,
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            getSize(context) /
-                                                                                28,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w900,
-                                                                        color: AppColors
-                                                                            .white)),
-                                                                SizedBox(
-                                                                  width: getSize(
-                                                                          context) /
-                                                                      88,
-                                                                ),
-                                                                Text(
-                                                                    cubit
-                                                                        .questionOfLessonData!
-                                                                        .questions[
-                                                                            index]
-                                                                        .answers[
-                                                                            index2]
-                                                                        .answer,
-                                                                    style: TextStyle(
-                                                                        fontSize: getSize(context) / 24,
-                                                                        fontWeight: FontWeight.w900,
-
-                                                                        ///check status
-                                                                        color: AppColors.white)),
-                                                              ],
-                                                            ),
-                                                          ));
-                                                    },
-                                                  )
-                                                ],
+                                  SizedBox(height: getSize(context) / 4),
+                                  Flexible(
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              'rest_time'.tr(),
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: AppColors.black,
+                                                fontSize: getSize(context) / 22,
+                                                fontWeight: FontWeight.w700,
                                               ),
                                             ),
-                                            // child: ListView.builder(
-                                            //   shrinkWrap: true,
-                                            //   physics:
-                                            //       const BouncingScrollPhysics(),
-                                            //   scrollDirection: Axis.vertical,
-                                            //   itemCount: 5,
-                                            //   itemBuilder: (context, index) {
-                                            //     return SingleChildScrollView(
-                                            //       child: Column(
-                                            //         mainAxisAlignment:
-                                            //             MainAxisAlignment
-                                            //                 .center,
-                                            //         crossAxisAlignment:
-                                            //             CrossAxisAlignment
-                                            //                 .start,
-                                            //         children: [
-                                            //           Text(
-                                            //               "${index + 1}-${cubit.questionOfLessonData!.questions[index].questionType == 'choice' ? '${'choose_q'.tr()}' : '${'write_q'.tr()}'}",
-                                            //               style: TextStyle(
-                                            //                   fontSize:
-                                            //                       getSize(context) /
-                                            //                           24,
-                                            //                   fontWeight:
-                                            //                       FontWeight
-                                            //                           .w900,
-                                            //                   color: AppColors
-                                            //                       .black)),
-                                            //           Text(
-                                            //               cubit
-                                            //                   .questionOfLessonData!
-                                            //                   .questions[index]
-                                            //                   .question,
-                                            //               style: TextStyle(
-                                            //                   fontSize:
-                                            //                       getSize(context) /
-                                            //                           24,
-                                            //                   fontWeight:
-                                            //                       FontWeight
-                                            //                           .w900,
-                                            //                   color: AppColors
-                                            //                       .black)),
-                                            //           ListView.builder(
-                                            //             shrinkWrap: true,
-                                            //             physics:
-                                            //                 const BouncingScrollPhysics(),
-                                            //             itemCount: cubit
-                                            //                 .questionOfLessonData!
-                                            //                 .questions[index]
-                                            //                 .answers
-                                            //                 .length,
-                                            //             itemBuilder:
-                                            //                 (context, index2) {
-                                            //               return Container(
-                                            //                   margin: EdgeInsets.symmetric(
-                                            //                       vertical:
-                                            //                           getSize(context) /
-                                            //                               32),
-                                            //                   padding:
-                                            //                       EdgeInsets.all(
-                                            //                           getSize(context) /
-                                            //                               44),
-                                            //                   decoration: BoxDecoration(
-                                            //                       borderRadius:
-                                            //                           BorderRadius.circular(
-                                            //                               getSize(context) /
-                                            //                                   32),
-                                            //                       color:
-                                            //                           AppColors
-                                            //                               .bink,
-                                            //                       border: Border.all(
-                                            //                           color: Colors
-                                            //                               .red
-                                            //                               .shade400,
-                                            //                           width:
-                                            //                               2)),
-                                            //                   child:
-                                            //                       RadioListTile(
-                                            //                     activeColor:
-                                            //                         AppColors
-                                            //                             .white,
-                                            //                     value: cubit
-                                            //                         .questionOfLessonData!
-                                            //                         .questions[
-                                            //                             index]
-                                            //                         .answers[
-                                            //                             index2]
-                                            //                         .answer,
-                                            //                     groupValue:
-                                            //                         selectedValue,
-                                            //                     onChanged: (e) {
-                                            //                       setState(() {
-                                            //                         selectedValue =
-                                            //                             e.toString();
-                                            //                       });
-                                            //                     },
-                                            //                     title: Row(
-                                            //                       children: [
-                                            //                         Text(
-                                            //                             cubit
-                                            //                                 .questionOfLessonData!
-                                            //                                 .questions[
-                                            //                                     index]
-                                            //                                 .answers[
-                                            //                                     index2]
-                                            //                                 .answerNumber,
-                                            //                             style: TextStyle(
-                                            //                                 fontSize: getSize(context) /
-                                            //                                     28,
-                                            //                                 fontWeight:
-                                            //                                     FontWeight.w900,
-                                            //                                 color: AppColors.white)),
-                                            //                         SizedBox(
-                                            //                           width:
-                                            //                               getSize(context) /
-                                            //                                   88,
-                                            //                         ),
-                                            //                         Text(
-                                            //                             cubit
-                                            //                                 .questionOfLessonData!
-                                            //                                 .questions[index]
-                                            //                                 .answers[index2]
-                                            //                                 .answer,
-                                            //                             style: TextStyle(
-                                            //                                 fontSize: getSize(context) / 24,
-                                            //                                 fontWeight: FontWeight.w900,
-
-                                            //                                 ///check status
-                                            //                                 color: AppColors.white)),
-                                            //                       ],
-                                            //                     ),
-                                            //                   ));
-                                            //             },
-                                            //           )
-                                            //         ],
-                                            //       ),
-                                            //     );
-                                            //   },
-                                            // ),
                                           ),
-                                          InkWell(
-                                            onTap: () {},
-                                            child: Container(
-                                                margin: EdgeInsets.all(
-                                                    getSize(context) / 22),
-                                                decoration: BoxDecoration(
-                                                    color: AppColors
-                                                        .greenDownloadColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            getSize(context) /
-                                                                22)),
-                                                padding: EdgeInsets.all(
-                                                    getSize(context) / 28),
+                                        ),
+                                        Expanded(
+                                          flex: 3,
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: CircularPercentIndicator(
+                                              radius: 45.0,
+                                              lineWidth: 9.0,
+                                              percent: ((_minutesLeft * 60 +
+                                                              _secondsLeft) -
+                                                          (cubit.questionOfLessonData!
+                                                                  .quizMinute *
+                                                              60))
+                                                      .abs() /
+                                                  (cubit.questionOfLessonData!
+                                                          .quizMinute *
+                                                      60),
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              center: SizedBox(
+                                                width: 76.93,
+                                                height: 25.50,
                                                 child: Text(
-                                                  'إنهاء الامتحان',
+                                                  '$_minutesLeft:${_secondsLeft.toString().padLeft(2, '0')}',
+                                                  textAlign: TextAlign.center,
                                                   style: TextStyle(
-                                                      color: AppColors.white),
-                                                )),
+                                                    color: AppColors.blue5,
+                                                    fontSize:
+                                                        getSize(context) / 28,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ),
+                                              progressColor: AppColors.blue5,
+                                            ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                        Expanded(
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: Row(
+                                              children: [
+                                                IconButton(
+                                                    color: AppColors.blue5,
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        scrollToNextItem();
+                                                      });
+                                                    },
+                                                    icon: Transform.rotate(
+                                                      angle: 3,
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Icon(
+                                                          color:
+                                                              AppColors.blue5,
+                                                          Icons
+                                                              .arrow_back_ios_new_outlined),
+                                                    )),
+                                                Flexible(
+                                                    fit: FlexFit.tight,
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: ListView.builder(
+                                                        shrinkWrap: true,
+                                                        scrollDirection:
+                                                            Axis.horizontal,
+                                                        controller:
+                                                            _scrollController,
+                                                        physics:
+                                                            const BouncingScrollPhysics(),
+                                                        itemCount: cubit
+                                                            .questionOfLessonData!
+                                                            .questions
+                                                            .length,
+                                                        itemBuilder:
+                                                            (context, index3) {
+                                                          return Container(
+                                                              child: InkWell(
+                                                            onTap: () {
+                                                              setState(() {
+                                                                index = index3;
+                                                              });
+                                                            },
+                                                            child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .all(getSize(
+                                                                          context) /
+                                                                      100),
+                                                              child: CircleAvatar(
+                                                                  backgroundColor: (cubit.questionOfLessonData!.questions[index3].isSolving == false && index3 < index)
+                                                                      ? AppColors.red
+                                                                      : index3 == index
+                                                                          ? AppColors.blue5
+                                                                          : cubit.questionOfLessonData!.questions[index3].isSolving == true
+                                                                              ? AppColors.greenDownloadColor
+                                                                              : AppColors.unselectedTabColor,
+                                                                  child: Text(
+                                                                    index3
+                                                                        .toString(),
+                                                                    style: TextStyle(
+                                                                        fontSize: getSize(context) / 22,
+                                                                        fontWeight: FontWeight.bold,
+                                                                        color: index3 == index
+                                                                            ? AppColors.white
+                                                                            : (cubit.questionOfLessonData!.questions[index3].isSolving == false && index3 < index)
+                                                                                ? AppColors.white
+                                                                                : cubit.questionOfLessonData!.questions[index3].isSolving == true
+                                                                                    ? AppColors.white
+                                                                                    : AppColors.primary),
+                                                                  )),
+                                                            ),
+                                                          ));
+                                                        },
+                                                      ),
+                                                    )),
+                                                IconButton(
+                                                    color: AppColors.blue5,
+                                                    onPressed: () {
+                                                      scrollToPreviousItem();
+                                                    },
+                                                    icon: Icon(
+                                                      color: AppColors.blue5,
+                                                      Icons
+                                                          .arrow_back_ios_new_outlined,
+                                                    )),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 10,
+                                          child: SingleChildScrollView(
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  margin: EdgeInsets.all(
+                                                      getSize(context) / 32),
+                                                  padding: EdgeInsets.all(
+                                                      getSize(context) / 32),
+                                                  decoration: BoxDecoration(
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                            offset:
+                                                                Offset(2, 3),
+                                                            color:
+                                                                AppColors.gray4,
+                                                            blurRadius: 8,
+                                                            spreadRadius: 0.5)
+                                                      ],
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      color: Colors.white),
+                                                  child: SingleChildScrollView(
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                            "${index + 1}-${cubit.questionOfLessonData!.questions[index].questionType == 'choice' ? '${'choose_q'.tr()}' : '${'write_q'.tr()}'}",
+                                                            style: TextStyle(
+                                                                fontSize: getSize(
+                                                                        context) /
+                                                                    24,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900,
+                                                                color: AppColors
+                                                                    .black)),
+                                                        Text(
+                                                            cubit
+                                                                .questionOfLessonData!
+                                                                .questions[
+                                                                    index]
+                                                                .question,
+                                                            style: TextStyle(
+                                                                fontSize: getSize(
+                                                                        context) /
+                                                                    24,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900,
+                                                                color: AppColors
+                                                                    .black)),
+                                                        ListView.builder(
+                                                          shrinkWrap: true,
+                                                          physics:
+                                                              const BouncingScrollPhysics(),
+                                                          itemCount: cubit
+                                                              .questionOfLessonData!
+                                                              .questions[index]
+                                                              .answers
+                                                              .length,
+                                                          itemBuilder: (context,
+                                                              index2) {
+                                                            return Container(
+                                                                margin: EdgeInsets.symmetric(
+                                                                    vertical:
+                                                                        getSize(context) /
+                                                                            32),
+                                                                padding:
+                                                                    EdgeInsets.all(
+                                                                        getSize(context) /
+                                                                            44),
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(getSize(context) /
+                                                                            32),
+                                                                    color: AppColors
+                                                                        .unselectedTabColor,
+                                                                    border: Border.all(
+                                                                        color: AppColors
+                                                                            .gray7,
+                                                                        width:
+                                                                            2)),
+                                                                child:
+                                                                    RadioListTile(
+                                                                  activeColor:
+                                                                      AppColors
+                                                                          .blue5,
+                                                                  value: cubit
+                                                                      .questionOfLessonData!
+                                                                      .questions[
+                                                                          index]
+                                                                      .answers[
+                                                                          index2]
+                                                                      .answer,
+                                                                  groupValue: cubit
+                                                                      .questionOfLessonData!
+                                                                      .questions[
+                                                                          index]
+                                                                      .answers[
+                                                                          index2]
+                                                                      .selectedValue,
+                                                                  onChanged:
+                                                                      (e) {
+                                                                    setState(
+                                                                        () {
+                                                                      cubit
+                                                                          .questionOfLessonData!
+                                                                          .questions[
+                                                                              index]
+                                                                          .answers
+                                                                          .forEach(
+                                                                              (answer) {
+                                                                        answer.selectedValue =
+                                                                            e.toString();
+                                                                      });
+                                                                    });
+                                                                    cubit.solveQuestion(
+                                                                        index);
+
+                                                                    cubit.questionOfLessonData!.questions[index].answers[index2].selectedValue !=
+                                                                            ''
+                                                                        ? cubit.details.add(ApplyStudentExam(
+                                                                            timer:
+                                                                                _minutesLeft,
+                                                                            question:
+                                                                                cubit.questionOfLessonData!.questions[index].id.toString(),
+                                                                            answer: cubit.questionOfLessonData!.questions[index].answers[index2].id.toString()))
+                                                                        : null;
+                                                                  },
+                                                                  title: Row(
+                                                                    children: [
+                                                                      Text(
+                                                                          cubit
+                                                                              .questionOfLessonData!
+                                                                              .questions[
+                                                                                  index]
+                                                                              .answers[
+                                                                                  index2]
+                                                                              .answerNumber,
+                                                                          style: TextStyle(
+                                                                              fontSize: getSize(context) / 28,
+                                                                              fontWeight: FontWeight.w900,
+                                                                              color: AppColors.black)),
+                                                                      SizedBox(
+                                                                        width: getSize(context) /
+                                                                            88,
+                                                                      ),
+                                                                      Text(
+                                                                          cubit
+                                                                              .questionOfLessonData!
+                                                                              .questions[
+                                                                                  index]
+                                                                              .answers[
+                                                                                  index2]
+                                                                              .answer,
+                                                                          style: TextStyle(
+                                                                              fontSize: getSize(context) / 24,
+                                                                              fontWeight: FontWeight.w900,
+                                                                              color: AppColors.black)),
+                                                                    ],
+                                                                  ),
+                                                                ));
+                                                          },
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    cubit.applyLessonExam(
+                                                      lessonId: widget.lessonId,
+                                                      exam_type: "lesson",
+                                                    );
+
+                                                    Navigator.pushReplacementNamed(
+                                                        context,
+                                                        arguments: cubit
+                                                            .responseOfApplyLessonExmamData,
+                                                        Routes
+                                                            .resultOfLessonExam);
+                                                  },
+                                                  child: Container(
+                                                      margin: EdgeInsets.all(
+                                                          getSize(context) /
+                                                              22),
+                                                      decoration: BoxDecoration(
+                                                          color: AppColors
+                                                              .greenDownloadColor,
+                                                          borderRadius: BorderRadius
+                                                              .circular(getSize(
+                                                                      context) /
+                                                                  22)),
+                                                      padding: EdgeInsets.all(
+                                                          getSize(context) /
+                                                              28),
+                                                      child: Text(
+                                                        'إنهاء الامتحان',
+                                                        style: TextStyle(
+                                                            color: AppColors
+                                                                .white),
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                      ),
+                            ),
 
                       ///
                       Positioned(

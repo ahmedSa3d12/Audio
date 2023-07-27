@@ -10,6 +10,7 @@ import '../api/end_points.dart';
 import '../error/exceptions.dart';
 import '../error/failures.dart';
 import '../models/ads_model.dart';
+import '../models/applylessonexammodel.dart';
 import '../models/audiolessonmodel.dart';
 import '../models/class_lesson_model.dart';
 import '../models/classes_exam_data_model.dart';
@@ -46,6 +47,7 @@ class ServiceApi {
     try {
       final response = await dio.post(
         EndPoints.userUrl,
+        formDataIsEnabled: true,
         body: {
           'code': code,
         },
@@ -561,7 +563,6 @@ class ServiceApi {
       print(videoType);
       final response = await dio.post(
         EndPoints.addcommentsUrl,
-        formDataIsEnabled: true,
         body: {
           "comment": text,
           "type": type,
@@ -902,6 +903,37 @@ class ServiceApi {
         ),
       );
       return Right(MainQuestionModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, ResponseOfApplyLessonExmam>> applyLessonExam(
+      {required List<ApplyStudentExam> details,
+      required String exam_type,
+      required int lessonId}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      Map<String, dynamic> requestBody = {};
+      for (int i = 0; i < details.length; i++) {
+        requestBody.addAll(details[i].toJson(i));
+      }
+      print("ahmed");
+      print(requestBody);
+      print("ahmed");
+      final response = await dio.post(
+        EndPoints.applyLessonExam + '$lessonId?exam_type=$exam_type',
+        formDataIsEnabled: true,
+        body: requestBody,
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(ResponseOfApplyLessonExmam.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }
