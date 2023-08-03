@@ -211,20 +211,191 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                                   top: getSize(context) / 1.9,
                                   child: Column(
                                     children: [
-                                      Container(
-                                        width: 100,
-                                        height: getSize(context) / 12,
-                                        color: AppColors.red,
-                                        child: Row(),
+                                      SizedBox(
+                                        height: getSize(context) / 32,
                                       ),
-                                      Flexible(
-                                        child: SizedBox(
-                                          height: getSize(context) / 32,
+                                      Container(
+                                        width: getSize(context) / 1.3,
+                                        height: getSize(context) / 7,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Flexible(
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        bottom:
+                                                            getSize(context) /
+                                                                100),
+                                                    decoration: BoxDecoration(
+                                                        color: AppColors
+                                                            .greenDownloadColor,
+                                                        borderRadius: BorderRadius
+                                                            .circular(getSize(
+                                                                    context) /
+                                                                44)),
+                                                    height:
+                                                        getSize(context) / 12,
+                                                    width:
+                                                        getSize(context) / 12,
+                                                    child: Text(
+                                                      widget.model
+                                                          .numOfCorrectQuestions
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color:
+                                                              AppColors.white,
+                                                          fontSize:
+                                                              getSize(context) /
+                                                                  36),
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'correct_answer'.tr(),
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          getSize(context) /
+                                                              36),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+                                                Flexible(
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        bottom:
+                                                            getSize(context) /
+                                                                100),
+                                                    alignment: Alignment.center,
+                                                    height:
+                                                        getSize(context) / 12,
+                                                    width:
+                                                        getSize(context) / 12,
+                                                    decoration: BoxDecoration(
+                                                        color: AppColors
+                                                            .yellowColor,
+                                                        borderRadius: BorderRadius
+                                                            .circular(getSize(
+                                                                    context) /
+                                                                44)),
+                                                    child: Text(
+                                                      widget.model
+                                                          .numOfLeaveQuestions
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color:
+                                                              AppColors.white,
+                                                          fontSize:
+                                                              getSize(context) /
+                                                                  36),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'dont_solved'.tr(),
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          getSize(context) /
+                                                              36),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+                                                Flexible(
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        bottom:
+                                                            getSize(context) /
+                                                                100),
+                                                    height:
+                                                        getSize(context) / 12,
+                                                    width:
+                                                        getSize(context) / 12,
+                                                    decoration: BoxDecoration(
+                                                        color: AppColors.red,
+                                                        borderRadius: BorderRadius
+                                                            .circular(getSize(
+                                                                    context) /
+                                                                44)),
+                                                    child: Text(
+                                                      widget.model
+                                                          .numOfMistakeQuestions
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color:
+                                                              AppColors.white,
+                                                          fontSize:
+                                                              getSize(context) /
+                                                                  36),
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'un_correct_ans'.tr(),
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          getSize(context) /
+                                                              36),
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+                                                Flexible(
+                                                  child: Container(
+                                                    margin: EdgeInsets.only(
+                                                        bottom:
+                                                            getSize(context) /
+                                                                100),
+                                                    height:
+                                                        getSize(context) / 12,
+                                                    width:
+                                                        getSize(context) / 12,
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            AppColors.purple1,
+                                                        borderRadius: BorderRadius
+                                                            .circular(getSize(
+                                                                    context) /
+                                                                44)),
+                                                    child: Text(
+                                                      widget.model.tryingNumber
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color:
+                                                              AppColors.white,
+                                                          fontSize:
+                                                              getSize(context) /
+                                                                  36),
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'trys'.tr(),
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          getSize(context) /
+                                                              36),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
                                       ),
+                                      SizedBox(
+                                        height: getSize(context) / 32,
+                                      ),
                                       Container(
-                                        width: 100,
-                                        height: getSize(context) / 12,
+                                        width: getSize(context) / 1.3,
+                                        height: getSize(context) / 7,
                                         color: AppColors.red,
                                         child: Row(),
                                       ),

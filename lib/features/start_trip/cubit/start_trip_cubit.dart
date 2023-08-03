@@ -1,16 +1,13 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 import 'package:new_mazoon/core/remote/service.dart';
 import 'package:path_provider/path_provider.dart';
-
 import '../../../core/models/class_data.dart';
 import '../../../core/models/classes_exam_data_model.dart';
 import '../../../core/models/exam_classes_model.dart';
 import '../../../core/models/home_page_model.dart';
-import '../../../core/models/lessonexammodel.dart';
 
 part 'start_trip_state.dart';
 

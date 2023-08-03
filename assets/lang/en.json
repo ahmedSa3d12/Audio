@@ -188,7 +188,11 @@
 "choose_q": "choose right Answer",
 "write_q":"Essay question",
 "result_exam":"Result Exam",
-"ordered":"ordered"
+"ordered":"ordered",
+"correct_answer":"Correct",
+"un_correct_ans":"Un Correct",
+"dont_solved":"Don't Solved",
+"trys":"attempts"
 
 
 

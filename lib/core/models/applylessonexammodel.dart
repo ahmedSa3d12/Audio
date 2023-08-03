@@ -56,6 +56,7 @@ class ResponseOfApplyLessonExmamData {
   dynamic numOfMistakeQuestions;
   dynamic numOfLeaveQuestions;
   dynamic totalTimeTake;
+  dynamic tryingNumber;
   String titleResult;
   String descriptionResult;
   String imageResult;
@@ -68,6 +69,7 @@ class ResponseOfApplyLessonExmamData {
     required this.numOfMistakeQuestions,
     required this.numOfLeaveQuestions,
     required this.totalTimeTake,
+    required this.tryingNumber,
     required this.titleResult,
     required this.descriptionResult,
     required this.imageResult,
@@ -77,6 +79,7 @@ class ResponseOfApplyLessonExmamData {
       ResponseOfApplyLessonExmamData(
         degree: json["degree"],
         ordered: json["ordered"],
+        tryingNumber: json['trying_number'],
         motivationalWord: json["motivational_word"],
         numOfCorrectQuestions: json["num_of_correct_questions"],
         numOfMistakeQuestions: json["num_of_mistake_questions"],
@@ -90,6 +93,7 @@ class ResponseOfApplyLessonExmamData {
   Map<String, dynamic> toJson() => {
         "degree": degree,
         "ordered": ordered,
+        "trying_number": tryingNumber,
         "motivational_word": motivationalWord,
         "num_of_correct_questions": numOfCorrectQuestions,
         "num_of_mistake_questions": numOfMistakeQuestions,

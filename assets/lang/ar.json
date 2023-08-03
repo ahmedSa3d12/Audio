@@ -188,6 +188,10 @@
   "choose_q":"اختر الاجابة الصحيحة :",
   "write_q":"سؤال مقالي",
   "result_exam":"نتيجة الامتحان",
-  "ordered":"ترتيبي"
+  "ordered":"ترتيبي",
+  "correct_answer":"الصحيحة",
+"un_correct_ans":"خطأ",
+"dont_solved":"لم يتم حلها",
+"trys":"المحاولات"
 
 }

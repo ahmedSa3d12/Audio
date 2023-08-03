@@ -3,7 +3,6 @@ import 'package:get_it/get_it.dart';
 import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'core/api/app_interceptors.dart';
 import 'core/api/base_api_consumer.dart';
 import 'core/api/dio_consumer.dart';
@@ -84,6 +83,7 @@ Future<void> setup() async {
   serviceLocator.registerFactory(
     () => CountdownCubit(),
   );
+
   ///////////////////////////////////////////////////////////////////////////////
 
   //! External
