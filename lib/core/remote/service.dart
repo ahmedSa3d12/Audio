@@ -26,6 +26,7 @@ import '../models/lessons_class_model.dart';
 import '../models/notifications_model.dart';
 import '../models/on_boarding_model.dart';
 import '../models/questionmodel.dart';
+import '../models/rate_your_self.dart';
 import '../models/response_message.dart';
 import '../models/single_comment.dart';
 import '../models/single_replay.dart';
@@ -934,6 +935,30 @@ class ServiceApi {
         ),
       );
       return Right(ResponseOfApplyLessonExmam.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  ///rateYourSelf
+  Future<Either<Failure, RateYourselfModel>> rateYourSelfLessonExam(
+      {required int lessonId}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.rateYourSelf + '$lessonId',
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      print(loginModel.data!.token);
+      print('..............');
+
+      return Right(RateYourselfModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

@@ -87,7 +87,7 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
     super.dispose();
   }
 
-  bool isLoading = false;
+  bool isLoading = true;
   int index = 0;
   String str =
       'عدد طرق اختيار عددين فرديين من 4 اعداد زوجية, 5 اعداد فردية = ..........';

@@ -19,3 +19,9 @@ class LoadingHomeworkttchmentState extends AttachmentState {}
 class SucessHomeworkAttchmentState extends AttachmentState {}
 
 class ErrorHomeworkAttchmentState extends AttachmentState {}
+
+class LoadingRateYourselfttchmentState extends AttachmentState {}
+
+class SucessRateYourselfAttchmentState extends AttachmentState {}
+
+class ErrorRateYourselfAttchmentState extends AttachmentState {}

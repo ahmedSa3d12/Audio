@@ -10,14 +10,14 @@ import '../../../core/utils/getsize.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 
 class HomeWorkScreen extends StatefulWidget {
-  const HomeWorkScreen({super.key});
+  HomeWorkScreen({super.key});
 
   @override
   State<HomeWorkScreen> createState() => _HomeWorkScreenState();
 }
 
 class _HomeWorkScreenState extends State<HomeWorkScreen> {
-  bool isLoading = false;
+  bool isLoading = true;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +25,8 @@ class _HomeWorkScreenState extends State<HomeWorkScreen> {
       listener: (context, state) {
         if (state is LoadingHomeworkttchmentState) {
           isLoading = true;
+        } else if (state is SucessHomeworkAttchmentState) {
+          isLoading = false;
         } else {
           isLoading = false;
         }
@@ -32,7 +34,7 @@ class _HomeWorkScreenState extends State<HomeWorkScreen> {
       builder: (context, state) {
         var cubit = context.read<AttachmentCubit>();
 
-        return isLoading
+        return (isLoading && cubit.homeworkLessonData == null)
             ? Center(
                 child: CircularProgressIndicator(),
               )
@@ -47,7 +49,7 @@ class _HomeWorkScreenState extends State<HomeWorkScreen> {
                           margin: EdgeInsets.all(getSize(context) / 100),
                           decoration: BoxDecoration(
                               color: HexColor(
-                                  cubit.homeworkLessonData.backgroundColor),
+                                  cubit.homeworkLessonData!.backgroundColor),
                               borderRadius:
                                   BorderRadius.circular(getSize(context) / 32)),
                           width: double.infinity,
@@ -58,12 +60,12 @@ class _HomeWorkScreenState extends State<HomeWorkScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    cubit.homeworkLessonData.name,
+                                    cubit.homeworkLessonData!.name,
                                     overflow: TextOverflow.clip,
                                     maxLines: 1,
                                     style: TextStyle(
                                         color: darken(
-                                            HexColor(cubit.homeworkLessonData
+                                            HexColor(cubit.homeworkLessonData!
                                                 .backgroundColor),
                                             0.4),
                                         fontWeight: FontWeight.w700,
@@ -86,7 +88,7 @@ class _HomeWorkScreenState extends State<HomeWorkScreen> {
                                                 backgroundColor:
                                                     AppColors.gray7,
                                                 child: Text(
-                                                  '${cubit.homeworkLessonData.numOfQuestion} Q',
+                                                  '${cubit.homeworkLessonData!.numOfQuestion} Q',
                                                   overflow: TextOverflow.clip,
                                                   maxLines: 1,
                                                   style: TextStyle(
@@ -105,7 +107,7 @@ class _HomeWorkScreenState extends State<HomeWorkScreen> {
                                                 backgroundColor:
                                                     AppColors.gray7,
                                                 child: Text(
-                                                  "${cubit.homeworkLessonData.totalTime} min",
+                                                  "${cubit.homeworkLessonData!.totalTime} min",
                                                   overflow: TextOverflow.clip,
                                                   maxLines: 1,
                                                   style: TextStyle(
@@ -154,7 +156,7 @@ class _HomeWorkScreenState extends State<HomeWorkScreen> {
                                 //color from back
                                 backgroundColor: darken(
                                     HexColor(cubit
-                                        .homeworkLessonData.backgroundColor),
+                                        .homeworkLessonData!.backgroundColor),
                                     0.4),
                                 child: MySvgWidget(
                                     //check if 100% done of lock

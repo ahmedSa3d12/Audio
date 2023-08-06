@@ -3,6 +3,7 @@ import 'package:new_mazoon/features/attachment/cubit/attachmentstate.dart';
 
 import '../../../core/models/audiolessonmodel.dart';
 import '../../../core/models/examlessonmodel.dart';
+import '../../../core/models/rate_your_self.dart';
 import '../../../core/remote/service.dart';
 
 class AttachmentCubit extends Cubit<AttachmentState> {
@@ -37,7 +38,7 @@ class AttachmentCubit extends Cubit<AttachmentState> {
     );
   }
 
-  late LessonExamData2 homeworkLessonData;
+  LessonExamData2? homeworkLessonData;
 
   homeworkOfLessonData(int lessonId) async {
     emit(LoadingHomeworkttchmentState());
@@ -47,6 +48,21 @@ class AttachmentCubit extends Cubit<AttachmentState> {
       (r) {
         homeworkLessonData = r.data;
         emit(SucessHomeworkAttchmentState());
+      },
+    );
+  }
+
+  ///rete yourself
+  ///
+  RateYourselfModelData? rateYourselfModelData;
+  rateYourselfLessonExam(int lessonId) async {
+    emit(LoadingRateYourselfttchmentState());
+    final response = await api.rateYourSelfLessonExam(lessonId: lessonId);
+    response.fold(
+      (l) => emit(ErrorRateYourselfAttchmentState()),
+      (r) {
+        rateYourselfModelData = r.data;
+        emit(SucessRateYourselfAttchmentState());
       },
     );
   }

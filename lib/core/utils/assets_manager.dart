@@ -112,7 +112,7 @@ class ImageAssets {
   static const String rec = '$iconsPath/rec.svg';
 
   static const String wrong = '$iconsPath/wrong.svg';
-
+  static const String whiteimage = '$iconsPath/whiteimage.svg';
   //Lottie
   static const String noItems = '$lottiePath/no_item.json';
   static const String noExam = '$lottiePath/no_exam.json';

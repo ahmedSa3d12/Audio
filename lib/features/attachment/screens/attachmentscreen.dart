@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/models/user_model.dart';
 import 'package:new_mazoon/core/utils/assets_manager.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -163,6 +164,7 @@ class _AttachmentScreenState extends State<AttachmentScreen> {
                               onTap: () {
                                 setState(() {
                                   myBodyIs = 3;
+                                  cubit.rateYourselfLessonExam(widget.model.id);
                                 });
                               },
                               child: Padding(

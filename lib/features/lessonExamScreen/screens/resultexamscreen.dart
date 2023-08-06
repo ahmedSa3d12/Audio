@@ -19,18 +19,13 @@ class ResultExamLessonScreen extends StatefulWidget {
 }
 
 class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
-  bool loadApplyExam = false;
+  bool loadApplyExam = true;
 
   @override
   Widget build(BuildContext context) {
-    List<String> parts = widget.model.degree
-        .toString()
-        .split('/'); // Split the string into parts using '/'
-    double numerator =
-        double.parse(parts[0].trim()); // Convert the first part to double (40)
-    double denominator = double.parse(
-        parts[1].trim()); // Convert the second part to double (100)
-
+    List<String> parts = widget.model.degree.toString().split('/');
+    double numerator = double.parse(parts[0].trim());
+    double denominator = double.parse(parts[1].trim());
     double result = numerator / denominator;
     return BlocConsumer<QuestionsLessonExamCubit, QuestionsOfLessonExamState>(
       listener: (context, state) {
@@ -188,7 +183,7 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                                                   ),
                                                   Spacer(),
                                                   Text(
-                                                    '💪${widget.model.motivationalWord}',
+                                                    '${widget.model.motivationalWord}',
                                                     style: TextStyle(
                                                         fontSize:
                                                             getSize(context) /
