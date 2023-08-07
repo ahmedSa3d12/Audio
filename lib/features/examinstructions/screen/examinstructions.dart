@@ -426,17 +426,13 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                               ),
                               InkWell(
                                 onTap: () {
+                                  //
                                   context
                                       .read<QuestionsLessonExamCubit>()
                                       .getQuestionsOfLessonExam(
+                                          context: context,
                                           lessonId: widget.exam_id,
                                           exam_type: "lesson");
-                                  Timer(Duration(milliseconds: 375), () {
-                                    Navigator.pushNamed(arguments: {
-                                      "exam_type": "lesson",
-                                      "lessonId": widget.exam_id
-                                    }, context, Routes.lessonExamScreen);
-                                  });
                                 },
                                 child: Container(
                                     width: getSize(context) / 1.1,

@@ -89,6 +89,7 @@ class RateExamQuestions {
 class RateYourselfQuestionModel {
   int id;
   String question;
+  bool questionStatus;
   dynamic answerUser;
   String answerUserType;
   String questionType;
@@ -102,6 +103,7 @@ class RateYourselfQuestionModel {
   RateYourselfQuestionModel({
     required this.id,
     required this.question,
+    required this.questionStatus,
     required this.answerUser,
     required this.answerUserType,
     required this.questionType,
@@ -116,6 +118,7 @@ class RateYourselfQuestionModel {
   factory RateYourselfQuestionModel.fromJson(Map<String, dynamic> json) =>
       RateYourselfQuestionModel(
         id: json["id"],
+        questionStatus: false,
         question: json["question"],
         answerUser: json["answer_user"],
         answerUserType: json["answer_user_type"],
@@ -133,6 +136,7 @@ class RateYourselfQuestionModel {
         "id": id,
         "question": question,
         "answer_user": answerUser,
+        "questionStatus": questionStatus,
         "answer_user_type": answerUserType,
         "question_type": questionType,
         "file_type": fileType,

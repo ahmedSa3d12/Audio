@@ -192,7 +192,19 @@
 "correct_answer":"Correct",
 "un_correct_ans":"Un Correct",
 "dont_solved":"Don't Solved",
-"trys":"attempts"
+"trys":"attempts",
+"rate_msg":"You don't have any exam. You must take an exam first."
+,
+"have_q":"you don't have any questions",
+"time_spam":"Taken Time",
+"try_again":"try again",
+"depend_exam":"Depend Degree"
+
+
+
+
+
+
 
 
 

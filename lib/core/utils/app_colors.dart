@@ -71,6 +71,7 @@ class AppColors {
   static Color blue3 = HexColor('#171560');
   static Color blue4 = HexColor('#303F82');
   static Color blue5 = HexColor('#4455D7');
+  static Color blue6 = HexColor('#A9B3DF');
   static Color bluelight = HexColor('#D7EAF9');
   static Color orange = HexColor('#FE7C04');
   static Color orangelight = HexColor('#FFEAD7');

@@ -25,3 +25,7 @@ class LoadingRateYourselfttchmentState extends AttachmentState {}
 class SucessRateYourselfAttchmentState extends AttachmentState {}
 
 class ErrorRateYourselfAttchmentState extends AttachmentState {}
+
+class TruequestionStatusRateYourselfAttchmentState extends AttachmentState {}
+
+class FalsequestionStatusRateYourselfAttchmentState extends AttachmentState {}

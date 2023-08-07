@@ -36,7 +36,9 @@ class ResponseOfApplyLessonExmam {
 
   factory ResponseOfApplyLessonExmam.fromJson(Map<String, dynamic> json) =>
       ResponseOfApplyLessonExmam(
-        data: ResponseOfApplyLessonExmamData.fromJson(json["data"]),
+        data: json["data"] != null
+            ? ResponseOfApplyLessonExmamData.fromJson(json["data"])
+            : ResponseOfApplyLessonExmamData(),
         message: json["message"],
         code: json["code"],
       );
@@ -51,33 +53,36 @@ class ResponseOfApplyLessonExmam {
 class ResponseOfApplyLessonExmamData {
   dynamic degree;
   dynamic ordered;
-  String motivationalWord;
+  dynamic motivationalWord;
   dynamic numOfCorrectQuestions;
   dynamic numOfMistakeQuestions;
   dynamic numOfLeaveQuestions;
   dynamic totalTimeTake;
+  dynamic totalTimeExam;
   dynamic tryingNumber;
-  String titleResult;
-  String descriptionResult;
-  String imageResult;
+  dynamic titleResult;
+  dynamic descriptionResult;
+  dynamic imageResult;
 
   ResponseOfApplyLessonExmamData({
-    required this.degree,
-    required this.ordered,
-    required this.motivationalWord,
-    required this.numOfCorrectQuestions,
-    required this.numOfMistakeQuestions,
-    required this.numOfLeaveQuestions,
-    required this.totalTimeTake,
-    required this.tryingNumber,
-    required this.titleResult,
-    required this.descriptionResult,
-    required this.imageResult,
+    this.degree,
+    this.ordered,
+    this.motivationalWord,
+    this.numOfCorrectQuestions,
+    this.numOfMistakeQuestions,
+    this.numOfLeaveQuestions,
+    this.totalTimeTake,
+    this.tryingNumber,
+    this.titleResult,
+    this.totalTimeExam,
+    this.descriptionResult,
+    this.imageResult,
   });
 
   factory ResponseOfApplyLessonExmamData.fromJson(Map<String, dynamic> json) =>
       ResponseOfApplyLessonExmamData(
         degree: json["degree"],
+        totalTimeExam: json['total_time_exam'],
         ordered: json["ordered"],
         tryingNumber: json['trying_number'],
         motivationalWord: json["motivational_word"],
@@ -94,6 +99,7 @@ class ResponseOfApplyLessonExmamData {
         "degree": degree,
         "ordered": ordered,
         "trying_number": tryingNumber,
+        "total_time_exam": totalTimeExam,
         "motivational_word": motivationalWord,
         "num_of_correct_questions": numOfCorrectQuestions,
         "num_of_mistake_questions": numOfMistakeQuestions,

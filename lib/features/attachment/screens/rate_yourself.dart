@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
@@ -23,7 +24,10 @@ class _RateYourSelfScreenState extends State<RateYourSelfScreen> {
   @override
   Widget build(BuildContext context) {
     return context.read<AttachmentCubit>().rateYourselfModelData == null
-        ? Center(child: Text('Not Found'))
+        ? Container(
+            alignment: Alignment.center,
+            height: getSize(context),
+            child: Center(child: Text('rate_msg'.tr())))
         : BlocConsumer<AttachmentCubit, AttachmentState>(
             listener: (context, state) {
               if (state is LoadingRateYourselfttchmentState) {
@@ -193,8 +197,20 @@ class _RateYourSelfScreenState extends State<RateYourSelfScreen> {
                                         EdgeInsets.all(getSize(context) / 100),
                                     child: CircleAvatar(
                                       radius: getSize(context) / 44,
-                                      backgroundColor:
-                                          AppColors.greenDownloadColor,
+                                      backgroundColor: cubit
+                                                  .rateYourselfModelData!
+                                                  .examQuestions
+                                                  .questions[index]
+                                                  .questionType ==
+                                              'choice'
+                                          ? cubit
+                                                  .rateYourselfModelData!
+                                                  .examQuestions
+                                                  .questions[index]
+                                                  .questionStatus
+                                              ? AppColors.greenDownloadColor
+                                              : AppColors.red
+                                          : AppColors.greenDownloadColor,
                                       child: Text('${index + 1}',
                                           style: TextStyle(
                                               fontSize: getSize(context) / 32,

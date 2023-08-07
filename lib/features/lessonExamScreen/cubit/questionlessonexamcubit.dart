@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/utils/toast_message_method.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/models/applylessonexammodel.dart';
 import '../../../core/models/questionmodel.dart';
 import '../../../core/remote/service.dart';
@@ -11,16 +14,24 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
   final ServiceApi api;
   QuestionDateModel? questionOfLessonData;
   getQuestionsOfLessonExam(
-      {required int lessonId, required String exam_type}) async {
+      {required int lessonId,
+      required BuildContext context,
+      required String exam_type}) async {
     emit(LoadingLessonExam());
     final response = await api.getQuestionsOfLessonExam(lessonId, exam_type);
     response.fold(
       (l) => emit(ErrorLessonExam()),
       (r) {
-        questionOfLessonData = r.data;
-        print('.........................');
-        print(r.data);
-        print('.........................');
+        if (r.code == 200) {
+          questionOfLessonData = r.data;
+          Navigator.pushNamed(
+              arguments: {"exam_type": "lesson", "lessonId": lessonId},
+              context,
+              Routes.lessonExamScreen);
+          emit(LoadedLessonExam());
+        } else {
+          toastMessage(r.message, context);
+        }
         emit(LoadedLessonExam());
       },
     );
@@ -31,20 +42,24 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
   }
 
   ResponseOfApplyLessonExmamData? responseOfApplyLessonExmamData;
-  applyLessonExam({
-    required int lessonId,
-    required String exam_type,
-  }) async {
+  applyLessonExam(
+      {required int lessonId,
+      required String exam_type,
+      required BuildContext context}) async {
     emit(LoadingApplyLessonExam());
     final response = await api.applyLessonExam(
         lessonId: lessonId, exam_type: exam_type, details: details);
     response.fold(
       (l) => emit(ErrorApplyLessonExam()),
       (r) {
-        print('.........................');
-
-        responseOfApplyLessonExmamData = r.data;
-        print('.........................');
+        if (r.code == 200) {
+          responseOfApplyLessonExmamData = r.data;
+          Navigator.pushReplacementNamed(
+              context, arguments: r.data, Routes.resultOfLessonExam);
+          details.clear();
+        } else if (r.code == 416) {
+          toastMessage(r.message, context);
+        } else {}
 
         emit(LoadedApplyLessonExam());
       },

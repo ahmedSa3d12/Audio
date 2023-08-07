@@ -62,8 +62,31 @@ class AttachmentCubit extends Cubit<AttachmentState> {
       (l) => emit(ErrorRateYourselfAttchmentState()),
       (r) {
         rateYourselfModelData = r.data;
+        questionColor();
         emit(SucessRateYourselfAttchmentState());
       },
     );
+  }
+
+  questionColor() {
+    for (int i = 0;
+        i < rateYourselfModelData!.examQuestions.questions.length;
+        i++) {
+      for (int j = 0;
+          j < rateYourselfModelData!.examQuestions.questions[i].answers.length;
+          j++) {
+        if (rateYourselfModelData!.examQuestions.questions[i].answers[j].id ==
+                rateYourselfModelData!.examQuestions.questions[i].answerUser &&
+            rateYourselfModelData!
+                    .examQuestions.questions[i].answers[j].answerStatus ==
+                'correct' &&
+            rateYourselfModelData!.examQuestions.questions[i].questionType ==
+                'choice') {
+          rateYourselfModelData!.examQuestions.questions[i].questionStatus =
+              true;
+        }
+      }
+      emit(TruequestionStatusRateYourselfAttchmentState());
+    }
   }
 }
