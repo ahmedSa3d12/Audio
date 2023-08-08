@@ -53,6 +53,9 @@ class ResponseOfApplyLessonExmam {
 class ResponseOfApplyLessonExmamData {
   dynamic degree;
   dynamic ordered;
+  dynamic examId;
+  dynamic examName;
+  dynamic examType;
   dynamic motivationalWord;
   dynamic numOfCorrectQuestions;
   dynamic numOfMistakeQuestions;
@@ -67,6 +70,9 @@ class ResponseOfApplyLessonExmamData {
   ResponseOfApplyLessonExmamData({
     this.degree,
     this.ordered,
+    this.examId,
+    this.examType,
+    this.examName,
     this.motivationalWord,
     this.numOfCorrectQuestions,
     this.numOfMistakeQuestions,
@@ -82,6 +88,9 @@ class ResponseOfApplyLessonExmamData {
   factory ResponseOfApplyLessonExmamData.fromJson(Map<String, dynamic> json) =>
       ResponseOfApplyLessonExmamData(
         degree: json["degree"],
+        examName: json['exam_name'],
+        examType: json['exam_type'],
+        examId: json['exam_id'],
         totalTimeExam: json['total_time_exam'],
         ordered: json["ordered"],
         tryingNumber: json['trying_number'],
@@ -98,6 +107,9 @@ class ResponseOfApplyLessonExmamData {
   Map<String, dynamic> toJson() => {
         "degree": degree,
         "ordered": ordered,
+        "exam_id": examId,
+        "exam_type": examType,
+        "exam_name": examName,
         "trying_number": tryingNumber,
         "total_time_exam": totalTimeExam,
         "motivational_word": motivationalWord,

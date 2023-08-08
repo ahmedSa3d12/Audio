@@ -4,6 +4,7 @@ import 'package:new_mazoon/core/utils/toast_message_method.dart';
 
 import '../../../config/routes/app_routes.dart';
 import '../../../core/models/applylessonexammodel.dart';
+import '../../../core/models/dependexam.dart';
 import '../../../core/models/questionmodel.dart';
 import '../../../core/remote/service.dart';
 import 'lessonexamstate.dart';
@@ -25,7 +26,7 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
         if (r.code == 200) {
           questionOfLessonData = r.data;
           Navigator.pushNamed(
-              arguments: {"exam_type": "lesson", "lessonId": lessonId},
+              arguments: {"exam_type": exam_type, "lessonId": lessonId},
               context,
               Routes.lessonExamScreen);
           emit(LoadedLessonExam());
@@ -67,4 +68,44 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
   }
 
   List<ApplyStudentExam> details = [];
+
+  ///
+  ///
+  AppendLessonExam? appendLessonExam;
+
+  appendDegreeLessonExam(
+      {required int lessonId,
+      required BuildContext context,
+      required String exam_type}) async {
+    emit(LoadingAppendLessonExam());
+
+    final response = await api.appendDegreeLessonExam(
+        lessonId: lessonId, exam_type: exam_type);
+
+    response.fold((l) => emit(ErrorAppendLessonExam()), (r) {
+      toastMessage(r.message, context);
+
+      Navigator.pushReplacementNamed(context, Routes.myGradeAndRating);
+//nav
+      emit(LoadedAppendLessonExam());
+    });
+  }
+
+  //try if more 30
+
+  tryAtEndOfExam(
+      {required int lessonId,
+      required BuildContext context,
+      required String type,
+      required int time}) async {
+    emit(LoadingAddNewtryExamLessonExam());
+
+    final response =
+        await api.tryAtEndOfExam(lessonId: lessonId, time: time, type: type);
+    response.fold((l) => emit(ErrorAddNewtryExamLessonExam()), (r) {
+      toastMessage(r.message, context);
+//nav
+      emit(LoadedAddNewtryExamLessonExam());
+    });
+  }
 }

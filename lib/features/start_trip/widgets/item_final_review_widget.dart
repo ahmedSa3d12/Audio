@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:new_mazoon/core/utils/numformat.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
+
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import '../../../config/routes/app_routes.dart';
 import '../../../core/models/home_page_model.dart';
@@ -59,109 +59,111 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20),
+            SizedBox(height: getSize(context) / 22),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(width: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 10),
-                    MySvgWidget(
-                      path: model.type == 'video'
-                          ? ImageAssets.videoIcon
-                          : ImageAssets.pdfIcon,
-                      imageColor: AppColors.white,
-                      size: 20,
-                    ),
-                  ],
+                SizedBox(width: getSize(context) / 44),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: getSize(context) / 44),
+                  child: MySvgWidget(
+                    path: model.type == 'video'
+                        ? ImageAssets.videoIcon
+                        : ImageAssets.pdfIcon,
+                    imageColor: AppColors.white,
+                    size: 20,
+                  ),
                 ),
-                SizedBox(width: 8),
                 Flexible(
                   child: Text(
                     model.name!,
+                    overflow: TextOverflow.fade,
+                    maxLines: 3,
                     style: TextStyle(
                       color: AppColors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      fontSize: getSize(context) / 22,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
               ],
             ),
-            Spacer(),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                ManageNetworkImage(
-                  imageUrl: model.image!,
-                  height: 85,
-                  width: 85,
-                ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SizedBox(
-                          width: ((MediaQuery.of(context).size.width / 2) / 2) -
-                              100),
-                      model.type == 'video'
-                          ? MySvgWidget(
-                              path: ImageAssets.clockIcon,
-                              imageColor: AppColors.white,
-                              size: 16,
-                            )
-                          : SizedBox(),
-                      SizedBox(width: model.type == 'video' ? 10 : 0),
-                      Flexible(
-                        child: Padding(
-                          padding:
-                              EdgeInsets.all(model.type == 'video' ? 8.0 : 0),
-                          child: Text(
-                            model.type == 'video'
-                                ? extractHourAndMinutes(model.time!)
-                                    .toString() //model.time.toString().padLeft(2, '0')
-                                : changeToMegaByte(model.size.toString()),
-                            textDirection: model.type == 'video'
-                                ? TextDirection.rtl
-                                : TextDirection.ltr,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: AppColors.white,
-                              fontWeight: FontWeight.bold,
+            Flexible(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  ManageNetworkImage(
+                    imageUrl: model.image!,
+                    height: getSize(context) / 6,
+                    width: getSize(context) / 6,
+                  ),
+                  Flexible(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        model.type == 'video'
+                            ? MySvgWidget(
+                                path: ImageAssets.clockIcon,
+                                imageColor: AppColors.white,
+                                size: 16,
+                              )
+                            : SizedBox(),
+                        SizedBox(
+                            width: model.type == 'video'
+                                ? getSize(context) / 100
+                                : 0),
+                        Flexible(
+                          child: Padding(
+                            padding:
+                                EdgeInsets.all(model.type == 'video' ? 8.0 : 0),
+                            child: Text(
+                              model.type == 'video'
+                                  ? extractHourAndMinutes(model.time!)
+                                      .toString()
+                                  : changeToMegaByte(model.size.toString()),
+                              textDirection: model.type == 'video'
+                                  ? TextDirection.rtl
+                                  : TextDirection.ltr,
+                              style: TextStyle(
+                                fontSize: getSize(context) / 26,
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(width: model.type != 'video' ? 10 : 0),
-                      model.type == 'video'
-                          ? SizedBox()
-                          : InkWell(
-                              onTap: () {
-                                context.read<StartTripCubit>().dowanload(model);
-                              },
-                              child: SizedBox(
-                                width: 25,
-                                height: 25,
-                                child: model.progress != 0
-                                    ? CircularProgressIndicator(
-                                        value: model.progress,
-                                        backgroundColor: AppColors.white,
-                                        color: AppColors.primary,
-                                      )
-                                    : DownloadIconWidget(
-                                        color: HexColor(model.backgroundColor!),
-                                      ),
+                        SizedBox(width: model.type != 'video' ? 10 : 0),
+                        model.type == 'video'
+                            ? SizedBox()
+                            : InkWell(
+                                onTap: () {
+                                  context
+                                      .read<StartTripCubit>()
+                                      .dowanload(model);
+                                },
+                                child: SizedBox(
+                                  width: 25,
+                                  height: 25,
+                                  child: model.progress != 0
+                                      ? CircularProgressIndicator(
+                                          value: model.progress,
+                                          backgroundColor: AppColors.white,
+                                          color: AppColors.primary,
+                                        )
+                                      : DownloadIconWidget(
+                                          color:
+                                              HexColor(model.backgroundColor!),
+                                        ),
+                                ),
                               ),
-                            ),
-                      SizedBox(width: model.type == 'video' ? 0 : 8),
-                      // Spacer(),
-                    ],
+                        SizedBox(width: model.type == 'video' ? 0 : 8),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -170,10 +172,8 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
   }
 
   extractHourAndMinutes(String timeString) {
-    // Split the timeString by the colon ':' to get the hours, minutes, and seconds parts.
     List<String> timeParts = timeString.split(':');
 
-    // Get the hour and minute values as integers.
     int hour = int.parse(timeParts[0]);
     int minute = int.parse(timeParts[1]);
 

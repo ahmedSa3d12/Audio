@@ -18,18 +18,15 @@ class EndPoints {
   static const String monthPlanUrl = '${baseUrl}plans/all';
   static const String notesUrl = '${baseUrl}notes/note-all-by-date';
   static const String datesOfNotesUrl = '${baseUrl}notes/dates-of-notes';
-
   static const String lessonsByClassUrl = '${baseUrl}classes/lessonsByClassId/';
   static const String VideoByLessonUrl =
       '${baseUrl}lesson/all-video-by-lessonId/';
   static const String ExamByLessonUrl =
       '${baseUrl}lesson/all-exams-by-lessonId/';
-
   static const String AudioOfLesson = '${baseUrl}lesson/all-audios-by-videoId/';
   static const String PdfOfLesson = '${baseUrl}lesson/all-pdf-by-videoId/';
   static const String homeworkOfLesson =
       '${baseUrl}lesson/all-exams-by-videoId/';
-
   static const String registerExamUrl = '${baseUrl}auth/papel-sheet-exam/user/';
   static const String deleteregisterExamUrl =
       '${baseUrl}auth/paper-sheet-exam/latest-paper-exam-delete';
@@ -52,8 +49,10 @@ class EndPoints {
   static const String editReplayUrl = '${baseUrl}video/replay/update/';
   static const String reportUrl = '${baseUrl}report/student-add-report';
   static const String updateVideoTimeUrl = '${baseUrl}video-update-time/';
-
   static const String applyLessonExam = '${baseUrl}ExamEntry/exam/';
-
   static const String rateYourSelf = "${baseUrl}lesson/exam-details-by-examId/";
+  static const String dependLessonExam =
+      "${baseUrl}ExamEntry/exam-degree-depends-with-student/";
+
+  static const String tryAtEndOfExam = "${baseUrl}access-end-time/exam/";
 }

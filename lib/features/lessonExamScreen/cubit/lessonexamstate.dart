@@ -13,3 +13,15 @@ class LoadingApplyLessonExam extends QuestionsOfLessonExamState {}
 class LoadedApplyLessonExam extends QuestionsOfLessonExamState {}
 
 class ErrorApplyLessonExam extends QuestionsOfLessonExamState {}
+
+class LoadingAppendLessonExam extends QuestionsOfLessonExamState {}
+
+class LoadedAppendLessonExam extends QuestionsOfLessonExamState {}
+
+class ErrorAppendLessonExam extends QuestionsOfLessonExamState {}
+
+class LoadingAddNewtryExamLessonExam extends QuestionsOfLessonExamState {}
+
+class LoadedAddNewtryExamLessonExam extends QuestionsOfLessonExamState {}
+
+class ErrorAddNewtryExamLessonExam extends QuestionsOfLessonExamState {}

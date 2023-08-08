@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-
 AdsModel adsModelFromJson(String str) => AdsModel.fromJson(json.decode(str));
 
 String adsModelToJson(AdsModel data) => json.encode(data.toJson());

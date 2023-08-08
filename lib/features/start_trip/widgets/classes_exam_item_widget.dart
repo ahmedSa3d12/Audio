@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/utils/change_to_mega_byte.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
@@ -93,7 +95,7 @@ class ClassesExamItemWidget extends StatelessWidget {
                             Expanded(
                               flex: 3,
                               child: ClassExamIconWidget(
-                                textData: ' ${model.numOfQuestion} Q',
+                                textData: '${model.numOfQuestion}Q',
                                 type: 'text',
                                 iconColor: AppColors.gray7,
                                 onclick: () {
@@ -111,7 +113,7 @@ class ClassesExamItemWidget extends StatelessWidget {
                               ),
                             ),
                             Expanded(
-                              flex: 2,
+                              flex: 3,
                               child: ClassExamIconWidget(
                                 radius: 1000,
                                 type: ImageAssets.noLoveIcon,

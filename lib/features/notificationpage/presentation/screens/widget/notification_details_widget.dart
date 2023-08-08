@@ -3,16 +3,13 @@ import 'package:flutter/material.dart';
 import '../../../../../../core/utils/app_colors.dart';
 import '../../../../../core/models/notifications_model.dart';
 
-
 class NotificationDetailsWidget extends StatelessWidget {
-   NotificationDetailsWidget({
+  NotificationDetailsWidget({
     Key? key,
     required this.notificationModel,
-
   }) : super(key: key);
 
   final NotificationModel notificationModel;
-
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +17,6 @@ class NotificationDetailsWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -57,13 +53,10 @@ class NotificationDetailsWidget extends StatelessWidget {
                 fontWeight: FontWeight.normal,
               ),
             ),
-            SizedBox(height: 5,),
-            Divider(
-              height: 1,
-              thickness: 1,
-              color: AppColors.unselectedTab
-
-            )
+            SizedBox(
+              height: 5,
+            ),
+            Divider(height: 1, thickness: 1, color: AppColors.unselectedTab)
           ],
         ),
       ),

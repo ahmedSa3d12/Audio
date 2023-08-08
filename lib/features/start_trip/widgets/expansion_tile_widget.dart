@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
 import 'package:new_mazoon/features/sources_and_references/cubit/source_references_cubit.dart';
-import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 
 import '../../../core/utils/app_colors.dart';
@@ -14,8 +12,12 @@ class ExpansionTileWidget extends StatefulWidget {
   final String title;
   final String type;
 
-  const ExpansionTileWidget(
-      {super.key, required this.title, required this.type});
+  bool isGray;
+  ExpansionTileWidget(
+      {super.key,
+      this.isGray = false,
+      required this.title,
+      required this.type});
 
   @override
   State<ExpansionTileWidget> createState() => _ExpansionTileWidgetState();
@@ -60,19 +62,29 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(25),
                   child: ExpansionTile(
-                    iconColor: AppColors.white,
+                    iconColor:
+                        widget.isGray ? AppColors.black : AppColors.white,
                     key: keyTile,
                     trailing: Icon(
                       Icons.arrow_drop_down_outlined,
                       size: 35,
+                      color: widget.isGray ? AppColors.black : AppColors.white,
                     ),
-                    backgroundColor: AppColors.orangeThirdPrimary,
-                    collapsedBackgroundColor:
-                        darken(AppColors.orangeThirdPrimary, 0.05),
+                    backgroundColor: widget.isGray
+                        ? AppColors.unselectedTabColor
+                        : AppColors.orangeThirdPrimary,
+                    collapsedBackgroundColor: darken(
+                        widget.isGray
+                            ? AppColors.unselectedTabColor
+                            : AppColors.orangeThirdPrimary,
+                        0.05),
                     // textColor: AppColors.white,
                     title: Text(
                       title,
-                      style: TextStyle(color: AppColors.white),
+                      style: TextStyle(
+                          color: widget.isGray
+                              ? AppColors.black
+                              : AppColors.white),
                     ),
                     children: [
                       ...List.generate(
@@ -83,7 +95,9 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                             style: TextStyle(
                               color: title == cubit.examClasses[index].title!
                                   ? AppColors.primary
-                                  : AppColors.white,
+                                  : widget.isGray
+                                      ? AppColors.black
+                                      : AppColors.white,
                               fontSize: title == cubit.examClasses[index].title!
                                   ? 20
                                   : 16,
@@ -99,7 +113,9 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                               cubit.examClasses[index].status == 'lock'
                                   ? MySvgWidget(
                                       size: 16,
-                                      imageColor: AppColors.white,
+                                      imageColor: widget.isGray
+                                          ? AppColors.black
+                                          : AppColors.white,
                                       path: ImageAssets.lockIcon,
                                     )
                                   : SizedBox(),
@@ -166,10 +182,11 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Container(
-                          width: double.infinity,
-                          height: 2,
-                          color: AppColors.white,
-                        ),
+                            width: double.infinity,
+                            height: 2,
+                            color: widget.isGray
+                                ? AppColors.black
+                                : AppColors.white),
                       ),
                       ListTile(
                         title: Text(

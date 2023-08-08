@@ -9,11 +9,13 @@ import '../api/base_api_consumer.dart';
 import '../api/end_points.dart';
 import '../error/exceptions.dart';
 import '../error/failures.dart';
+import '../models/addnewexamtry.dart';
 import '../models/ads_model.dart';
 import '../models/applylessonexammodel.dart';
 import '../models/audiolessonmodel.dart';
 import '../models/class_lesson_model.dart';
 import '../models/classes_exam_data_model.dart';
+import '../models/dependexam.dart';
 import '../models/exam_classes_model.dart';
 import '../models/exam_instruction_model.dart';
 import '../models/examlessonmodel.dart';
@@ -917,6 +919,7 @@ class ServiceApi {
     String lan = await Preferences.instance.getSavedLang();
     try {
       Map<String, dynamic> requestBody = {};
+
       for (int i = 0; i < details.length; i++) {
         requestBody.addAll(details[i].toJson(i));
       }
@@ -959,6 +962,51 @@ class ServiceApi {
       print('..............');
 
       return Right(RateYourselfModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  //
+  Future<Either<Failure, AppendLessonExam>> appendDegreeLessonExam(
+      {required int lessonId, required String exam_type}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.dependLessonExam + '$lessonId?exam_type=$exam_type',
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      print(loginModel.data!.token);
+      print('..............');
+
+      return Right(AppendLessonExam.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+  //tryAtEndOfExam
+
+  Future<Either<Failure, AddNewTryExam>> tryAtEndOfExam(
+      {required int lessonId, required String type, required int time}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.post(
+        EndPoints.tryAtEndOfExam + '$lessonId?type=$type&timer=$time',
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(AddNewTryExam.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

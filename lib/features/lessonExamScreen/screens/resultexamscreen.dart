@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:wave_linear_progress_indicator/wave_linear_progress_indicator.dart';
 import '../../../core/models/applylessonexammodel.dart';
@@ -36,6 +37,8 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<QuestionsLessonExamCubit, QuestionsOfLessonExamState>(
       builder: (context, state) {
+        var cubit = context.read<QuestionsLessonExamCubit>();
+
         return Scaffold(
           appBar: AppBar(
             elevation: 0,
@@ -393,9 +396,9 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                                             alignment: Alignment.center,
                                             child: WaveLinearProgressIndicator(
                                               waveStep: 2,
-                                              value: widget
+                                              value: (widget
                                                       .model.totalTimeTake /
-                                                  widget.model.totalTimeExam,
+                                                  widget.model.totalTimeExam),
                                               enableBounceAnimation: true,
                                               waveColor: AppColors.blue6,
                                               waveBackgroundColor:
@@ -422,7 +425,7 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                             borderRadius:
                                 BorderRadius.circular(getSize(context) / 22)),
                         width: double.infinity,
-                        margin: EdgeInsets.all(getSize(context) / 22),
+                        margin: EdgeInsets.all(getSize(context) / 18),
                         padding: EdgeInsets.all(getSize(context) / 88),
                         child: Row(
                           children: [
@@ -462,45 +465,73 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                       Row(
                         children: [
                           Expanded(
-                            flex: 6,
-                            child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: AppColors.orange,
-                                    borderRadius: BorderRadius.circular(
-                                        getSize(context) / 22)),
-                                margin: EdgeInsets.all(getSize(context) / 22),
-                                padding: EdgeInsets.all(getSize(context) / 88),
-                                child: Text(
-                                  'try_again'.tr(),
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                    color: AppColors.white,
-                                    fontSize: getSize(context) / 22,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                )),
+                            child: InkWell(
+                              onTap: () {
+                                ///try and go toinstruction
+                                cubit.tryAtEndOfExam(
+                                    lessonId: widget.model.examId,
+                                    context: context,
+                                    type: widget.model.examType,
+
+                                    ///need change to lesson
+                                    time: widget.model.totalTimeTake);
+
+                                Navigator.pushReplacementNamed(
+                                    context, Routes.examInstructionsRoute,
+                                    arguments: [
+                                      widget.model.examId,
+                                      widget.model.examName
+                                    ]);
+                              },
+                              child: Container(
+                                  height: getSize(context) / 8,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.orange,
+                                      borderRadius: BorderRadius.circular(
+                                          getSize(context) / 22)),
+                                  margin: EdgeInsets.all(getSize(context) / 32),
+                                  padding:
+                                      EdgeInsets.all(getSize(context) / 88),
+                                  child: Text(
+                                    'try_again'.tr(),
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: getSize(context) / 22,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  )),
+                            ),
                           ),
-                          Expanded(child: Container()),
                           Expanded(
-                            flex: 6,
-                            child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    color: AppColors.primary,
-                                    borderRadius: BorderRadius.circular(
-                                        getSize(context) / 22)),
-                                margin: EdgeInsets.all(getSize(context) / 22),
-                                padding: EdgeInsets.all(getSize(context) / 88),
-                                child: Text(
-                                  'depend_exam'.tr(),
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                    color: AppColors.white,
-                                    fontSize: getSize(context) / 22,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                )),
+                            child: InkWell(
+                              onTap: () {
+                                cubit.appendDegreeLessonExam(
+                                    lessonId: widget.model.examId,
+                                    context: context,
+                                    exam_type: 'lesson');
+                              },
+                              child: Container(
+                                  height: getSize(context) / 8,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.primary,
+                                      borderRadius: BorderRadius.circular(
+                                          getSize(context) / 22)),
+                                  margin: EdgeInsets.all(getSize(context) / 32),
+                                  padding:
+                                      EdgeInsets.all(getSize(context) / 88),
+                                  child: Text(
+                                    'depend_exam'.tr(),
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: getSize(context) / 22,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  )),
+                            ),
                           ),
                         ],
                       )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 
 import '../../../config/routes/app_routes.dart';
@@ -43,7 +44,7 @@ class ClassesExamsScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 state is StartTripExamsClassByIdLoading
                     ? SizedBox(
-                        height: MediaQuery.of(context).size.height / 2,
+                        height: getSize(context) / 2,
                         child: Center(
                           child: CircularProgressIndicator(
                             color: AppColors.primary,

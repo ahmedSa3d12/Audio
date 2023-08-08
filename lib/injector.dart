@@ -12,6 +12,7 @@ import 'core/remote/service.dart';
 import 'features/attachment/cubit/attachmentcubit.dart';
 import 'features/countdown/cubit/countdown_cubit.dart';
 import 'features/exam_hero/cubit/exam_hero_cubit.dart';
+import 'features/examdegreeaccreditation/cubit/examdegreedependcubit.dart';
 import 'features/examinstructions/cubit/examinstructions_cubit.dart';
 import 'features/lessonExamScreen/cubit/questionlessonexamcubit.dart';
 import 'features/notes/cubit/note_cubit.dart';
@@ -103,6 +104,11 @@ Future<void> setup() async {
   );
   serviceLocator.registerFactory(
     () => QuestionsLessonExamCubit(
+      serviceLocator(),
+    ),
+  );
+  serviceLocator.registerFactory(
+    () => ExamDegreeAccreditationCubit(
       serviceLocator(),
     ),
   );

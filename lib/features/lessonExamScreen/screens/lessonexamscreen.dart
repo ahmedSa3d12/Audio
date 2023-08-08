@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/features/homePage/widget/home_page_app_bar_widget.dart';
 import '../../../core/models/applylessonexammodel.dart';
@@ -57,8 +56,21 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
           _minutesLeft--;
           _secondsLeft = 59;
         } else if (_minutesLeft == 0 && _secondsLeft == 1) {
-          context.read<QuestionsLessonExamCubit>().applyLessonExam(
-              lessonId: widget.lessonId, exam_type: "lesson", context: context);
+          context.read<QuestionsLessonExamCubit>().tryAtEndOfExam(
+              lessonId: widget.lessonId,
+              context: context,
+              type: widget.exam_type,
+              time: _minutesLeft);
+          setState(() {
+            _isActive = true;
+            _minutesLeft = context
+                .read<QuestionsLessonExamCubit>()
+                .questionOfLessonData!
+                .quizMinute;
+            _secondsLeft = 0;
+          });
+
+          // _startTimer();
         } else {
           _secondsLeft--;
         }
@@ -89,6 +101,11 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
   void dispose() {
     _timer!.cancel();
     _scrollController.dispose();
+    context.read<QuestionsLessonExamCubit>().tryAtEndOfExam(
+        lessonId: widget.lessonId,
+        context: context,
+        type: widget.exam_type,
+        time: _minutesLeft);
     super.dispose();
   }
 
@@ -485,13 +502,25 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                           ),
                                           InkWell(
                                             onTap: () {
-                                              cubit.responseOfApplyLessonExmamData =
-                                                  null;
-                                              cubit.applyLessonExam(
-                                                context: context,
-                                                lessonId: widget.lessonId,
-                                                exam_type: "lesson",
-                                              );
+                                              if (cubit.details.isEmpty) {
+                                                cubit.tryAtEndOfExam(
+                                                    lessonId: widget.lessonId,
+                                                    context: context,
+                                                    type: widget.exam_type,
+                                                    time: (cubit
+                                                            .questionOfLessonData!
+                                                            .quizMinute -
+                                                        _minutesLeft));
+                                                Navigator.pop(context);
+                                              } else {
+                                                cubit.responseOfApplyLessonExmamData =
+                                                    null;
+                                                cubit.applyLessonExam(
+                                                  context: context,
+                                                  lessonId: widget.lessonId,
+                                                  exam_type: widget.exam_type,
+                                                );
+                                              }
                                             },
                                             child: Container(
                                                 margin: EdgeInsets.all(

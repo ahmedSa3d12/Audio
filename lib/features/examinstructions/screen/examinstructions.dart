@@ -277,10 +277,8 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                           child: Container(
                                                             child: Center(
                                                               child: Text(
-                                                                examinstructions
-                                                                        .data!
-                                                                        .user!
-                                                                        .per
+                                                                (double.parse(examinstructions.data!.user!.per.toString())
+                                                                            .round())
                                                                         .toString() +
                                                                     "%",
                                                                 style:

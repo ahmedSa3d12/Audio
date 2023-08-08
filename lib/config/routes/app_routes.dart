@@ -15,6 +15,7 @@ import '../../core/models/videoModel.dart';
 import '../../core/utils/app_strings.dart';
 import '../../features/countdown/screens/countdown_screen.dart';
 import '../../features/exam_hero/screens/exam_hero_screen.dart';
+import '../../features/examdegreeaccreditation/screens/mygradeandrating.dart';
 import '../../features/examinstructions/screen/examinstructions.dart';
 import '../../features/lessonExamScreen/screens/lessonexamscreen.dart';
 import '../../features/paperexamRegister/presentation/screens/paper_exam_register.dart';
@@ -51,6 +52,8 @@ class Routes {
   static const String lessonExamScreen = '/LessonExamScreen';
 
   static const String resultOfLessonExam = '/ResultExamLessonScreen';
+
+  static const String myGradeAndRating = '/MyGradeAndRating';
 }
 
 class AppRoutes {
@@ -191,7 +194,17 @@ class AppRoutes {
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),
         );
-      //resultOfLessonExam
+
+      case Routes.myGradeAndRating:
+        // ResponseOfApplyLessonExmamData model =
+        //     settings.arguments as ResponseOfApplyLessonExmamData;
+
+        return PageTransition(
+          child: MyGradeAndRating(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
       default:
         return undefinedRoute();
     }
