@@ -7,6 +7,7 @@ import 'package:wave_linear_progress_indicator/wave_linear_progress_indicator.da
 import '../../../core/models/applylessonexammodel.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/getsize.dart';
+import '../../../core/utils/string_to_double.dart';
 import '../../../core/widgets/title_with_circle_background_widget.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../cubit/lessonexamstate.dart';
@@ -22,16 +23,6 @@ class ResultExamLessonScreen extends StatefulWidget {
 
 class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
   bool loadApplyExam = true;
-
-  resultOfProgress(String degree) {
-    print(degree);
-    List<String> parts = degree.toString().split('/');
-    double numerator = double.parse(parts[0].trim());
-    double denominator = double.parse(parts[1].trim());
-    double result = numerator / denominator;
-    print(result.toString());
-    return result;
-  }
 
   @override
   Widget build(BuildContext context) {

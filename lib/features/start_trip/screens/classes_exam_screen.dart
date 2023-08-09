@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
@@ -38,7 +39,7 @@ class ClassesExamsScreen extends StatelessWidget {
               children: [
                 SizedBox(height: 20),
                 ExpansionTileWidget(
-                  title: 'اختر الفصل',
+                  title: 'choose_class'.tr(),
                   type: 'classes_exam',
                 ),
                 SizedBox(height: 20),

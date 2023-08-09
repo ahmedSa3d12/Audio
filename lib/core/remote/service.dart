@@ -19,6 +19,7 @@ import '../models/dependexam.dart';
 import '../models/exam_classes_model.dart';
 import '../models/exam_instruction_model.dart';
 import '../models/examlessonmodel.dart';
+import '../models/grade_and_rate.dart';
 import '../models/lessonexammodel.dart';
 import '../models/paper_exam_details_model.dart';
 import '../models/final_review_model.dart';
@@ -1007,6 +1008,99 @@ class ServiceApi {
         ),
       );
       return Right(AddNewTryExam.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  //GradeAndRateModel
+  Future<Either<Failure, GradeAndRateModel>> homwworkGradeAndRate(
+      {required int lessonId}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.homeworkGrade + '$lessonId',
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      print(loginModel.data!.token);
+      print('..............');
+
+      return Right(GradeAndRateModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, GradeAndRateModel>> lessonsExamGradeAndRate(
+      {required int lessonId}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.lessonsExamGrade,
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      print(loginModel.data!.token);
+      print('..............');
+
+      return Right(GradeAndRateModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, GradeAndRateModel>> classesExamGradeAndRate(
+      {required int lessonId}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.classesExamsGrade + '$lessonId',
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      print(loginModel.data!.token);
+      print('..............');
+
+      return Right(GradeAndRateModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, GradeAndRateModel>>
+      comprehensiveExamsGradeAndRate() async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.comprehensiveExamGrade,
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      print(loginModel.data!.token);
+      print('..............');
+
+      return Right(GradeAndRateModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

@@ -55,4 +55,11 @@ class EndPoints {
       "${baseUrl}ExamEntry/exam-degree-depends-with-student/";
 
   static const String tryAtEndOfExam = "${baseUrl}access-end-time/exam/";
+
+  static const String homeworkGrade =
+      '${baseUrl}degree-details/videos-by-lesson/';
+  static const String lessonsExamGrade = '${baseUrl}degree-details/lesson/';
+  static const String classesExamsGrade = '${baseUrl}degree-details/class/';
+  static const String comprehensiveExamGrade =
+      '${baseUrl}degree-details/all-exams';
 }

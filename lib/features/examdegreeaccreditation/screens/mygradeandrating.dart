@@ -4,14 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/widgets/title_with_circle_background_widget.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
-import '../../start_trip/screens/classes_exam_screen.dart';
-import '../../start_trip/screens/classes_screen.dart';
-import '../../start_trip/screens/final_review_screen.dart';
+
 import '../cubit/examdegreedependcubit.dart';
 import '../cubit/examdegreedependstate.dart';
 import 'classexamsscreen.dart';
 import 'comprehensiveexams.dart';
 import 'homeworksscreen.dart';
+import 'lessonexamsscreen.dart';
 
 class MyGradeAndRating extends StatefulWidget {
   const MyGradeAndRating({super.key});
@@ -24,6 +23,7 @@ class _MyGradeAndRatingState extends State<MyGradeAndRating>
     with TickerProviderStateMixin {
   List<String> titles = [
     'homeworks'.tr(),
+    'lesson_exam'.tr(),
     'class_exam'.tr(),
     'comprehensive_exam'.tr()
   ];
@@ -31,7 +31,7 @@ class _MyGradeAndRatingState extends State<MyGradeAndRating>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     _tabController
         .animateTo(context.read<ExamDegreeAccreditationCubit>().currentIndex);
   }
@@ -104,19 +104,15 @@ class _MyGradeAndRatingState extends State<MyGradeAndRating>
                       ),
                     ),
                     Expanded(
-                      child: RefreshIndicator(
-                        onRefresh: () async {
-                          print(88888);
-                        },
-                        child: TabBarView(
-                          controller: _tabController,
-                          physics: NeverScrollableScrollPhysics(),
-                          children: [
-                            HomeWorksGradeAccredition(),
-                            ClassExamsGradeAccredition(),
-                            ComprehensiveExamGradeAccredition()
-                          ],
-                        ),
+                      child: TabBarView(
+                        controller: _tabController,
+                        physics: NeverScrollableScrollPhysics(),
+                        children: [
+                          HomeWorksGradeAccredition(),
+                          LessonExamsGradeAccredition(),
+                          ClassExamsGradeAccredition(),
+                          ComprehensiveExamGradeAccredition()
+                        ],
                       ),
                     )
                   ],

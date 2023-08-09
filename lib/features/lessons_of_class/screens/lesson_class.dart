@@ -26,7 +26,9 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<LessonsClassCubit>().getLessonsClassData(widget.classId);
+    context
+        .read<LessonsClassCubit>()
+        .getLessonsClassData(widget.classId, 0, context, false);
   }
 
   @override
@@ -55,7 +57,8 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                   bottom: 0,
                   child: RefreshIndicator(
                     onRefresh: () async {
-                      cubit.getLessonsClassData(widget.classId);
+                      cubit.getLessonsClassData(
+                          widget.classId, 0, context, false);
                     },
                     child: ListView(
                       children: [

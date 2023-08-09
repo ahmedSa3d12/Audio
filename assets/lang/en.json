@@ -201,7 +201,13 @@
 "depend_exam":"Depend Degree",
 "homeworks":"homeworks",
 "class_exam":"Class Exams",
-"grade_rate":"My grades and ratings"
+"grade_rate":"My grades and ratings",
+"lesson_exam":"Lesson Exams",
+"choose_class":"choose class",
+"choose_lesson":"choose lesson"
+
+
+
 
 
 

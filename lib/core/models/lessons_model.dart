@@ -1,15 +1,3 @@
-// To parse this JSON data, do
-//
-//     final allLessonsModel = allLessonsModelFromJson(jsonString);
-
-import 'dart:convert';
-
-AllLessonsModel allLessonsModelFromJson(String str) =>
-    AllLessonsModel.fromJson(json.decode(str));
-
-String allLessonsModelToJson(AllLessonsModel data) =>
-    json.encode(data.toJson());
-
 class AllLessonsModel {
   AllLessonsModel({
     this.id,

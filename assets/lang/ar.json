@@ -200,7 +200,11 @@
 "depend_exam":"اعتماد الدرجة",
 "grade_rate":"درجاتى وتقييماتى",
 "homeworks":"الواجبات",
-"class_exam":"امتحانات الفصول"
+"class_exam":"امتحانات الفصول",
+"lesson_exam":"امتحانات الدروس",
+"choose_class":"اختر الفصل",
+"choose_lesson":"اختر الدرس"
+
 
 
 

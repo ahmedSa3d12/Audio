@@ -1,16 +1,17 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 
 import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/assets_manager.dart';
-
+import '../../start_trip/widgets/expansion_tile_lesson.dart';
 import '../../start_trip/widgets/expansion_tile_widget.dart';
 import '../cubit/examdegreedependcubit.dart';
 import '../cubit/examdegreedependstate.dart';
+import '../widgets/items_of_exam.dart';
 
 class HomeWorksGradeAccredition extends StatefulWidget {
-  const HomeWorksGradeAccredition({super.key});
+  HomeWorksGradeAccredition({super.key});
 
   @override
   State<HomeWorksGradeAccredition> createState() =>
@@ -19,43 +20,49 @@ class HomeWorksGradeAccredition extends StatefulWidget {
 
 class _HomeWorksGradeAccreditionState extends State<HomeWorksGradeAccredition> {
   @override
+  void initState() {
+    context.read<ExamDegreeAccreditationCubit>().homeworksGrade = [];
+    super.initState();
+  }
+
+  bool isLoading = true;
+
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ExamDegreeAccreditationCubit,
+    return BlocConsumer<ExamDegreeAccreditationCubit,
         ExamDegreeAccreditationState>(
+      listener: (context, state) {
+        if (state is LoadingGetHomeworkGrade) {
+          isLoading = true;
+        } else {
+          isLoading = false;
+        }
+      },
       builder: (context, state) {
         var cubit = context.read<ExamDegreeAccreditationCubit>();
         return Scaffold(
             body: Container(
-          // decoration: (state is loadingGetHomeworksExamDegreeAccreditation ||
-          //         cubit.homeworks.isNotEmpty)
-          //     ? null
-          //     : BoxDecoration(
-          //         image: DecorationImage(
-          //           image: AssetImage(ImageAssets.chooseClassMessageImage),
-          //           fit: BoxFit.contain,
-          //         ),
-          //       ),
           child: RefreshIndicator(
             onRefresh: () async {
-              cubit.homeworks = [];
-              // cubit.getExamClassesData();
+              cubit.homeworksGrade = [];
             },
             child: ListView(
               children: [
                 SizedBox(height: getSize(context) / 22),
                 ExpansionTileWidget(
-                  title: 'اختر الفصل',
+                  title: 'choose_class'.tr(),
+                  type: 'classes_exam',
+                  isGray: true,
+                  isHaveLesson: true,
+                ),
+                SizedBox(height: getSize(context) / 22),
+                ExpansionTilLessonWidget(
+                  title: 'choose_lesson'.tr(),
                   type: 'classes_exam',
                   isGray: true,
                 ),
                 SizedBox(height: getSize(context) / 22),
-                ExpansionTileWidget(
-                  title: 'اختر الفصل',
-                  type: 'classes_exam',
-                  isGray: true,
-                ),
-                SizedBox(height: getSize(context) / 22),
-                state is loadingGetHomeworksExamDegreeAccreditation
+                isLoading
                     ? SizedBox(
                         height: MediaQuery.of(context).size.height / 2,
                         child: Center(
@@ -64,28 +71,8 @@ class _HomeWorksGradeAccreditionState extends State<HomeWorksGradeAccredition> {
                           ),
                         ),
                       )
-                    : Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 0.70,
-                            mainAxisSpacing: 12,
-                            crossAxisSpacing: 20,
-                            crossAxisCount: 2,
-                          ),
-                          itemCount: cubit.homeworks.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              height: 20,
-                              width: double.infinity,
-                              color: AppColors.bink,
-                            );
-                          },
-                        ),
-                      ),
+                    : ItemsOfDegreeAndRateWidget(
+                        gradeList: cubit.homeworksGrade)
               ],
             ),
           ),

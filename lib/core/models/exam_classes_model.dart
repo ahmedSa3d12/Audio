@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-StartTripExamClassesModel startTripExamClassesModelFromJson(String str) => StartTripExamClassesModel.fromJson(json.decode(str));
+StartTripExamClassesModel startTripExamClassesModelFromJson(String str) =>
+    StartTripExamClassesModel.fromJson(json.decode(str));
 
-String startTripExamClassesModelToJson(StartTripExamClassesModel data) => json.encode(data.toJson());
+String startTripExamClassesModelToJson(StartTripExamClassesModel data) =>
+    json.encode(data.toJson());
 
 class StartTripExamClassesModel {
   StartTripExamClassesModel({
@@ -19,17 +21,23 @@ class StartTripExamClassesModel {
   final String? message;
   final int? code;
 
-  factory StartTripExamClassesModel.fromJson(Map<String, dynamic> json) => StartTripExamClassesModel(
-    data: json["data"] == null ? [] : List<ExamClassesDatum>.from(json["data"]!.map((x) => ExamClassesDatum.fromJson(x))),
-    message: json["message"],
-    code: json["code"],
-  );
+  factory StartTripExamClassesModel.fromJson(Map<String, dynamic> json) =>
+      StartTripExamClassesModel(
+        data: json["data"] == null
+            ? []
+            : List<ExamClassesDatum>.from(
+                json["data"]!.map((x) => ExamClassesDatum.fromJson(x))),
+        message: json["message"],
+        code: json["code"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
-    "message": message,
-    "code": code,
-  };
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
+        "message": message,
+        "code": code,
+      };
 }
 
 class ExamClassesDatum {
@@ -45,17 +53,18 @@ class ExamClassesDatum {
   final String? title;
   final int? numOfLessons;
 
-  factory ExamClassesDatum.fromJson(Map<String, dynamic> json) => ExamClassesDatum(
-    id: json["id"],
-    status: json["status"],
-    title: json["title"],
-    numOfLessons: json["num_of_lessons"],
-  );
+  factory ExamClassesDatum.fromJson(Map<String, dynamic> json) =>
+      ExamClassesDatum(
+        id: json["id"],
+        status: json["status"],
+        title: json["title"],
+        numOfLessons: json["num_of_lessons"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "status": status,
-    "title": title,
-    "num_of_lessons": numOfLessons,
-  };
+        "id": id,
+        "status": status,
+        "title": title,
+        "num_of_lessons": numOfLessons,
+      };
 }
