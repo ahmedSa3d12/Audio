@@ -15,9 +15,11 @@ class ExamDegreeAccreditationCubit extends Cubit<ExamDegreeAccreditationState> {
     emit(ChangeCurrentIndexTap());
   }
 
-  List<GradeAndRateModelData> homeworksGrade = [];
+  GradeAndRateModelData? homeworksGrade;
   homeworkGradeAndRate({required int lessonId}) async {
-    homeworksGrade = [];
+    if (homeworksGrade != null) {
+      homeworksGrade!.degrees = [];
+    }
     emit(LoadingGetHomeworkGrade());
     final response = await api.homwworkGradeAndRate(lessonId: lessonId);
     response.fold(
@@ -29,13 +31,15 @@ class ExamDegreeAccreditationCubit extends Cubit<ExamDegreeAccreditationState> {
     );
   }
 
-  List<GradeAndRateModelData> lessonsExamGrade = [];
+  GradeAndRateModelData? lessonsExamGrade;
   lessonsExamGradeAndRate({required int lessonId}) async {
-    lessonsExamGrade = [];
-    emit(ErrorGetLessonExamGrade());
+    if (lessonsExamGrade != null) {
+      lessonsExamGrade!.degrees = [];
+    }
+    emit(LoadingGetLessonExamGrade());
     final response = await api.lessonsExamGradeAndRate(lessonId: lessonId);
     response.fold(
-      (l) => emit(ErrorGetHomeworkGrade()),
+      (l) => emit(ErrorGetLessonExamGrade()),
       (r) {
         lessonsExamGrade = r.data;
         emit(SuccessGetLessonExamGrade());
@@ -43,11 +47,13 @@ class ExamDegreeAccreditationCubit extends Cubit<ExamDegreeAccreditationState> {
     );
   }
 
-  List<GradeAndRateModelData> classesExamGrade = [];
-  classesExamGradeAndRate({required int lessonId}) async {
-    classesExamGrade = [];
+  GradeAndRateModelData? classesExamGrade;
+  classesExamGradeAndRate({required int classId}) async {
+    if (classesExamGrade != null) {
+      classesExamGrade!.degrees = [];
+    }
     emit(LoadingGetClassesExamGrade());
-    final response = await api.classesExamGradeAndRate(lessonId: lessonId);
+    final response = await api.classesExamGradeAndRate(classId: classId);
     response.fold(
       (l) => emit(ErrorGetClassesExamGrade()),
       (r) {
@@ -57,9 +63,11 @@ class ExamDegreeAccreditationCubit extends Cubit<ExamDegreeAccreditationState> {
     );
   }
 
-  List<GradeAndRateModelData> comprehensiveExamsGrade = [];
+  GradeAndRateModelData? comprehensiveExamsGrade;
   comprehensiveExamsGradeAndRate() async {
-    comprehensiveExamsGrade = [];
+    if (comprehensiveExamsGrade != null) {
+      comprehensiveExamsGrade!.degrees = [];
+    }
     emit(LoadingGetComprehensiveExamsGrade());
     final response = await api.comprehensiveExamsGradeAndRate();
     response.fold(

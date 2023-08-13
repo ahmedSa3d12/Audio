@@ -13,11 +13,15 @@ class SuccessGetHomeworkGrade extends ExamDegreeAccreditationState {}
 
 class ErrorGetHomeworkGrade extends ExamDegreeAccreditationState {}
 
+//
+
 class LoadingGetLessonExamGrade extends ExamDegreeAccreditationState {}
 
 class SuccessGetLessonExamGrade extends ExamDegreeAccreditationState {}
 
 class ErrorGetLessonExamGrade extends ExamDegreeAccreditationState {}
+
+///
 
 class LoadingGetClassesExamGrade extends ExamDegreeAccreditationState {}
 

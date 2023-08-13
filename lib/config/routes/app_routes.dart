@@ -13,9 +13,11 @@ import '../../core/models/paper_exam_data_model.dart';
 import '../../core/models/paper_exam_details_model.dart';
 import '../../core/models/videoModel.dart';
 import '../../core/utils/app_strings.dart';
+import '../../features/attachment/screens/rate_yourself.dart';
 import '../../features/countdown/screens/countdown_screen.dart';
 import '../../features/exam_hero/screens/exam_hero_screen.dart';
 import '../../features/examdegreeaccreditation/screens/mygradeandrating.dart';
+import '../../features/examdegreeaccreditation/screens/ratescreen.dart';
 import '../../features/examinstructions/screen/examinstructions.dart';
 import '../../features/lessonExamScreen/screens/lessonexamscreen.dart';
 import '../../features/paperexamRegister/presentation/screens/paper_exam_register.dart';
@@ -54,6 +56,11 @@ class Routes {
   static const String resultOfLessonExam = '/ResultExamLessonScreen';
 
   static const String myGradeAndRating = '/MyGradeAndRating';
+
+  static const String rateYourSelfScreen = '/RateYourSelfScreen';
+
+  static const String rateYourselfDependExamResult =
+      '/RateYourselfDependExamResult';
 }
 
 class AppRoutes {
@@ -201,6 +208,25 @@ class AppRoutes {
 
         return PageTransition(
           child: MyGradeAndRating(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+      //RateYourSelfScreen
+      case Routes.rateYourSelfScreen:
+        // ResponseOfApplyLessonExmamData model =
+        //     settings.arguments as ResponseOfApplyLessonExmamData;
+
+        return PageTransition(
+          child: RateYourSelfScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+      //RateYourselfDependExamResult
+      case Routes.rateYourselfDependExamResult:
+        return PageTransition(
+          child: RateYourselfDependExamResult(),
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),

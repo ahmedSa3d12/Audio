@@ -1043,7 +1043,7 @@ class ServiceApi {
     String lan = await Preferences.instance.getSavedLang();
     try {
       final response = await dio.get(
-        EndPoints.lessonsExamGrade,
+        EndPoints.lessonsExamGrade + '$lessonId',
         options: Options(
           headers: {
             'Authorization': loginModel.data!.token,
@@ -1061,12 +1061,12 @@ class ServiceApi {
   }
 
   Future<Either<Failure, GradeAndRateModel>> classesExamGradeAndRate(
-      {required int lessonId}) async {
+      {required int classId}) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
     try {
       final response = await dio.get(
-        EndPoints.classesExamsGrade + '$lessonId',
+        EndPoints.classesExamsGrade + '$classId',
         options: Options(
           headers: {
             'Authorization': loginModel.data!.token,

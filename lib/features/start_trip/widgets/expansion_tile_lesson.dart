@@ -13,10 +13,13 @@ class ExpansionTilLessonWidget extends StatefulWidget {
   final String title;
   final String type;
   bool isGray;
+  bool isLesson;
+
   ExpansionTilLessonWidget(
       {super.key,
       this.isGray = false,
       required this.title,
+      this.isLesson = false,
       required this.type});
 
   @override
@@ -164,13 +167,23 @@ class _ExpansionTilLessonWidgetState extends State<ExpansionTilLessonWidget> {
                                       cubit.lessons[index].id!,
                                     );
                               } else {
-                                ///
-                                cubit.getLessonsClassData(cubit.oneClass.id!,
-                                    cubit.lessons[index].id!, context, true);
+                                cubit.getLessonsClassData(
+                                    cubit.oneClass.id!,
+                                    cubit.lessons[index].id!,
+                                    context,
+                                    widget.isGray,
+                                    widget.isLesson,
+                                    false);
                                 context
                                     .read<ExamDegreeAccreditationCubit>()
                                     .homeworkGradeAndRate(
                                         lessonId: cubit.lessons[index].id!);
+                                if (widget.isLesson) {
+                                  context
+                                      .read<ExamDegreeAccreditationCubit>()
+                                      .lessonsExamGradeAndRate(
+                                          lessonId: cubit.lessons[index].id!);
+                                }
                               }
                             } else {
                               toastMessage(

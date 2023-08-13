@@ -25,32 +25,39 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
   List<AllLessonsModel> lessons = [];
   late AllClasses oneClass;
 
-  getLessonsClassData(
-      int id, int? lessonId, BuildContext context, bool isGrade) async {
+  getLessonsClassData(int id, int? lessonId, BuildContext context, bool isGrade,
+      bool isLesson, bool isClass) async {
     emit(LessonsClassLoading());
 
-    if (isGrade) {
-      await api.lessonsByClassData(id).then((value) {
-        context
-            .read<ExamDegreeAccreditationCubit>()
-            .homeworkGradeAndRate(lessonId: lessonId ?? 1);
-        emit(LessonsClassError());
-      }).onError((error, stackTrace) {
-        toastMessage(error.toString(), context);
-        emit(LessonsClassError());
-      });
-    } else {
-      final response = await api.lessonsByClassData(id);
-      response.fold(
+    await api.lessonsByClassData(id).then((value) {
+      value.fold(
         (l) => emit(LessonsClassError()),
         (r) {
           lessons = r.data!.lessons!;
           oneClass = r.data!.dataClass!;
-
           emit(LessonsClassLoaded());
         },
       );
-    }
+      if (isGrade) {
+        if (isLesson) {
+          context
+              .read<ExamDegreeAccreditationCubit>()
+              .lessonsExamGradeAndRate(lessonId: lessonId ?? 1);
+        } else if (isClass) {
+          context
+              .read<ExamDegreeAccreditationCubit>()
+              .classesExamGradeAndRate(classId: id);
+        } else {
+          context
+              .read<ExamDegreeAccreditationCubit>()
+              .homeworkGradeAndRate(lessonId: lessonId ?? 1);
+        }
+        emit(LessonsClassError());
+      }
+    }).onError((error, stackTrace) {
+      toastMessage(error.toString(), context);
+      emit(LessonsClassError());
+    });
   }
 
   int currentIndex = 0;

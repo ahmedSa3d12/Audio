@@ -14,11 +14,16 @@ class ExpansionTileWidget extends StatefulWidget {
   final String type;
   bool isGray;
   bool isHaveLesson;
+  bool isLesson;
+  bool isClass;
+
   ExpansionTileWidget(
       {super.key,
       this.isGray = false,
+      this.isLesson = false,
       this.isHaveLesson = false,
       required this.title,
+      this.isClass = false,
       required this.type});
 
   @override
@@ -183,7 +188,9 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                                           cubit.examClasses[index].id!,
                                           cubit2.lessons[index].id!,
                                           context,
-                                          widget.isGray);
+                                          widget.isGray,
+                                          widget.isLesson,
+                                          widget.isClass);
 
                                       //
                                     } else {

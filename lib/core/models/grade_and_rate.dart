@@ -1,5 +1,16 @@
+// To parse this JSON data, do
+//
+//     final welcome = welcomeFromJson(jsonString);
+
+import 'dart:convert';
+
+GradeAndRateModel welcomeFromJson(String str) =>
+    GradeAndRateModel.fromJson(json.decode(str));
+
+String welcomeToJson(GradeAndRateModel data) => json.encode(data.toJson());
+
 class GradeAndRateModel {
-  List<GradeAndRateModelData> data;
+  GradeAndRateModelData data;
   String message;
   int code;
 
@@ -11,27 +22,52 @@ class GradeAndRateModel {
 
   factory GradeAndRateModel.fromJson(Map<String, dynamic> json) =>
       GradeAndRateModel(
-        data: List<GradeAndRateModelData>.from(
-            json["data"].map((x) => GradeAndRateModelData.fromJson(x))),
+        data: GradeAndRateModelData.fromJson(json["data"]),
         message: json["message"],
         code: json["code"],
       );
 
   Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": data.toJson(),
         "message": message,
         "code": code,
       };
 }
 
 class GradeAndRateModelData {
+  List<Degree> degrees;
+  String totalPer;
+  String motivationalWord;
+
+  GradeAndRateModelData({
+    required this.degrees,
+    required this.totalPer,
+    required this.motivationalWord,
+  });
+
+  factory GradeAndRateModelData.fromJson(Map<String, dynamic> json) =>
+      GradeAndRateModelData(
+        degrees:
+            List<Degree>.from(json["degrees"].map((x) => Degree.fromJson(x))),
+        totalPer: json["total_per"],
+        motivationalWord: json["motivational_word"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "degrees": List<dynamic>.from(degrees.map((x) => x.toJson())),
+        "total_per": totalPer,
+        "motivational_word": motivationalWord,
+      };
+}
+
+class Degree {
   int id;
   String name;
   String backgroundColor;
-  double percentage;
+  int percentage;
   String degree;
 
-  GradeAndRateModelData({
+  Degree({
     required this.id,
     required this.name,
     required this.backgroundColor,
@@ -39,8 +75,7 @@ class GradeAndRateModelData {
     required this.degree,
   });
 
-  factory GradeAndRateModelData.fromJson(Map<String, dynamic> json) =>
-      GradeAndRateModelData(
+  factory Degree.fromJson(Map<String, dynamic> json) => Degree(
         id: json["id"],
         name: json["name"],
         backgroundColor: json["background_color"],
