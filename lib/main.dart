@@ -18,7 +18,7 @@ import 'core/utils/restart_app_class.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 //
-//test
+//Error at degree and rating screen 4 parts >>Model
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
