@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -5,6 +6,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/getsize.dart';
 import '../../../core/utils/string_to_double.dart';
+import '../../../core/widgets/no_data_widget.dart';
 import '../cubit/examdegreedependcubit.dart';
 import '../cubit/examdegreedependstate.dart';
 import '../widgets/items_of_exam.dart';
@@ -21,13 +23,14 @@ class _ComprehensiveExamGradeAccreditionState
     extends State<ComprehensiveExamGradeAccredition> {
   @override
   void initState() {
-    // context
-    //     .read<ExamDegreeAccreditationCubit>()
-    //     .comprehensiveExamsGradeAndRate();
+    context
+        .read<ExamDegreeAccreditationCubit>()
+        .comprehensiveExamsGradeAndRate();
     super.initState();
   }
 
-  bool isLoading = true;
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ExamDegreeAccreditationCubit,
@@ -45,6 +48,8 @@ class _ComprehensiveExamGradeAccreditionState
             body: Container(
           child: RefreshIndicator(
             onRefresh: () async {
+              cubit.classesExamGrade!.degrees = [];
+
               cubit.comprehensiveExamsGradeAndRate();
             },
             child: Column(
@@ -63,8 +68,13 @@ class _ComprehensiveExamGradeAccreditionState
                                 ),
                               ),
                             )
-                          : ItemsOfDegreeAndRateWidget(
-                              gradeList: cubit.comprehensiveExamsGrade!.degrees)
+                          : cubit.comprehensiveExamsGrade!.degrees == null||
+                          cubit.comprehensiveExamsGrade!.degrees!.isEmpty
+                              ? NoDataWidget(
+                                  onclick: () {cubit.comprehensiveExamsGradeAndRate();}, title: 'no_exam'.tr())
+                              : ItemsOfDegreeAndRateWidget(
+                                  gradeList:
+                                      cubit.comprehensiveExamsGrade!.degrees!)
                     ],
                   ),
                 ),
@@ -111,18 +121,19 @@ class _ComprehensiveExamGradeAccreditionState
                                   Flexible(
                                     fit: FlexFit.tight,
                                     child: Text(
-                                      'المستوي العام',
+                                      'general_level'.tr(),
                                       maxLines: 2,
                                       overflow: TextOverflow.clip,
                                       style: TextStyle(
                                           fontWeight: FontWeight.w700,
                                           color: AppColors.white,
-                                          fontSize: getSize(context) / 20),
+                                          fontSize: getSize(context) / 24),
                                     ),
                                   ),
                                   Text(
                                     cubit.comprehensiveExamsGrade!
-                                        .motivationalWord,
+                                            .motivationalWord ??
+                                        '',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontWeight: FontWeight.w700,
@@ -147,14 +158,14 @@ class _ComprehensiveExamGradeAccreditionState
                                 animationDuration: 1200,
                                 lineWidth: getSize(context) / 44,
                                 percent: double.parse(
-                                        cubit.homeworksGrade!.totalPer) /
+                                        cubit.homeworksGrade!.totalPer ?? '0') /
                                     100,
                                 center: Text(
-                                  cubit.comprehensiveExamsGrade!.totalPer,
+                                  cubit.comprehensiveExamsGrade!.totalPer ?? '',
                                   style: TextStyle(
                                       color: AppColors.white,
                                       fontWeight: FontWeight.w700,
-                                      fontSize: getSize(context) / 22),
+                                      fontSize: getSize(context) / 24),
                                 ),
                                 circularStrokeCap: CircularStrokeCap.butt,
                                 backgroundColor: AppColors.greenDownloadColor,

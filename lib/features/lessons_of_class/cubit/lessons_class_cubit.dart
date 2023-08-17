@@ -42,7 +42,9 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
         if (isLesson) {
           context
               .read<ExamDegreeAccreditationCubit>()
-              .lessonsExamGradeAndRate(lessonId: lessonId ?? 1);
+              . setlesson();
+          emit(LessonsClassLoaded());
+
         } else if (isClass) {
           context
               .read<ExamDegreeAccreditationCubit>()
@@ -50,7 +52,9 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
         } else {
           context
               .read<ExamDegreeAccreditationCubit>()
-              .homeworkGradeAndRate(lessonId: lessonId ?? 1);
+              .setHomeGrade();
+          emit(LessonsClassLoaded());
+
         }
         emit(LessonsClassError());
       }

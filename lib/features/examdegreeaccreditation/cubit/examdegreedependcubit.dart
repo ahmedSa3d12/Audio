@@ -7,7 +7,9 @@ import 'examdegreedependstate.dart';
 class ExamDegreeAccreditationCubit extends Cubit<ExamDegreeAccreditationState> {
   final ServiceApi api;
   ExamDegreeAccreditationCubit(this.api) : super(InitExamDegreeAccreditation());
-
+int lessonHomeid=0;
+int lessonsExamGradeid=0;
+int classid=0;
   int currentIndex = 0;
 
   selectTap(int index) {
@@ -15,8 +17,10 @@ class ExamDegreeAccreditationCubit extends Cubit<ExamDegreeAccreditationState> {
     emit(ChangeCurrentIndexTap());
   }
 
-  GradeAndRateModelData? homeworksGrade;
+  GradeAndRateModelData? homeworksGrade=GradeAndRateModelData();
+
   homeworkGradeAndRate({required int lessonId}) async {
+    this.lessonHomeid=lessonId;
     if (homeworksGrade != null) {
       homeworksGrade!.degrees = [];
     }
@@ -31,8 +35,10 @@ class ExamDegreeAccreditationCubit extends Cubit<ExamDegreeAccreditationState> {
     );
   }
 
-  GradeAndRateModelData? lessonsExamGrade;
+  GradeAndRateModelData?  lessonsExamGrade=GradeAndRateModelData();
   lessonsExamGradeAndRate({required int lessonId}) async {
+    this.lessonsExamGradeid=lessonId;
+
     if (lessonsExamGrade != null) {
       lessonsExamGrade!.degrees = [];
     }
@@ -47,8 +53,9 @@ class ExamDegreeAccreditationCubit extends Cubit<ExamDegreeAccreditationState> {
     );
   }
 
-  GradeAndRateModelData? classesExamGrade;
+  GradeAndRateModelData?classesExamGrade=GradeAndRateModelData();
   classesExamGradeAndRate({required int classId}) async {
+this.classid=classId;
     if (classesExamGrade != null) {
       classesExamGrade!.degrees = [];
     }
@@ -63,8 +70,9 @@ class ExamDegreeAccreditationCubit extends Cubit<ExamDegreeAccreditationState> {
     );
   }
 
-  GradeAndRateModelData? comprehensiveExamsGrade;
+  GradeAndRateModelData?  comprehensiveExamsGrade=GradeAndRateModelData();
   comprehensiveExamsGradeAndRate() async {
+
     if (comprehensiveExamsGrade != null) {
       comprehensiveExamsGrade!.degrees = [];
     }
@@ -77,5 +85,17 @@ class ExamDegreeAccreditationCubit extends Cubit<ExamDegreeAccreditationState> {
         emit(SuccessGetComprehensiveExamsGrade());
       },
     );
+  }
+
+  void setlesson() {
+    lessonsExamGrade!.degrees = [];
+    emit(SuccessGetLessonExamGrade());
+
+  }
+
+  void setHomeGrade() {
+    homeworksGrade!.degrees = [];
+    emit(SuccessGetHomeworkGrade());
+
   }
 }

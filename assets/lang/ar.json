@@ -184,30 +184,25 @@
   "homework": "واجب",
   "rate_us": "قيم نفسك",
   "ready_exam": "جاهز للامتحان .... ابدأ الان",
-  "rest_time":"الوقت المتبقى",
-  "choose_q":"اختر الاجابة الصحيحة :",
-  "write_q":"سؤال مقالي",
-  "result_exam":"نتيجة الامتحان",
-  "ordered":"ترتيبي",
-  "correct_answer":"الصحيحة",
-"un_correct_ans":"خطأ",
-"dont_solved":"لم يتم حلها",
-"trys":"المحاولات",
-"rate_msg":"ليس لديك أي امتحان يجب انتمتحن اولاَ",
-"have_q":"ليس لديك اي اسئله",
-"time_spam":"الوقت المأخوذ",
-"try_again":"المحاولة مرة اخرى",
-"depend_exam":"اعتماد الدرجة",
-"grade_rate":"درجاتى وتقييماتى",
-"homeworks":"الواجبات",
-"class_exam":"امتحانات الفصول",
-"lesson_exam":"امتحانات الدروس",
-"choose_class":"اختر الفصل",
-"choose_lesson":"اختر الدرس"
-
-
-
-
-
-
+  "rest_time": "الوقت المتبقى",
+  "choose_q": "اختر الاجابة الصحيحة :",
+  "write_q": "سؤال مقالي",
+  "result_exam": "نتيجة الامتحان",
+  "ordered": "ترتيبي",
+  "correct_answer": "الصحيحة",
+  "un_correct_ans": "خطأ",
+  "dont_solved": "لم يتم حلها",
+  "trys": "المحاولات",
+  "rate_msg": "ليس لديك أي امتحان يجب انتمتحن اولاَ",
+  "have_q": "ليس لديك اي اسئله",
+  "time_spam": "الوقت المأخوذ",
+  "try_again": "المحاولة مرة اخرى",
+  "depend_exam": "اعتماد الدرجة",
+  "grade_rate": "درجاتى وتقييماتى",
+  "homeworks": "الواجبات",
+  "class_exam": "امتحانات الفصول",
+  "lesson_exam": "امتحانات الدروس",
+  "choose_class": "اختر الفصل",
+  "choose_lesson": "اختر الدرس",
+  "general_level": "المستوي العام"
 }
