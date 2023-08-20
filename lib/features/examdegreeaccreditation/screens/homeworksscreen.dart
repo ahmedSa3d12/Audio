@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
+import 'package:new_mazoon/core/widgets/no_data_widget.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../../core/utils/app_colors.dart';
@@ -29,7 +30,7 @@ class _HomeWorksGradeAccreditionState extends State<HomeWorksGradeAccredition> {
     super.initState();
   }
 
-  bool isLoading = true;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +81,14 @@ class _HomeWorksGradeAccreditionState extends State<HomeWorksGradeAccredition> {
                                 ),
                               ),
                             )
-                          : ItemsOfDegreeAndRateWidget(
-                              gradeList: cubit.homeworksGrade!.degrees)
+                          : cubit.homeworksGrade!.degrees==null||
+                          cubit.homeworksGrade!.degrees!.isEmpty
+              ?
+                          NoDataWidget(onclick: () {
+cubit.homeworkGradeAndRate(lessonId: cubit.lessonHomeid);
+                          }, title: 'no_exam'.tr())
+                      :ItemsOfDegreeAndRateWidget(
+                              gradeList: cubit.homeworksGrade!.degrees??[])
                     ],
                   ),
                 ),
@@ -128,17 +135,18 @@ class _HomeWorksGradeAccreditionState extends State<HomeWorksGradeAccredition> {
                                   Flexible(
                                     fit: FlexFit.tight,
                                     child: Text(
-                                      'المستوي العام',
+                                     'general_level'.tr(),
                                       maxLines: 2,
                                       overflow: TextOverflow.clip,
                                       style: TextStyle(
                                           fontWeight: FontWeight.w700,
                                           color: AppColors.white,
-                                          fontSize: getSize(context) / 20),
+                                          fontSize: getSize(context) / 24),
                                     ),
                                   ),
                                   Text(
-                                    cubit.homeworksGrade!.motivationalWord,
+                                    cubit.homeworksGrade!
+                                        .motivationalWord??'',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontWeight: FontWeight.w700,
@@ -163,14 +171,14 @@ class _HomeWorksGradeAccreditionState extends State<HomeWorksGradeAccredition> {
                                 animationDuration: 1200,
                                 lineWidth: getSize(context) / 44,
                                 percent: double.parse(
-                                        cubit.homeworksGrade!.totalPer) /
+                                        cubit.homeworksGrade!.totalPer??'0') /
                                     100,
                                 center: Text(
-                                  cubit.homeworksGrade!.totalPer,
+                                  cubit.homeworksGrade!.totalPer??'',
                                   style: TextStyle(
                                       color: AppColors.white,
                                       fontWeight: FontWeight.w700,
-                                      fontSize: getSize(context) / 22),
+                                      fontSize: getSize(context) / 24),
                                 ),
                                 circularStrokeCap: CircularStrokeCap.butt,
                                 backgroundColor: AppColors.greenDownloadColor,

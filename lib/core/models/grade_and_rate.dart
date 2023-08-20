@@ -22,7 +22,7 @@ class GradeAndRateModel {
 
   factory GradeAndRateModel.fromJson(Map<String, dynamic> json) =>
       GradeAndRateModel(
-        data: GradeAndRateModelData.fromJson(json["data"]),
+        data: json["data"]!=null?GradeAndRateModelData.fromJson(json["data"]):GradeAndRateModelData(),
         message: json["message"],
         code: json["code"],
       );
@@ -35,26 +35,26 @@ class GradeAndRateModel {
 }
 
 class GradeAndRateModelData {
-  List<Degree> degrees;
-  String totalPer;
-  String motivationalWord;
+  List<Degree>? degrees=[];
+  String? totalPer;
+  String? motivationalWord;
 
   GradeAndRateModelData({
-    required this.degrees,
-    required this.totalPer,
-    required this.motivationalWord,
+     this.degrees,
+     this.totalPer,
+     this.motivationalWord,
   });
 
   factory GradeAndRateModelData.fromJson(Map<String, dynamic> json) =>
       GradeAndRateModelData(
         degrees:
             List<Degree>.from(json["degrees"].map((x) => Degree.fromJson(x))),
-        totalPer: json["total_per"],
-        motivationalWord: json["motivational_word"],
+        totalPer: json["total_per"]??'',
+        motivationalWord: json["motivational_word"]??'',
       );
 
   Map<String, dynamic> toJson() => {
-        "degrees": List<dynamic>.from(degrees.map((x) => x.toJson())),
+        "degrees": List<dynamic>.from(degrees!.map((x) => x.toJson())),
         "total_per": totalPer,
         "motivational_word": motivationalWord,
       };

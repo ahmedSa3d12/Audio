@@ -30,9 +30,9 @@ class _MyGradeAndRatingState extends State<MyGradeAndRating>
   late TabController _tabController;
   @override
   void initState() {
-    context
-        .read<ExamDegreeAccreditationCubit>()
-        .homeworkGradeAndRate(lessonId: 1);
+    // context
+    //     .read<ExamDegreeAccreditationCubit>()
+    //     .homeworkGradeAndRate(lessonId: 1);
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
     _tabController

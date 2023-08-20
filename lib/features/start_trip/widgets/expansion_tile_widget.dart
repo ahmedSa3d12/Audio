@@ -38,6 +38,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
     super.initState();
 
     title = widget.title;
+    context.read<StartTripCubit>().getExamClassesData();
   }
 
   String title = '';
@@ -184,9 +185,10 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                                             cubit2.oneClass.id!);
                                   } else {
                                     if (widget.isHaveLesson) {
+                                      print('dlldldl');
                                       cubit2.getLessonsClassData(
                                           cubit.examClasses[index].id!,
-                                          cubit2.lessons[index].id!,
+                                          cubit2.lessons.isEmpty?0:cubit2.lessons[index].id!,
                                           context,
                                           widget.isGray,
                                           widget.isLesson,

@@ -157,7 +157,10 @@ class MenuScreenWidget extends StatelessWidget {
                         MenuListTileWidget(
                           title: 'mygards_rate'.tr(),
                           iconPath: ImageAssets.degreeIcon,
-                          onclick: () {},
+                          onclick: () {
+                            Navigator.pushReplacementNamed(context, Routes.myGradeAndRating);
+
+                          },
                         ),
                         MenuListTileWidget(
                           title: 'exam_hero'.tr(),
