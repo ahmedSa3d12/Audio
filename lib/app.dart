@@ -40,6 +40,7 @@ import 'features/splash/presentation/cubit/splash_cubit.dart';
 import 'features/start_trip/cubit/start_trip_cubit.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import 'features/student_reports/cubit/student_reports_cubit.dart';
 import 'features/video_details/cubit/video_details_cubit.dart';
 
 class Elmazoon extends StatefulWidget {
@@ -211,6 +212,10 @@ class _ElmazoonState extends State<Elmazoon> {
         BlocProvider(
           create: (_) =>
               injector.serviceLocator<ExamDegreeAccreditationCubit>(),
+        ),
+        BlocProvider(
+          create: (_) =>
+              injector.serviceLocator<StudentReportsCubit>(),
         ),
       ],
       child: GetMaterialApp(

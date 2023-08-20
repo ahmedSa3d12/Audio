@@ -21,6 +21,8 @@ class EndPoints {
   static const String lessonsByClassUrl = '${baseUrl}classes/lessonsByClassId/';
   static const String VideoByLessonUrl =
       '${baseUrl}lesson/all-video-by-lessonId/';
+  static const String studentReportsUrl =
+      '${baseUrl}report/all-by-student';
   static const String ExamByLessonUrl =
       '${baseUrl}lesson/all-exams-by-lessonId/';
   static const String AudioOfLesson = '${baseUrl}lesson/all-audios-by-videoId/';
@@ -60,6 +62,7 @@ class EndPoints {
       '${baseUrl}degree-details/videos-by-lesson/';
   static const String lessonsExamGrade = '${baseUrl}degree-details/lesson/';
   static const String classesExamsGrade = '${baseUrl}degree-details/class/';
+  static const String countdown = '${baseUrl}auth/exam-countdown';
   static const String comprehensiveExamGrade =
       '${baseUrl}degree-details/all-exams';
   static const String addNoteByStudent = '${baseUrl}notes/note-add-by-student';

@@ -26,9 +26,9 @@ class _ClassExamsGradeAccreditionState
   @override
   void initState() {
     super.initState();
-    // context
-    //     .read<ExamDegreeAccreditationCubit>()
-    //     .classesExamGradeAndRate(classId: 1);
+    context
+        .read<ExamDegreeAccreditationCubit>()
+        .classesExamGradeAndRate(classId: 0);
   }
 
   bool isLoading = false;

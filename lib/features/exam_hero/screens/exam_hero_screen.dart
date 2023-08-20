@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/features/exam_hero/cubit/exam_hero_cubit.dart';
 
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/getsize.dart';
 import '../../../core/widgets/title_with_circle_background_widget.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../widgets/exam_hero_data_widget.dart';
@@ -43,19 +44,19 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 100),
+                    SizedBox(height: getSize(context)/3.5),
                     TitleWithCircleBackgroundWidget(
                       title: 'exam_hero',
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: getSize(context)/30),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 8,
+                            padding:  EdgeInsets.symmetric(
+                              horizontal: getSize(context)/22,
+                              vertical: getSize(context)/16,
                             ),
                             child: InkWell(
                               onTap: () {
@@ -65,14 +66,14 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: 30,
-                                  vertical: 10,
+                                  horizontal: getSize(context)/16,
+                                  vertical: getSize(context)/30,
                                 ),
                                 decoration: BoxDecoration(
                                   color: cubit.currentIndex == 0
                                       ? AppColors.orangeThirdPrimary
                                       : AppColors.unselectedTabColor,
-                                  borderRadius: BorderRadius.circular(25),
+                                  borderRadius: BorderRadius.circular(getSize(context)/22),
                                 ),
                                 child: Center(
                                   child: Text(
@@ -91,9 +92,9 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>
                           SizedBox(
                               width: MediaQuery.of(context).size.width * 0.04),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 8,
+                            padding:  EdgeInsets.symmetric(
+                              horizontal: getSize(context)/16,
+                              vertical: getSize(context)/30,
                             ),
                             child: InkWell(
                               onTap: () {
@@ -103,14 +104,14 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: 30,
-                                  vertical: 10,
+                                  horizontal: getSize(context)/16,
+                                  vertical: getSize(context)/30,
                                 ),
                                 decoration: BoxDecoration(
                                   color: cubit.currentIndex == 1
                                       ? AppColors.orangeThirdPrimary
                                       : AppColors.unselectedTabColor,
-                                  borderRadius: BorderRadius.circular(25),
+                                  borderRadius: BorderRadius.circular(getSize(context)/22),
                                 ),
                                 child: Center(
                                   child: Text(
@@ -129,9 +130,9 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>
                           SizedBox(
                               width: MediaQuery.of(context).size.width * 0.04),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 8,
+                            padding:  EdgeInsets.symmetric(
+                              horizontal: getSize(context)/22,
+                              vertical: getSize(context)/22,
                             ),
                             child: InkWell(
                               onTap: () {
@@ -141,8 +142,8 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
-                                  horizontal: 30,
-                                  vertical: 10,
+                                  horizontal: getSize(context)/22,
+                                  vertical: getSize(context)/22,
                                 ),
                                 decoration: BoxDecoration(
                                   color: cubit.currentIndex == 2

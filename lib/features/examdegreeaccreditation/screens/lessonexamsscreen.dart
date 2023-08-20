@@ -25,9 +25,9 @@ class _LessonExamsGradeAccreditionState
     extends State<LessonExamsGradeAccredition> {
   @override
   void initState() {
-    // context
-    //     .read<ExamDegreeAccreditationCubit>()
-    //     .lessonsExamGradeAndRate(lessonId: 1);
+    context
+        .read<ExamDegreeAccreditationCubit>()
+        .lessonsExamGradeAndRate(lessonId: 0);
     // context.read<ExamDegreeAccreditationCubit>().lessonsExamGrade!.degrees = [];
     super.initState();
   }

@@ -193,8 +193,7 @@
 "un_correct_ans":"Un Correct",
 "dont_solved":"Don't Solved",
 "trys":"attempts",
-"rate_msg":"You don't have any exam. You must take an exam first."
-,
+"rate_msg":"You don't have any exam. You must take an exam first.",
 "have_q":"you don't have any questions",
 "time_spam":"Taken Time",
 "try_again":"try again",
@@ -205,6 +204,8 @@
 "lesson_exam":"Lesson Exams",
 "choose_class":"choose class",
 "choose_lesson":"choose lesson",
+ "date_exam": "Exam Date",
+ "report_about": "Report an error in a video ",
  "general_level": "General Level",
  "add_date":"add date",
  "add_title":"add title",

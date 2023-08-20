@@ -44,6 +44,7 @@ class ImageAssets {
   // icons
   static const String loadIcon = '$iconsPath/load.svg';
   static const String timeIcon = '$iconsPath/timer.svg';
+  static const String time1Icon = '$iconsPath/timer1.svg';
   static const String questionIcon = '$iconsPath/question.svg';
   static const String phoneIcon = '$iconsPath/phone.svg';
   // static const String homeIcon = '$iconsPath/home.svg';

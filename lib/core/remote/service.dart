@@ -16,6 +16,7 @@ import '../models/applylessonexammodel.dart';
 import '../models/audiolessonmodel.dart';
 import '../models/class_lesson_model.dart';
 import '../models/classes_exam_data_model.dart';
+import '../models/count_down_model.dart';
 import '../models/dependexam.dart';
 import '../models/exam_classes_model.dart';
 import '../models/exam_instruction_model.dart';
@@ -36,6 +37,7 @@ import '../models/single_comment.dart';
 import '../models/single_replay.dart';
 import '../models/sources_references_model.dart';
 import '../models/sources_referenes_by_id_model.dart';
+import '../models/student_reports_model.dart';
 import '../models/times_model.dart';
 import '../models/user_model.dart';
 import '../models/video_data_model.dart';
@@ -107,6 +109,24 @@ class ServiceApi {
         ),
       );
       return Right(AdsModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+  Future<Either<Failure, CountDownModel>> getCountDown() async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.countdown,
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(CountDownModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -798,6 +818,26 @@ class ServiceApi {
         ),
       );
       return Right(VideosofLessonModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+  Future<Either<Failure, StudentReportsModel>> getStudentReports(
+   ) async {
+
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.studentReportsUrl ,
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(StudentReportsModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

@@ -26,6 +26,7 @@ import 'features/sources_and_references/cubit/source_references_cubit.dart';
 import 'features/paperexamdetials/cubit/paper_detials_cubit.dart';
 import 'features/splash/presentation/cubit/splash_cubit.dart';
 import 'features/start_trip/cubit/start_trip_cubit.dart';
+import 'features/student_reports/cubit/student_reports_cubit.dart';
 
 final serviceLocator = GetIt.instance;
 
@@ -82,7 +83,10 @@ Future<void> setup() async {
     () => ExamHeroCubit(),
   );
   serviceLocator.registerFactory(
-    () => CountdownCubit(),
+    () => CountdownCubit(serviceLocator()),
+  );
+  serviceLocator.registerFactory(
+    () => StudentReportsCubit(serviceLocator()),
   );
 
   ///////////////////////////////////////////////////////////////////////////////

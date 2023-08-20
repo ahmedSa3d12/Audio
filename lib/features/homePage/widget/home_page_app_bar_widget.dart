@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
@@ -21,7 +22,7 @@ class HomePageAppBarWidget extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          height: 140,
+          height: getSize(context)/2.7,
           child: CustomPaint(
             size: Size(
               MediaQuery.of(context).size.width,

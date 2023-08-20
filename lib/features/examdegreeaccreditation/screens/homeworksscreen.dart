@@ -24,9 +24,9 @@ class HomeWorksGradeAccredition extends StatefulWidget {
 class _HomeWorksGradeAccreditionState extends State<HomeWorksGradeAccredition> {
   @override
   void initState() {
-    // context
-    //     .read<ExamDegreeAccreditationCubit>()
-    //     .homeworkGradeAndRate(lessonId: 1);
+    context
+        .read<ExamDegreeAccreditationCubit>()
+        .homeworkGradeAndRate(lessonId: 0);
     super.initState();
   }
 

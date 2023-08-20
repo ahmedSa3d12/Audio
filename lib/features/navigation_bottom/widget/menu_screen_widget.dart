@@ -158,7 +158,7 @@ class MenuScreenWidget extends StatelessWidget {
                           title: 'mygards_rate'.tr(),
                           iconPath: ImageAssets.degreeIcon,
                           onclick: () {
-                            Navigator.pushReplacementNamed(context, Routes.myGradeAndRating);
+                            Navigator.pushNamed(context, Routes.myGradeAndRating);
 
                           },
                         ),
@@ -205,7 +205,9 @@ class MenuScreenWidget extends StatelessWidget {
                         MenuListTileWidget(
                           title: 'reports'.tr(),
                           iconPath: ImageAssets.reportsIcon,
-                          onclick: () {},
+                          onclick: () {
+                            Navigator.pushNamed(context, Routes.reportsScreen);
+                          },
                         ),
                         MenuListTileWidget(
                           title: 'downloads'.tr(),

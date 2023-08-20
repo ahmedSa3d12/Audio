@@ -28,6 +28,7 @@ import '../../features/paperexamdetials/screens/paper_details_exam_register.dart
 import '../../features/sources_and_references/screens/source_references_details.dart';
 import '../../features/splash/presentation/screens/pop_ads_screen.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
+import '../../features/student_reports/screens/student_report.dart';
 import '../../features/video_details/screens/video_details.dart';
 
 class Routes {
@@ -58,6 +59,7 @@ class Routes {
   static const String myGradeAndRating = '/MyGradeAndRating';
 
   static const String rateYourSelfScreen = '/RateYourSelfScreen';
+  static const String reportsScreen = '/reportsScreen';
 
   static const String rateYourselfDependExamResult =
       '/RateYourselfDependExamResult';
@@ -75,6 +77,10 @@ class AppRoutes {
       case Routes.loginRoute:
         return MaterialPageRoute(
           builder: (context) => const LoginScreen(),
+        );
+        case Routes.reportsScreen:
+        return MaterialPageRoute(
+          builder: (context) => const StudentReportScreen(),
         );
       case Routes.lessonClassScreenRoute:
         int classId = settings.arguments as int;

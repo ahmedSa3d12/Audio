@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart' as easy;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,7 +66,7 @@ class _PaperDetailsExmRegisterPageState
                                 fontSize: 18),
                             decoration: InputDecoration(
                                 fillColor: AppColors.white,
-                                labelText: "target_parts".tr(),
+                                labelText: easy.tr("target_parts"),
                                 labelStyle: TextStyle(
                                     color: AppColors.orangeThirdPrimary,
                                     fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class _PaperDetailsExmRegisterPageState
                                     color: AppColors.skyColor,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18),
-                                labelText: "exam_time".tr(),
+                                labelText: easy.tr("exam_time"),
                                 disabledBorder: OutlineInputBorder(
                                     borderSide:
                                         BorderSide(color: AppColors.skyColor),
@@ -111,7 +111,7 @@ class _PaperDetailsExmRegisterPageState
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: AppColors.white,
-                              labelText: "exam_place".tr(),
+                              labelText: easy.tr("exam_place"),
                               labelStyle: TextStyle(
                                   color: AppColors.blue,
                                   fontWeight: FontWeight.bold,
@@ -128,12 +128,19 @@ class _PaperDetailsExmRegisterPageState
                             controller:
                                 context.read<PaperDetialsCubit>().examHall,
                             enabled: false,
+                            textDirection: TextDirection.ltr,
+                            textAlign: easy.EasyLocalization.of(context)!
+                                        .currentLocale!
+                                        .languageCode ==
+                                    'ar'
+                                ? TextAlign.right
+                                : TextAlign.left,
                             style: TextStyle(
                                 color: AppColors.purple1, fontSize: 18),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: AppColors.white,
-                              labelText: "exam_hall".tr(),
+                              labelText: easy.tr("exam_hall"),
                               labelStyle: TextStyle(
                                   color: AppColors.purple1,
                                   fontWeight: FontWeight.bold,
@@ -163,7 +170,7 @@ class _PaperDetailsExmRegisterPageState
                                   color: AppColors.bink),
                               child: Center(
                                   child: Text(
-                                'cancel'.tr(),
+                                easy.tr('cancel'),
                                 style: TextStyle(
                                     color: AppColors.red,
                                     fontWeight: FontWeight.bold,
@@ -190,12 +197,15 @@ class _PaperDetailsExmRegisterPageState
     Future.delayed(Duration(seconds: 1), () {
       context.read<PaperDetialsCubit>().name.text =
           widget.paperExamModel.nameOfExam!;
-      context.read<PaperDetialsCubit>().examtime.text = 'day'.tr() +
+      context.read<PaperDetialsCubit>().examtime.text = easy.tr('day') +
           " " +
-          DateFormat('EEEE yyyy/MM/dd',
-                  EasyLocalization.of(context)!.currentLocale!.languageCode)
+          easy.DateFormat(
+                  'EEEE yyyy/MM/dd',
+                  easy.EasyLocalization.of(context)!
+                      .currentLocale!
+                      .languageCode)
               .format(widget.paperExamModel.dateExam!) +
-          "hour".tr() +
+          easy.tr("hour") +
           " " +
           widget.paperExamModel.time!.replaceRange(
               widget.paperExamModel.time!.length - 4,
@@ -204,7 +214,7 @@ class _PaperDetailsExmRegisterPageState
       context.read<PaperDetialsCubit>().examPlace.text =
           widget.paperExamModel.address!;
       context.read<PaperDetialsCubit>().examHall.text =
-          widget.paperExamModel.section!;
+          widget.paperExamModel.section!.trim();
     });
   }
 }
