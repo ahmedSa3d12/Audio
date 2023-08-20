@@ -62,4 +62,8 @@ class EndPoints {
   static const String classesExamsGrade = '${baseUrl}degree-details/class/';
   static const String comprehensiveExamGrade =
       '${baseUrl}degree-details/all-exams';
+  static const String addNoteByStudent = '${baseUrl}notes/note-add-by-student';
+
+//notes/note-delete/3
+  static const String deleteNoteByStudent = '${baseUrl}notes/note-delete/';
 }

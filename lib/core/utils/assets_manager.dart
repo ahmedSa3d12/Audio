@@ -110,7 +110,10 @@ class ImageAssets {
   static const String pdf = '$iconsPath/pdf.svg';
   static const String rate_us = '$iconsPath/rate_us.svg';
   static const String rec = '$iconsPath/rec.svg';
-
+  static const String close2 = '$iconsPath/close2.svg';
+  static const String addDateIcon = '$iconsPath/add_date.svg';
+  static const String addTitleIcon = '$iconsPath/title.svg';
+  static const String addNoteIcon = '$iconsPath/note.svg';
   static const String wrong = '$iconsPath/wrong.svg';
   static const String whiteimage = '$iconsPath/whiteimage.svg';
   //Lottie

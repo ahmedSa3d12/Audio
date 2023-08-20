@@ -14,6 +14,7 @@ import '../../../core/utils/app_colors.dart';
 
 import '../../../core/widgets/no_data_widget.dart';
 
+import '../../paperexamdetials/cubit/paper_detials_cubit.dart';
 import '../cubit/note_cubit.dart';
 
 class NotePlan extends StatefulWidget {
@@ -88,6 +89,8 @@ class _NoteState extends State<NotePlan> {
     super.initState();
   }
 
+  var key = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     NoteCubit cubit = context.read<NoteCubit>();
@@ -99,7 +102,307 @@ class _NoteState extends State<NotePlan> {
             path: ImageAssets.addIcon,
             imageColor: AppColors.white,
             size: MediaQuery.of(context).size.width / 16),
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return Form(
+                key: key,
+                child: AlertDialog(
+                  insetPadding: EdgeInsets.zero,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(getSize(context) / 44))),
+                  actionsAlignment: MainAxisAlignment.center,
+                  // <-- SEE HERE
+                  titlePadding: EdgeInsets.all(0),
+                  title: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: getSize(context) / 22),
+                        alignment: Alignment.center,
+                        child: Text(
+                          'ادخل ملاحظاتك',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            color: AppColors.black,
+                            fontSize: getSize(context) / 24,
+                            fontFamily: 'Cairo',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        left: 0,
+                        top: 0,
+                        child: IconButton(
+                            onPressed: () {
+                              cubit.dateController.clear();
+                              cubit.titleController.clear();
+                              cubit.noteController.clear();
+                              Navigator.pop(context);
+                            },
+                            icon: MySvgWidget(
+                                path: ImageAssets.close2,
+                                imageColor: AppColors.red,
+                                size: getSize(context) / 24)),
+                      )
+                    ],
+                  ),
+                  content: Container(
+                    width: MediaQuery.of(context).size.width / 1.25,
+                    child: SingleChildScrollView(
+                      child: ListBody(
+                        children: <Widget>[
+                          TextFormField(
+                            readOnly: true,
+                            keyboardType: TextInputType.datetime,
+                            controller: cubit.dateController,
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return 'invalid_date'.tr();
+                              }
+                              return null;
+                            },
+                            onTap: () {
+                              showDatePicker(
+                                context: context,
+                                initialDate: cubit.selectedDate,
+                                firstDate: DateTime.utc(2010),
+                                lastDate: DateTime.parse('2999-10-03'),
+                              ).then((value) {
+                                cubit.dateController.text =
+                                    DateFormat('y-MM-dd').format(
+                                        DateTime.parse(value.toString()));
+                                print(DateFormat('y-MM-dd')
+                                    .format(DateTime.parse(value.toString())));
+                              }).catchError((e) {
+                                debugPrint(e);
+                              });
+                            },
+                            style:
+                                TextStyle(color: AppColors.black, fontSize: 18),
+                            decoration: InputDecoration(
+                                filled: true,
+                                // enabled: false,
+                                fillColor: AppColors.white,
+                                suffixIcon: InkWell(
+                                  onTap: () {
+                                    showDatePicker(
+                                      context: context,
+                                      initialDate: cubit.selectedDate,
+                                      firstDate: DateTime.utc(2010),
+                                      lastDate: DateTime.parse('2999-10-03'),
+                                    ).then((value) {
+                                      cubit.dateController.text =
+                                          DateFormat('y-MM-dd').format(
+                                              DateTime.parse(value.toString()));
+                                      print(DateFormat('y-MM-dd').format(
+                                          DateTime.parse(value.toString())));
+                                    }).catchError((e) {
+                                      debugPrint(e);
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.all(getSize(context) / 32),
+                                    child: MySvgWidget(
+                                        path: ImageAssets.addDateIcon,
+                                        imageColor: AppColors.black,
+                                        size: getSize(context) / 44),
+                                  ),
+                                ),
+                                labelStyle: TextStyle(
+                                    color: AppColors.gray6,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: getSize(context) / 24),
+                                labelText: "add_date".tr(),
+                                border: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: AppColors.gray6),
+                                    borderRadius: BorderRadius.circular(
+                                        getSize(context) / 44)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: AppColors.gray6),
+                                    borderRadius: BorderRadius.circular(
+                                        getSize(context) / 44)),
+                                disabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: AppColors.gray6),
+                                    borderRadius: BorderRadius.circular(
+                                        getSize(context) / 44))),
+                          ),
+                          SizedBox(
+                            height: getSize(context) / 22,
+                          ),
+                          Container(
+                            child: TextFormField(
+                              controller: cubit.titleController,
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
+                                  return 'invalid_title'.tr();
+                                }
+                                return null;
+                              },
+                              style: TextStyle(
+                                  color: AppColors.black, fontSize: 18),
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: AppColors.white,
+                                  prefixIcon: Padding(
+                                    padding:
+                                        EdgeInsets.all(getSize(context) / 32),
+                                    child: MySvgWidget(
+                                        path: ImageAssets.addTitleIcon,
+                                        imageColor: AppColors.black,
+                                        size: getSize(context) / 44),
+                                  ),
+                                  labelStyle: TextStyle(
+                                      color: AppColors.gray6,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: getSize(context) / 24),
+                                  labelText: "add_title".tr(),
+                                  border: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: AppColors.gray6),
+                                      borderRadius: BorderRadius.circular(
+                                          getSize(context) / 44)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: AppColors.gray6),
+                                      borderRadius: BorderRadius.circular(
+                                          getSize(context) / 44)),
+                                  disabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: AppColors.gray6),
+                                      borderRadius: BorderRadius.circular(
+                                          getSize(context) / 44))),
+                            ),
+                          ),
+                          SizedBox(
+                            height: getSize(context) / 22,
+                          ),
+                          Container(
+                            child: TextFormField(
+                              keyboardType: TextInputType.multiline,
+                              validator: (String? value) {
+                                if (value!.isEmpty) {
+                                  return 'invalid_note'.tr();
+                                }
+                                return null;
+                              },
+                              controller: cubit.noteController,
+                              minLines: 2,
+                              maxLines: 3,
+                              textAlignVertical: TextAlignVertical.top,
+                              style: TextStyle(
+                                  color: AppColors.black, fontSize: 18),
+                              decoration: InputDecoration(
+                                  alignLabelWithHint: true,
+                                  filled: true,
+                                  fillColor: AppColors.white,
+                                  prefixIcon: Padding(
+                                    padding:
+                                        EdgeInsets.all(getSize(context) / 22),
+                                    child: Align(
+                                      alignment: Alignment.topCenter,
+                                      widthFactor: 1,
+                                      heightFactor: 5,
+                                      child: MySvgWidget(
+                                          path: ImageAssets.addNoteIcon,
+                                          imageColor: AppColors.black,
+                                          size: getSize(context) / 16),
+                                    ),
+                                  ),
+                                  labelStyle: TextStyle(
+                                      color: AppColors.gray6,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: getSize(context) / 24),
+                                  labelText: "add_note".tr(),
+                                  border: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: AppColors.gray6),
+                                      borderRadius: BorderRadius.circular(
+                                          getSize(context) / 44)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: AppColors.gray6),
+                                      borderRadius: BorderRadius.circular(
+                                          getSize(context) / 44)),
+                                  disabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: AppColors.gray6),
+                                      borderRadius: BorderRadius.circular(
+                                          getSize(context) / 44))),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  actions: <Widget>[
+                    InkWell(
+                      onTap: () {
+                        if (key.currentState!.validate()) {
+                          cubit
+                              .addNewNote(
+                            context,
+                          )
+                              .then((value) {
+                            cubit.getNotes(cubit.date, cubit.datefoucse,
+                                cubit.datecurrent);
+                            _days.clear();
+                            cubit.datesOfNotes.clear();
+                            print('...............');
+                            print(cubit.addNewNoteData!.note);
+                            print('...............');
+                            cubit.getDatesOfNotes().then((value) {
+                              for (int i = 0;
+                                  i < cubit.datesOfNotes.length;
+                                  i++) {
+                                _days.add(cubit.datesOfNotes[i].date);
+                              }
+                            });
+                          });
+                        }
+                      },
+                      child: Container(
+                        width: getSize(context) / 3,
+                        height: getSize(context) / 8,
+                        alignment: Alignment.center,
+                        decoration: ShapeDecoration(
+                          color: AppColors.green11,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              width: 0.50,
+                              strokeAlign: BorderSide.strokeAlignOutside,
+                              color: AppColors.green12,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Text(
+                          'ok'.tr(),
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            color: AppColors.green12,
+                            fontSize: getSize(context) / 24,
+                            fontFamily: 'Cairo',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+          );
+        },
       ),
       appBar: AppBar(
         backgroundColor: AppColors.secondPrimary,
@@ -122,6 +425,7 @@ class _NoteState extends State<NotePlan> {
                     child: Container(
                         padding: EdgeInsets.all(getSize(context) / 32),
                         child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
                               SizedBox(height: 110),
@@ -129,10 +433,10 @@ class _NoteState extends State<NotePlan> {
                                 builder: (context, state) {
                                   return ListView(
                                       shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
+                                      physics: const BouncingScrollPhysics(),
                                       children: [
                                         TitleWithCircleBackgroundWidget(
-                                            title: "اضف ملاحظاتك"),
+                                            title: 'add_note'.tr()),
                                         SizedBox(
                                           height: 20,
                                         ),
@@ -254,21 +558,6 @@ class _NoteState extends State<NotePlan> {
                               SizedBox(
                                 height: 20,
                               ),
-                              // NeonCircularTimer(
-                              //   width: 200,
-                              //   duration: 20,
-                              //   backgroudColor: AppColors.white,
-                              //   isTimerTextShown: true,
-                              //   neumorphicEffect: true,
-                              //   innerFillColor: Colors.amber,
-                              //   initialDuration: 0,
-                              //   isReverse: true,
-                              //   isReverseAnimation: true,
-                              //   neonColor: Colors.orange,
-                              //   controller: null,
-                              //   strokeWidth: 1,
-                              //   strokeCap: StrokeCap.butt,
-                              // ),
 ////////////////////////////////////////
                               BlocBuilder<NoteCubit, NoteState>(
                                 builder: (context, state) {
@@ -282,11 +571,40 @@ class _NoteState extends State<NotePlan> {
                                     return cubit.noteplanList.isNotEmpty
                                         ? ListView.builder(
                                             shrinkWrap: true,
+                                            physics:
+                                                const BouncingScrollPhysics(),
                                             itemCount:
                                                 cubit.noteplanList.length,
                                             itemBuilder: (BuildContext context,
                                                 int index) {
                                               return NoteWidget(
+                                                onPressed: () {
+                                                  cubit
+                                                      .deleteNote(
+                                                          cubit
+                                                              .noteplanList[
+                                                                  index]
+                                                              .id,
+                                                          index)
+                                                      .then((value) {
+                                                    //
+                                                    cubit.datesOfNotes.clear();
+                                                    _days.clear();
+                                                    cubit
+                                                        .getDatesOfNotes()
+                                                        .then((value) {
+                                                      for (int i = 0;
+                                                          i <
+                                                              cubit.datesOfNotes
+                                                                  .length;
+                                                          i++) {
+                                                        _days.add(cubit
+                                                            .datesOfNotes[i]
+                                                            .date);
+                                                      }
+                                                    });
+                                                  });
+                                                },
                                                 noteModel: cubit.noteplanList
                                                     .elementAt(index),
                                                 index: index,

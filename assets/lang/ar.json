@@ -204,5 +204,13 @@
   "lesson_exam": "امتحانات الدروس",
   "choose_class": "اختر الفصل",
   "choose_lesson": "اختر الدرس",
-  "general_level": "المستوي العام"
+  "general_level": "المستوي العام",
+  "add_date":"اضف التاريخ",
+  "add_title":"اضف عنوان",
+  "add_note":"اضف ملاحظاتك",
+  "invalid_date":"تاريخ غير صالح..!",
+  "invalid_title":"من فضلك أدخل عنوان.!",
+  "invalid_note":"من فضلك أدخل ملاحظاتك.!",
+  "ok":"تأكيد"
+ 
 }

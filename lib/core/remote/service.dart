@@ -10,6 +10,7 @@ import '../api/end_points.dart';
 import '../error/exceptions.dart';
 import '../error/failures.dart';
 import '../models/addnewexamtry.dart';
+import '../models/addnotebystudent.dart';
 import '../models/ads_model.dart';
 import '../models/applylessonexammodel.dart';
 import '../models/audiolessonmodel.dart';
@@ -1101,6 +1102,61 @@ class ServiceApi {
       print('..............');
 
       return Right(GradeAndRateModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  ///addnote dtudent addNoteByStudent
+  ///
+  ///
+  Future<Either<Failure, AddNewNoteModel>> addNewNote(
+      {required String note_date,
+      required String title,
+      required String note}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+
+    try {
+      final response = await dio.post(
+        EndPoints.addNoteByStudent,
+        formDataIsEnabled: true,
+        body: {
+          "title": title,
+          "note": note,
+          "note_date": note_date,
+        },
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(AddNewNoteModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  ///deleteNoteByStudent id
+
+  Future<Either<Failure, StatusResponse>> deleteNote(
+      {required int noteId}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+
+    try {
+      final response = await dio.delete(
+        EndPoints.deleteNoteByStudent + noteId.toString(),
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(StatusResponse.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

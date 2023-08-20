@@ -37,7 +37,8 @@ class AppColors {
   static Color blueLiteColor = HexColor('#00B3DC');
   static Color redLiteColor = HexColor('#FEECEA');
   static Color greenDownloadColor = HexColor('#009541');
-
+  static Color green11 = HexColor('#A9FEAB');
+  static Color green12 = HexColor('#3AAF3C');
   static Color blueLikeColor = HexColor('#2e7dea');
   static Color redDislikeColor = HexColor('#ff2c2c');
 

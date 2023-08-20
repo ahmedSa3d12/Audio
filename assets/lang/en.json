@@ -205,7 +205,14 @@
 "lesson_exam":"Lesson Exams",
 "choose_class":"choose class",
 "choose_lesson":"choose lesson",
- "general_level": "General Level"
+ "general_level": "General Level",
+ "add_date":"add date",
+ "add_title":"add title",
+ "add_note":"add note",
+ "invalid_date":"Invalid Date..!",
+ "invalid_title":"Invalid Title..!",
+ "invalid_note":"Invalid Note..!",
+ "ok":"Ok"
 
 
 

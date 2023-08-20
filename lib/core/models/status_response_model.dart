@@ -6,7 +6,6 @@ class StatusResponse {
 
   StatusResponse.fromJson(Map<String, dynamic> json) {
     code = json['code'] as int;
-    message =  json['message']?? "";
+    message = json['message'] ?? "";
   }
-
 }
