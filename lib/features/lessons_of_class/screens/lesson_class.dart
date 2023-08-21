@@ -84,7 +84,7 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                     child: ClipPath(
                                       clipper: CCustomClipper(),
                                       child: ManageNetworkImage(
-                                        imageUrl: cubit.oneClass.image ??
+                                        imageUrl: cubit.oneClass!.image ??
                                             "https://elmazone.topbusiness.io/sliders/1.jpg",
                                       ),
                                     ),
@@ -99,7 +99,7 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                       ),
                                       painter: MyPainter(
                                         HexColor(
-                                          cubit.oneClass.backgroundColor!,
+                                          cubit.oneClass!.backgroundColor!,
                                         ),
                                       ),
                                     ),
@@ -117,7 +117,8 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                           painter: MyPainter(
                                             darken(
                                               HexColor(
-                                                cubit.oneClass.backgroundColor!,
+                                                cubit
+                                                    .oneClass!.backgroundColor!,
                                               ),
                                               0.2,
                                             ),
@@ -128,7 +129,7 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                           left: 55,
                                           right: 15,
                                           child: Text(
-                                            cubit.oneClass.name!,
+                                            cubit.oneClass!.name!,
                                             style: TextStyle(
                                               color: AppColors.white,
                                               fontSize: 18,
@@ -151,7 +152,7 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                     top: 2,
                                     right: 8,
                                     child: Text(
-                                      cubit.oneClass.title!,
+                                      cubit.oneClass!.title!,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,

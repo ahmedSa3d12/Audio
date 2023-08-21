@@ -19,6 +19,7 @@ import '../../features/exam_hero/screens/exam_hero_screen.dart';
 import '../../features/examdegreeaccreditation/screens/mygradeandrating.dart';
 import '../../features/examdegreeaccreditation/screens/ratescreen.dart';
 import '../../features/examinstructions/screen/examinstructions.dart';
+import '../../features/invite_friends/screen/invitefriend.dart';
 import '../../features/lessonExamScreen/screens/lessonexamscreen.dart';
 import '../../features/paperexamRegister/presentation/screens/paper_exam_register.dart';
 import '../../features/lessons_of_class/screens/lesson_class.dart';
@@ -63,6 +64,8 @@ class Routes {
 
   static const String rateYourselfDependExamResult =
       '/RateYourselfDependExamResult';
+
+  static const String inviteFreiendsScreen = '/inviteFreiendsScreen';
 }
 
 class AppRoutes {
@@ -78,7 +81,7 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) => const LoginScreen(),
         );
-        case Routes.reportsScreen:
+      case Routes.reportsScreen:
         return MaterialPageRoute(
           builder: (context) => const StudentReportScreen(),
         );
@@ -233,6 +236,14 @@ class AppRoutes {
       case Routes.rateYourselfDependExamResult:
         return PageTransition(
           child: RateYourselfDependExamResult(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+      //InviteFreiendsScreen
+      case Routes.inviteFreiendsScreen:
+        return PageTransition(
+          child: InviteFreiendsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),

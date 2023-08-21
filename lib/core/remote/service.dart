@@ -22,6 +22,7 @@ import '../models/exam_classes_model.dart';
 import '../models/exam_instruction_model.dart';
 import '../models/examlessonmodel.dart';
 import '../models/grade_and_rate.dart';
+import '../models/invitefriend.dart';
 import '../models/lessonexammodel.dart';
 import '../models/paper_exam_details_model.dart';
 import '../models/final_review_model.dart';
@@ -113,6 +114,7 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
+
   Future<Either<Failure, CountDownModel>> getCountDown() async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
@@ -822,14 +824,13 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
-  Future<Either<Failure, StudentReportsModel>> getStudentReports(
-   ) async {
 
+  Future<Either<Failure, StudentReportsModel>> getStudentReports() async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
     try {
       final response = await dio.get(
-        EndPoints.studentReportsUrl ,
+        EndPoints.studentReportsUrl,
         options: Options(
           headers: {
             'Authorization': loginModel.data!.token,
@@ -1197,6 +1198,26 @@ class ServiceApi {
         ),
       );
       return Right(StatusResponse.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  //inviteFriend
+  Future<Either<Failure, InviteFriendModel>> getInviteFreiend() async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.inviteFriend,
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(InviteFriendModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

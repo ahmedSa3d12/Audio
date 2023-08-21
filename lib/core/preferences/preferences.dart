@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/user_model.dart';
-import '../utils/app_colors.dart';
 import '../utils/app_strings.dart';
 
 class Preferences {
@@ -13,7 +11,6 @@ class Preferences {
   Preferences._internal();
 
   factory Preferences() => instance;
-
 
   Future<void> setFirstInstall() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -25,7 +22,6 @@ class Preferences {
     String? jsonData = prefs.getString('onBoarding');
     return jsonData;
   }
-
 
   Future<String> getPrimaryColor() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -138,6 +134,7 @@ class Preferences {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.remove('user');
   }
+
   Future<bool> clearAllData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.clear();

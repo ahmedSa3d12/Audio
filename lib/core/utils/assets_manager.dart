@@ -40,6 +40,7 @@ class ImageAssets {
   static const String crownImage = '$imagePath/crown.png';
   static const String comingSoonImage = '$imagePath/coming_soon.png';
   static const String countdownImage = '$imagePath/countdown.png';
+  static const String inviteImage = '$imagePath/invite.png';
 
   // icons
   static const String loadIcon = '$iconsPath/load.svg';

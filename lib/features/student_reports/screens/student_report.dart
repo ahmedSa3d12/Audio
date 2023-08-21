@@ -18,7 +18,6 @@ class StudentReportScreen extends StatefulWidget {
 
 class _StudentReportScreenState extends State<StudentReportScreen> {
   @override
-
   Widget build(BuildContext context) {
     StudentReportsCubit cubit = context.read<StudentReportsCubit>();
 
@@ -56,30 +55,27 @@ class _StudentReportScreenState extends State<StudentReportScreen> {
                               } else if (state is StudentReportsPageLoaded) {
                                 return cubit.data.isNotEmpty
                                     ? ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount:
-                                  cubit.data.length,
-                                  itemBuilder: (BuildContext context,
-                                      int index) {
-                                    return ReportWidget(
-                                      reports: cubit.data
-                                          .elementAt(index),
-                                      index: index,
-                                    );
-                                  },
-                                )
+                                        shrinkWrap: true,
+                                        itemCount: cubit.data.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return ReportWidget(
+                                            reports:
+                                                cubit.data.elementAt(index),
+                                            index: index,
+                                          );
+                                        },
+                                      )
                                     : NoDataWidget(
-                                  onclick: () => () {
-                                    cubit.getAllReports(
-                                    );
-                                  },
-                                  title: 'no_date',
-                                );
+                                        onclick: () => () {
+                                          cubit.getAllReports();
+                                        },
+                                        title: 'no_date',
+                                      );
                               } else {
                                 return NoDataWidget(
                                   onclick: () => {
-                                    cubit.getAllReports(
-                                       ),
+                                    cubit.getAllReports(),
                                   },
                                   title: 'no_date',
                                 );

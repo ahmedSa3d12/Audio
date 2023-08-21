@@ -21,8 +21,7 @@ class EndPoints {
   static const String lessonsByClassUrl = '${baseUrl}classes/lessonsByClassId/';
   static const String VideoByLessonUrl =
       '${baseUrl}lesson/all-video-by-lessonId/';
-  static const String studentReportsUrl =
-      '${baseUrl}report/all-by-student';
+  static const String studentReportsUrl = '${baseUrl}report/all-by-student';
   static const String ExamByLessonUrl =
       '${baseUrl}lesson/all-exams-by-lessonId/';
   static const String AudioOfLesson = '${baseUrl}lesson/all-audios-by-videoId/';
@@ -69,4 +68,7 @@ class EndPoints {
 
 //notes/note-delete/3
   static const String deleteNoteByStudent = '${baseUrl}notes/note-delete/';
+
+  //auth/invite-your-friends
+  static const String inviteFriend = '${baseUrl}auth/invite-your-friends';
 }

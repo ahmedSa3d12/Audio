@@ -162,15 +162,38 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                                                       .fileType !=
                                                   'pdf'
                                               ? SizedBox()
-                                              : ClassExamIconWidget(
-                                                  type:
-                                                      ImageAssets.downloadsIcon,
-                                                  iconColor: AppColors.green,
-                                                  radius: 8,
-                                                  onclick: () {
-                                                    print('wwwwwwwwwwwwwwwww');
-                                                  },
-                                                ),
+                                              : cubit
+                                                          .sourcesReferencesByIdList[
+                                                              index]
+                                                          .progress !=
+                                                      0
+                                                  ? Padding(
+                                                      padding:
+                                                          EdgeInsets.all(8.0),
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        value: cubit
+                                                            .sourcesReferencesByIdList[
+                                                                index]
+                                                            .progress,
+                                                        backgroundColor:
+                                                            AppColors.white,
+                                                        color:
+                                                            AppColors.primary,
+                                                      ),
+                                                    )
+                                                  : ClassExamIconWidget(
+                                                      type: ImageAssets
+                                                          .downloadsIcon,
+                                                      iconColor:
+                                                          AppColors.green,
+                                                      radius: 8,
+                                                      onclick: () {
+                                                        cubit.downloadPdfLessons(
+                                                            cubit.sourcesReferencesByIdList[
+                                                                index]);
+                                                      },
+                                                    ),
                                           SizedBox(width: 8),
                                           cubit.sourcesReferencesByIdList[index]
                                                       .answerPdfFile ==
@@ -182,7 +205,30 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                                                   iconColor:
                                                       AppColors.goldColor,
                                                   radius: 8,
-                                                  onclick: () {},
+                                                  onclick: () {
+                                                    cubit.sourcesReferencesByIdList[index]
+                                                                .fileType !=
+                                                            'pdf'
+                                                        ? null
+                                                        : Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder:
+                                                                  (context) =>
+                                                                      PdfScreen(
+                                                                pdfTitle: cubit
+                                                                    .sourcesReferencesByIdList[
+                                                                        index]
+                                                                    .title!,
+                                                                pdfLink: cubit
+                                                                    .sourcesReferencesByIdList[
+                                                                        index]
+                                                                    .answerPdfFile!,
+                                                              ),
+                                                            ),
+                                                          );
+                                                    //
+                                                  },
                                                 ),
                                           SizedBox(width: 8),
                                           cubit.sourcesReferencesByIdList[index]
@@ -193,7 +239,9 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                                                   type: ImageAssets.videoIcon,
                                                   iconColor: AppColors.skyColor,
                                                   radius: 8,
-                                                  onclick: () {},
+                                                  onclick: () {
+                                                    ///Nav video
+                                                  },
                                                 ),
                                           SizedBox(width: 8),
                                         ],
