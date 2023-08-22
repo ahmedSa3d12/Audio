@@ -71,4 +71,8 @@ class EndPoints {
 
   //auth/invite-your-friends
   static const String inviteFriend = '${baseUrl}auth/invite-your-friends';
+
+  static const String getUserProfile = '${baseUrl}auth/getProfile';
+
+  static const String updateUserProfile = '${baseUrl}auth/update-profile';
 }

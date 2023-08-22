@@ -26,6 +26,7 @@ import '../../features/lessons_of_class/screens/lesson_class.dart';
 import '../../features/login/screens/login.dart';
 import '../../features/monthplan/screen/monthplan.dart';
 import '../../features/paperexamdetials/screens/paper_details_exam_register.dart';
+import '../../features/profilescreen/screen/profilescreen.dart';
 import '../../features/sources_and_references/screens/source_references_details.dart';
 import '../../features/splash/presentation/screens/pop_ads_screen.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
@@ -66,6 +67,8 @@ class Routes {
       '/RateYourselfDependExamResult';
 
   static const String inviteFreiendsScreen = '/inviteFreiendsScreen';
+
+  static const String profileScreen = '/profileScreen';
 }
 
 class AppRoutes {
@@ -240,10 +243,17 @@ class AppRoutes {
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),
         );
-      //InviteFreiendsScreen
+      //ProfileScreen
       case Routes.inviteFreiendsScreen:
         return PageTransition(
           child: InviteFreiendsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+      case Routes.profileScreen:
+        return PageTransition(
+          child: ProfileScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),

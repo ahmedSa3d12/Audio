@@ -145,7 +145,9 @@ class MenuScreenWidget extends StatelessWidget {
                         MenuListTileWidget(
                           title: 'profile'.tr(),
                           iconPath: ImageAssets.profileIcon,
-                          onclick: () {},
+                          onclick: () {
+                            Navigator.pushNamed(context, Routes.profileScreen);
+                          },
                         ),
                         MenuListTileWidget(
                           title: 'register_paper_exam'.tr(),

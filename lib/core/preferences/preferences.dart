@@ -9,7 +9,7 @@ class Preferences {
   static final Preferences instance = Preferences._internal();
 
   Preferences._internal();
-
+//
   factory Preferences() => instance;
 
   Future<void> setFirstInstall() async {
@@ -149,4 +149,6 @@ class Preferences {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString(AppStrings.locale, local);
   }
+
+  //theme
 }

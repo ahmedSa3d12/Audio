@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:new_mazoon/core/models/comment_data_model.dart';
@@ -1218,6 +1220,53 @@ class ServiceApi {
         ),
       );
       return Right(InviteFriendModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, UserModel>> getProfile() async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.getUserProfile,
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      print(response);
+      return Right(UserModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, UserModel>> updateProfile(String image) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.post(
+        EndPoints.updateUserProfile,
+        formDataIsEnabled: true,
+        body: {
+          if (image.isNotEmpty) ...{
+            'image': await MultipartFile.fromFile(image),
+          },
+        },
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      print(response);
+      return Right(UserModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

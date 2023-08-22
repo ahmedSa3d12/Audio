@@ -10,7 +10,7 @@ class AppColors {
   static final AppColors instance = AppColors._internal();
   static Color litePrimary = HexColor('#7F8CF3');
   static Color redPrimary = HexColor('#FF7B7B');
-
+  static Color switchColor = HexColor('#FE7C04');
   AppColors._internal();
 
   factory AppColors() => instance;

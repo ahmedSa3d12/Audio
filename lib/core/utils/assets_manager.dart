@@ -118,6 +118,8 @@ class ImageAssets {
   static const String addNoteIcon = '$iconsPath/note.svg';
   static const String wrong = '$iconsPath/wrong.svg';
   static const String whiteimage = '$iconsPath/whiteimage.svg';
+
+  static const String cameraIcon = '$iconsPath/camera.svg';
   //Lottie
   static const String noItems = '$lottiePath/no_item.json';
   static const String noExam = '$lottiePath/no_exam.json';

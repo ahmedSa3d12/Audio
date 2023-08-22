@@ -8,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:new_mazoon/features/attachment/cubit/attachmentcubit.dart';
 import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
+import 'package:new_mazoon/features/profilescreen/cubit/state.dart';
 import 'package:quick_actions/quick_actions.dart';
 // import 'package:screenshot_callback/screenshot_callback.dart';
 
@@ -35,6 +36,7 @@ import 'features/lessons_of_class/cubit/lessons_class_cubit.dart';
 import 'features/login/cubit/login_cubit.dart';
 import 'features/navigation_bottom/cubit/navigation_cubit.dart';
 import 'features/onboarding/cubit/on_boarding_cubit.dart';
+import 'features/profilescreen/cubit/cubit.dart';
 import 'features/sources_and_references/cubit/source_references_cubit.dart';
 import 'features/paperexamdetials/cubit/paper_detials_cubit.dart';
 import 'features/splash/presentation/cubit/splash_cubit.dart';
@@ -150,6 +152,10 @@ class _ElmazoonState extends State<Elmazoon> {
     Preferences.instance.savedLang(
       EasyLocalization.of(context)!.locale.languageCode,
     );
+
+    ProfileCubit.getSavedMode().then((value) {
+      ProfileCubit.mode = value;
+    });
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -220,17 +226,22 @@ class _ElmazoonState extends State<Elmazoon> {
         BlocProvider(
           create: (_) => injector.serviceLocator<IniviteFreiendsCubit>(),
         ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<ProfileCubit>(),
+        ),
       ],
-      child: GetMaterialApp(
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        theme: appTheme(),
-        themeMode: ThemeMode.light,
-        darkTheme: ThemeData.light(), // standard dark theme
-        localizationsDelegates: context.localizationDelegates,
-        debugShowCheckedModeBanner: false,
-        title: AppStrings.appName,
-        onGenerateRoute: AppRoutes.onGenerateRoute,
+      child: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, state) {
+          return GetMaterialApp(
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            theme: ProfileCubit.mode ? appDarkTheme() : appTheme(),
+            localizationsDelegates: context.localizationDelegates,
+            debugShowCheckedModeBanner: false,
+            title: AppStrings.appName,
+            onGenerateRoute: AppRoutes.onGenerateRoute,
+          );
+        },
       ),
     );
   }

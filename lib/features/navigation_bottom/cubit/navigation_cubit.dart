@@ -16,35 +16,34 @@ import '../../../core/utils/toast_message_method.dart';
 part 'navigation_state.dart';
 
 class NavigationCubit extends Cubit<NavigationState> {
-  NavigationCubit(this.api) : super(NavigationInitial()){
+  NavigationCubit(this.api) : super(NavigationInitial()) {
     getUserData();
   }
   final ServiceApi api;
   UserModel? userModel;
 
-  getUserData() async {
+  Future<void> getUserData() async {
     emit(NavigationGetUserLoading());
     userModel = await Preferences.instance.getUserModel();
     emit(NavigationGetUserData());
   }
+
   getTimes(BuildContext context) async {
     createProgressDialog(context, 'wait'.tr());
 
     final response = await api.paperExamDetails();
     response.fold(
-          (error) => Navigator.of(context).pop(),
-          (response) {
+      (error) => Navigator.of(context).pop(),
+      (response) {
         Navigator.of(context).pop();
         PaperExamDetialsModel data = response;
         if (data.code == 200) {
           Navigator.pushNamed(context, Routes.paperexamRegisterRoute,
               arguments: data);
-        }
-        else if(data.code==201){
+        } else if (data.code == 201) {
           Navigator.pushNamed(context, Routes.paperdetialsexamRegisterRoute,
               arguments: data.data);
-        }
-        else {
+        } else {
           toastMessage(
             'no_exam'.tr(),
             context,
@@ -56,5 +55,4 @@ class NavigationCubit extends Cubit<NavigationState> {
       },
     );
   }
-
 }

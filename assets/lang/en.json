@@ -1,4 +1,5 @@
-{  "mazoon":"المأذون",
+{
+    "mazoon": "المأذون",
     "user_account": "user to the account",
     "please_write_code": "Please write the access code received from the secretariat",
     "user": "user",
@@ -217,5 +218,18 @@
     "select_class": "Select Class",
     "invite_freiends": "Invite your friends to join the platform.",
     "share": "share",
-    "loading":"loading.."
+    "loading": "loading..",
+    "student_reposrt": "student report",
+    "light_mode": "light mode",
+    "dark_mode": "dark mode",
+    "phone_num": "phone number: ",
+    "father_phone_num": "Parent's phone number: ",
+    "code_num": "code number :",
+    "governorate": "Governorate  :",
+    "city": "City  :",
+    "subtype": "Subtype  :",
+    "subscription_start": "Subscription start  :",
+    "subscription_end": "Subscription end  :",
+   
+  "subscription_renewal":"Subscription renewal"
 }
