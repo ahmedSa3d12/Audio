@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:new_mazoon/features/attachment/cubit/attachmentcubit.dart';
+import 'package:new_mazoon/features/elmazoon_info/cubit/cubit.dart';
 import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
 import 'package:new_mazoon/features/profilescreen/cubit/state.dart';
 import 'package:quick_actions/quick_actions.dart';
@@ -36,6 +37,7 @@ import 'features/lessons_of_class/cubit/lessons_class_cubit.dart';
 import 'features/login/cubit/login_cubit.dart';
 import 'features/navigation_bottom/cubit/navigation_cubit.dart';
 import 'features/onboarding/cubit/on_boarding_cubit.dart';
+import 'features/payment/cubit/paymentcubit.dart';
 import 'features/profilescreen/cubit/cubit.dart';
 import 'features/sources_and_references/cubit/source_references_cubit.dart';
 import 'features/paperexamdetials/cubit/paper_detials_cubit.dart';
@@ -229,6 +231,13 @@ class _ElmazoonState extends State<Elmazoon> {
         BlocProvider(
           create: (_) => injector.serviceLocator<ProfileCubit>(),
         ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<PaymentCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<ElMazoonCubit>(),
+        ),
+        //
       ],
       child: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {

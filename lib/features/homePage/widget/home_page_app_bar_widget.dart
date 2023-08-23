@@ -10,6 +10,7 @@ import '../../../../core/widgets/network_image.dart';
 import '../../../../core/widgets/painting.dart';
 
 // import '../../downloads_videos/screens/downloads_video.dart';
+import '../../../config/routes/app_routes.dart';
 import '../../navigation_bottom/cubit/navigation_cubit.dart';
 import '../../sources_and_references/cubit/source_references_cubit.dart';
 
@@ -174,10 +175,16 @@ class HomePageAppBarWidget extends StatelessWidget {
                                 SizedBox(width: 18),
                                 Visibility(
                                   visible: isHome!,
-                                  child: MySvgWidget(
-                                    path: ImageAssets.aboutIcon,
-                                    size: 25,
-                                    imageColor: AppColors.white,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, Routes.elMazoonInfo);
+                                    },
+                                    child: MySvgWidget(
+                                      path: ImageAssets.aboutIcon,
+                                      size: 25,
+                                      imageColor: AppColors.white,
+                                    ),
                                   ),
                                 ),
                                 Visibility(

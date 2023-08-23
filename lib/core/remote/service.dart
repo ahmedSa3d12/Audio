@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:new_mazoon/core/models/comment_data_model.dart';
 import 'package:new_mazoon/core/models/datesofnotes.dart';
+import 'package:new_mazoon/core/models/elmazoon_model.dart';
 import 'package:new_mazoon/core/models/note_model.dart';
 import 'package:new_mazoon/core/models/status_response_model.dart';
 import '../../features/login/models/communication_model.dart';
@@ -21,6 +20,7 @@ import '../models/classes_exam_data_model.dart';
 import '../models/count_down_model.dart';
 import '../models/dependexam.dart';
 import '../models/exam_classes_model.dart';
+import '../models/exam_hero.dart';
 import '../models/exam_instruction_model.dart';
 import '../models/examlessonmodel.dart';
 import '../models/grade_and_rate.dart';
@@ -1267,6 +1267,39 @@ class ServiceApi {
       );
       print(response);
       return Right(UserModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, ELmazoonModel>> getAboutMe() async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(EndPoints.aboutMe,
+          options: Options(headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          }));
+      print(response);
+      return Right(ELmazoonModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+////Heros
+  Future<Either<Failure, ExamHerosModel>> getExamHero() async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(EndPoints.examHero,
+          options: Options(headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          }));
+      print(response);
+      return Right(ExamHerosModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

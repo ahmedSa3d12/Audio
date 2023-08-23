@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:new_mazoon/core/preferences/preferences.dart';
 import 'package:new_mazoon/core/remote/service.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
@@ -348,6 +349,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     paddingHorizontal: getSize(context) / 20,
                                     borderRadius: getSize(context) / 24,
                                     onClick: () {
+                                      Navigator.pushNamed(context,
+                                          Routes.selectMonthPlanPayment);
+
                                       ///renew
                                     }),
                                 SizedBox(height: getSize(context) / 12)

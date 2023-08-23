@@ -75,4 +75,8 @@ class EndPoints {
   static const String getUserProfile = '${baseUrl}auth/getProfile';
 
   static const String updateUserProfile = '${baseUrl}auth/update-profile';
+
+  static const String aboutMe = '${baseUrl}teacher/about-me';
+
+  static const String examHero = '${baseUrl}exam-heroes/all';
 }

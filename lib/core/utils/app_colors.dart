@@ -41,7 +41,7 @@ class AppColors {
   static Color green12 = HexColor('#3AAF3C');
   static Color blueLikeColor = HexColor('#2e7dea');
   static Color redDislikeColor = HexColor('#ff2c2c');
-
+  static Color twitterIcon = HexColor('#1DA1F2');
   static Color green = HexColor('#15860B');
   static Color green2 = HexColor('#017333');
 

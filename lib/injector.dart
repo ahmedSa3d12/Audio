@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:new_mazoon/features/elmazoon_info/cubit/cubit.dart';
 import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +24,7 @@ import 'features/lessons_of_class/cubit/lessons_class_cubit.dart';
 import 'features/login/cubit/login_cubit.dart';
 import 'features/navigation_bottom/cubit/navigation_cubit.dart';
 import 'features/onboarding/cubit/on_boarding_cubit.dart';
+import 'features/payment/cubit/paymentcubit.dart';
 import 'features/profilescreen/cubit/cubit.dart';
 import 'features/sources_and_references/cubit/source_references_cubit.dart';
 import 'features/paperexamdetials/cubit/paper_detials_cubit.dart';
@@ -82,7 +84,7 @@ Future<void> setup() async {
     () => LessonsClassCubit(serviceLocator()),
   );
   serviceLocator.registerFactory(
-    () => ExamHeroCubit(),
+    () => ExamHeroCubit(serviceLocator()),
   );
   serviceLocator.registerFactory(
     () => CountdownCubit(serviceLocator()),
@@ -95,6 +97,12 @@ Future<void> setup() async {
   );
   serviceLocator.registerFactory(
     () => ProfileCubit(serviceLocator()),
+  );
+  serviceLocator.registerFactory(
+    () => PaymentCubit(serviceLocator()),
+  );
+  serviceLocator.registerFactory(
+    () => ElMazoonCubit(serviceLocator()),
   );
   ///////////////////////////////////////////////////////////////////////////////
 

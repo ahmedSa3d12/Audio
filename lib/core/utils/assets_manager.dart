@@ -120,6 +120,9 @@ class ImageAssets {
   static const String whiteimage = '$iconsPath/whiteimage.svg';
 
   static const String cameraIcon = '$iconsPath/camera.svg';
+  static const String xIcon = '$iconsPath/x.svg';
+  static const String instgramIcon = '$iconsPath/instgram.svg';
+
   //Lottie
   static const String noItems = '$lottiePath/no_item.json';
   static const String noExam = '$lottiePath/no_exam.json';

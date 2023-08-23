@@ -230,6 +230,9 @@
   "subtype": "نوع الاشتراك  :",
   "subscription_start": "بداية الاشتراك  :",
   "subscription_end": "نهاية الاشتراك  :",
-  "subscription_renewal":"تجديد الاشتراك"
+  "subscription_renewal":"تجديد الاشتراك",
+  "my_qualifications": "مؤهلاتى",
+  "my_experiences": "خبراتى",
+  "my_skills": "مهاراتى"
 
 }

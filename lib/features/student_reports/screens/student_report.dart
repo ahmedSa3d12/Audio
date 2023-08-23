@@ -4,7 +4,6 @@ import 'package:new_mazoon/features/student_reports/cubit/student_reports_cubit.
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/getsize.dart';
-import '../../../core/widgets/my_svg_widget.dart';
 import '../../../core/widgets/no_data_widget.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../widget/report.dart';
