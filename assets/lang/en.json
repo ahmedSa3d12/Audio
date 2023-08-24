@@ -249,5 +249,6 @@
   "high":"high",
   "exam_on_class":"exam on class",
   "exam_on_lesson":"exam on lesson",
-  "start_exam":"Start Exam"
-}
+  "start_exam":"Start Exam",
+  "msg_num":"The number of chapter questions is less than the number you want to add to the exam"
+,  "msg_q_num":"please select number of questions"}

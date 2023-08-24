@@ -53,10 +53,14 @@ class MakeYourExamCubit extends Cubit<MakeYourExamState> {
 
   final List<String> levels = ['low'.tr(), 'middle'.tr(), 'high'.tr()];
   final List<String> examOn = ['exam_on_class'.tr(), 'exam_on_lesson'.tr()];
-  List<String> lessons = [];
+  List<Lesson> lessons = [];
   String? selectedValueLevel;
   String? selectedValueExamtype;
   String? selectedValueLesson;
+  Lesson? currentLesson;
+  int? lessonId;
+  MakeYourExamModelData? classModel;
+
   //////get data
 
   List<MakeYourExamModelData> allClassesAndLessons = [];

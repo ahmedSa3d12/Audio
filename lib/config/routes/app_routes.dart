@@ -23,6 +23,7 @@ import '../../features/examinstructions/screen/examinstructions.dart';
 import '../../features/invite_friends/screen/invitefriend.dart';
 import '../../features/lessonExamScreen/screens/lessonexamscreen.dart';
 import '../../features/make_exam/screen/make_exam.dart';
+import '../../features/make_exam/screen/startexam.dart';
 import '../../features/paperexamRegister/presentation/screens/paper_exam_register.dart';
 import '../../features/lessons_of_class/screens/lesson_class.dart';
 import '../../features/login/screens/login.dart';
@@ -77,6 +78,7 @@ class Routes {
   static const String elMazoonInfo = '/elMazoonInfo';
 
   static const String makeYourExamScreen = '/makeYourExamScreen';
+  static const String startMakeExamScreen = '/startMakeExamScreen';
 }
 
 class AppRoutes {
@@ -284,6 +286,13 @@ class AppRoutes {
       case Routes.makeYourExamScreen:
         return PageTransition(
           child: MakeYourExamScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+      case Routes.startMakeExamScreen:
+        return PageTransition(
+          child: StartMakeExamScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),

@@ -2,9 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/utils/toast_message_method.dart';
 import 'package:new_mazoon/features/make_exam/cubit/state.dart';
 import 'package:new_mazoon/features/make_exam/widget/dropdownfield.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/getsize.dart';
 import '../../../core/widgets/custom_button.dart';
@@ -12,6 +14,7 @@ import '../../../core/widgets/title_with_circle_background_widget.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../cubit/cubit.dart';
 import '../widget/dialog.dart';
+import '../widget/dropdownfield2.dart';
 
 class MakeYourExamScreen extends StatefulWidget {
   const MakeYourExamScreen({super.key});
@@ -27,6 +30,8 @@ class _MakeYourExamScreenState extends State<MakeYourExamScreen> {
 
     super.initState();
   }
+
+  var key = GlobalKey<FormState>();
 
   bool isLoading = true; //true
   @override
@@ -49,171 +54,157 @@ class _MakeYourExamScreenState extends State<MakeYourExamScreen> {
                   ? Center(
                       child: CircularProgressIndicator(),
                     )
-                  : ListView(
-                      physics: const BouncingScrollPhysics(),
-                      children: [
-                        SizedBox(height: getSize(context) / 3.5),
-                        TitleWithCircleBackgroundWidget(
-                          title: 'make_exam'.tr(),
-                        ),
-                        SizedBox(height: getSize(context) / 30),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: getSize(context) / 22),
-                          child: Text(
-                            'choose_class'.tr(),
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              color: AppColors.black,
-                              fontSize: getSize(context) / 24,
-                              fontWeight: FontWeight.w700,
+                  : Form(
+                      key: key,
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
+                        children: [
+                          SizedBox(height: getSize(context) / 3.5),
+                          TitleWithCircleBackgroundWidget(
+                            title: 'make_exam'.tr(),
+                          ),
+                          SizedBox(height: getSize(context) / 30),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: getSize(context) / 22),
+                            child: Text(
+                              'choose_class'.tr(),
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                color: AppColors.black,
+                                fontSize: getSize(context) / 24,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
-                        ),
-                        Container(
-                            height: getSize(context) / 3.5,
-                            child: ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemCount: cubit.allClassesAndLessons.length,
-                              itemBuilder: (context, index) {
-                                return InkWell(
+                          Container(
+                              height: getSize(context) / 3.5,
+                              child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemCount: cubit.allClassesAndLessons.length,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      cubit.currentClassID =
+                                          cubit.allClassesAndLessons[index].id;
+                                      cubit.classModel =
+                                          cubit.allClassesAndLessons[index];
+                                      print(cubit.currentClassID);
+                                      setState(() {
+                                        cubit.lessons.clear();
+
+                                        cubit.selectedValueLesson = null;
+                                        cubit.currentLesson = null;
+                                        cubit.lessonId = null;
+                                      });
+                                      for (int i = 0;
+                                          i <
+                                              cubit.allClassesAndLessons[index]
+                                                  .lessons.length;
+                                          i++) {
+                                        cubit.lessons.add(cubit
+                                            .allClassesAndLessons[index]
+                                            .lessons[i]);
+                                        print(cubit.allClassesAndLessons[index]
+                                            .lessons[i].name);
+                                        cubit.currentLesson = cubit
+                                            .allClassesAndLessons[index]
+                                            .lessons[i];
+                                      }
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(
+                                          getSize(context) / 100),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Flexible(
+                                            fit: FlexFit.tight,
+                                            child: CircleAvatar(
+                                              radius: getSize(context) / 10,
+                                              backgroundImage: NetworkImage(
+                                                cubit
+                                                    .allClassesAndLessons[index]
+                                                    .image,
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: getSize(context) / 8,
+                                            width: getSize(context) / 4,
+                                            child: Text(
+                                              cubit.allClassesAndLessons[index]
+                                                  .name,
+                                              textAlign: TextAlign.center,
+                                              overflow: TextOverflow.clip,
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                color: AppColors.black,
+                                                fontSize: getSize(context) / 28,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              )),
+                          Container(
+                            padding: EdgeInsets.all(getSize(context) / 22),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                InkWell(
                                   onTap: () {
-                                    cubit.currentClassID =
-                                        cubit.allClassesAndLessons[index].id;
-                                    print(cubit.currentClassID);
-                                    setState(() {
-                                      cubit.lessons.clear();
-                                      cubit.selectedValueLesson = null;
-                                    });
-                                    for (int i = 0;
-                                        i <
-                                            cubit.allClassesAndLessons[index]
-                                                .lessons.length;
-                                        i++) {
-                                      cubit.lessons.add(cubit
-                                          .allClassesAndLessons[index]
-                                          .lessons[i]
-                                          .name);
-                                      print(cubit.allClassesAndLessons[index]
-                                          .lessons[i].name);
-                                    }
+                                    showDilogofmakeexam(context, cubit);
                                   },
                                   child: Container(
-                                    padding:
-                                        EdgeInsets.all(getSize(context) / 100),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Flexible(
-                                          fit: FlexFit.tight,
-                                          child: CircleAvatar(
-                                            radius: getSize(context) / 10,
-                                            backgroundImage: NetworkImage(
-                                              cubit.allClassesAndLessons[index]
-                                                  .image,
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          height: getSize(context) / 8,
-                                          width: getSize(context) / 4,
-                                          child: Text(
-                                            cubit.allClassesAndLessons[index]
-                                                .name,
-                                            textAlign: TextAlign.center,
-                                            overflow: TextOverflow.clip,
-                                            maxLines: 2,
-                                            style: TextStyle(
-                                              color: AppColors.black,
-                                              fontSize: getSize(context) / 28,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        )
-                                      ],
+                                    alignment: Alignment.center,
+                                    width: getSize(context) / 2.5,
+                                    height: getSize(context) / 6.5,
+                                    decoration: ShapeDecoration(
+                                      color: AppColors.switchColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            )),
-                        Container(
-                          padding: EdgeInsets.all(getSize(context) / 22),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  showDilogofmakeexam(context, cubit);
-                                },
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  width: getSize(context) / 2.5,
-                                  height: getSize(context) / 6.5,
-                                  decoration: ShapeDecoration(
-                                    color: AppColors.switchColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    'select_time'.tr(),
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                      color: AppColors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: getSize(context) / 66),
-                              Text(
-                                '${cubit.currentMinutes < 10 ? '0' : ''}${cubit.currentMinutes} : ${cubit.currentHour < 10 ? '0' : ''}${cubit.currentHour}',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: AppColors.black,
-                                  fontSize: getSize(context) / 20,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(getSize(context) / 22),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                  child: Text(
-                                'num_question'.tr(),
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  color: AppColors.black,
-                                  fontSize: getSize(context) / 20,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              )),
-                              SizedBox(width: getSize(context) / 32),
-                              IconButton(
-                                  onPressed: () {
-                                    cubit.deleteNewQuestion();
-                                  },
-                                  icon: Icon(
-                                    CupertinoIcons.minus_circle,
-                                    color: AppColors.primary,
-                                    size: getSize(context) / 12,
-                                  )),
-                              SizedBox(width: getSize(context) / 88),
-                              Flexible(
-                                child: Container(
                                     child: Text(
-                                  cubit.questionNum.toString(),
-                                  overflow: TextOverflow.fade,
-                                  maxLines: 1,
+                                      'select_time'.tr(),
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                        color: AppColors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: getSize(context) / 66),
+                                Text(
+                                  '${cubit.currentMinutes < 10 ? '0' : ''}${cubit.currentMinutes} : ${cubit.currentHour < 10 ? '0' : ''}${cubit.currentHour}',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: AppColors.black,
+                                    fontSize: getSize(context) / 20,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.all(getSize(context) / 22),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                    child: Text(
+                                  'num_question'.tr(),
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                     color: AppColors.black,
@@ -221,75 +212,143 @@ class _MakeYourExamScreenState extends State<MakeYourExamScreen> {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 )),
-                              ),
-                              SizedBox(width: getSize(context) / 88),
-                              IconButton(
-                                  onPressed: () {
-                                    cubit.addNewQuestion();
-                                  },
-                                  icon: Icon(
-                                    CupertinoIcons.add_circled,
-                                    color: AppColors.primary,
-                                    size: getSize(context) / 12,
-                                  )),
-                            ],
-                          ),
-                        ),
-                        CustomDropDown2(
-                          value: cubit.selectedValueLevel,
-                          items: cubit.levels,
-                          msg: 'level_msg'.tr(),
-                          label: 'select_exam_level'.tr(),
-                          onChanged: (v) {
-                            setState(() {
-                              cubit.selectedValueLevel = v;
-                            });
-                            print(cubit.selectedValueLevel);
-                          },
-                        ),
-                        SizedBox(height: getSize(context) / 44),
-                        CustomDropDown2(
-                          value: cubit.selectedValueExamtype,
-                          items: cubit.examOn,
-                          msg: 'exam_type_msg'.tr(),
-                          label: 'exam_type'.tr(),
-                          onChanged: (v) {
-                            setState(() {
-                              cubit.selectedValueExamtype = v;
-                              print(cubit.selectedValueExamtype);
-                            });
-                          },
-                        ),
-                        SizedBox(height: getSize(context) / 44),
-                        cubit.selectedValueExamtype == 'exam_on_lesson'.tr()
-                            ? cubit.lessons.isEmpty
-                                ? Container()
-                                : CustomDropDown2(
-                                    value: cubit.selectedValueLesson,
-                                    items: cubit.lessons,
-                                    msg: 'choose_lesson_msg'.tr(),
-                                    label: 'choose_lesson'.tr(),
-                                    onChanged: (v) {
-                                      setState(() {
-                                        cubit.selectedValueLesson = v;
-                                      });
+                                SizedBox(width: getSize(context) / 32),
+                                IconButton(
+                                    onPressed: () {
+                                      cubit.deleteNewQuestion();
                                     },
-                                  )
-                            : Container(),
-                        SizedBox(height: getSize(context) / 22),
-                        CustomButton(
-                            height: getSize(context) / 8,
-                            text: 'start_exam'.tr(),
-                            textcolor: AppColors.white,
-                            color: AppColors.switchColor,
-                            paddingHorizontal: getSize(context) / 20,
-                            borderRadius: getSize(context) / 24,
-                            onClick: () {
-                              // Navigator.pushNamed(context,
-                              //     Routes.selectMonthPlanPayment);
-                            }),
-                        SizedBox(height: getSize(context) / 22),
-                      ],
+                                    icon: Icon(
+                                      CupertinoIcons.minus_circle,
+                                      color: AppColors.primary,
+                                      size: getSize(context) / 12,
+                                    )),
+                                SizedBox(width: getSize(context) / 88),
+                                Flexible(
+                                  child: Container(
+                                      child: Text(
+                                    cubit.questionNum.toString(),
+                                    overflow: TextOverflow.fade,
+                                    maxLines: 1,
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                      color: AppColors.black,
+                                      fontSize: getSize(context) / 20,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  )),
+                                ),
+                                SizedBox(width: getSize(context) / 88),
+                                IconButton(
+                                    onPressed: () {
+                                      cubit.addNewQuestion();
+                                    },
+                                    icon: Icon(
+                                      CupertinoIcons.add_circled,
+                                      color: AppColors.primary,
+                                      size: getSize(context) / 12,
+                                    )),
+                              ],
+                            ),
+                          ),
+                          CustomDropDown2(
+                            value: cubit.selectedValueLevel,
+                            items: cubit.levels,
+                            msg: 'level_msg'.tr(),
+                            label: 'select_exam_level'.tr(),
+                            onChanged: (v) {
+                              setState(() {
+                                cubit.selectedValueLevel = v;
+                              });
+                              print(cubit.selectedValueLevel);
+                            },
+                          ),
+                          SizedBox(height: getSize(context) / 44),
+                          CustomDropDown2(
+                            value: cubit.selectedValueExamtype,
+                            items: cubit.examOn,
+                            msg: 'exam_type_msg'.tr(),
+                            label: 'exam_type'.tr(),
+                            onChanged: (v) {
+                              setState(() {
+                                cubit.selectedValueExamtype = v;
+                                print(cubit.selectedValueExamtype);
+                              });
+                            },
+                          ),
+                          SizedBox(height: getSize(context) / 44),
+                          cubit.selectedValueExamtype == 'exam_on_lesson'.tr()
+                              ? cubit.lessons.isEmpty
+                                  ? Container()
+                                  : CustomDropDown3(
+                                      value: cubit.selectedValueLesson,
+                                      items: cubit.lessons,
+                                      msg: 'choose_lesson_msg'.tr(),
+                                      label: 'choose_lesson'.tr(),
+                                      onChanged: (v) {
+                                        setState(() {
+                                          cubit.selectedValueLesson = v;
+                                          cubit.lessonId =
+                                              cubit.currentLesson!.id;
+                                          print('..............');
+                                          print(cubit.lessonId);
+                                        });
+                                      },
+                                    )
+                              : Container(),
+                          SizedBox(height: getSize(context) / 22),
+                          CustomButton(
+                              height: getSize(context) / 8,
+                              text: 'start_exam'.tr(),
+                              textcolor: AppColors.white,
+                              color: AppColors.switchColor,
+                              paddingHorizontal: getSize(context) / 20,
+                              borderRadius: getSize(context) / 24,
+                              onClick: () {
+                                if (key.currentState!.validate()) {
+                                  if (cubit.lessonId == null) {
+                                    if (cubit.currentClassID != null) {
+                                      ///apply exam on class
+                                      if (cubit.questionNum == 0) {
+                                        toastMessage('msg_q_num'.tr(), context);
+                                      } else {
+                                        if (cubit
+                                                .classModel!.limitOfQuestions >=
+                                            cubit.questionNum) {
+                                          print(cubit.questionNum);
+                                          print(cubit
+                                              .classModel!.limitOfQuestions);
+                                          Navigator.pushNamed(context,
+                                              Routes.startMakeExamScreen);
+
+                                          ///apply exam on class
+                                        } else {
+                                          print(cubit.questionNum);
+                                          print(cubit
+                                              .classModel!.limitOfQuestions);
+                                          toastMessage('msg_num'.tr(), context);
+                                        }
+                                      }
+                                    } else {
+                                      toastMessage(
+                                          'choose_class_msg'.tr(), context);
+                                    }
+                                  } else {
+                                    print('.......lesson exam.......');
+
+                                    ///apply lesson exam
+                                    ///and navigate
+                                    ///
+                                  }
+                                }
+
+                                ///check linit question
+                                //send request
+                                ///nav to exam
+                                ///clear all prevous data time and number question and currentValue of Lists
+                              }),
+                          SizedBox(height: getSize(context) / 22),
+                        ],
+                      ),
                     ),
               Positioned(
                 top: 0,
