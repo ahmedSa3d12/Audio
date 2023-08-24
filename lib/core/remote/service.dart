@@ -26,6 +26,7 @@ import '../models/examlessonmodel.dart';
 import '../models/grade_and_rate.dart';
 import '../models/invitefriend.dart';
 import '../models/lessonexammodel.dart';
+import '../models/make_exam_model.dart';
 import '../models/paper_exam_details_model.dart';
 import '../models/final_review_model.dart';
 import '../models/home_page_model.dart';
@@ -1300,6 +1301,23 @@ class ServiceApi {
           }));
       print(response);
       return Right(ExamHerosModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  ///get lessons and class
+  Future<Either<Failure, MakeYourExamModel>> getDataOfMakeExam() async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(EndPoints.makeExam,
+          options: Options(headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          }));
+      print(response);
+      return Right(MakeYourExamModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

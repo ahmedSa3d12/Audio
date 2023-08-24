@@ -14,7 +14,6 @@ import '../../../core/utils/app_colors.dart';
 
 import '../../../core/widgets/no_data_widget.dart';
 
-import '../../paperexamdetials/cubit/paper_detials_cubit.dart';
 import '../cubit/note_cubit.dart';
 
 class NotePlan extends StatefulWidget {

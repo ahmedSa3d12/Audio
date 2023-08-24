@@ -233,5 +233,21 @@
   "subscription_renewal": "Subscription renewal",
   "my_qualifications": "Qualifications",
   "my_experiences": "Experiences",
-  "my_skills": "Skills"
+  "my_skills": "Skills",
+  "make_exam": "Make Exam",
+  "num_question": "Number of questions",
+  "select_time": "select duration",
+  "select_exam_level": "Choose the level of questions",
+  "hours": "hour",
+  "level_msg": "please select questions level",
+  "exam_type": "choose exam type",
+  "exam_type_msg":"please choose exam type",
+  "choose_lesson_msg":"please choose lesson",
+  "choose_class_msg":"please choose class",
+  "low":"low",
+  "middle":"middle",
+  "high":"high",
+  "exam_on_class":"exam on class",
+  "exam_on_lesson":"exam on lesson",
+  "start_exam":"Start Exam"
 }

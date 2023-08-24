@@ -79,4 +79,7 @@ class EndPoints {
   static const String aboutMe = '${baseUrl}teacher/about-me';
 
   static const String examHero = '${baseUrl}exam-heroes/all';
+
+  static const String makeExam =
+      '${baseUrl}test-yourself-exams/all-classes-with-lessons';
 }

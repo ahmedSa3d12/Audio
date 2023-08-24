@@ -8,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:new_mazoon/features/attachment/cubit/attachmentcubit.dart';
 import 'package:new_mazoon/features/elmazoon_info/cubit/cubit.dart';
+import 'package:new_mazoon/features/make_exam/cubit/cubit.dart';
 import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
 import 'package:new_mazoon/features/profilescreen/cubit/state.dart';
 import 'package:quick_actions/quick_actions.dart';
@@ -236,6 +237,10 @@ class _ElmazoonState extends State<Elmazoon> {
         ),
         BlocProvider(
           create: (_) => injector.serviceLocator<ElMazoonCubit>(),
+        ),
+
+        BlocProvider(
+          create: (_) => injector.serviceLocator<MakeYourExamCubit>(),
         ),
         //
       ],

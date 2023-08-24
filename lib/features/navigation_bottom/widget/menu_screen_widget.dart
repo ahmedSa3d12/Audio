@@ -202,7 +202,10 @@ class MenuScreenWidget extends StatelessWidget {
                         MenuListTileWidget(
                           title: 'test_yourself'.tr(),
                           iconPath: ImageAssets.testYourselfIcon,
-                          onclick: () {},
+                          onclick: () {
+                            Navigator.pushNamed(
+                                context, Routes.makeYourExamScreen);
+                          },
                         ),
                         MenuListTileWidget(
                           title: 'reports'.tr(),

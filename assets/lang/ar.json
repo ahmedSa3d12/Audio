@@ -230,9 +230,24 @@
   "subtype": "نوع الاشتراك  :",
   "subscription_start": "بداية الاشتراك  :",
   "subscription_end": "نهاية الاشتراك  :",
-  "subscription_renewal":"تجديد الاشتراك",
+  "subscription_renewal": "تجديد الاشتراك",
   "my_qualifications": "مؤهلاتى",
   "my_experiences": "خبراتى",
-  "my_skills": "مهاراتى"
-
-}
+  "my_skills": "مهاراتى",
+  "make_exam": "أصنع امتحانك",
+  "num_question": "عدد الاسئلة",
+  "select_time": "حدد المدة",
+  "select_exam_level": "اختر مستوى الاسئلة",
+  "hours": "ساعه",
+  "level_msg": "من فضلك حدد مستوى الاسئلة",
+  "exam_type": "اختر نوع الامتحان",
+  "exam_type_msg":"من فضلك اختر نوع الامتحان",
+  "choose_lesson_msg":"من فضلك اختر الدرس",
+  "choose_class_msg":"من فضلك اختر الفصل ",
+  "low":"سهل",
+  "middle":"متوسط",
+  "high":"صعب",
+  "exam_on_class":"امتحان علي الفصل",
+  "exam_on_lesson":"امتحان علي الدرس",
+  "start_exam":"ابدأ الامتحان"
+  }

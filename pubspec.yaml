@@ -88,6 +88,8 @@ dependencies:
   intl: 
   wave_linear_progress_indicator: ^0.1.0
   font_awesome_flutter: ^10.5.0
+  numberpicker: ^2.1.2
+  dropdown_button2: ^2.3.8
 dev_dependencies:
   flutter_test:
     sdk: flutter
