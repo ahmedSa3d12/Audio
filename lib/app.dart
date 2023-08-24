@@ -7,7 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:new_mazoon/features/attachment/cubit/attachmentcubit.dart';
+import 'package:new_mazoon/features/elmazoon_info/cubit/cubit.dart';
 import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
+import 'package:new_mazoon/features/profilescreen/cubit/state.dart';
 import 'package:quick_actions/quick_actions.dart';
 // import 'package:screenshot_callback/screenshot_callback.dart';
 
@@ -26,6 +28,7 @@ import 'features/countdown/cubit/countdown_cubit.dart';
 import 'features/exam_hero/cubit/exam_hero_cubit.dart';
 import 'features/examdegreeaccreditation/cubit/examdegreedependcubit.dart';
 import 'features/examinstructions/cubit/examinstructions_cubit.dart';
+import 'features/invite_friends/cubit/cubit.dart';
 import 'features/lessonExamScreen/cubit/questionlessonexamcubit.dart';
 import 'features/notes/cubit/note_cubit.dart';
 import 'features/paperexamRegister/cubit/paper_exam_register_cubit.dart';
@@ -34,6 +37,8 @@ import 'features/lessons_of_class/cubit/lessons_class_cubit.dart';
 import 'features/login/cubit/login_cubit.dart';
 import 'features/navigation_bottom/cubit/navigation_cubit.dart';
 import 'features/onboarding/cubit/on_boarding_cubit.dart';
+import 'features/payment/cubit/paymentcubit.dart';
+import 'features/profilescreen/cubit/cubit.dart';
 import 'features/sources_and_references/cubit/source_references_cubit.dart';
 import 'features/paperexamdetials/cubit/paper_detials_cubit.dart';
 import 'features/splash/presentation/cubit/splash_cubit.dart';
@@ -149,6 +154,10 @@ class _ElmazoonState extends State<Elmazoon> {
     Preferences.instance.savedLang(
       EasyLocalization.of(context)!.locale.languageCode,
     );
+
+    ProfileCubit.getSavedMode().then((value) {
+      ProfileCubit.mode = value;
+    });
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -214,20 +223,34 @@ class _ElmazoonState extends State<Elmazoon> {
               injector.serviceLocator<ExamDegreeAccreditationCubit>(),
         ),
         BlocProvider(
-          create: (_) =>
-              injector.serviceLocator<StudentReportsCubit>(),
+          create: (_) => injector.serviceLocator<StudentReportsCubit>(),
         ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<IniviteFreiendsCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<ProfileCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<PaymentCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<ElMazoonCubit>(),
+        ),
+        //
       ],
-      child: GetMaterialApp(
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        theme: appTheme(),
-        themeMode: ThemeMode.light,
-        darkTheme: ThemeData.light(), // standard dark theme
-        localizationsDelegates: context.localizationDelegates,
-        debugShowCheckedModeBanner: false,
-        title: AppStrings.appName,
-        onGenerateRoute: AppRoutes.onGenerateRoute,
+      child: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, state) {
+          return GetMaterialApp(
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            theme: ProfileCubit.mode ? appDarkTheme() : appTheme(),
+            localizationsDelegates: context.localizationDelegates,
+            debugShowCheckedModeBanner: false,
+            title: AppStrings.appName,
+            onGenerateRoute: AppRoutes.onGenerateRoute,
+          );
+        },
       ),
     );
   }

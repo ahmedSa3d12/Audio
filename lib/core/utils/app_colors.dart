@@ -10,7 +10,7 @@ class AppColors {
   static final AppColors instance = AppColors._internal();
   static Color litePrimary = HexColor('#7F8CF3');
   static Color redPrimary = HexColor('#FF7B7B');
-
+  static Color switchColor = HexColor('#FE7C04');
   AppColors._internal();
 
   factory AppColors() => instance;
@@ -41,7 +41,7 @@ class AppColors {
   static Color green12 = HexColor('#3AAF3C');
   static Color blueLikeColor = HexColor('#2e7dea');
   static Color redDislikeColor = HexColor('#ff2c2c');
-
+  static Color twitterIcon = HexColor('#1DA1F2');
   static Color green = HexColor('#15860B');
   static Color green2 = HexColor('#017333');
 

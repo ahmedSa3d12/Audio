@@ -40,6 +40,7 @@ class ImageAssets {
   static const String crownImage = '$imagePath/crown.png';
   static const String comingSoonImage = '$imagePath/coming_soon.png';
   static const String countdownImage = '$imagePath/countdown.png';
+  static const String inviteImage = '$imagePath/invite.png';
 
   // icons
   static const String loadIcon = '$iconsPath/load.svg';
@@ -117,6 +118,11 @@ class ImageAssets {
   static const String addNoteIcon = '$iconsPath/note.svg';
   static const String wrong = '$iconsPath/wrong.svg';
   static const String whiteimage = '$iconsPath/whiteimage.svg';
+
+  static const String cameraIcon = '$iconsPath/camera.svg';
+  static const String xIcon = '$iconsPath/x.svg';
+  static const String instgramIcon = '$iconsPath/instgram.svg';
+
   //Lottie
   static const String noItems = '$lottiePath/no_item.json';
   static const String noExam = '$lottiePath/no_exam.json';

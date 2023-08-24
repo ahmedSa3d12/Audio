@@ -7,8 +7,7 @@ import '../../../core/models/sources_references_model.dart';
 import '../../../core/utils/app_colors.dart';
 
 class MainScreenItemWidget extends StatelessWidget {
-  const MainScreenItemWidget({Key? key, required this.model})
-      : super(key: key);
+  const MainScreenItemWidget({Key? key, required this.model}) : super(key: key);
 
   final SourcesReferencesDatum model;
 
@@ -25,7 +24,7 @@ class MainScreenItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 12),
       child: Container(
         height: 200,
         width: null,
@@ -43,7 +42,10 @@ class MainScreenItemWidget extends StatelessWidget {
                 right: 0,
                 child: WaveWidget(
                   config: CustomConfig(
-                    colors: [lightens(model.color!, 0.3), lightens(model.color!, 0.2)],
+                    colors: [
+                      lightens(model.color!, 0.3),
+                      lightens(model.color!, 0.2)
+                    ],
                     durations: _durations,
                     heightPercentages: _heightPercentages,
                   ),

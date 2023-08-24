@@ -1,13 +1,3 @@
-// To parse this JSON data, do
-//
-//     final userModel = userModelFromJson(jsonString);
-
-import 'dart:convert';
-
-UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
-
-String userModelToJson(UserModel data) => json.encode(data.toJson());
-
 class UserModel {
   UserModel({
     this.data,
@@ -46,7 +36,9 @@ class User {
     required this.term,
     required this.dateStartCode,
     required this.dateEndCode,
+    required this.center,
     this.country,
+    this.city,
     required this.token,
     required this.createdAt,
     required this.updatedAt,
@@ -57,6 +49,7 @@ class User {
   dynamic email;
   String phone;
   String fatherPhone;
+  String center;
   String image;
   String userStatus;
   String code;
@@ -65,6 +58,8 @@ class User {
   DateTime dateStartCode;
   DateTime dateEndCode;
   Country? country;
+
+  Country? city;
   String token;
   DateTime createdAt;
   DateTime updatedAt;
@@ -72,6 +67,7 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
         name: json["name"],
+        center: json['center'],
         email: json["email"],
         phone: json["phone"] ?? 'no phone',
         fatherPhone: json["father_phone"] ?? 'no father phone',
@@ -92,6 +88,7 @@ class User {
             : DateTime(2022),
         country:
             json["country"] != null ? Country.fromJson(json["country"]) : null,
+        city: json["city"] != null ? Country.fromJson(json["city"]) : null,
         token: json["token"] ?? '',
         createdAt: json["created_at"] != null
             ? DateTime.parse(json["created_at"])
@@ -109,6 +106,7 @@ class User {
         "father_phone": fatherPhone,
         "image": image,
         "user_status": userStatus,
+        "center": center,
         "code": code,
         "season": season.toJson(),
         "term": term.toJson(),
@@ -117,6 +115,7 @@ class User {
         "date_end_code":
             "${dateEndCode.year.toString().padLeft(4, '0')}-${dateEndCode.month.toString().padLeft(2, '0')}-${dateEndCode.day.toString().padLeft(2, '0')}",
         "country": country!.toJson(),
+        "city": city!.toJson(),
         "token": token,
         "created_at":
             "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",

@@ -168,7 +168,7 @@ class _ExpansionTilLessonWidgetState extends State<ExpansionTilLessonWidget> {
                                     );
                               } else {
                                 cubit.getLessonsClassData(
-                                    cubit.oneClass.id!,
+                                    cubit.oneClass!.id!,
                                     cubit.lessons[index].id!,
                                     context,
                                     widget.isGray,

@@ -145,7 +145,9 @@ class MenuScreenWidget extends StatelessWidget {
                         MenuListTileWidget(
                           title: 'profile'.tr(),
                           iconPath: ImageAssets.profileIcon,
-                          onclick: () {},
+                          onclick: () {
+                            Navigator.pushNamed(context, Routes.profileScreen);
+                          },
                         ),
                         MenuListTileWidget(
                           title: 'register_paper_exam'.tr(),
@@ -158,8 +160,8 @@ class MenuScreenWidget extends StatelessWidget {
                           title: 'mygards_rate'.tr(),
                           iconPath: ImageAssets.degreeIcon,
                           onclick: () {
-                            Navigator.pushNamed(context, Routes.myGradeAndRating);
-
+                            Navigator.pushNamed(
+                                context, Routes.myGradeAndRating);
                           },
                         ),
                         MenuListTileWidget(
@@ -217,7 +219,10 @@ class MenuScreenWidget extends StatelessWidget {
                         MenuListTileWidget(
                           title: 'invite_friends'.tr(),
                           iconPath: ImageAssets.shareIcon,
-                          onclick: () {},
+                          onclick: () {
+                            Navigator.pushNamed(
+                                context, Routes.inviteFreiendsScreen);
+                          },
                         ),
                         MenuListTileWidget(
                           title: 'suggest'.tr(),

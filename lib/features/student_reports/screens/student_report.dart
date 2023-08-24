@@ -4,7 +4,6 @@ import 'package:new_mazoon/features/student_reports/cubit/student_reports_cubit.
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/getsize.dart';
-import '../../../core/widgets/my_svg_widget.dart';
 import '../../../core/widgets/no_data_widget.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../widget/report.dart';
@@ -18,7 +17,6 @@ class StudentReportScreen extends StatefulWidget {
 
 class _StudentReportScreenState extends State<StudentReportScreen> {
   @override
-
   Widget build(BuildContext context) {
     StudentReportsCubit cubit = context.read<StudentReportsCubit>();
 
@@ -56,30 +54,27 @@ class _StudentReportScreenState extends State<StudentReportScreen> {
                               } else if (state is StudentReportsPageLoaded) {
                                 return cubit.data.isNotEmpty
                                     ? ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount:
-                                  cubit.data.length,
-                                  itemBuilder: (BuildContext context,
-                                      int index) {
-                                    return ReportWidget(
-                                      reports: cubit.data
-                                          .elementAt(index),
-                                      index: index,
-                                    );
-                                  },
-                                )
+                                        shrinkWrap: true,
+                                        itemCount: cubit.data.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return ReportWidget(
+                                            reports:
+                                                cubit.data.elementAt(index),
+                                            index: index,
+                                          );
+                                        },
+                                      )
                                     : NoDataWidget(
-                                  onclick: () => () {
-                                    cubit.getAllReports(
-                                    );
-                                  },
-                                  title: 'no_date',
-                                );
+                                        onclick: () => () {
+                                          cubit.getAllReports();
+                                        },
+                                        title: 'no_date',
+                                      );
                               } else {
                                 return NoDataWidget(
                                   onclick: () => {
-                                    cubit.getAllReports(
-                                       ),
+                                    cubit.getAllReports(),
                                   },
                                   title: 'no_date',
                                 );

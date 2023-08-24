@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton(
+  CustomButton(
       {Key? key,
       required this.text,
       required this.color,
       required this.onClick,
       this.paddingHorizontal = 0,
       this.borderRadius = 8,
+      this.height,
       this.textcolor = Colors.white})
       : super(key: key);
   final String text;
@@ -16,6 +18,7 @@ class CustomButton extends StatelessWidget {
   final double paddingHorizontal;
   final double? borderRadius;
   final VoidCallback onClick;
+  double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +27,16 @@ class CustomButton extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
         child: Container(
-          width: 100,
+          width: getSize(context) / 1.5,
           alignment: Alignment.center,
-          height: 30,
+          height: height ?? getSize(context) / 10,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Color(0xffff0000)),
+              borderRadius: BorderRadius.circular(10), color: color),
           child: Text(
             text,
             style: TextStyle(
               color: textcolor,
-              fontSize: 13,
+              fontSize: getSize(context) / 24,
               fontWeight: FontWeight.w700,
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:new_mazoon/features/elmazoon_info/cubit/cubit.dart';
 import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,6 +15,7 @@ import 'features/countdown/cubit/countdown_cubit.dart';
 import 'features/exam_hero/cubit/exam_hero_cubit.dart';
 import 'features/examdegreeaccreditation/cubit/examdegreedependcubit.dart';
 import 'features/examinstructions/cubit/examinstructions_cubit.dart';
+import 'features/invite_friends/cubit/cubit.dart';
 import 'features/lessonExamScreen/cubit/questionlessonexamcubit.dart';
 import 'features/notes/cubit/note_cubit.dart';
 import 'features/paperexamRegister/cubit/paper_exam_register_cubit.dart';
@@ -22,6 +24,8 @@ import 'features/lessons_of_class/cubit/lessons_class_cubit.dart';
 import 'features/login/cubit/login_cubit.dart';
 import 'features/navigation_bottom/cubit/navigation_cubit.dart';
 import 'features/onboarding/cubit/on_boarding_cubit.dart';
+import 'features/payment/cubit/paymentcubit.dart';
+import 'features/profilescreen/cubit/cubit.dart';
 import 'features/sources_and_references/cubit/source_references_cubit.dart';
 import 'features/paperexamdetials/cubit/paper_detials_cubit.dart';
 import 'features/splash/presentation/cubit/splash_cubit.dart';
@@ -80,7 +84,7 @@ Future<void> setup() async {
     () => LessonsClassCubit(serviceLocator()),
   );
   serviceLocator.registerFactory(
-    () => ExamHeroCubit(),
+    () => ExamHeroCubit(serviceLocator()),
   );
   serviceLocator.registerFactory(
     () => CountdownCubit(serviceLocator()),
@@ -88,7 +92,18 @@ Future<void> setup() async {
   serviceLocator.registerFactory(
     () => StudentReportsCubit(serviceLocator()),
   );
-
+  serviceLocator.registerFactory(
+    () => IniviteFreiendsCubit(serviceLocator()),
+  );
+  serviceLocator.registerFactory(
+    () => ProfileCubit(serviceLocator()),
+  );
+  serviceLocator.registerFactory(
+    () => PaymentCubit(serviceLocator()),
+  );
+  serviceLocator.registerFactory(
+    () => ElMazoonCubit(serviceLocator()),
+  );
   ///////////////////////////////////////////////////////////////////////////////
 
   //! External

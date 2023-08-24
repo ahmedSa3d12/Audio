@@ -4,9 +4,6 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:http/http.dart' as http;
-
-import 'package:cached_video_player/cached_video_player.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -14,7 +11,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:new_mazoon/core/models/videoModel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
-import 'package:video_player/video_player.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 import '../../../core/models/comment_data_model.dart';

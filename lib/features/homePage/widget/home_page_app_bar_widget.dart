@@ -10,11 +10,16 @@ import '../../../../core/widgets/network_image.dart';
 import '../../../../core/widgets/painting.dart';
 
 // import '../../downloads_videos/screens/downloads_video.dart';
+import '../../../config/routes/app_routes.dart';
 import '../../navigation_bottom/cubit/navigation_cubit.dart';
+import '../../sources_and_references/cubit/source_references_cubit.dart';
 
 class HomePageAppBarWidget extends StatelessWidget {
-  const HomePageAppBarWidget({Key? key, this.isHome = true}) : super(key: key);
+  const HomePageAppBarWidget(
+      {Key? key, this.isHome = true, this.isSource = false})
+      : super(key: key);
   final bool? isHome;
+  final bool? isSource;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class HomePageAppBarWidget extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          height: getSize(context)/2.7,
+          height: getSize(context) / 2.7,
           child: CustomPaint(
             size: Size(
               MediaQuery.of(context).size.width,
@@ -170,10 +175,16 @@ class HomePageAppBarWidget extends StatelessWidget {
                                 SizedBox(width: 18),
                                 Visibility(
                                   visible: isHome!,
-                                  child: MySvgWidget(
-                                    path: ImageAssets.aboutIcon,
-                                    size: 25,
-                                    imageColor: AppColors.white,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, Routes.elMazoonInfo);
+                                    },
+                                    child: MySvgWidget(
+                                      path: ImageAssets.aboutIcon,
+                                      size: 25,
+                                      imageColor: AppColors.white,
+                                    ),
                                   ),
                                 ),
                                 Visibility(
@@ -187,7 +198,15 @@ class HomePageAppBarWidget extends StatelessWidget {
                                 ),
                                 SizedBox(width: isHome! ? 8 : 25),
                                 InkWell(
-                                  onTap: () => Navigator.pop(context),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                    isSource!
+                                        ? context
+                                            .read<SourceReferencesCubit>()
+                                            .sourcesReferencesByIdList
+                                            .clear()
+                                        : null;
+                                  },
                                   child: Visibility(
                                     visible: !isHome!,
                                     child: Icon(

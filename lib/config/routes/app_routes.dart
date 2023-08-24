@@ -15,16 +15,20 @@ import '../../core/models/videoModel.dart';
 import '../../core/utils/app_strings.dart';
 import '../../features/attachment/screens/rate_yourself.dart';
 import '../../features/countdown/screens/countdown_screen.dart';
+import '../../features/elmazoon_info/screen/elmazoon_info.dart';
 import '../../features/exam_hero/screens/exam_hero_screen.dart';
 import '../../features/examdegreeaccreditation/screens/mygradeandrating.dart';
 import '../../features/examdegreeaccreditation/screens/ratescreen.dart';
 import '../../features/examinstructions/screen/examinstructions.dart';
+import '../../features/invite_friends/screen/invitefriend.dart';
 import '../../features/lessonExamScreen/screens/lessonexamscreen.dart';
 import '../../features/paperexamRegister/presentation/screens/paper_exam_register.dart';
 import '../../features/lessons_of_class/screens/lesson_class.dart';
 import '../../features/login/screens/login.dart';
 import '../../features/monthplan/screen/monthplan.dart';
 import '../../features/paperexamdetials/screens/paper_details_exam_register.dart';
+import '../../features/payment/screen/select_months.dart';
+import '../../features/profilescreen/screen/profilescreen.dart';
 import '../../features/sources_and_references/screens/source_references_details.dart';
 import '../../features/splash/presentation/screens/pop_ads_screen.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
@@ -63,6 +67,13 @@ class Routes {
 
   static const String rateYourselfDependExamResult =
       '/RateYourselfDependExamResult';
+
+  static const String inviteFreiendsScreen = '/inviteFreiendsScreen';
+
+  static const String profileScreen = '/profileScreen';
+
+  static const String selectMonthPlanPayment = '/selectMonthPlanPayment';
+  static const String elMazoonInfo = '/elMazoonInfo';
 }
 
 class AppRoutes {
@@ -78,7 +89,7 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) => const LoginScreen(),
         );
-        case Routes.reportsScreen:
+      case Routes.reportsScreen:
         return MaterialPageRoute(
           builder: (context) => const StudentReportScreen(),
         );
@@ -233,6 +244,36 @@ class AppRoutes {
       case Routes.rateYourselfDependExamResult:
         return PageTransition(
           child: RateYourselfDependExamResult(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+      //ProfileScreen
+      case Routes.inviteFreiendsScreen:
+        return PageTransition(
+          child: InviteFreiendsScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+      case Routes.profileScreen:
+        return PageTransition(
+          child: ProfileScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+      //SelectMonthPlanPayment
+      case Routes.selectMonthPlanPayment:
+        return PageTransition(
+          child: SelectMonthPlanPayment(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+      case Routes.elMazoonInfo:
+        return PageTransition(
+          child: ElMazoonInfo(),
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),

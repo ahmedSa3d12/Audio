@@ -1,6 +1,5 @@
 class AppStrings {
   static const String appName = 'app_name';
-
   // static const String googleApiKey = '';
   static const String fontFamily = 'Cairo';
   static const String noRouteFound = 'No Route Found';
@@ -57,4 +56,6 @@ class AppStrings {
   static const String balanceText = 'balance_text';
   static const String SARText = 'SAR';
   static const String noEmailError = 'There_is_no_email_with_this_phone';
+
+  static const String mode = 'mode';
 }

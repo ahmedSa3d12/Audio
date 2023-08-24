@@ -48,6 +48,7 @@ class SourcesReferencesDatum {
   final String? icon;
   final String? filePathSize;
   final String? description;
+  double progress = 0;
   final DateTime? createdAt;
 
   SourcesReferencesDatum({

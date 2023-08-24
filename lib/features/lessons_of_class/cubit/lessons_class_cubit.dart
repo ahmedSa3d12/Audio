@@ -1,10 +1,8 @@
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:new_mazoon/core/models/class_data.dart';
 import 'package:new_mazoon/core/remote/service.dart';
 import 'package:path_provider/path_provider.dart';
@@ -23,7 +21,7 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
   final ServiceApi api;
 
   List<AllLessonsModel> lessons = [];
-  late AllClasses oneClass;
+  AllClasses? oneClass;
 
   getLessonsClassData(int id, int? lessonId, BuildContext context, bool isGrade,
       bool isLesson, bool isClass) async {
@@ -40,21 +38,15 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
       );
       if (isGrade) {
         if (isLesson) {
-          context
-              .read<ExamDegreeAccreditationCubit>()
-              . setlesson();
+          context.read<ExamDegreeAccreditationCubit>().setlesson();
           emit(LessonsClassLoaded());
-
         } else if (isClass) {
           context
               .read<ExamDegreeAccreditationCubit>()
               .classesExamGradeAndRate(classId: id);
         } else {
-          context
-              .read<ExamDegreeAccreditationCubit>()
-              .setHomeGrade();
+          context.read<ExamDegreeAccreditationCubit>().setHomeGrade();
           emit(LessonsClassLoaded());
-
         }
         emit(LessonsClassError());
       }
