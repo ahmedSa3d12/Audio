@@ -17,4 +17,19 @@ class SelectMinutes2MakeYourExam extends MakeYourExamState {}
 class LoadingGetLessonAndClassOfMakeYourExam extends MakeYourExamState {}
 
 class LoadedGetLessonAndClassOfMakeYourExam extends MakeYourExamState {}
+
 class ErrorGetLessonAndClassOfMakeYourExam extends MakeYourExamState {}
+
+class LoadingPostLessonAndClassOfMakeYourExam extends MakeYourExamState {}
+
+class LoadedPostLessonAndClassOfMakeYourExam extends MakeYourExamState {}
+
+class ErrorPostLessonAndClassOfMakeYourExam extends MakeYourExamState {}
+
+class LoadingApplyMakeYourExam extends MakeYourExamState {}
+
+class LoadedApplyMakeYourExam extends MakeYourExamState {}
+
+class ErrorApplyMakeYourExam extends MakeYourExamState {}
+
+class ChangeColorsOfMakeExamState extends MakeYourExamState {}

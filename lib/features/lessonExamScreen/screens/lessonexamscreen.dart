@@ -22,7 +22,7 @@ class LessonExamScreen extends StatefulWidget {
 }
 
 class _LessonExamScreenState extends State<LessonExamScreen> {
-  List data = [];
+  // List data = [];
   ScrollController _scrollController = ScrollController();
 
   void scrollToNextItem() {

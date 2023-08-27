@@ -34,6 +34,7 @@ class _MakeYourExamScreenState extends State<MakeYourExamScreen> {
   var key = GlobalKey<FormState>();
 
   bool isLoading = true; //true
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MakeYourExamCubit, MakeYourExamState>(
@@ -280,17 +281,18 @@ class _MakeYourExamScreenState extends State<MakeYourExamScreen> {
                               ? cubit.lessons.isEmpty
                                   ? Container()
                                   : CustomDropDown3(
-                                      value: cubit.selectedValueLesson,
+                                      value: cubit.currentLesson,
                                       items: cubit.lessons,
                                       msg: 'choose_lesson_msg'.tr(),
                                       label: 'choose_lesson'.tr(),
                                       onChanged: (v) {
                                         setState(() {
-                                          cubit.selectedValueLesson = v;
-                                          cubit.lessonId =
-                                              cubit.currentLesson!.id;
-                                          print('..............');
-                                          print(cubit.lessonId);
+                                          cubit.selectedValueLesson = v!.name;
+                                          cubit.lessonId = v.id;
+                                          cubit.currentLesson = v;
+
+                                          ///
+                                          print('............${v.id}..');
                                         });
                                       },
                                     )
@@ -311,14 +313,39 @@ class _MakeYourExamScreenState extends State<MakeYourExamScreen> {
                                       if (cubit.questionNum == 0) {
                                         toastMessage('msg_q_num'.tr(), context);
                                       } else {
-                                        if (cubit
-                                                .classModel!.limitOfQuestions >=
+                                        if (cubit.classModel!.limitOfQuestions >
                                             cubit.questionNum) {
-                                          print(cubit.questionNum);
-                                          print(cubit
-                                              .classModel!.limitOfQuestions);
-                                          Navigator.pushNamed(context,
-                                              Routes.startMakeExamScreen);
+                                          if (cubit.totalMinutes() <= 0) {
+                                            toastMessage(
+                                                'select_time'.tr(), context);
+                                          } else {
+                                            print(cubit.questionNum);
+                                            print(cubit
+                                                .classModel!.limitOfQuestions);
+                                            cubit.MakeYourExam(
+                                                    context: context,
+                                                    classId:
+                                                        cubit.currentClassID)
+                                                .then((value) {
+                                              print(
+                                                  'exam level : ${cubit.selectedValueLevel}');
+                                              print('class exam');
+                                              Navigator.pushNamed(context,
+                                                  Routes.startMakeExamScreen);
+
+                                              ///set
+                                              // cubit.currentLesson = null;
+                                              // cubit.selectedValueLevel = null;
+                                              // cubit.questionNum = 0;
+                                              // cubit.currentClassID = null;
+                                              // cubit.selectedValueLesson = null;
+                                              // cubit.classModel = null;
+                                              // cubit.currentHour = 0;
+                                              // cubit.currentMinutes = 0;
+                                              // cubit.selectedValueExamtype =
+                                              //     null;
+                                            });
+                                          }
 
                                           ///apply exam on class
                                         } else {
@@ -333,18 +360,52 @@ class _MakeYourExamScreenState extends State<MakeYourExamScreen> {
                                           'choose_class_msg'.tr(), context);
                                     }
                                   } else {
-                                    print('.......lesson exam.......');
+////////////////
+                                    if (cubit.questionNum == 0) {
+                                      toastMessage('msg_q_num'.tr(), context);
+                                    } else {
+                                      if (cubit
+                                              .currentLesson!.limitOfQuestions >=
+                                          cubit.questionNum) {
+                                        //
+                                        if (cubit.totalMinutes() <= 0) {
+                                          toastMessage(
+                                              'select_time'.tr(), context);
+                                        } else {
+                                          print(
+                                              'your questions num ${cubit.questionNum}');
+                                          print(
+                                              'qestion available ${cubit.currentLesson!.limitOfQuestions}');
+                                          cubit.MakeYourExam(
+                                                  context: context,
+                                                  lessonIdd: cubit.lessonId)
+                                              .then((value) {
+                                            print(
+                                                'exam level : ${cubit.selectedValueLevel}');
+                                            print('class exam');
+                                            Navigator.pushNamed(context,
+                                                Routes.startMakeExamScreen);
 
-                                    ///apply lesson exam
-                                    ///and navigate
-                                    ///
+                                            ///set
+                                            // cubit.currentLesson = null;
+                                            // cubit.selectedValueLevel = null;
+                                            // cubit.questionNum = 0;
+                                            // cubit.currentClassID = null;
+                                            // cubit.selectedValueLesson = null;
+                                            // cubit.classModel = null;
+                                            // cubit.currentHour = 0;
+                                            // cubit.currentMinutes = 0;
+                                            // cubit.selectedValueExamtype = null;
+                                          });
+                                        }
+
+                                        ///apply exam on class
+                                      } else {
+                                        toastMessage('msg_num'.tr(), context);
+                                      }
+                                    }
                                   }
                                 }
-
-                                ///check linit question
-                                //send request
-                                ///nav to exam
-                                ///clear all prevous data time and number question and currentValue of Lists
                               }),
                           SizedBox(height: getSize(context) / 22),
                         ],

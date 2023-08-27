@@ -29,7 +29,6 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
     return BlocBuilder<QuestionsLessonExamCubit, QuestionsOfLessonExamState>(
       builder: (context, state) {
         var cubit = context.read<QuestionsLessonExamCubit>();
-
         return Scaffold(
           appBar: AppBar(
             elevation: 0,

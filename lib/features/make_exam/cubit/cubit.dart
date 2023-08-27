@@ -1,10 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/remote/service.dart';
+import 'package:new_mazoon/core/utils/toast_message_method.dart';
 import 'package:new_mazoon/features/make_exam/cubit/state.dart';
 import 'package:numberpicker/numberpicker.dart';
 
+import '../../../core/models/applaymakeexammodel.dart';
 import '../../../core/models/make_exam_model.dart';
+import '../../../core/models/questionsmakeexam.dart';
 
 class MakeYourExamCubit extends Cubit<MakeYourExamState> {
   MakeYourExamCubit(this.api) : super(MakeYourExamInitial());
@@ -82,6 +86,75 @@ class MakeYourExamCubit extends Cubit<MakeYourExamState> {
     return (currentHour * 60) + currentMinutes;
   }
 
-  ///3 questionNum
-  int? currentLessonID;
+  QuestionsOfMakeExamModelData? allData;
+  Future MakeYourExam(
+      {int? lessonIdd, int? classId, required BuildContext context}) async {
+    emit(LoadingPostLessonAndClassOfMakeYourExam());
+    final response = await api.MakeYourExam(
+      num_of_questions: questionNum,
+      questions_type: selectedValueLevel == 'low'.tr()
+          ? 'low'
+          : selectedValueLevel == 'middle'.tr()
+              ? 'mid'
+              : 'high',
+      total_time: totalMinutes(),
+      lesson_id: lessonIdd,
+      subject_class_id: classId,
+    );
+    response.fold((l) => emit(ErrorPostLessonAndClassOfMakeYourExam()), (r) {
+      if (r.data == null) {
+        toastMessage(r.data.toString(), context);
+      } else {
+        allData = r.data;
+        print(r.data);
+        print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+        emit(LoadedPostLessonAndClassOfMakeYourExam());
+      }
+    });
+  }
+
+  void solveQuestion(int index) {
+    allData!.questions[index].isSolving = true;
+    print('tttttttttttttttttttttttttttttttttttttttt');
+  }
+
+  List<ApplyMakeExam> details = [];
+
+  ///
+  ResponseOfMakeExamData? resultData;
+  Future applyMakeExam({required BuildContext context}) async {
+    emit(LoadingApplyMakeYourExam());
+    // await MakeYourExam(
+      
+    // );
+    final response =
+        await api.applyMakeExam(lessonId: allData!.id, details: details);
+    response.fold((l) => emit(ErrorApplyMakeYourExam()), (r) {
+      resultData = r.data;
+      questionColor();
+
+      for (int i = 0; i < resultData!.examQuestions.questions.length; i++) {
+        print(resultData!.examQuestions.questions[i].questionStatus);
+        print('qsqssqsqsqsqsqsqssqsqsqsqsqsqsqsqsqsqsqsqssssssssssssq');
+      }
+      emit(LoadedApplyMakeYourExam());
+    });
+  }
+
+  questionColor() {
+    for (int i = 0; i < resultData!.examQuestions.questions.length; i++) {
+      for (int j = 0;
+          j < resultData!.examQuestions.questions[i].answers.length;
+          j++) {
+        if (resultData!.examQuestions.questions[i].answerUser ==
+                resultData!.examQuestions.questions[i].answers[j].id &&
+            resultData!.examQuestions.questions[i].answers[j].answerStatus ==
+                'correct' &&
+            resultData!.examQuestions.questions[i].questionType == 'choice') {
+          resultData!.examQuestions.questions[i].questionStatus = true;
+        }
+      }
+      emit(ChangeColorsOfMakeExamState());
+    }
+  }
 }

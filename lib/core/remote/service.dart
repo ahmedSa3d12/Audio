@@ -4,6 +4,7 @@ import 'package:new_mazoon/core/models/comment_data_model.dart';
 import 'package:new_mazoon/core/models/datesofnotes.dart';
 import 'package:new_mazoon/core/models/elmazoon_model.dart';
 import 'package:new_mazoon/core/models/note_model.dart';
+import 'package:new_mazoon/core/models/questionsmakeexam.dart';
 import 'package:new_mazoon/core/models/status_response_model.dart';
 import '../../features/login/models/communication_model.dart';
 import '../api/base_api_consumer.dart';
@@ -13,6 +14,7 @@ import '../error/failures.dart';
 import '../models/addnewexamtry.dart';
 import '../models/addnotebystudent.dart';
 import '../models/ads_model.dart';
+import '../models/applaymakeexammodel.dart';
 import '../models/applylessonexammodel.dart';
 import '../models/audiolessonmodel.dart';
 import '../models/class_lesson_model.dart';
@@ -1318,6 +1320,70 @@ class ServiceApi {
           }));
       print(response);
       return Right(MakeYourExamModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+
+    //makeYourExam
+  }
+
+  Future<Either<Failure, QuestionsOfMakeExamModel>> MakeYourExam(
+      {int? lesson_id,
+      int? subject_class_id,
+      required String questions_type,
+      required int num_of_questions,
+      required int total_time}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.post(
+        EndPoints.makeYourExam,
+        formDataIsEnabled: true,
+        body: {
+          "lesson_id": lesson_id,
+          "subject_class_id": subject_class_id,
+          "questions_type": questions_type,
+          "num_of_questions": num_of_questions,
+          "total_time": total_time,
+        },
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(QuestionsOfMakeExamModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  //applyMakeYourExam
+  Future<Either<Failure, ResponseOfMakeExam>> applyMakeExam(
+      {required int lessonId, required List<ApplyMakeExam> details}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      Map<String, dynamic> requestBody = {};
+      for (int i = 0; i < details.length; i++) {
+        requestBody.addAll(details[i].toJson(i));
+      }
+      print("ahmed");
+      print(requestBody);
+      print("ahmed");
+      final response = await dio.post(
+        EndPoints.applyMakeYourExam + '$lessonId',
+        formDataIsEnabled: true,
+        body: requestBody,
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(ResponseOfMakeExam.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

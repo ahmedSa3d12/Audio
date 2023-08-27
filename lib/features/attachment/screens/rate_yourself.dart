@@ -109,7 +109,7 @@ class _RateYourSelfScreenState extends State<RateYourSelfScreen> {
                                                 fontWeight: FontWeight.w500,
                                                 color: AppColors.white)),
                                       ),
-                                      Text('الصحيحه',
+                                      Text('right'.tr(),
                                           style: TextStyle(
                                             fontSize: getSize(context) / 32,
                                             fontWeight: FontWeight.w500,
@@ -135,7 +135,7 @@ class _RateYourSelfScreenState extends State<RateYourSelfScreen> {
                                                 fontWeight: FontWeight.w500,
                                                 color: AppColors.white)),
                                       ),
-                                      Text('الخطأ',
+                                      Text('wrong'.tr(),
                                           style: TextStyle(
                                             fontSize: getSize(context) / 32,
                                             fontWeight: FontWeight.w500,
@@ -161,7 +161,7 @@ class _RateYourSelfScreenState extends State<RateYourSelfScreen> {
                                                 fontWeight: FontWeight.w500,
                                                 color: AppColors.white)),
                                       ),
-                                      Text('المحاولات',
+                                      Text('trys'.tr(),
                                           style: TextStyle(
                                             fontSize: getSize(context) / 32,
                                             fontWeight: FontWeight.w500,

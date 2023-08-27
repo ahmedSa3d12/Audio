@@ -16,8 +16,8 @@ import 'core/utils/app_colors.dart';
 import 'core/utils/restart_app_class.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-//
-//Error at degree and rating screen 4 parts >>Model
+//call MakeYourExam before apply exam
+//make exam
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();

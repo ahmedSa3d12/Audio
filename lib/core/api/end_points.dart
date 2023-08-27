@@ -82,4 +82,8 @@ class EndPoints {
 
   static const String makeExam =
       '${baseUrl}test-yourself-exams/all-classes-with-lessons';
+  static const String makeYourExam = '${baseUrl}test-yourself-exams/make-exam';
+
+  static const String applyMakeYourExam =
+      '${baseUrl}test-yourself-exams/solve-exam/';
 }

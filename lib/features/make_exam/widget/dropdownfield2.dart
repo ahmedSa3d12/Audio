@@ -15,16 +15,16 @@ class CustomDropDown3 extends StatelessWidget {
       super.key});
   List<Lesson> items;
   String label;
-  String? value;
+  Lesson? value;
 
   String msg;
-  Function(String?)? onChanged;
+  Function(Lesson?)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(horizontal: getSize(context) / 22),
-      child: DropdownButtonFormField2<String>(
+      child: DropdownButtonFormField2<Lesson>(
         isExpanded: true,
         decoration: InputDecoration(
           fillColor: AppColors.unselectedTabColor,
@@ -45,8 +45,8 @@ class CustomDropDown3 extends StatelessWidget {
               color: AppColors.primary),
         ),
         items: items
-            .map((item) => DropdownMenuItem<String>(
-                  value: item.name,
+            .map((item) => DropdownMenuItem<Lesson>(
+                  value: item,
                   child: Text(
                     item.name,
                     style: TextStyle(
