@@ -438,7 +438,7 @@ class _userScreenState extends State<LoginScreen> {
                     },
                   ),
                   SizedBox(
-                    height: getSize(context) / 22,
+                    height: getSize(context) / 8,
                   ),
                   Container(
                     width: double.infinity,
