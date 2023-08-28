@@ -402,31 +402,32 @@ class _StartMakeExamScreenState extends State<StartMakeExamScreen> {
                                                               cubit
                                                                   .solveQuestion(
                                                                       index);
-
-                                                              cubit
-                                                                          .allData!
-                                                                          .questions[
-                                                                              index]
-                                                                          .answers[
-                                                                              index2]
-                                                                          .selectedValue !=
-                                                                      ''
-                                                                  ? cubit.details.add(ApplyMakeExam(
-                                                                      question: cubit
-                                                                          .allData!
-                                                                          .questions[
-                                                                              index]
-                                                                          .id
-                                                                          .toString(),
-                                                                      answer: cubit
-                                                                          .allData!
-                                                                          .questions[
-                                                                              index]
-                                                                          .answers[
-                                                                              index2]
-                                                                          .id
-                                                                          .toString()))
-                                                                  : null;
+                                                              if (cubit
+                                                                      .allData!
+                                                                      .questions[
+                                                                          index]
+                                                                      .answers[
+                                                                          index2]
+                                                                      .selectedValue !=
+                                                                  '') {
+                                                                cubit.addUniqueApplyMakeExam(
+                                                                    ApplyMakeExam(
+                                                                  question: cubit
+                                                                      .allData!
+                                                                      .questions[
+                                                                          index]
+                                                                      .id
+                                                                      .toString(),
+                                                                  answer: cubit
+                                                                      .allData!
+                                                                      .questions[
+                                                                          index]
+                                                                      .answers[
+                                                                          index2]
+                                                                      .id
+                                                                      .toString(),
+                                                                ));
+                                                              }
                                                             },
                                                             title: Row(
                                                               children: [
@@ -485,25 +486,16 @@ class _StartMakeExamScreenState extends State<StartMakeExamScreen> {
                                                     context,
                                                     Routes.makeYourExamScreen);
                                               } else {
+                                                print('...................');
+                                                cubit.details.map(
+                                                    (e) => print(e.answer));
+                                                print('...................');
+
                                                 cubit
                                                     .applyMakeExam(
-                                                  context: context,
-                                                )
+                                                        context: context,
+                                                        detailss: cubit.details)
                                                     .then((value) {
-                                                  //here
-                                                  // cubit.currentLesson = null;
-                                                  // cubit.selectedValueLevel =
-                                                  //     null;
-                                                  // cubit.questionNum = 0;
-                                                  // cubit.currentClassID = null;
-                                                  // cubit.selectedValueLesson =
-                                                  //     null;
-                                                  // cubit.classModel = null;
-                                                  // cubit.currentHour = 0;
-                                                  // cubit.currentMinutes = 0;
-                                                  // cubit.selectedValueExamtype =
-                                                  //     null;
-                                                  // cubit.details.clear();
                                                   Navigator.popAndPushNamed(
                                                       context,
                                                       Routes

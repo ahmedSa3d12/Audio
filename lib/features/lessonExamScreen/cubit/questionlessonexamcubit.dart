@@ -68,6 +68,27 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
   }
 
   List<ApplyStudentExam> details = [];
+  void addUniqueApplyMakeExam(ApplyStudentExam exam) {
+    int isfound = -1;
+    if (details.isEmpty) {
+      details.add(exam);
+    } else {
+      for (int i = 0; i < details.length; i++) {
+        print(details[i].question);
+        print('................${exam.question}');
+        if (details[i].question == exam.question) {
+          print('true !=exist..................${exam.question}');
+          isfound = i;
+          return;
+          // break;
+        }
+      }
+      if (isfound != -1) {
+        details.removeAt(isfound);
+      }
+      details.add(exam);
+    }
+  }
 
   ///
   ///

@@ -429,7 +429,9 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                                               index2]
                                                                           .selectedValue !=
                                                                       ''
-                                                                  ? cubit.details.add(ApplyStudentExam(
+                                                                  ? 
+                                                                  
+                                                                  cubit.addUniqueApplyMakeExam(ApplyStudentExam(
                                                                       timer: (cubit
                                                                               .questionOfLessonData!
                                                                               .quizMinute -

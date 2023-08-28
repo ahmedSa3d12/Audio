@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -107,6 +109,7 @@ class MakeYourExamCubit extends Cubit<MakeYourExamState> {
       } else {
         allData = r.data;
         print(r.data);
+        print(r.data!.id);
         print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
         emit(LoadedPostLessonAndClassOfMakeYourExam());
       }
@@ -115,20 +118,39 @@ class MakeYourExamCubit extends Cubit<MakeYourExamState> {
 
   void solveQuestion(int index) {
     allData!.questions[index].isSolving = true;
-    print('tttttttttttttttttttttttttttttttttttttttt');
   }
 
   List<ApplyMakeExam> details = [];
+  void addUniqueApplyMakeExam(ApplyMakeExam exam) {
+    int isfound = -1;
+    if (details.isEmpty) {
+      details.add(exam);
+    } else {
+      for (int i = 0; i < details.length; i++) {
+        print(details[i].question);
+        print('................${exam.question}');
+        if (details[i].question == exam.question) {
+          print('true !=exist..................${exam.question}');
+          isfound = i;
+          return;
+          // break;
+        }
+      }
+      if (isfound != -1) {
+        details.removeAt(isfound);
+      }
+      details.add(exam);
+    }
+  }
 
   ///
   ResponseOfMakeExamData? resultData;
-  Future applyMakeExam({required BuildContext context}) async {
+  Future applyMakeExam(
+      {required BuildContext context,
+      required List<ApplyMakeExam> detailss}) async {
     emit(LoadingApplyMakeYourExam());
-    // await MakeYourExam(
-      
-    // );
     final response =
-        await api.applyMakeExam(lessonId: allData!.id, details: details);
+        await api.applyMakeExam(lessonId: allData!.id, details: detailss);
     response.fold((l) => emit(ErrorApplyMakeYourExam()), (r) {
       resultData = r.data;
       questionColor();
