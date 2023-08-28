@@ -15,10 +15,10 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   XFile? imageFile;
   String imagePath = '';
-  static bool mode = true;
+  static bool mode = false;
   static Future<bool> getSavedMode() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.getBool(AppStrings.mode) ?? true;
+    return preferences.getBool(AppStrings.mode) ?? false;
   }
 
   static Future<void> savedMode() async {

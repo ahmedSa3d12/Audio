@@ -8,6 +8,7 @@ import '../../../../../core/widgets/circle_image_widget.dart';
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/call_method.dart';
+import '../../../core/utils/getsize.dart';
 import '../../../core/utils/show_dialog.dart';
 import '../../../core/utils/toast_message_method.dart';
 import '../../../core/widgets/custom_button.dart';
@@ -182,9 +183,6 @@ class _userScreenState extends State<LoginScreen> {
                                       },
                                       paddingHorizontal: 20,
                                       borderRadius: 15,
-                                    ),
-                                    const SizedBox(
-                                      height: 30,
                                     ),
                                   ],
                                 ),
@@ -439,7 +437,17 @@ class _userScreenState extends State<LoginScreen> {
                       );
                     },
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(
+                    height: getSize(context) / 22,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    // color: AppColors.white,
+                    child: Image.asset(
+                      ImageAssets.copyRight,
+                      width: getSize(context) / 1.2,
+                    ),
+                  )
                 ],
               ),
             ),

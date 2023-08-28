@@ -11,6 +11,8 @@ import 'package:new_mazoon/features/splash/presentation/cubit/splash_cubit.dart'
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../core/utils/assets_manager.dart';
+import '../../../core/utils/getsize.dart';
 import 'onBordingWidget.dart';
 
 class OnBordingScreen extends StatefulWidget {
@@ -172,8 +174,14 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 50,
+              Container(
+                width: double.infinity,
+                color: AppColors.white,
+                child: Image.asset(
+                  ImageAssets.copyRight,
+                  // height: getSize(context) / 8,
+                  width: getSize(context) / 1.2,
+                ),
               )
             ],
           ),

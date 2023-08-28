@@ -6,6 +6,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../config/routes/app_routes.dart';
+import '../../../../core/utils/assets_manager.dart';
+import '../../../../core/utils/getsize.dart';
 import '../../../examinstructions/screen/examinstructions.dart';
 import '../../../../core/models/user_model.dart';
 import '../../../../core/preferences/preferences.dart';
@@ -99,18 +101,31 @@ class _SplashScreenState extends State<SplashScreen>
     //       _startDelay();
     //     }
     return Scaffold(
-      body: Center(
-        child: Hero(
-          tag: 'logo',
-          child: SizedBox(
-
-            child: Image.asset(
-              'assets/images/logo.png',
-              height: 150,
-              width: 150,
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          Center(
+            child: Hero(
+              tag: 'logo',
+              child: SizedBox(
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  height: 150,
+                  width: 150,
+                ),
+              ),
             ),
           ),
-        ),
+          Positioned(
+              bottom: 0,
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                child: Image.asset(
+                  ImageAssets.copyRight,
+                  width: getSize(context) / 1.2,
+                ),
+              )),
+        ],
       ),
     );
     //   },
