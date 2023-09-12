@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/config/routes/app_routes.dart';
@@ -6,7 +7,9 @@ import 'package:percent_indicator/percent_indicator.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/utils/getsize.dart';
+import '../../../core/utils/toast_message_method.dart';
 import '../../../core/widgets/my_svg_widget.dart';
+import '../../../core/widgets/show_loading_indicator.dart';
 import '../cubit/lessons_class_cubit.dart';
 
 ///الشرح الخاص بالدروس need make get data
@@ -18,7 +21,7 @@ class VideoLessonScreen extends StatefulWidget {
 }
 
 class _VideoLessonScreenState extends State<VideoLessonScreen> {
-  bool isLoading = false;
+  bool isLoading = true;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LessonsClassCubit, LessonsClassState>(
@@ -34,24 +37,28 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
 
         return Scaffold(
           body: isLoading
-              ? Center(
-                  child: CircularPercentIndicator(
-                    radius: 10,
-                    progressColor: AppColors.bink,
-                  ),
-                )
+              ? Center(child: ShowLoadingIndicator())
               : ListView.builder(
                   itemCount:
                       cubit.videosofLessons.length, //cubit.lessons.length,
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        Navigator.pushNamed(
-                            context, Routes.videoDetailsScreenRoute,
-                            arguments: {
-                              "videoId": cubit.videosofLessons[index].id,
-                              "type": "video_part"
-                            });
+                        ///
+                        if (cubit.videosofLessons[index].status == 'lock') {
+                          toastMessage(
+                            'open_lesson'.tr(),
+                            context,
+                            color: AppColors.error,
+                          );
+                        } else {
+                          Navigator.pushNamed(
+                              context, Routes.videoDetailsScreenRoute,
+                              arguments: {
+                                "videoId": cubit.videosofLessons[index].id,
+                                "type": "video_part"
+                              });
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(

@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/config/routes/app_routes.dart';
+import 'package:new_mazoon/core/utils/dialogs.dart';
 import 'package:new_mazoon/features/make_exam/cubit/cubit.dart';
 import 'package:new_mazoon/features/make_exam/cubit/state.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -482,25 +483,24 @@ class _StartMakeExamScreenState extends State<StartMakeExamScreen> {
                                           InkWell(
                                             onTap: () {
                                               if (cubit.details.isEmpty) {
-                                                Navigator.popAndPushNamed(
-                                                    context,
-                                                    Routes.makeYourExamScreen);
+                                                errorGetBar(
+                                                    'answer_all_questions'
+                                                        .tr());
+                                                // Navigator.popAndPushNamed(
+                                                //     context,
+                                                //     Routes.makeYourExamScreen);
+                                              } else if (cubit.details.length <
+                                                  cubit.questionNum) {
+                                                errorGetBar(
+                                                    'answer_all_questions'
+                                                        .tr());
                                               } else {
-                                                print('...................');
-                                                cubit.details.map(
-                                                    (e) => print(e.answer));
-                                                print('...................');
-
-                                                cubit
-                                                    .applyMakeExam(
-                                                        context: context,
-                                                        detailss: cubit.details)
-                                                    .then((value) {
-                                                  Navigator.popAndPushNamed(
-                                                      context,
-                                                      Routes
-                                                          .resultOfExamScreen);
-                                                });
+                                                cubit.applyMakeExam(
+                                                    context: context,
+                                                    detailss: cubit.details);
+                                                Navigator.pushReplacementNamed(
+                                                    context,
+                                                    Routes.resultOfExamScreen);
                                               }
                                             },
                                             child: Container(
@@ -516,7 +516,7 @@ class _StartMakeExamScreenState extends State<StartMakeExamScreen> {
                                                 padding: EdgeInsets.all(
                                                     getSize(context) / 28),
                                                 child: Text(
-                                                  'إنهاء الامتحان',
+                                                  'finish_exam'.tr(),
                                                   style: TextStyle(
                                                       color: AppColors.white),
                                                 )),

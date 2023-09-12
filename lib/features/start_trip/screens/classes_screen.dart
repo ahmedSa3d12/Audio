@@ -33,7 +33,6 @@ class ClassesScreen extends StatelessWidget {
 
         return RefreshIndicator(
           onRefresh: () async {
-            print(010101010101010);
             cubit.getExplanationData();
           },
           child: Padding(

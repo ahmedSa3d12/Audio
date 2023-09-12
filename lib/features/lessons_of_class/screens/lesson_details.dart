@@ -116,20 +116,15 @@ class _LessonDetailsState extends State<LessonDetails>
                         ],
                       ),
                     ),
-                    Expanded(
-                      child: RefreshIndicator(
-                        onRefresh: () async {
-                          print(88888);
-                        },
-                        child: TabBarView(
-                          controller: _tabController,
-                          physics: NeverScrollableScrollPhysics(),
-                          children: [
-                            VideoLessonScreen(),
-                            LessonExamScreen(model: widget.model),
-                            // ClassesExamsScreen(),
-                          ],
-                        ),
+                    Flexible(
+                      child: TabBarView(
+                        controller: _tabController,
+                        physics: BouncingScrollPhysics(),
+                        children: [
+                          VideoLessonScreen(),
+                          LessonExamScreen(model: widget.model),
+                          // ClassesExamsScreen(),
+                        ],
                       ),
                     )
                   ],

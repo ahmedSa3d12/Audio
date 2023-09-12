@@ -90,6 +90,7 @@ dependencies:
   font_awesome_flutter: ^10.5.0
   numberpicker: ^2.1.2
   dropdown_button2: ^2.3.8
+  awesome_circular_chart: ^1.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

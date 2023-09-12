@@ -12,6 +12,7 @@ import 'core/remote/service.dart';
 
 // import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
 import 'features/attachment/cubit/attachmentcubit.dart';
+import 'features/change_lang/cubit/lang_cubit.dart';
 import 'features/countdown/cubit/countdown_cubit.dart';
 import 'features/exam_hero/cubit/exam_hero_cubit.dart';
 import 'features/examdegreeaccreditation/cubit/examdegreedependcubit.dart';
@@ -107,6 +108,9 @@ Future<void> setup() async {
   );
   serviceLocator.registerFactory(
     () => MakeYourExamCubit(serviceLocator()),
+  );
+  serviceLocator.registerFactory(
+    () => ChangeLangCubit(serviceLocator()),
   );
 
   ///////////////////////////////////////////////////////////////////////////////

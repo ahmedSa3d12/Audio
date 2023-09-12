@@ -4,21 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
-import 'package:new_mazoon/core/widgets/custom_button.dart';
-import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
+
 import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
 import 'package:new_mazoon/features/monthplan/cubit/monthplan_state.dart';
 import 'package:new_mazoon/features/monthplan/widget/monthpalnwidget.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:neon_circular_timer/neon_circular_timer.dart';
 
 import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/assets_manager.dart';
-import '../../../core/widgets/network_image.dart';
+
 import '../../../core/widgets/no_data_widget.dart';
-import '../../../core/widgets/show_loading_indicator.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 
 class MonthPlan extends StatefulWidget {
@@ -38,8 +31,7 @@ class _MonthPlanState extends State<MonthPlan> {
         backgroundColor: AppColors.secondPrimary,
         toolbarHeight: 0,
       ),
-      body:
-      SafeArea(
+      body: SafeArea(
         top: false,
         maintainBottomViewPadding: true,
         child: Stack(
@@ -55,6 +47,7 @@ class _MonthPlanState extends State<MonthPlan> {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                         child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
                       child: Column(
                         children: [
                           SizedBox(height: 110),
@@ -76,7 +69,7 @@ class _MonthPlanState extends State<MonthPlan> {
                                 builder: (context, state) {
                                   return ListView(
                                       shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
+                                      physics: const BouncingScrollPhysics(),
                                       children: [
                                         SizedBox(
                                           height: 20,
@@ -84,7 +77,7 @@ class _MonthPlanState extends State<MonthPlan> {
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(DateFormat(
-                                                  'MMMM',
+                                                  'MMM, yyy',
                                                   EasyLocalization.of(context)!
                                                       .currentLocale!
                                                       .languageCode)
@@ -95,8 +88,10 @@ class _MonthPlanState extends State<MonthPlan> {
                                         ),
                                         CalendarCarousel<Event>(
                                           height: 310,
-                                          selectedDayButtonColor: AppColors.white,
-                                          selectedDayBorderColor: AppColors.white,
+                                          selectedDayButtonColor:
+                                              AppColors.white,
+                                          selectedDayBorderColor:
+                                              AppColors.white,
                                           todayButtonColor: AppColors.red,
                                           todayBorderColor: AppColors.red,
                                           scrollDirection: Axis.horizontal,
@@ -206,6 +201,7 @@ class _MonthPlanState extends State<MonthPlan> {
                               } else if (state is MonthPlanLoaded) {
                                 return cubit.monthplanList.isNotEmpty
                                     ? ListView.builder(
+                                        physics: const BouncingScrollPhysics(),
                                         shrinkWrap: true,
                                         itemCount: cubit.monthplanList.length,
                                         itemBuilder:

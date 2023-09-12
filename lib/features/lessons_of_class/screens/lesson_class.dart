@@ -31,176 +31,174 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
         .getLessonsClassData(widget.classId, 1, context, false, false, false);
   }
 
+  bool isLoading = true;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.secondPrimary,
-        toolbarHeight: 0,
-      ),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            BlocBuilder<LessonsClassCubit, LessonsClassState>(
-              builder: (context, state) {
-                LessonsClassCubit cubit = context.read<LessonsClassCubit>();
-                if (state is LessonsClassLoading) {
-                  return ShowLoadingIndicator();
-                }
-                if (state is LessonsClassError) {
-                  return NoDataWidget(onclick: () {}, title: 'no_date');
-                }
-                return Positioned(
-                  top: 0,
-                  right: 0,
-                  left: 0,
-                  bottom: 0,
-                  child: RefreshIndicator(
-                    onRefresh: () async {
-                      cubit.getLessonsClassData(
-                          widget.classId, 1, context, false, false, false);
-                    },
-                    child: ListView(
-                      children: [
-                        SizedBox(height: 115),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: SizedBox(
-                            height: 180,
-                            width: MediaQuery.of(context).size.width - 80,
-                            child: Card(
-                              elevation: 20,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    top: 0,
-                                    left: 0,
-                                    right: MediaQuery.of(context).size.width *
-                                        0.25,
-                                    bottom: 0,
-                                    child: ClipPath(
-                                      clipper: CCustomClipper(),
-                                      child: ManageNetworkImage(
-                                        imageUrl: cubit.oneClass!.image ??
-                                            "https://elmazone.topbusiness.io/sliders/1.jpg",
-                                      ),
-                                    ),
+    return BlocConsumer<LessonsClassCubit, LessonsClassState>(
+      listener: (context, state) {
+        if (state is LessonsClassLoading) {
+          isLoading = true;
+        } else {
+          isLoading = false;
+        }
+      },
+      builder: (context, state) {
+        LessonsClassCubit cubit = context.read<LessonsClassCubit>();
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: AppColors.secondPrimary,
+            toolbarHeight: 0,
+          ),
+          body: SafeArea(
+            child: isLoading
+                ? ShowLoadingIndicator()
+                : Stack(
+                    children: [
+                      RefreshIndicator(
+                        onRefresh: () async {
+                          cubit.getLessonsClassData(
+                              widget.classId, 1, context, false, false, false);
+                        },
+                        child: ListView(
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          children: [
+                            SizedBox(height: 115),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: SizedBox(
+                                height: 180,
+                                width: MediaQuery.of(context).size.width - 80,
+                                child: Card(
+                                  elevation: 20,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: CustomPaint(
-                                      size: Size(
-                                        180,
-                                        115,
-                                      ),
-                                      painter: MyPainter(
-                                        HexColor(
-                                          cubit.oneClass!.backgroundColor!,
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        top: 0,
+                                        left: 0,
+                                        right:
+                                            MediaQuery.of(context).size.width *
+                                                0.25,
+                                        bottom: 0,
+                                        child: ClipPath(
+                                          clipper: CCustomClipper(),
+                                          child: ManageNetworkImage(
+                                            imageUrl: cubit.oneClass!.image ??
+                                                "https://elmazone.topbusiness.io/sliders/1.jpg",
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: Stack(
-                                      children: [
-                                        CustomPaint(
+                                      Positioned(
+                                        bottom: 0,
+                                        right: 0,
+                                        child: CustomPaint(
                                           size: Size(
-                                            250,
-                                            80,
+                                            180,
+                                            115,
                                           ),
                                           painter: MyPainter(
-                                            darken(
-                                              HexColor(
-                                                cubit
-                                                    .oneClass!.backgroundColor!,
-                                              ),
-                                              0.2,
+                                            HexColor(
+                                              cubit.oneClass!.backgroundColor!,
                                             ),
                                           ),
                                         ),
-                                        Positioned(
-                                          top: 6,
-                                          left: 55,
-                                          right: 15,
-                                          child: Text(
-                                            cubit.oneClass!.name!,
-                                            style: TextStyle(
-                                              color: AppColors.white,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              shadows: <Shadow>[
-                                                Shadow(
-                                                  offset: Offset(3.0, 3.0),
-                                                  blurRadius: 3.0,
-                                                  color: Color.fromARGB(
-                                                      255, 0, 0, 0),
+                                      ),
+                                      Stack(
+                                        children: [
+                                          CustomPaint(
+                                            size: Size(
+                                              250,
+                                              80,
+                                            ),
+                                            painter: MyPainter(
+                                              darken(
+                                                HexColor(
+                                                  cubit.oneClass!
+                                                      .backgroundColor!,
                                                 ),
-                                              ],
+                                                0.2,
+                                              ),
                                             ),
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 2,
-                                    right: 8,
-                                    child: Text(
-                                      cubit.oneClass!.title!,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
+                                          Positioned(
+                                            top: 6,
+                                            left: 55,
+                                            right: 15,
+                                            child: Text(
+                                              cubit.oneClass!.name!,
+                                              style: TextStyle(
+                                                color: AppColors.white,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                                shadows: <Shadow>[
+                                                  Shadow(
+                                                    offset: Offset(3.0, 3.0),
+                                                    blurRadius: 3.0,
+                                                    color: Color.fromARGB(
+                                                        255, 0, 0, 0),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        ],
                                       ),
-                                    ),
-                                  )
-                                ],
+                                      Positioned(
+                                        top: 2,
+                                        right: 8,
+                                        child: Text(
+                                          cubit.oneClass!.title!,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        SizedBox(height: 16),
-                        ...List.generate(
-                          cubit.lessons.length,
-                          (index) => InkWell(
-                            onTap: () {
-                              if (cubit.lessons[index].status == 'lock') {
-                                toastMessage(
-                                  'open_lesson'.tr(),
-                                  context,
-                                  color: AppColors.error,
-                                );
-                              } else {
-                                Navigator.pushNamed(
-                                    context, Routes.lessonDetails,
-                                    arguments: cubit.lessons[index]);
-                              }
-                            },
-                            child: LessonClassItemWidget(
-                              model: cubit.lessons[index],
+                            SizedBox(height: 16),
+                            ...List.generate(
+                              cubit.lessons.length,
+                              (index) => InkWell(
+                                onTap: () {
+                                  if (cubit.lessons[index].status == 'lock') {
+                                    toastMessage(
+                                      'open_lesson'.tr(),
+                                      context,
+                                      color: AppColors.error,
+                                    );
+                                  } else {
+                                    Navigator.pushNamed(
+                                        context, Routes.lessonDetails,
+                                        arguments: cubit.lessons[index]);
+                                  }
+                                },
+                                child: LessonClassItemWidget(
+                                  model: cubit.lessons[index],
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        left: 0,
+                        child: HomePageAppBarWidget(isHome: false),
+                      ),
+                    ],
                   ),
-                );
-              },
-            ),
-            Positioned(
-              top: 0,
-              right: 0,
-              left: 0,
-              child: HomePageAppBarWidget(isHome: false),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -10,6 +10,7 @@ import '../../../core/utils/dialogs.dart';
 import '../../../core/utils/restart_app_class.dart';
 import '../../../core/widgets/network_image.dart';
 import '../../../test.dart';
+import '../../change_lang/screen/screen_change.dart';
 import '../cubit/navigation_cubit.dart';
 import 'list_tile_menu_widget.dart';
 
@@ -132,14 +133,8 @@ class MenuScreenWidget extends StatelessWidget {
                           title: 'language'.tr(),
                           iconPath: ImageAssets.languageIcon,
                           onclick: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => WebViewExample(
-                                  url: '',
-                                ),
-                              ),
-                            );
+                            Navigator.pushNamed(
+                                context, Routes.changeLanguageScreen);
                           },
                         ),
                         MenuListTileWidget(

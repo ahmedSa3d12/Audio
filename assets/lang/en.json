@@ -254,5 +254,7 @@
   "msg_q_num": "please select number of questions",
   "right": "correct",
   "wrong": "Mistake",
-  "dont_solve": "not resolved"
-}
+  "dont_solve": "not resolved",
+  "answer_all_questions":"you must answer all questions",
+
+  "finish_exam":"finish exam"}

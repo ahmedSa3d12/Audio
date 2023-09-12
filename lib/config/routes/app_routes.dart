@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_mazoon/features/attachment/screens/attachmentscreen.dart';
+import 'package:new_mazoon/features/change_lang/screen/screen_change.dart';
 import 'package:new_mazoon/features/lessonExamScreen/screens/resultexamscreen.dart';
 import 'package:new_mazoon/features/lessons_of_class/screens/lesson_details.dart';
 import 'package:new_mazoon/features/navigation_bottom/screens/navigation_bottom.dart';
@@ -82,6 +83,7 @@ class Routes {
   static const String startMakeExamScreen = '/startMakeExamScreen';
 
   static const String resultOfExamScreen = '/resultOfExamScreen';
+  static const String changeLanguageScreen = '/changeLanguageScreen';
 }
 
 class AppRoutes {
@@ -300,10 +302,17 @@ class AppRoutes {
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),
         );
-      //ResultOfExamScreen
+      //changeLanguageScreen
       case Routes.resultOfExamScreen:
         return PageTransition(
           child: ResultOfExamScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+      case Routes.changeLanguageScreen:
+        return PageTransition(
+          child: ChangeLanguageScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),

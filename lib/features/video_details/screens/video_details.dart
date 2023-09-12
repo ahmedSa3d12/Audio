@@ -70,6 +70,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                     ),
                   ),
                   body: Stack(
+                    alignment: Alignment.bottomCenter,
                     children: [
                       Positioned(
                         top: 0,
