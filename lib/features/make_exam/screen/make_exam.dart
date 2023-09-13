@@ -61,7 +61,7 @@ class _MakeYourExamScreenState extends State<MakeYourExamScreen> {
             cubit.details.clear();
             cubit.resultData = null;
             Navigator.pop(context);
-            return false;
+            return Future<bool>.value(false);
           },
           child: Scaffold(
             body: SafeArea(
@@ -412,21 +412,8 @@ class _MakeYourExamScreenState extends State<MakeYourExamScreen> {
                                               print('class exam');
                                               Navigator.pushNamed(context,
                                                   Routes.startMakeExamScreen);
-
-                                              ///set
-                                              // cubit.currentLesson = null;
-                                              // cubit.selectedValueLevel = null;
-                                              // cubit.questionNum = 0;
-                                              // cubit.currentClassID = null;
-                                              // cubit.selectedValueLesson = null;
-                                              // cubit.classModel = null;
-                                              // cubit.currentHour = 0;
-                                              // cubit.currentMinutes = 0;
-                                              // cubit.selectedValueExamtype = null;
                                             });
                                           }
-
-                                          ///apply exam on class
                                         } else {
                                           toastMessage('msg_num'.tr(), context);
                                         }

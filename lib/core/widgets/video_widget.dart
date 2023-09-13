@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:video_player/video_player.dart';
 
-import '../utils/app_colors.dart';
-
 class VideoWidget extends StatefulWidget {
   const VideoWidget({Key? key, required this.videoLink, required this.videoId})
       : super(key: key);

@@ -413,6 +413,11 @@ class _StartMakeExamScreenState extends State<StartMakeExamScreen> {
                                                                   '') {
                                                                 cubit.addUniqueApplyMakeExam(
                                                                     ApplyMakeExam(
+                                                                  id: cubit
+                                                                      .allData!
+                                                                      .questions[
+                                                                          index]
+                                                                      .id,
                                                                   question: cubit
                                                                       .allData!
                                                                       .questions[
@@ -482,26 +487,61 @@ class _StartMakeExamScreenState extends State<StartMakeExamScreen> {
                                           ),
                                           InkWell(
                                             onTap: () {
-                                              if (cubit.details.isEmpty) {
-                                                errorGetBar(
-                                                    'answer_all_questions'
-                                                        .tr());
-                                                // Navigator.popAndPushNamed(
-                                                //     context,
-                                                //     Routes.makeYourExamScreen);
-                                              } else if (cubit.details.length <
-                                                  cubit.questionNum) {
-                                                errorGetBar(
-                                                    'answer_all_questions'
-                                                        .tr());
+                                              if (cubit.allData!.questions
+                                                      .length ==
+                                                  cubit.details.length) {
+                                                Navigator.pushReplacementNamed(
+                                                    context,
+                                                    Routes.resultOfExamScreen);
+                                                print(
+                                                    'all questions solved....................');
                                               } else {
-                                                cubit.applyMakeExam(
-                                                    context: context,
-                                                    detailss: cubit.details);
+                                                for (int i = 0;
+                                                    i <
+                                                        (cubit.allData!
+                                                            .questions.length);
+                                                    i++) {
+                                                  for (int j = 0;
+                                                      j < cubit.details.length;
+                                                      j++) {
+                                                    if (cubit.allData!
+                                                            .questions[i].id ==
+                                                        cubit.details[j].id) {
+                                                      continue;
+                                                    } else {
+                                                      cubit.addUniqueApplyMakeExam(
+                                                          ApplyMakeExam(
+                                                              answer: '',
+                                                              question: cubit
+                                                                  .allData!
+                                                                  .questions[i]
+                                                                  .id
+                                                                  .toString()));
+                                                    }
+                                                  }
+                                                }
+                                                print(cubit.details);
                                                 Navigator.pushReplacementNamed(
                                                     context,
                                                     Routes.resultOfExamScreen);
                                               }
+
+                                              // if (cubit.details.isEmpty) {
+                                              //   errorGetBar(
+                                              //       'answer_all_questions'
+                                              //           .tr());
+                                              // }
+                                              // else if (cubit.details.length <
+                                              //     cubit.questionNum) {
+                                              //   errorGetBar(
+                                              //       'answer_all_questions'
+                                              //           .tr());
+                                              // }
+                                              // else {
+                                              //   cubit.applyMakeExam(
+                                              //       context: context,
+                                              //       detailss: cubit.details);
+                                              // }
                                             },
                                             child: Container(
                                                 margin: EdgeInsets.all(

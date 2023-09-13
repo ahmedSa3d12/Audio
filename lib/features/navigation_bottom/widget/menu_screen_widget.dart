@@ -11,6 +11,7 @@ import '../../../core/utils/restart_app_class.dart';
 import '../../../core/widgets/network_image.dart';
 import '../../../test.dart';
 import '../../change_lang/screen/screen_change.dart';
+import '../../downloadedfiles/screen/downlodedscreen.dart';
 import '../cubit/navigation_cubit.dart';
 import 'list_tile_menu_widget.dart';
 
@@ -212,7 +213,13 @@ class MenuScreenWidget extends StatelessWidget {
                         MenuListTileWidget(
                           title: 'downloads'.tr(),
                           iconPath: ImageAssets.downloadsIcon,
-                          onclick: () {},
+                          onclick: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        DownloadedFilesScreen()));
+                          },
                         ),
                         MenuListTileWidget(
                           title: 'invite_friends'.tr(),

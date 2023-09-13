@@ -25,6 +25,7 @@
   "code_not_subscribe": "The student is not active, please contact the secretariat !!!",
   "error_to_get_data": "Error to Get Data !!!",
   "wait": "Wait",
+  
   "close": "Close",
   "number_of_videos": "Number of Videos : ",
   "total_time_of_videos": "Total Time of Videos : ",
@@ -257,4 +258,7 @@
   "dont_solve": "not resolved",
   "answer_all_questions":"you must answer all questions",
 
-  "finish_exam":"finish exam"}
+  "finish_exam":"finish exam",
+  "video":"video",
+  "pdf":"pdf files","result_info":"Click on any question below to review your answer"
+}

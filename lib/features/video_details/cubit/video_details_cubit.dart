@@ -235,7 +235,6 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
 
   downloadvideo() async {
     final dio = Dio();
-
     var dir = await (Platform.isIOS
         ? getApplicationSupportDirectory()
         : getApplicationDocumentsDirectory());

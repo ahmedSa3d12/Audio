@@ -1,3 +1,8 @@
+import 'dart:math';
+
+import 'package:d_chart/commons/config_render.dart';
+import 'package:d_chart/commons/data_model.dart';
+import 'package:d_chart/ordinal/pie.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,9 +25,39 @@ class ResultOfExamScreen extends StatefulWidget {
 }
 
 class _ResultOfExamScreenState extends State<ResultOfExamScreen> {
+  List<OrdinalData> ordinalDataList = [];
   @override
   void initState() {
-// context.read<MakeYourExamCubit>().applyMakeExam(context: context, detailss: detailss);
+    context
+        .read<MakeYourExamCubit>()
+        .applyMakeExam(
+            context: context,
+            detailss: context.read<MakeYourExamCubit>().details)
+        .then((value) {
+      ordinalDataList = [
+        OrdinalData(
+            domain: 'numOfCorrectQuestions',
+            measure: context
+                .read<MakeYourExamCubit>()
+                .resultData!
+                .numOfCorrectQuestions,
+            color: AppColors.green),
+        OrdinalData(
+            domain: 'numOfLeaveQuestions',
+            measure: context
+                .read<MakeYourExamCubit>()
+                .resultData!
+                .numOfLeaveQuestions,
+            color: AppColors.orange),
+        OrdinalData(
+            domain: 'numOfMistakeQuestions',
+            measure: context
+                .read<MakeYourExamCubit>()
+                .resultData!
+                .numOfMistakeQuestions,
+            color: AppColors.red),
+      ];
+    });
     super.initState();
   }
 
@@ -30,6 +65,7 @@ class _ResultOfExamScreenState extends State<ResultOfExamScreen> {
   int currentQuestion = 0;
   final GlobalKey<AnimatedCircularChartState> _chartKey =
       new GlobalKey<AnimatedCircularChartState>();
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MakeYourExamCubit, MakeYourExamState>(
@@ -42,11 +78,7 @@ class _ResultOfExamScreenState extends State<ResultOfExamScreen> {
       },
       builder: (context, state) {
         var cubit = context.read<MakeYourExamCubit>();
-        // List<String> parts =
-        //     cubit.resultData!.studentDegree.toString().split('/');
-        // double numerator = double.parse(parts[0].trim());
-        // double denominator = double.parse(parts[1].trim());
-        // double result = numerator / denominator;
+
         return Scaffold(
             body: isLoading
                 ? Center(
@@ -64,10 +96,10 @@ class _ResultOfExamScreenState extends State<ResultOfExamScreen> {
                       cubit.currentMinutes = 0;
                       cubit.selectedValueExamtype = null;
                       cubit.details.clear();
-                      cubit.resultData = null;
-                      Navigator.popAndPushNamed(
+                      // cubit.resultData = null;
+                      Navigator.pushReplacementNamed(
                           context, Routes.makeYourExamScreen);
-                      return false;
+                      return Future<bool>.value(true);
                     },
                     child: SafeArea(
                         child: SingleChildScrollView(
@@ -91,44 +123,61 @@ class _ResultOfExamScreenState extends State<ResultOfExamScreen> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(height: getSize(context) / 22),
-                                    CircleAvatar(
-                                      radius: getSize(context) / 14,
-                                      backgroundColor: AppColors.white,
-                                      child: Center(
-                                          child: Text(
-                                        cubit.resultData!.per.toString(),
+                                    Container(
+                                      // color: AppColors.red,
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          AspectRatio(
+                                            aspectRatio: 16 / 8,
+                                            child: DChartPieO(
+                                              data: ordinalDataList,
+                                              configRenderPie:
+                                                  const ConfigRenderPie(
+                                                arcWidth: 25,
+                                                arcLength: 7 / 5 * pi,
+                                                startAngle: 4 / 5 * pi,
+                                              ),
+                                            ),
+                                          ),
+                                          CircleAvatar(
+                                            radius: getSize(context) / 14,
+                                            backgroundColor: AppColors.white,
+                                            child: Center(
+                                                child: Text(
+                                              cubit.resultData!.per.toString(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize:
+                                                      getSize(context) / 24,
+                                                  color: AppColors.primary),
+                                            )),
+                                          ),
+                                          // Positioned(
+                                          //   bottom: getSize(context) / 24,
+                                          //   child: Text(
+                                          //     cubit.resultData!.motivationalWord
+                                          //         .toString(),
+                                          //     style: TextStyle(
+                                          //         fontWeight: FontWeight.w700,
+                                          //         fontSize: getSize(context) / 24,
+                                          //         color: AppColors.white),
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        cubit.resultData!.motivationalWord
+                                            .toString(),
                                         style: TextStyle(
                                             fontWeight: FontWeight.w700,
                                             fontSize: getSize(context) / 24,
-                                            color: AppColors.primary),
-                                      )),
+                                            color: AppColors.white),
+                                      ),
                                     ),
-                                    SizedBox(height: getSize(context) / 32),
-                                    Text(
-                                      cubit.resultData!.motivationalWord
-                                          .toString(),
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: getSize(context) / 24,
-                                          color: AppColors.white),
-                                    ),
-                                    // SizedBox(height: getSize(context) / 22),
                                   ],
-                                ),
-                              ),
-                              Positioned(
-                                bottom: -getSize(context) / 8,
-                                child: CircularPercentIndicator(
-                                  radius: getSize(context) / 8,
-                                  lineWidth: getSize(context) / 28,
-                                  animation: true,
-                                  arcType: ArcType.HALF,
-                                  percent: 0.7,
-                                  arcBackgroundColor: AppColors.red,
-                                  startAngle: 180,
-                                  circularStrokeCap: CircularStrokeCap.butt,
-                                  progressColor: AppColors.white,
                                 ),
                               ),
                               Positioned(
@@ -156,14 +205,14 @@ class _ResultOfExamScreenState extends State<ResultOfExamScreen> {
                                       ))),
                             ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.all(getSize(context) / 22),
-                            child: Text(cubit.resultData!.motivationalWord,
-                                style: TextStyle(
-                                  fontSize: getSize(context) / 32,
-                                  fontWeight: FontWeight.w200,
-                                )),
-                          ),
+                          // Padding(
+                          //   padding: EdgeInsets.all(getSize(context) / 22),
+                          //   child: Text(cubit.resultData!.motivationalWord,
+                          //       style: TextStyle(
+                          //         fontSize: getSize(context) / 32,
+                          //         fontWeight: FontWeight.w200,
+                          //       )),
+                          // ),
                           Padding(
                             padding: EdgeInsets.all(getSize(context) / 22),
                             child: Row(
@@ -249,7 +298,7 @@ class _ResultOfExamScreenState extends State<ResultOfExamScreen> {
                               ],
                             ),
                           ),
-                          Text('اضغط  على اى سؤال بالاسفل لمراجعت اجابتك',
+                          Text('result_info'.tr(),
                               style: TextStyle(
                                 fontSize: getSize(context) / 32,
                                 fontWeight: FontWeight.w700,
@@ -583,12 +632,6 @@ class _ResultOfExamScreenState extends State<ResultOfExamScreen> {
                               ],
                             ),
                           ),
-                          AnimatedCircularChart(
-                            key: _chartKey,
-                            size: const Size(300.0, 300.0),
-                            initialChartData: data,
-                            chartType: CircularChartType.Pie,
-                          )
                         ],
                       ),
                     )),
@@ -596,16 +639,4 @@ class _ResultOfExamScreenState extends State<ResultOfExamScreen> {
       },
     );
   }
-
-  List<CircularStackEntry> data = <CircularStackEntry>[
-    new CircularStackEntry(
-      <CircularSegmentEntry>[
-        new CircularSegmentEntry(500.0, Colors.red[200], rankKey: 'Q1'),
-        new CircularSegmentEntry(1000.0, Colors.green[200], rankKey: 'Q2'),
-        new CircularSegmentEntry(2000.0, Colors.blue[200], rankKey: 'Q3'),
-        new CircularSegmentEntry(1000.0, Colors.yellow[200], rankKey: 'Q4'),
-      ],
-      rankKey: 'Quarterly Profits',
-    ),
-  ];
 }

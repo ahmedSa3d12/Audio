@@ -4,10 +4,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/remote/service.dart';
+import 'package:new_mazoon/core/utils/dialogs.dart';
 import 'package:new_mazoon/core/utils/toast_message_method.dart';
 import 'package:new_mazoon/features/make_exam/cubit/state.dart';
 import 'package:numberpicker/numberpicker.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/models/applaymakeexammodel.dart';
 import '../../../core/models/make_exam_model.dart';
 import '../../../core/models/questionsmakeexam.dart';
@@ -127,13 +129,15 @@ class MakeYourExamCubit extends Cubit<MakeYourExamState> {
       details.add(exam);
     } else {
       for (int i = 0; i < details.length; i++) {
-        print(details[i].question);
+        if (details[i].id == exam.id && details[i].answer != exam.answer) {
+          details[i] = exam;
+          print('................updated................');
+        } else {}
         print('................${exam.question}');
         if (details[i].question == exam.question) {
           print('true !=exist..................${exam.question}');
           isfound = i;
           return;
-          // break;
         }
       }
       if (isfound != -1) {
@@ -154,11 +158,6 @@ class MakeYourExamCubit extends Cubit<MakeYourExamState> {
     response.fold((l) => emit(ErrorApplyMakeYourExam()), (r) {
       resultData = r.data;
       questionColor();
-
-      for (int i = 0; i < resultData!.examQuestions.questions.length; i++) {
-        print(resultData!.examQuestions.questions[i].questionStatus);
-        print('qsqssqsqsqsqsqsqssqsqsqsqsqsqsqsqsqsqsqsqssssssssssssq');
-      }
       emit(LoadedApplyMakeYourExam());
     });
   }

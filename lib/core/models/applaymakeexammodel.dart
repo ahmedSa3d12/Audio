@@ -1,8 +1,10 @@
 class ApplyMakeExam {
   String question;
+  int? id;
   String? answer;
 
   ApplyMakeExam({
+    this.id,
     required this.question,
     this.answer,
   });
@@ -116,7 +118,7 @@ class ResponseOfMakeExamDataQuestion {
   int id;
   String question;
   bool questionStatus;
-  int answerUser;
+  int? answerUser;
   String answerUserType;
   String questionType;
   String fileType;
