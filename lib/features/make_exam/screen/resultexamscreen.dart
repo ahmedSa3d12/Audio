@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:d_chart/commons/config_render.dart';
 import 'package:d_chart/commons/data_model.dart';
 import 'package:d_chart/ordinal/pie.dart';
@@ -7,8 +6,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/config/routes/app_routes.dart';
-import 'package:percent_indicator/percent_indicator.dart';
-
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/utils/getsize.dart';

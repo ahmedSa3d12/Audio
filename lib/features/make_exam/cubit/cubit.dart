@@ -1,15 +1,11 @@
-import 'dart:collection';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/remote/service.dart';
-import 'package:new_mazoon/core/utils/dialogs.dart';
 import 'package:new_mazoon/core/utils/toast_message_method.dart';
 import 'package:new_mazoon/features/make_exam/cubit/state.dart';
 import 'package:numberpicker/numberpicker.dart';
 
-import '../../../config/routes/app_routes.dart';
 import '../../../core/models/applaymakeexammodel.dart';
 import '../../../core/models/make_exam_model.dart';
 import '../../../core/models/questionsmakeexam.dart';

@@ -1,14 +1,11 @@
 import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/config/routes/app_routes.dart';
-import 'package:new_mazoon/core/utils/dialogs.dart';
 import 'package:new_mazoon/features/make_exam/cubit/cubit.dart';
 import 'package:new_mazoon/features/make_exam/cubit/state.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-
 import '../../../core/models/applaymakeexammodel.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/getsize.dart';
