@@ -10,25 +10,20 @@ class CountdownCubit extends Cubit<CountdownState> {
   final ServiceApi api;
 
   CountDown? countDown;
-  CountdownCubit(this.api) : super(CountdownInitial()){
+  CountdownCubit(this.api) : super(CountdownInitial()) {
     getcountDown();
   }
   Future<void> getcountDown() async {
-
     emit(CountDownLoading());
     final response = await api.getCountDown();
     response.fold(
-          (error) => emit(CountDownError()),
-          (res) {
-        if(res.code==200) {
+      (error) => emit(CountDownError()),
+      (res) {
+        if (res.code == 200) {
           countDown = res.data;
-        }
-        else{
-
-        }
+        } else {}
         emit(CountDownLoaded());
       },
     );
   }
-
 }

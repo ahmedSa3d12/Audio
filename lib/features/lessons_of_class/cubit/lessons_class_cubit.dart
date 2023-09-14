@@ -101,7 +101,7 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
         : getApplicationDocumentsDirectory());
     await dio.download(
       model.pdfExamUpload,
-      dir.path + "/pdf/" + model.pdfExamUpload.split("/").toList().last,
+      dir.path + "/pdf/" + model.name.split("/").toList().last + '.pdf',
       onReceiveProgress: (count, total) {
         model.progress = (count / total);
         examsofLessons.removeAt(index);

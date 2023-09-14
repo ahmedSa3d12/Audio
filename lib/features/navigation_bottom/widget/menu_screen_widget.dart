@@ -11,7 +11,7 @@ import '../../../core/utils/restart_app_class.dart';
 import '../../../core/widgets/network_image.dart';
 import '../../../test.dart';
 import '../../change_lang/screen/screen_change.dart';
-import '../../downloadedfiles/screen/downlodedscreen.dart';
+import '../../downloads/screen/downlodsscreen.dart';
 import '../cubit/navigation_cubit.dart';
 import 'list_tile_menu_widget.dart';
 

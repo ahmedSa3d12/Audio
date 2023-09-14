@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_mazoon/core/utils/assets_manager.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
 import 'package:new_mazoon/core/utils/numformat.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
@@ -39,17 +40,21 @@ class LessonClassItemWidget extends StatelessWidget {
                 children: [
                   Text(
                     model.title!,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: darken(HexColor(model.backgroundColor!), 0.3),
                       fontWeight: FontWeight.w700,
-                      fontSize: 18,
+                      fontSize: getSize(context) / 24,
                     ),
                   ),
                   Text(
                     model.name!,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: AppColors.grayLite,
-                      fontSize: 16,
+                      fontSize: getSize(context) / 26,
                     ),
                   ),
                 ],

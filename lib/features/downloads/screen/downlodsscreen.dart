@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import '../../../core/widgets/title_with_circle_background_widget.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
-import '../cubit/downloadedfilescubit.dart';
-import '../cubit/downloadedfilesstate.dart';
+import '../cubit/downloadscubit.dart';
+import '../cubit/downloadsstate.dart';
 import 'pdf_screen.dart';
 import 'videos_screen.dart';
 

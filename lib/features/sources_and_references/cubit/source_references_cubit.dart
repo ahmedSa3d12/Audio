@@ -54,7 +54,7 @@ class SourceReferencesCubit extends Cubit<SourceReferencesState> {
         : getApplicationDocumentsDirectory());
     await dio.download(
       model.filePath!,
-      dir.path + "/pdf/" + model.filePath!.split("/").toList().last,
+      dir.path + "/pdf/" + model.title!.split("/").toList().last + '.pdf',
       onReceiveProgress: (count, total) {
         model.progress = (count / total);
         // sourcesReferencesList.removeAt(index);
@@ -79,7 +79,7 @@ class SourceReferencesCubit extends Cubit<SourceReferencesState> {
         : getApplicationDocumentsDirectory());
     await dio.download(
       model.filePath!,
-      dir.path + "/pdf/" + model.filePath!.split("/").toList().last,
+      dir.path + "/pdf/" + model.title!.split("/").toList().last + '.pdf',
       onReceiveProgress: (count, total) {
         model.progress = (count / total);
         sourcesReferencesByIdList.removeAt(index);

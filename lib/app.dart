@@ -27,7 +27,7 @@ import 'core/utils/toast_message_method.dart';
 // import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
 import 'features/change_lang/cubit/lang_cubit.dart';
 import 'features/countdown/cubit/countdown_cubit.dart';
-import 'features/downloadedfiles/cubit/downloadedfilescubit.dart';
+import 'features/downloads/cubit/downloadscubit.dart';
 import 'features/exam_hero/cubit/exam_hero_cubit.dart';
 import 'features/examdegreeaccreditation/cubit/examdegreedependcubit.dart';
 import 'features/examinstructions/cubit/examinstructions_cubit.dart';

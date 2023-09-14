@@ -41,7 +41,7 @@ class ImageAssets {
   static const String comingSoonImage = '$imagePath/coming_soon.png';
   static const String countdownImage = '$imagePath/countdown.png';
   static const String inviteImage = '$imagePath/invite.png';
-static const String copyRight ='$imagePath/copy_right.png';
+  static const String copyRight = '$imagePath/copy_right.png';
   // icons
   static const String loadIcon = '$iconsPath/load.svg';
   static const String timeIcon = '$iconsPath/timer.svg';

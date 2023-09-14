@@ -12,5 +12,5 @@ class DownloadsVideosList extends DownloadsVideosState {
 }
 
 class DownloadsVideosLoading extends DownloadsVideosState {}
-class DownloadsVideosError extends DownloadsVideosState {}
 
+class DownloadsVideosError extends DownloadsVideosState {}

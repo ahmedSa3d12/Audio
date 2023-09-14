@@ -240,7 +240,10 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
         : getApplicationDocumentsDirectory());
     await dio.download(
       videoModel!.link,
-      dir.path + "/videos/" + videoModel!.link.split("/").toList().last,
+      dir.path +
+          "/videos/" +
+          videoModel!.name.split("/").toList().last +
+          '.mp4',
       onReceiveProgress: (count, total) {
         progress = (count / total);
         print(progress);
@@ -248,6 +251,7 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
       },
     ).whenComplete(
       () {
+        print(videoModel!.name);
         progress = 0;
         emit(VideoDetailsLoaded());
       },

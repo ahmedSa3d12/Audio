@@ -260,5 +260,6 @@
 
   "finish_exam":"finish exam",
   "video":"video",
-  "pdf":"pdf files","result_info":"Click on any question below to review your answer"
+  "pdf":"pdf files","result_info":"Click on any question below to review your answer",
+  "no_data":"no data"
 }

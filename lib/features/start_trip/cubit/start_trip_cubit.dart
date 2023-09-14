@@ -89,7 +89,7 @@ class StartTripCubit extends Cubit<StartTripState> {
         : getApplicationDocumentsDirectory());
     await dio.download(
       model.pathFile!,
-      dir.path + "/pdf/" + model.pathFile!.split("/").toList().last,
+      dir.path + "/pdf/" + model.name!.split("/").toList().last + '.pdf',
       onReceiveProgress: (count, total) {
         model.progress = (count / total);
         print(model.progress);
@@ -116,7 +116,7 @@ class StartTripCubit extends Cubit<StartTripState> {
         : getApplicationDocumentsDirectory());
     await dio.download(
       model.pdfExamUpload,
-      dir.path + "/pdf/" + model.pdfExamUpload.split("/").toList().last,
+      dir.path + "/pdf/" + model.name!.split("/").toList().last + '.pdf',
       onReceiveProgress: (count, total) {
         model.progress = (count / total);
         examClassList.removeAt(index);
