@@ -457,8 +457,6 @@ class _NoteState extends State<NotePlan> {
                                                   getSize(context) / 32)),
                                           elevation: 5,
                                           child: Container(
-                                            padding: EdgeInsets.all(
-                                                getSize(context) / 32),
                                             decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(

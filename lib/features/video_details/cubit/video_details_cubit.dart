@@ -38,8 +38,6 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
   final audioRecorder = Record();
   Stream<FileResponse>? fileStream;
 
-  double progress = 0;
-
   double pos = 50;
 
   int ishour = 0;
@@ -245,14 +243,14 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
           videoModel!.name.split("/").toList().last +
           '.mp4',
       onReceiveProgress: (count, total) {
-        progress = (count / total);
-        print(progress);
+        videoModel!.progress = (count / total);
+        print(videoModel!.progress);
         emit(VideoDetailsLoaded());
       },
     ).whenComplete(
       () {
         print(videoModel!.name);
-        progress = 0;
+        videoModel!.progress = 0;
         emit(VideoDetailsLoaded());
       },
     );

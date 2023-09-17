@@ -9,12 +9,11 @@ import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart
 import '../../../core/models/comment_data_model.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
+import '../../../core/utils/getsize.dart';
 import '../../../core/widgets/audio_player_widget.dart';
 import '../../../core/widgets/circle_network_image.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_textfield.dart';
-import '../../../core/widgets/my_svg_widget.dart';
-import 'choose_icon_dialog.dart';
 
 class Report extends StatefulWidget {
   const Report({
@@ -40,17 +39,16 @@ class _ReportState extends State<Report> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
-
               child: Column(children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
                       Text(
-                        "send_report" + " " + cubit.videoModel!.name,
+                        'send_report'.tr() + " " + cubit.videoModel!.name,
                         style: TextStyle(
                             color: AppColors.liveExamGrayTextColor,
-                            fontSize: 14,
+                            fontSize: getSize(context) / 22,
                             fontWeight: FontWeight.bold),
                       ),
                       Expanded(child: Container()),
@@ -69,7 +67,7 @@ class _ReportState extends State<Report> {
                 ),
                 CustomTextField(
                     color1: AppColors.liveExamGrayTextColor,
-                    title: "please_add_problem_discription",
+                    title: 'Please_add_problem_discription'.tr(),
                     textInputType: TextInputType.text,
                     minLine: 4,
                     controller: cubit.report_control,
@@ -78,7 +76,7 @@ class _ReportState extends State<Report> {
                   height: 20,
                 ),
                 CustomButton(
-                  text: "sent".tr(),
+                  text: 'sent'.tr(),
                   color: AppColors.orangeThirdPrimary,
                   onClick: () {
                     cubit.report(context);

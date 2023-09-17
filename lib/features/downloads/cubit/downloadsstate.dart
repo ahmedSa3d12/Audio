@@ -1,5 +1,3 @@
-import 'dart:io';
-
 abstract class DownloadedFilesState {}
 
 class InitDownloadedFilesState extends DownloadedFilesState {}
@@ -36,4 +34,4 @@ class LoadedDeleteVideoFile extends DownloadedFilesState {}
 
 class LoadingDeletePDFile extends DownloadedFilesState {}
 
-class LoadedDeletePDFFile extends DownloadedFilesState {}
+class LoadeddDeletePDFFile extends DownloadedFilesState {}

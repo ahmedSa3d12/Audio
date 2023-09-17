@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/utils/numformat.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -39,38 +41,48 @@ class ItemOfOneClassWidget extends StatelessWidget {
     return Stack(
       children: [
         Positioned(
-          top: 15,
-          left: 15,
+          top: getSize(context) / 22,
+          left: getSize(context) / 22,
           right: 0,
           bottom: 0,
           child: Container(
             decoration: BoxDecoration(
               color: mainColor,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(getSize(context) / 32),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 8),
+                SizedBox(height: getSize(context) / 44),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: getSize(context) / 22),
                   child: Text(
                     classNum,
-                    style: TextStyle(color: AppColors.white, fontSize: 15),
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(
+                        color: AppColors.white,
+                        fontSize: getSize(context) / 24),
                   ),
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: getSize(context) / 88),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: getSize(context) / 44),
                   child: Text(
                     classTitle,
-                    style: TextStyle(color: AppColors.white, fontSize: 13),
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(
+                        color: AppColors.white,
+                        fontSize: getSize(context) / 28),
                   ),
                 ),
                 Row(
                   children: [
                     Expanded(
-                      flex: 3,
+                      flex: 5,
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width / 3.9,
                         height: MediaQuery.of(context).size.width / 3.9,
@@ -80,15 +92,17 @@ class ItemOfOneClassWidget extends StatelessWidget {
                             CircularChartAnnotation(
                               widget: status == 'lock'
                                   ? MySvgWidget(
-                                      size: 18,
+                                      size: getSize(context) / 22,
                                       imageColor: AppColors.white,
                                       path: ImageAssets.lockIcon,
                                     )
                                   : Text(
                                       classPresentFinished,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.clip,
                                       style: TextStyle(
                                         color: AppColors.white,
-                                        fontSize: 12,
+                                        fontSize: getSize(context) / 28,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -111,19 +125,15 @@ class ItemOfOneClassWidget extends StatelessWidget {
                       ),
                     ),
                     Expanded(
-                      flex: 5,
+                      flex: 7,
                       child: Row(
                         children: [
                           Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: getSize(context) / 44),
                             child: Container(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 0,
-                                horizontal: 5,
-                              ),
                               width: 2,
-                              height: 80,
+                              height: getSize(context) / 5.5,
                               color: AppColors.white,
                             ),
                           ),
@@ -136,38 +146,38 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                       child: Icon(
                                         Icons.sticky_note_2_outlined,
                                         color: AppColors.white,
-                                        size: 16,
+                                        size: getSize(context) / 22,
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 5.0,
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: getSize(context) / 66,
                                       ),
                                       child: Text(
                                         lessonNum,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.clip,
                                         style: TextStyle(
-                                          color: AppColors.white,
-                                          fontSize: 16,
-                                        ),
+                                            color: AppColors.white,
+                                            fontSize: getSize(context) / 28),
                                       ),
                                     ),
                                     Text(
-                                      'دروس',
+                                      'lesson'.tr(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.clip,
                                       style: TextStyle(
-                                        color: AppColors.white,
-                                        fontSize: 12,
-                                      ),
+                                          color: AppColors.white,
+                                          fontSize: getSize(context) / 28),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: [
                                     Flexible(
-                                      child: Icon(
-                                        Icons.slow_motion_video,
-                                        color: AppColors.white,
-                                        size: 16,
-                                      ),
+                                      child: Icon(Icons.slow_motion_video,
+                                          color: AppColors.white,
+                                          size: getSize(context) / 28),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
@@ -175,28 +185,29 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                       ),
                                       child: Text(
                                         videoNum,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.clip,
                                         style: TextStyle(
-                                          color: AppColors.white,
-                                          fontSize: 16,
-                                        ),
+                                            color: AppColors.white,
+                                            fontSize: getSize(context) / 28),
                                       ),
                                     ),
                                     Text(
-                                      'فيديو',
+                                      'video'.tr(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.clip,
                                       style: TextStyle(
                                         color: AppColors.white,
-                                        fontSize: 12,
+                                        fontSize: getSize(context) / 28,
                                       ),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    Icon(
-                                      Icons.access_time_outlined,
-                                      color: AppColors.white,
-                                      size: 16,
-                                    ),
+                                    Icon(Icons.access_time_outlined,
+                                        color: AppColors.white,
+                                        size: getSize(context) / 28),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                         horizontal: 5.0,
@@ -207,23 +218,21 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                                     int.parse(hourNum))
                                             .toStringAsFixed(1)
                                             .toString(),
-                                        maxLines: 2,
+                                        maxLines: 1,
                                         overflow: TextOverflow.clip,
                                         style: TextStyle(
-                                          color: AppColors.white,
-                                          fontSize: 16,
-                                        ),
+                                            color: AppColors.white,
+                                            fontSize: getSize(context) / 28),
                                       ),
                                     ),
                                     Flexible(
                                       child: Text(
-                                        'ساعه',
-                                        maxLines: 2,
+                                        'hours'.tr(),
+                                        maxLines: 1,
                                         overflow: TextOverflow.clip,
                                         style: TextStyle(
-                                          color: AppColors.white,
-                                          fontSize: 12,
-                                        ),
+                                            color: AppColors.white,
+                                            fontSize: getSize(context) / 28),
                                       ),
                                     ),
                                   ],
@@ -239,10 +248,11 @@ class ItemOfOneClassWidget extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    padding:
+                        EdgeInsets.symmetric(vertical: getSize(context) / 66),
                     child: Container(
                       height: 2,
-                      width: MediaQuery.of(context).size.width / 2.8,
+                      width: getSize(context) / 2.8,
                       color: AppColors.white,
                     ),
                   ),
@@ -259,17 +269,19 @@ class ItemOfOneClassWidget extends StatelessWidget {
                         children: [
                           if (status == 'lock') ...{
                             Text(
-                              'لم يتم فتخ هذا الفصل بعد',
+                              'lesson_lock'.tr(),
+                              maxLines: 1,
+                              overflow: TextOverflow.clip,
                               style: TextStyle(
                                 color: AppColors.white,
-                                fontSize: 12,
+                                fontSize: getSize(context) / 28,
                                 fontWeight: FontWeight.bold,
                               ),
                             )
                           } else ...{
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: getSize(context) / 44),
                               child: InkWell(
                                 onTap: () {
                                   Navigator.pushNamed(
@@ -279,8 +291,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                   );
                                 },
                                 child: Container(
-                                  width: 107,
-                                  height: 35,
+                                  width: getSize(context) / 4,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                         color: AppColors.white, width: 2),
@@ -289,8 +300,11 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      'ابدأ ذاكر',
+                                      'start_studyy'.tr(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.clip,
                                       style: TextStyle(
+                                        fontSize: getSize(context) / 24,
                                         color: AppColors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -314,9 +328,9 @@ class ItemOfOneClassWidget extends StatelessWidget {
           left: 0,
           child: ManageNetworkImage(
             imageUrl: imagePath,
-            height: 50,
-            width: 50,
-            borderRadius: 50,
+            height: getSize(context) / 6.2,
+            width: getSize(context) / 6.2,
+            borderRadius: getSize(context) / 6.2,
           ),
         )
       ],

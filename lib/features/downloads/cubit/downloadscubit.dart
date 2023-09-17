@@ -60,16 +60,22 @@ class DownloadedFilesCubit extends Cubit<DownloadedFilesState> {
     }
   }
 
-  Future<void> deleteDownloadedFilePDF(String fileName) async {
+  deleteDownloadedFilePDF(String fileName) async {
     emit(LoadingDeletePDFile());
     var dir = await (Platform.isIOS
         ? getApplicationSupportDirectory()
         : getApplicationDocumentsDirectory());
     final file = File('${dir.path}/pdf/$fileName');
+
     if (await file.exists()) {
-      await file.delete();
-      getPDFs();
-      emit(LoadedDeletePDFFile());
+      if (files.length == 1) {
+        files.clear();
+        await file.delete();
+      } else {
+        await file.delete();
+      }
+      await getPDFs();
+      emit(LoadeddDeletePDFFile());
     }
   }
 

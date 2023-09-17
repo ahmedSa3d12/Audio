@@ -595,6 +595,7 @@ class ServiceApi {
       print(videoType);
       final response = await dio.post(
         EndPoints.addcommentsUrl,
+        formDataIsEnabled: true,
         body: {
           "comment": text,
           "type": type,

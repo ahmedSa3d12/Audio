@@ -309,7 +309,7 @@ class _CommentsState extends State<Comments> {
                   onclick: () {
                     cubit.getcomments(cubit.videoModel!.id, cubit.type!);
                   },
-                  title: trans.tr("no_comments"));
+                  title: trans.tr('no_comments'));
             }
           }
         },

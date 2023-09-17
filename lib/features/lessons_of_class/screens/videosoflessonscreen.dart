@@ -79,7 +79,7 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                     child: Text(
                                       '${index < 9 ? 0 : ""}${index + 1}',
                                       style: TextStyle(
-                                          fontSize: 25,
+                                          fontSize: getSize(context) / 22,
                                           fontWeight: FontWeight.w700,
                                           color: AppColors.unselectedTabColor),
                                     ),
@@ -121,49 +121,43 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                       )
                                     ],
                                   ),
-                                  Column(
-                                    children: [
-                                      SizedBox(height: getSize(context) / 22),
-                                      Text(
-                                        cubit.videosofLessons[index].name,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w700,
+                                  Flexible(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(height: getSize(context) / 22),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  getSize(context) / 100),
+                                          child: Text(
+                                            cubit.videosofLessons[index].name,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: getSize(context) / 26,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                      Spacer(),
-                                      Row(
-                                        children: [
-                                          Container(
-                                              child: Row(
+                                        SizedBox(height: getSize(context) / 22),
+
+                                        // Spacer(),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  getSize(context) / 100),
+                                          child: Row(
                                             children: [
-                                              Text(
-                                                cubit.videosofLessons[index]
-                                                    .totalWatch
-                                                    .toString(),
-                                                // cubit.videoModel!.totalWatch.toString(),
-                                                style: TextStyle(
-                                                    color: AppColors.gray1,
-                                                    fontSize: 14),
-                                              ),
-                                              SizedBox(
-                                                width: getSize(context) / 88,
-                                              ),
-                                              MySvgWidget(
-                                                path: ImageAssets.eyeIcon,
-                                                imageColor: AppColors.gray1,
-                                                size: getSize(context) / 18,
-                                              ),
-                                              SizedBox(
-                                                width: getSize(context) / 44,
-                                              ),
                                               Container(
                                                   child: Row(
                                                 children: [
                                                   Text(
                                                     cubit.videosofLessons[index]
-                                                        .totalLike
+                                                        .totalWatch
                                                         .toString(),
+                                                    // cubit.videoModel!.totalWatch.toString(),
                                                     style: TextStyle(
                                                         color: AppColors.gray1,
                                                         fontSize: 14),
@@ -173,21 +167,50 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                                         getSize(context) / 88,
                                                   ),
                                                   MySvgWidget(
-                                                    path: ImageAssets.like1Icon,
-                                                    imageColor: AppColors
-                                                        .greenDownloadColor,
+                                                    path: ImageAssets.eyeIcon,
+                                                    imageColor: AppColors.gray1,
                                                     size: getSize(context) / 18,
-                                                  )
+                                                  ),
+                                                  SizedBox(
+                                                    width:
+                                                        getSize(context) / 44,
+                                                  ),
+                                                  Container(
+                                                      child: Row(
+                                                    children: [
+                                                      Text(
+                                                        cubit
+                                                            .videosofLessons[
+                                                                index]
+                                                            .totalLike
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                            color:
+                                                                AppColors.gray1,
+                                                            fontSize: 14),
+                                                      ),
+                                                      SizedBox(
+                                                        width:
+                                                            getSize(context) /
+                                                                88,
+                                                      ),
+                                                      MySvgWidget(
+                                                        path: ImageAssets
+                                                            .like1Icon,
+                                                        imageColor: AppColors
+                                                            .greenDownloadColor,
+                                                        size: getSize(context) /
+                                                            18,
+                                                      )
+                                                    ],
+                                                  )),
                                                 ],
                                               )),
                                             ],
-                                          )),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: getSize(context) / 16,
-                                      ),
-                                    ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),

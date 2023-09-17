@@ -44,49 +44,50 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       builder: (context, state) {
         var cubit = context.read<DownloadedFilesCubit>();
         return Scaffold(
-          backgroundColor: AppColors.black,
-          body: Center(
-              child: isLoading
-                  ? CircularProgressIndicator()
-                  : Stack(
-                      children: [
-                        AspectRatio(
-                          aspectRatio: cubit.controller!.value.aspectRatio,
-                          child: VideoPlayer(
-                            cubit.controller!,
-                          ),
-                        ),
-                        Positioned(
-                            bottom: 0,
-                            width: MediaQuery.of(context).size.width,
-                            child: VideoProgressIndicator(
+            backgroundColor: AppColors.black,
+            body: Center(
+                child: isLoading
+                    ? CircularProgressIndicator()
+                    : Stack(
+                        children: [
+                          AspectRatio(
+                            aspectRatio: cubit.controller!.value.aspectRatio,
+                            child: VideoPlayer(
                               cubit.controller!,
-                              allowScrubbing: false,
-                              colors: VideoProgressColors(
-                                  backgroundColor: Colors.blueGrey,
-                                  bufferedColor: Colors.blueGrey,
-                                  playedColor: AppColors.orange),
-                            ))
-                      ],
-                    )),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: AppColors.orange,
-            onPressed: () {
-              setState(() {
-                if (cubit.controller!.value.isPlaying) {
-                  cubit.controller!.pause();
-                } else {
-                  cubit.controller!.play();
-                }
-              });
-            },
-            child: Icon(
-              cubit.controller!.value.isPlaying
-                  ? Icons.pause
-                  : Icons.play_arrow,
-            ),
-          ),
-        );
+                            ),
+                          ),
+                          Positioned(
+                              bottom: 0,
+                              width: MediaQuery.of(context).size.width,
+                              child: VideoProgressIndicator(
+                                cubit.controller!,
+                                allowScrubbing: false,
+                                colors: VideoProgressColors(
+                                    backgroundColor: Colors.blueGrey,
+                                    bufferedColor: Colors.blueGrey,
+                                    playedColor: AppColors.orange),
+                              ))
+                        ],
+                      )),
+            floatingActionButton: isLoading
+                ? Container()
+                : FloatingActionButton(
+                    backgroundColor: AppColors.orange,
+                    onPressed: () {
+                      setState(() {
+                        if (cubit.controller!.value.isPlaying) {
+                          cubit.controller!.pause();
+                        } else {
+                          cubit.controller!.play();
+                        }
+                      });
+                    },
+                    child: Icon(
+                      cubit.controller!.value.isPlaying
+                          ? Icons.pause
+                          : Icons.play_arrow,
+                    ),
+                  ));
       },
     );
   }

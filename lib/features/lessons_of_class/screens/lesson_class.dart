@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/config/routes/app_routes.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
 import 'package:new_mazoon/core/widgets/network_image.dart';
 import 'package:new_mazoon/core/widgets/no_data_widget.dart';
@@ -63,10 +64,10 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                           physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
                           children: [
-                            SizedBox(height: 115),
+                            SizedBox(height: getSize(context) / 3),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: getSize(context) / 22),
                               child: SizedBox(
                                 height: 180,
                                 width: MediaQuery.of(context).size.width - 80,

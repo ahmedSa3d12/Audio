@@ -261,5 +261,10 @@
   "finish_exam":"finish exam",
   "video":"video",
   "pdf":"pdf files","result_info":"Click on any question below to review your answer",
-  "no_data":"no data"
-}
+  "no_data":"no data",
+  "send_report":"send report",
+  "please_add_problem_discription":"please add problem discription",
+  "no_comments":"no comments","lesson_lock":"This chapter has not been unlocked yet",
+  "start_studyy":"start study",
+
+  "lesson":"lessons"}

@@ -6,11 +6,9 @@ import 'package:new_mazoon/core/widgets/custom_button.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:new_mazoon/features/video_details/widget/comments.dart';
-
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
-
 import '../../../core/widgets/custom_textfield.dart';
 import '../../../core/widgets/music_animation.dart';
 import '../../../core/widgets/no_data_widget.dart';
@@ -32,10 +30,19 @@ class VideoDetails extends StatefulWidget {
 class _VideoDetailsState extends State<VideoDetails> {
   @override
   void initState() {
+    context.read<VideoDetailsCubit>().videoModel = null;
     context
         .read<VideoDetailsCubit>()
         .getVideoDetails(widget.videoId!, widget.type!);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -59,7 +66,8 @@ class _VideoDetailsState extends State<VideoDetails> {
               return WillPopScope(
                 onWillPop: () async {
                   context.read<VideoDetailsCubit>().updateTime();
-                  return true;
+                  Navigator.pop(context);
+                  return Future(() => true);
                 },
                 child: Scaffold(
                   appBar: AppBar(
@@ -99,7 +107,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                         overflow: TextOverflow.clip,
                                         style: TextStyle(
                                           color: AppColors.black,
-                                          fontSize: 18,
+                                          fontSize: getSize(context) / 22,
                                           fontWeight: FontWeight.w700,
                                         ),
                                       )),
@@ -109,8 +117,9 @@ class _VideoDetailsState extends State<VideoDetails> {
                                       Text(
                                         cubit.videoModel!.totalWatch.toString(),
                                         style: TextStyle(
-                                            color: AppColors.gray1,
-                                            fontSize: 14),
+                                          color: AppColors.gray1,
+                                          fontSize: getSize(context) / 28,
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 7,
@@ -118,12 +127,12 @@ class _VideoDetailsState extends State<VideoDetails> {
                                       MySvgWidget(
                                         path: ImageAssets.eyeIcon,
                                         imageColor: AppColors.gray1,
-                                        size: 30,
+                                        size: getSize(context) / 18,
                                       )
                                     ],
                                   )),
                                   SizedBox(
-                                    width: 20,
+                                    width: getSize(context) / 14,
                                   ),
                                   Container(
                                       child: Row(
@@ -131,8 +140,9 @@ class _VideoDetailsState extends State<VideoDetails> {
                                       Text(
                                         cubit.videoModel!.totalLike.toString(),
                                         style: TextStyle(
-                                            color: AppColors.gray1,
-                                            fontSize: 14),
+                                          color: AppColors.gray1,
+                                          fontSize: getSize(context) / 28,
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 7,
@@ -141,7 +151,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                         path: ImageAssets.like1Icon,
                                         imageColor:
                                             AppColors.greenDownloadColor,
-                                        size: 20,
+                                        size: getSize(context) / 18,
                                       )
                                     ],
                                   )),
@@ -164,7 +174,9 @@ class _VideoDetailsState extends State<VideoDetails> {
                                   ),
                                   child: Row(
                                     children: [
-                                      Flexible(
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: getSize(context) / 100),
                                         child: InkWell(
                                           onTap: () {
                                             //like video
@@ -173,20 +185,17 @@ class _VideoDetailsState extends State<VideoDetails> {
                                             child: Column(
                                               children: [
                                                 Container(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  width: getSize(context) / 9,
+                                                  height: getSize(context) / 9,
                                                   decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       color: AppColors.blue),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: MySvgWidget(
-                                                      path:
-                                                          ImageAssets.like1Icon,
-                                                      imageColor:
-                                                          AppColors.white,
-                                                      size: 20,
-                                                    ),
+                                                  child: MySvgWidget(
+                                                    path: ImageAssets.like1Icon,
+                                                    imageColor: AppColors.white,
+                                                    size: 20,
                                                   ),
                                                 ),
                                                 SizedBox(
@@ -195,7 +204,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                 Text(
                                                   trans.tr("like"),
                                                   style: TextStyle(
-                                                    fontSize: 12,
+                                                    fontSize:
+                                                        getSize(context) / 32,
                                                   ),
                                                 )
                                               ],
@@ -203,7 +213,9 @@ class _VideoDetailsState extends State<VideoDetails> {
                                           ),
                                         ),
                                       ),
-                                      Flexible(
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: getSize(context) / 100),
                                         child: InkWell(
                                           onTap: () {
                                             cubit.favourite(
@@ -217,6 +229,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                             child: Column(
                                               children: [
                                                 Container(
+                                                  width: getSize(context) / 9,
+                                                  height: getSize(context) / 9,
                                                   decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       color: AppColors.orange),
@@ -243,7 +257,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                 Text(
                                                   trans.tr("favourite"),
                                                   style: TextStyle(
-                                                    fontSize: 12,
+                                                    fontSize:
+                                                        getSize(context) / 32,
                                                   ),
                                                 )
                                               ],
@@ -251,7 +266,9 @@ class _VideoDetailsState extends State<VideoDetails> {
                                           ),
                                         ),
                                       ),
-                                      Flexible(
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: getSize(context) / 100),
                                         child: InkWell(
                                           onTap: () {
                                             cubit.downloadvideo();
@@ -260,6 +277,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                             child: Column(
                                               children: [
                                                 Container(
+                                                  width: getSize(context) / 9,
+                                                  height: getSize(context) / 9,
                                                   decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       color: AppColors.purple1),
@@ -267,10 +286,13 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                     padding:
                                                         const EdgeInsets.all(
                                                             8.0),
-                                                    child: cubit.progress != 0
+                                                    child: cubit.videoModel!
+                                                                .progress !=
+                                                            0
                                                         ? CircularProgressIndicator(
-                                                            value:
-                                                                cubit.progress,
+                                                            value: cubit
+                                                                .videoModel!
+                                                                .progress,
                                                             backgroundColor:
                                                                 AppColors.white,
                                                             color: AppColors
@@ -291,7 +313,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                 Text(
                                                   trans.tr("dowanload"),
                                                   style: TextStyle(
-                                                    fontSize: 12,
+                                                    fontSize:
+                                                        getSize(context) / 32,
                                                   ),
                                                 )
                                               ],
@@ -305,59 +328,63 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                     cubit.type == 'video_basic'
                                                 ? false
                                                 : true,
-                                        child: Flexible(
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.pushNamed(context,
-                                                  Routes.attachmentScreen,
-                                                  arguments: cubit.videoModel);
-                                            },
-                                            child: Center(
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color:
-                                                            AppColors.primary),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: MySvgWidget(
-                                                        path: ImageAssets
-                                                            .attachmentIcon,
-                                                        imageColor:
-                                                            AppColors.white,
-                                                        size: 20,
-                                                      ),
+                                        child: InkWell(
+                                          onTap: () {
+                                            Navigator.pushNamed(context,
+                                                Routes.attachmentScreen,
+                                                arguments: cubit.videoModel);
+                                          },
+                                          child: Center(
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  width: getSize(context) / 9,
+                                                  height: getSize(context) / 9,
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: AppColors.primary),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: MySvgWidget(
+                                                      path: ImageAssets
+                                                          .attachmentIcon,
+                                                      imageColor:
+                                                          AppColors.white,
+                                                      size: 20,
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    height: 4,
+                                                ),
+                                                SizedBox(
+                                                  height: 4,
+                                                ),
+                                                Text(
+                                                  trans.tr("attachments"),
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        getSize(context) / 32,
                                                   ),
-                                                  Text(
-                                                    trans.tr("attachments"),
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
+                                                )
+                                              ],
                                             ),
                                           ),
                                         ),
                                       ),
-                                      Flexible(child: Container()),
+                                      SizedBox(),
                                       Flexible(
-                                        flex: 2,
-                                        child: CustomButton(
-                                          text:
-                                              trans.tr("report_about_mistake"),
-                                          color: AppColors.error,
-                                          onClick: () {
-                                            openBottomreportSheet();
-                                          },
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  getSize(context) / 22),
+                                          child: CustomButton(
+                                            text: trans
+                                                .tr("report_about_mistake"),
+                                            color: AppColors.error,
+                                            onClick: () {
+                                              openBottomreportSheet();
+                                            },
+                                          ),
                                         ),
                                       )
                                     ],
