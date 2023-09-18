@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 
 class CustomButton extends StatelessWidget {
@@ -8,6 +9,7 @@ class CustomButton extends StatelessWidget {
       required this.color,
       required this.onClick,
       this.paddingHorizontal = 0,
+      this.isLoading = false,
       this.borderRadius = 8,
       this.height,
       this.textcolor = Colors.white})
@@ -19,6 +21,7 @@ class CustomButton extends StatelessWidget {
   final double? borderRadius;
   final VoidCallback onClick;
   double? height;
+  bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +35,18 @@ class CustomButton extends StatelessWidget {
           height: height ?? getSize(context) / 10,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10), color: color),
-          child: Text(
-            text,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: textcolor,
-              fontSize: getSize(context) / 24,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: isLoading
+              ? CircularProgressIndicator(color: AppColors.white)
+              : Text(
+                  text,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: textcolor,
+                    fontSize: getSize(context) / 24,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
         ),
       ),
     );

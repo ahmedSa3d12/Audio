@@ -29,11 +29,13 @@ import 'features/navigation_bottom/cubit/navigation_cubit.dart';
 import 'features/onboarding/cubit/on_boarding_cubit.dart';
 import 'features/payment/cubit/paymentcubit.dart';
 import 'features/profilescreen/cubit/cubit.dart';
+import 'features/rate_app/cubit/rate_app_cubit.dart';
 import 'features/sources_and_references/cubit/source_references_cubit.dart';
 import 'features/paperexamdetials/cubit/paper_detials_cubit.dart';
 import 'features/splash/presentation/cubit/splash_cubit.dart';
 import 'features/start_trip/cubit/start_trip_cubit.dart';
 import 'features/student_reports/cubit/student_reports_cubit.dart';
+import 'features/your_suggest/cubit/your_suggest_cubit.dart';
 
 final serviceLocator = GetIt.instance;
 
@@ -140,6 +142,16 @@ Future<void> setup() async {
   );
   serviceLocator.registerFactory(
     () => ExamDegreeAccreditationCubit(
+      serviceLocator(),
+    ),
+  );
+  serviceLocator.registerFactory(
+    () => YourSuggestCubit(
+      serviceLocator(),
+    ),
+  );
+  serviceLocator.registerFactory(
+    () => RateAppCubit(
       serviceLocator(),
     ),
   );

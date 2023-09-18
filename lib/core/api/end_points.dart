@@ -86,4 +86,7 @@ class EndPoints {
 
   static const String applyMakeYourExam =
       '${baseUrl}test-yourself-exams/solve-exam/';
+  static const String deleteReport = '${baseUrl}report/delete/';
+
+  static const String addNewSuggest = '${baseUrl}auth/add-suggest';
 }

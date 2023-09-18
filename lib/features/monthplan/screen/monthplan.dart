@@ -11,6 +11,7 @@ import 'package:new_mazoon/features/monthplan/widget/monthpalnwidget.dart';
 
 import '../../../core/utils/app_colors.dart';
 
+import '../../../core/utils/getsize.dart';
 import '../../../core/widgets/no_data_widget.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 
@@ -50,7 +51,8 @@ class _MonthPlanState extends State<MonthPlan> {
                       physics: const BouncingScrollPhysics(),
                       child: Column(
                         children: [
-                          SizedBox(height: 110),
+                          SizedBox(height: getSize(context) / 3.5),
+
                           Container(
                               decoration: BoxDecoration(
                                 borderRadius:

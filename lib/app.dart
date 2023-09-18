@@ -42,6 +42,7 @@ import 'features/navigation_bottom/cubit/navigation_cubit.dart';
 import 'features/onboarding/cubit/on_boarding_cubit.dart';
 import 'features/payment/cubit/paymentcubit.dart';
 import 'features/profilescreen/cubit/cubit.dart';
+import 'features/rate_app/cubit/rate_app_cubit.dart';
 import 'features/sources_and_references/cubit/source_references_cubit.dart';
 import 'features/paperexamdetials/cubit/paper_detials_cubit.dart';
 import 'features/splash/presentation/cubit/splash_cubit.dart';
@@ -50,6 +51,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'features/student_reports/cubit/student_reports_cubit.dart';
 import 'features/video_details/cubit/video_details_cubit.dart';
+import 'features/your_suggest/cubit/your_suggest_cubit.dart';
 
 class Elmazoon extends StatefulWidget {
   const Elmazoon({Key? key}) : super(key: key);
@@ -250,7 +252,15 @@ class _ElmazoonState extends State<Elmazoon> {
         BlocProvider(
           create: (_) => injector.serviceLocator<DownloadedFilesCubit>(),
         ),
-        //
+        BlocProvider(
+          create: (_) => injector.serviceLocator<YourSuggestCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<RateAppCubit>(),
+        ),
+        //    BlocProvider(
+        //   create: (_) => injector.serviceLocator<RateAppCubit>(),
+        // ),
       ],
       child: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {

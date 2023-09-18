@@ -5,6 +5,7 @@ import '../../../../core/widgets/banner.dart';
 import '../../../../core/widgets/no_data_widget.dart';
 import '../../../../core/widgets/show_loading_indicator.dart';
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/getsize.dart';
 import '../cubit/home_page_cubit.dart';
 import '../widget/final_review_widget.dart';
 import '../widget/home_page_start_study_widget.dart';
@@ -38,7 +39,8 @@ class _HomePageState extends State<HomePage> {
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  SizedBox(height: 120),
+                  SizedBox(height: getSize(context) / 3.5),
+
                   BannerWidget(sliderData: state.model.data!.sliders!),
                   //
                   state.model.data!.lifeExam != null

@@ -18,6 +18,8 @@ class ImageAssets {
   static const String userImage = '$imagePath/user.png';
   static const String userExamImage = '$imagePath/register.png';
   static const String suggestImage = '$imagePath/suggest.png';
+  static const String suggest2Image = '$imagePath/suggest2.png';
+
   static const String correctImage = '$imagePath/correct.png';
   static const String firstImage = '$imagePath/first.png';
   static const String secondImage = '$imagePath/second.png';
@@ -122,6 +124,10 @@ class ImageAssets {
   static const String cameraIcon = '$iconsPath/camera.svg';
   static const String xIcon = '$iconsPath/x.svg';
   static const String instgramIcon = '$iconsPath/instgram.svg';
+
+  static const String vector = '$iconsPath/vector.svg';
+  static const String cityIcon = '$iconsPath/city.svg';
+  static const String codeIcon = '$iconsPath/code.svg';
 
   //Lottie
   static const String noItems = '$lottiePath/no_item.json';

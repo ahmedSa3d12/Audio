@@ -4,9 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/widgets/no_data_widget.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-
 import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/string_to_double.dart';
 import '../../start_trip/widgets/expansion_tile_lesson.dart';
 import '../../start_trip/widgets/expansion_tile_widget.dart';
 import '../cubit/examdegreedependcubit.dart';
@@ -81,14 +79,17 @@ class _HomeWorksGradeAccreditionState extends State<HomeWorksGradeAccredition> {
                                 ),
                               ),
                             )
-                          : cubit.homeworksGrade!.degrees==null||
-                          cubit.homeworksGrade!.degrees!.isEmpty
-              ?
-                          NoDataWidget(onclick: () {
-cubit.homeworkGradeAndRate(lessonId: cubit.lessonHomeid);
-                          }, title: 'no_exam'.tr())
-                      :ItemsOfDegreeAndRateWidget(
-                              gradeList: cubit.homeworksGrade!.degrees??[])
+                          : cubit.homeworksGrade!.degrees == null ||
+                                  cubit.homeworksGrade!.degrees!.isEmpty
+                              ? NoDataWidget(
+                                  onclick: () {
+                                    cubit.homeworkGradeAndRate(
+                                        lessonId: cubit.lessonHomeid);
+                                  },
+                                  title: 'no_exam'.tr())
+                              : ItemsOfDegreeAndRateWidget(
+                                  gradeList:
+                                      cubit.homeworksGrade!.degrees ?? [])
                     ],
                   ),
                 ),
@@ -135,7 +136,7 @@ cubit.homeworkGradeAndRate(lessonId: cubit.lessonHomeid);
                                   Flexible(
                                     fit: FlexFit.tight,
                                     child: Text(
-                                     'general_level'.tr(),
+                                      'general_level'.tr(),
                                       maxLines: 2,
                                       overflow: TextOverflow.clip,
                                       style: TextStyle(
@@ -145,8 +146,8 @@ cubit.homeworkGradeAndRate(lessonId: cubit.lessonHomeid);
                                     ),
                                   ),
                                   Text(
-                                    cubit.homeworksGrade!
-                                        .motivationalWord??'',
+                                    cubit.homeworksGrade!.motivationalWord ??
+                                        '',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontWeight: FontWeight.w700,
@@ -171,10 +172,10 @@ cubit.homeworkGradeAndRate(lessonId: cubit.lessonHomeid);
                                 animationDuration: 1200,
                                 lineWidth: getSize(context) / 44,
                                 percent: double.parse(
-                                        cubit.homeworksGrade!.totalPer??'0') /
+                                        cubit.homeworksGrade!.totalPer ?? '0') /
                                     100,
                                 center: Text(
-                                  cubit.homeworksGrade!.totalPer??'',
+                                  cubit.homeworksGrade!.totalPer ?? '',
                                   style: TextStyle(
                                       color: AppColors.white,
                                       fontWeight: FontWeight.w700,

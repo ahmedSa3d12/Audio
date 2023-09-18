@@ -7,9 +7,8 @@ ThemeData appTheme() {
   return ThemeData(
     primaryColor: AppColors.primary,
     hintColor: AppColors.hint,
-
     brightness: Brightness.light,
-    // scaffoldBackgroundColor: AppColors.scaffoldBackground,
+    scaffoldBackgroundColor: AppColors.white,
     fontFamily: AppStrings.fontFamily,
     textTheme: const TextTheme(
       bodyMedium: TextStyle(

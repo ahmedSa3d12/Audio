@@ -38,6 +38,7 @@ import '../../features/splash/presentation/screens/pop_ads_screen.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/student_reports/screens/student_report.dart';
 import '../../features/video_details/screens/video_details.dart';
+import '../../features/your_suggest/screens/your_suggest.dart';
 
 class Routes {
   static const String initialRoute = '/';
@@ -84,6 +85,7 @@ class Routes {
 
   static const String resultOfExamScreen = '/resultOfExamScreen';
   static const String changeLanguageScreen = '/changeLanguageScreen';
+  static const String suggestScreen = '/AddYourSuggest';
 }
 
 class AppRoutes {
@@ -100,9 +102,13 @@ class AppRoutes {
           builder: (context) => const LoginScreen(),
         );
       case Routes.reportsScreen:
-        return MaterialPageRoute(
-          builder: (context) => const StudentReportScreen(),
+        return PageTransition(
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 300),
+          child: StudentReportScreen(),
         );
+
       case Routes.lessonClassScreenRoute:
         int classId = settings.arguments as int;
         return MaterialPageRoute(
@@ -132,21 +138,21 @@ class AppRoutes {
         return PageTransition(
           type: PageTransitionType.fade,
           alignment: Alignment.center,
-          duration: const Duration(milliseconds: 1300),
+          duration: const Duration(milliseconds: 300),
           child: MonthPlan(),
         );
       case Routes.homePageScreenRoute:
         return PageTransition(
           type: PageTransitionType.fade,
           alignment: Alignment.center,
-          duration: const Duration(milliseconds: 1300),
+          duration: const Duration(milliseconds: 300),
           child: Zoom(),
         );
       case Routes.onboardingPageScreenRoute:
         return PageTransition(
           type: PageTransitionType.fade,
           alignment: Alignment.center,
-          duration: const Duration(milliseconds: 1300),
+          duration: const Duration(milliseconds: 300),
           child: OnBordingScreen(),
         );
 
@@ -163,7 +169,7 @@ class AppRoutes {
         return PageTransition(
           type: PageTransitionType.fade,
           alignment: Alignment.center,
-          duration: const Duration(milliseconds: 1300),
+          duration: const Duration(milliseconds: 300),
           child: PopAdsScreen(
             adsDatum: adsModelDatum,
           ),
@@ -173,7 +179,7 @@ class AppRoutes {
         return PageTransition(
           type: PageTransitionType.fade,
           alignment: Alignment.center,
-          duration: const Duration(milliseconds: 1300),
+          duration: const Duration(milliseconds: 300),
           child: ExamHeroScreen(),
         );
 
@@ -181,7 +187,7 @@ class AppRoutes {
         return PageTransition(
           type: PageTransitionType.fade,
           alignment: Alignment.center,
-          duration: const Duration(milliseconds: 800),
+          duration: const Duration(milliseconds: 300),
           child: CountdownScreen(),
         );
       case Routes.lessonDetails:
@@ -190,14 +196,14 @@ class AppRoutes {
           child: LessonDetails(model: model),
           type: PageTransitionType.fade,
           alignment: Alignment.center,
-          duration: const Duration(milliseconds: 800),
+          duration: const Duration(milliseconds: 300),
         );
       case Routes.videoDetailsScreenRoute:
         Map<String, dynamic> data = settings.arguments as Map<String, dynamic>;
         return PageTransition(
           type: PageTransitionType.fade,
           alignment: Alignment.center,
-          duration: const Duration(milliseconds: 800),
+          duration: const Duration(milliseconds: 300),
           child: VideoDetails(type: data['type'], videoId: data['videoId']),
         );
       case Routes.attachmentScreen:
@@ -205,7 +211,7 @@ class AppRoutes {
         return PageTransition(
           type: PageTransitionType.fade,
           alignment: Alignment.center,
-          duration: const Duration(milliseconds: 1300),
+          duration: const Duration(milliseconds: 300),
           child: AttachmentScreen(model: model),
         );
       case Routes.lessonExamScreen:
@@ -317,6 +323,14 @@ class AppRoutes {
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),
         );
+      case Routes.suggestScreen:
+        return PageTransition(
+          child: AddYourSuggest(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+      //suggestScreen
       default:
         return undefinedRoute();
     }

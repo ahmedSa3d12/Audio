@@ -58,7 +58,7 @@ class _LessonDetailsState extends State<LessonDetails>
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: getSize(context) / 4.2),
+                    SizedBox(height: getSize(context) / 3.5),
                     Positioned(
                       top: 0,
                       right: 0,

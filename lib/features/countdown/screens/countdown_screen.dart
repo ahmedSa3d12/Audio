@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../core/utils/app_colors.dart';
@@ -42,7 +41,7 @@ class CountdownScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: getSize(context) / 4),
+                        SizedBox(height: getSize(context) / 3.5),
                         TitleWithCircleBackgroundWidget(
                           title: 'countdown',
                         ),
@@ -319,7 +318,6 @@ class CountdownScreen extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: getSize(context) / 30),
                           child: Container(
-
                             decoration: BoxDecoration(
                                 border: Border.all(
                                   color: AppColors.blue5,
@@ -332,19 +330,25 @@ class CountdownScreen extends StatelessWidget {
                                   horizontal: getSize(context) / 22,
                                   vertical: getSize(context) / 30),
                               child: Column(
-
                                 children: [
-                                 Text(cubit.countDown!.title
-                                   ,
-                                 style: TextStyle(fontSize: getSize(context)/24,color: AppColors.blue5),
-                                 ),
-                                  SizedBox(height: getSize(context)/24,),
-                                  Text(cubit.countDown!.description
-                                   ,
-                                 style: TextStyle(fontSize: getSize(context)/24,color: AppColors.liveExamGrayTextColor),
-                                 ),
-                                  SizedBox(height: getSize(context)/24,),
-
+                                  Text(
+                                    cubit.countDown!.title,
+                                    style: TextStyle(
+                                        fontSize: getSize(context) / 24,
+                                        color: AppColors.blue5),
+                                  ),
+                                  SizedBox(
+                                    height: getSize(context) / 24,
+                                  ),
+                                  Text(
+                                    cubit.countDown!.description,
+                                    style: TextStyle(
+                                        fontSize: getSize(context) / 24,
+                                        color: AppColors.liveExamGrayTextColor),
+                                  ),
+                                  SizedBox(
+                                    height: getSize(context) / 24,
+                                  ),
                                 ],
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,

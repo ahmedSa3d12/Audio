@@ -124,7 +124,7 @@ class _NoteState extends State<NotePlan> {
                             vertical: getSize(context) / 22),
                         alignment: Alignment.center,
                         child: Text(
-                          'ادخل ملاحظاتك',
+                          'add_note'.tr(),
                           textAlign: TextAlign.right,
                           style: TextStyle(
                             color: AppColors.black,
@@ -427,7 +427,8 @@ class _NoteState extends State<NotePlan> {
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
-                              SizedBox(height: 110),
+                              SizedBox(height: getSize(context) / 3.5),
+
                               BlocBuilder<NoteCubit, NoteState>(
                                 builder: (context, state) {
                                   return ListView(
@@ -609,7 +610,7 @@ class _NoteState extends State<NotePlan> {
                                             },
                                           )
                                         : NoDataWidget(
-                                            onclick: () => () {
+                                            onclick: () {
                                               cubit.getNotes(
                                                   cubit.date,
                                                   cubit.datefoucse,
@@ -619,11 +620,11 @@ class _NoteState extends State<NotePlan> {
                                           );
                                   } else {
                                     return NoDataWidget(
-                                      onclick: () => {
+                                      onclick: () {
                                         cubit.getNotes(
                                             cubit.date,
                                             cubit.datefoucse,
-                                            cubit.datecurrent),
+                                            cubit.datecurrent);
                                       },
                                       title: 'no_date',
                                     );

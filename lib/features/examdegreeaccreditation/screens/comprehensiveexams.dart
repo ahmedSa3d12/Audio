@@ -5,7 +5,6 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/getsize.dart';
-import '../../../core/utils/string_to_double.dart';
 import '../../../core/widgets/no_data_widget.dart';
 import '../cubit/examdegreedependcubit.dart';
 import '../cubit/examdegreedependstate.dart';
@@ -68,10 +67,14 @@ class _ComprehensiveExamGradeAccreditionState
                                 ),
                               ),
                             )
-                          : cubit.comprehensiveExamsGrade!.degrees == null||
-                          cubit.comprehensiveExamsGrade!.degrees!.isEmpty
+                          : cubit.comprehensiveExamsGrade!.degrees == null ||
+                                  cubit
+                                      .comprehensiveExamsGrade!.degrees!.isEmpty
                               ? NoDataWidget(
-                                  onclick: () {cubit.comprehensiveExamsGradeAndRate();}, title: 'no_exam'.tr())
+                                  onclick: () {
+                                    cubit.comprehensiveExamsGradeAndRate();
+                                  },
+                                  title: 'no_exam'.tr())
                               : ItemsOfDegreeAndRateWidget(
                                   gradeList:
                                       cubit.comprehensiveExamsGrade!.degrees!)

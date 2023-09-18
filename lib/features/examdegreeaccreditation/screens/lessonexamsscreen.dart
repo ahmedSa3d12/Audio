@@ -5,7 +5,6 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/getsize.dart';
-import '../../../core/utils/string_to_double.dart';
 import '../../../core/widgets/no_data_widget.dart';
 import '../../start_trip/widgets/expansion_tile_lesson.dart';
 import '../../start_trip/widgets/expansion_tile_widget.dart';
@@ -141,7 +140,7 @@ class _LessonExamsGradeAccreditionState
                                   Flexible(
                                     fit: FlexFit.tight,
                                     child: Text(
-                                     'general_level'.tr(),
+                                      'general_level'.tr(),
                                       maxLines: 2,
                                       overflow: TextOverflow.clip,
                                       style: TextStyle(

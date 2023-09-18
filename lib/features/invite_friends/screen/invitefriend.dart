@@ -44,7 +44,7 @@ class _InviteFreiendsScreenState extends State<InviteFreiendsScreen> {
                 isLoading
                     ? ListView(
                         children: [
-                          SizedBox(height: getSize(context) / 2),
+                          SizedBox(height: getSize(context) / 3.5),
                           Container(
                               child: NoDataWidget(
                                   onclick: () {
@@ -57,7 +57,7 @@ class _InviteFreiendsScreenState extends State<InviteFreiendsScreen> {
                       )
                     : ListView(
                         children: [
-                          SizedBox(height: getSize(context) / 6),
+                          SizedBox(height: getSize(context) / 3.5),
                           Container(
                             padding: EdgeInsets.only(
                                 left: getSize(context) / 8,

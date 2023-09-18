@@ -19,31 +19,27 @@ class PaperDetialsCubit extends Cubit<PaperDetialsState> {
   final ServiceApi api;
   PaperDetialsCubit(this.api) : super(PaperDetialsInitial());
   Future<void> deleteexam(BuildContext context) async {
+    emit(LoadingDeletePaperDetialsInitial());
     createProgressDialog(context, 'wait'.tr());
     var response = await api.deleteregisterExam();
     response.fold(
-          (l) =>  Navigator.of(context).pop(),
-          (r) {
-        Navigator.of(context).pop();
-        if(r.code==200){
-          toastMessage(
-          'exam_cancel_suc'.tr(),
-            context,
-            color: AppColors.success,
-          );
+      (l) {
+        emit(ErrorDeletePaperDetialsInitial());
+      },
+      (r) {
+        if (r.code == 200) {
+          toastMessage('exam_cancel_suc'.tr(), context,
+              color: AppColors.success);
           Navigator.of(context).pop();
-          //   Navigator.pushNamed(context, Routes.examRegisterRoute,arguments: data);
-        }
-        else{
+        } else {
           toastMessage(
             r.message,
             context,
             color: AppColors.error,
           );
         }
-
+        emit(LoadedDeletePaperDetialsInitial());
       },
     );
   }
-
 }

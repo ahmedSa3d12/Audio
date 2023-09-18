@@ -5,7 +5,6 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/getsize.dart';
-import '../../../core/utils/string_to_double.dart';
 import '../../../core/widgets/no_data_widget.dart';
 import '../../start_trip/cubit/start_trip_cubit.dart';
 import '../../start_trip/widgets/expansion_tile_widget.dart';
@@ -78,12 +77,14 @@ class _ClassExamsGradeAccreditionState
                                 ),
                               ),
                             )
-                          : cubit.classesExamGrade!.degrees == null
-                      ||cubit.classesExamGrade!.degrees!.isEmpty
+                          : cubit.classesExamGrade!.degrees == null ||
+                                  cubit.classesExamGrade!.degrees!.isEmpty
                               ? NoDataWidget(
                                   onclick: () {
-                                    cubit.classesExamGradeAndRate(classId: cubit.classid);
-                                  }, title: 'no_exam'.tr())
+                                    cubit.classesExamGradeAndRate(
+                                        classId: cubit.classid);
+                                  },
+                                  title: 'no_exam'.tr())
                               : ItemsOfDegreeAndRateWidget(
                                   gradeList:
                                       cubit.classesExamGrade!.degrees ?? [])

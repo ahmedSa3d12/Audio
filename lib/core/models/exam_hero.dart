@@ -10,7 +10,7 @@ class ExamHerosModel {
   });
 
   factory ExamHerosModel.fromJson(Map<String, dynamic> json) => ExamHerosModel(
-        data: ExamHerosModelData.fromJson(json["data"]),
+        data: ExamHerosModelData.fromJson(json["data"] ?? null),
         message: json["message"],
         code: json["code"],
       );
@@ -39,7 +39,7 @@ class ExamHerosModelData {
 
   factory ExamHerosModelData.fromJson(Map<String, dynamic> json) =>
       ExamHerosModelData(
-        auth: ExamHerosModelAuth.fromJson(json["auth"]),
+        auth: ExamHerosModelAuth.fromJson(json["auth"] ?? null),
         dayHeroes: List<ExamHerosModelAuth>.from(
             json["day_heroes"].map((x) => ExamHerosModelAuth.fromJson(x))),
         weekHeroes: List<ExamHerosModelAuth>.from(

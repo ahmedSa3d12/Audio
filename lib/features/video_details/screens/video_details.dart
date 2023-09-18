@@ -39,6 +39,8 @@ class _VideoDetailsState extends State<VideoDetails> {
 
   @override
   void dispose() {
+    context.read<VideoDetailsCubit>().audioRecorder.stop;
+    context.read<VideoDetailsCubit>().audioRecorder.dispose();
     super.dispose();
     if (mounted) {
       setState(() {});
@@ -430,6 +432,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                     ),
                                     Expanded(
                                       child: CustomTextField(
+                                        // minLine: 1,
+                                        maxLines: 4,
                                         title: trans.tr('add_comment'),
                                         controller: cubit.comment_control,
                                         validatorMessage:

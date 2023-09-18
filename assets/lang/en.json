@@ -266,5 +266,7 @@
   "please_add_problem_discription":"please add problem discription",
   "no_comments":"no comments","lesson_lock":"This chapter has not been unlocked yet",
   "start_studyy":"start study",
-
+  "send_your_suggest":"Send your suggestion"
+,
+"invalid_suggest":"please enter your suggest",
   "lesson":"lessons"}

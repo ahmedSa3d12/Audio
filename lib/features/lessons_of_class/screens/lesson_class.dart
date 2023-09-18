@@ -64,7 +64,7 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                           physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
                           children: [
-                            SizedBox(height: getSize(context) / 3),
+                            SizedBox(height: getSize(context) / 3.5),
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: getSize(context) / 22),

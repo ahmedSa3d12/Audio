@@ -253,25 +253,6 @@ class ServiceApi {
     }
   }
 
-  Future<Either<Failure, TimeDataModel>> gettimes() async {
-    UserModel userModel = await Preferences.instance.getUserModel();
-    String lan = await Preferences.instance.getSavedLang();
-    try {
-      final response = await dio.get(
-        EndPoints.timesUrl,
-        options: Options(
-          headers: {
-            'Authorization': userModel.data!.token,
-            'Accept-Language': lan
-          },
-        ),
-      );
-      return Right(TimeDataModel.fromJson(response));
-    } on ServerException {
-      return Left(ServerFailure());
-    }
-  }
-
   Future<Either<Failure, NotificationsModel>> getAllNotification() async {
     UserModel userModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
@@ -434,6 +415,25 @@ class ServiceApi {
       //print("dldlld");
       // print(response);
       return Right(PaperExamDetialsModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, TimeDataModel>> gettimes() async {
+    UserModel userModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.get(
+        EndPoints.timesUrl,
+        options: Options(
+          headers: {
+            'Authorization': userModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(TimeDataModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -1385,6 +1385,62 @@ class ServiceApi {
         ),
       );
       return Right(ResponseOfMakeExam.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, StatusResponseModel>> deleteReport(
+      {required String id}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+
+    try {
+      final response = await dio.delete(
+        EndPoints.deleteReport + id,
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(StatusResponseModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, StatusResponseModel>> addNewSuggest({
+    required String type,
+    required String suggestion,
+    required String audio,
+    required String image,
+  }) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.post(
+        EndPoints.addNewSuggest,
+        formDataIsEnabled: true,
+        body: {
+          "suggestion": suggestion,
+          "type": type,
+          if (image.isNotEmpty) ...{
+            'image': await MultipartFile.fromFile(image),
+          },
+          if (audio.isNotEmpty) ...{
+            'audio': await MultipartFile.fromFile(audio),
+          },
+        },
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(StatusResponseModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

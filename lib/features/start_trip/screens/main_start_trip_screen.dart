@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/getsize.dart';
 import '../../../core/widgets/title_with_circle_background_widget.dart';
 import '../cubit/start_trip_cubit.dart';
 import 'classes_exam_screen.dart';
@@ -41,7 +42,7 @@ class _StartTripScreenState extends State<StartTripScreen>
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 105),
+              SizedBox(height: getSize(context) / 3.5),
               TitleWithCircleBackgroundWidget(title: 'start_trip'),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

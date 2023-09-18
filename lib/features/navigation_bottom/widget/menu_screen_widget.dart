@@ -12,6 +12,7 @@ import '../../../core/widgets/network_image.dart';
 import '../../../test.dart';
 import '../../change_lang/screen/screen_change.dart';
 import '../../downloads/screen/downlodsscreen.dart';
+import '../../rate_app/cubit/rate_app_cubit.dart';
 import '../cubit/navigation_cubit.dart';
 import 'list_tile_menu_widget.dart';
 
@@ -232,12 +233,16 @@ class MenuScreenWidget extends StatelessWidget {
                         MenuListTileWidget(
                           title: 'suggest'.tr(),
                           iconPath: ImageAssets.yourSuggestIcon,
-                          onclick: () {},
+                          onclick: () {
+                            Navigator.pushNamed(context, Routes.suggestScreen);
+                          },
                         ),
                         MenuListTileWidget(
                           title: 'rate_app'.tr(),
                           iconPath: ImageAssets.rateIcon,
-                          onclick: () {},
+                          onclick: () async {
+                            await context.read<RateAppCubit>().rateApp(); //
+                          },
                         ),
                         MenuListTileWidget(
                           title: 'call_us'.tr(),

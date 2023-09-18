@@ -40,7 +40,7 @@ class SourceReferencesDetails extends StatelessWidget {
                       context.read<SourceReferencesCubit>();
                   return ListView(
                     children: [
-                      SizedBox(height: getSize(context) / 3.3),
+                      SizedBox(height: getSize(context) / 3.5),
                       InkWell(
                         onTap: () {
                           Navigator.push(

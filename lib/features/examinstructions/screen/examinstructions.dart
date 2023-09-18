@@ -71,7 +71,7 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: 105),
+                              SizedBox(height: getSize(context) / 3.5),
                               Text(
                                 examinstructions.data!.details!.name!,
                                 style: TextStyle(

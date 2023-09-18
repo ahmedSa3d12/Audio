@@ -1,17 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_mazoon/core/widgets/network_image.dart';
-import 'package:new_mazoon/core/widgets/no_data_widget.dart';
-import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
+
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 
-import '../../../core/models/comment_data_model.dart';
 import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/assets_manager.dart';
 import '../../../core/utils/getsize.dart';
-import '../../../core/widgets/audio_player_widget.dart';
-import '../../../core/widgets/circle_network_image.dart';
+
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_textfield.dart';
 
@@ -37,28 +32,32 @@ class _ReportState extends State<Report> {
           duration: const Duration(milliseconds: 500),
           height: MediaQuery.of(context).size.height * .44,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(getSize(context) / 44),
             child: SingleChildScrollView(
               child: Column(children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(getSize(context) / 44),
                   child: Row(
                     children: [
-                      Text(
-                        'send_report'.tr() + " " + cubit.videoModel!.name,
-                        style: TextStyle(
-                            color: AppColors.liveExamGrayTextColor,
-                            fontSize: getSize(context) / 22,
-                            fontWeight: FontWeight.bold),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        child: Text(
+                          'send_report'.tr() + " " + cubit.videoModel!.name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: AppColors.liveExamGrayTextColor,
+                              fontSize: getSize(context) / 22,
+                              fontWeight: FontWeight.w600),
+                        ),
                       ),
-                      Expanded(child: Container()),
                       InkWell(
                         onTap: () {
                           Navigator.pop(context);
                         },
                         child: Icon(
                           Icons.close_outlined,
-                          size: 30,
+                          size: getSize(context) / 12,
                           color: AppColors.liveExamGrayTextColor,
                         ),
                       )

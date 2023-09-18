@@ -17,85 +17,96 @@ class StudentReportScreen extends StatefulWidget {
 
 class _StudentReportScreenState extends State<StudentReportScreen> {
   @override
+  void initState() {
+    context.read<StudentReportsCubit>().getAllReports();
+    super.initState();
+  }
+
+  bool isLoading = true;
+  @override
   Widget build(BuildContext context) {
-    StudentReportsCubit cubit = context.read<StudentReportsCubit>();
+    return BlocConsumer<StudentReportsCubit, StudentReportsState>(
+      listener: (context, state) {
+        if (state is StudentReportsPageLoading) {
+          isLoading = true;
+        } else {
+          isLoading = false;
+        }
+      },
+      builder: (context, state) {
+        StudentReportsCubit cubit = context.read<StudentReportsCubit>();
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.secondPrimary,
-        toolbarHeight: 0,
-      ),
-      body: SafeArea(
-        top: false,
-        maintainBottomViewPadding: true,
-        child: Stack(
-          children: [
-            Positioned(
-              top: 0,
-              right: 0,
-              left: 0,
-              bottom: 0,
-              child: BlocBuilder<StudentReportsCubit, StudentReportsState>(
-                builder: (context, state) {
-                  return Container(
-                      padding: EdgeInsets.all(getSize(context) / 30),
-                      child: Column(
-                        children: [
-                          SizedBox(height: 110),
-
-                          BlocBuilder<StudentReportsCubit, StudentReportsState>(
-                            builder: (context, state) {
-                              if (state is StudentReportsPageLoading) {
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    color: AppColors.primary,
-                                  ),
-                                );
-                              } else if (state is StudentReportsPageLoaded) {
-                                return cubit.data.isNotEmpty
-                                    ? ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: cubit.data.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return ReportWidget(
-                                            reports:
-                                                cubit.data.elementAt(index),
-                                            index: index,
-                                          );
-                                        },
-                                      )
-                                    : NoDataWidget(
-                                        onclick: () => () {
-                                          cubit.getAllReports();
-                                        },
-                                        title: 'no_date',
-                                      );
-                              } else {
-                                return NoDataWidget(
-                                  onclick: () => {
-                                    cubit.getAllReports(),
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: AppColors.secondPrimary,
+            toolbarHeight: 0,
+          ),
+          body: SafeArea(
+            top: false,
+            maintainBottomViewPadding: true,
+            child: Stack(
+              children: [
+                Positioned(
+                    top: 0,
+                    right: 0,
+                    left: 0,
+                    bottom: 0,
+                    child: isLoading
+                        ? Center(child: CircularProgressIndicator())
+                        : cubit.data.isEmpty
+                            ? NoDataWidget(
+                                onclick: () async {
+                                  await cubit.getAllReports();
+                                },
+                                title: 'no_date',
+                              )
+                            : Container(
+                                padding: EdgeInsets.all(getSize(context) / 30),
+                                child: RefreshIndicator(
+                                  onRefresh: () async {
+                                    cubit.getAllReports();
                                   },
-                                  title: 'no_date',
-                                );
-                              }
-                            },
-                          )
-                          /////////////////////////////////
-                        ],
-                      ));
-                },
-              ),
+                                  child: RefreshIndicator(
+                                    onRefresh: () async {
+                                      cubit.getAllReports();
+                                    },
+                                    child: ListView(
+                                      shrinkWrap: true,
+                                      physics: const BouncingScrollPhysics(),
+                                      children: [
+                                        SizedBox(
+                                            height: getSize(context) / 3.5),
+                                        ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const BouncingScrollPhysics(),
+                                          itemCount: cubit.data.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return ReportWidget(
+                                              reports:
+                                                  cubit.data.elementAt(index),
+                                              index: index,
+                                            );
+                                          },
+                                        )
+
+                                        /////////////////////////////////
+                                      ],
+                                    ),
+                                  ),
+                                ))),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  left: 0,
+                  child: HomePageAppBarWidget(isHome: false),
+                ),
+              ],
             ),
-            Positioned(
-              top: 0,
-              right: 0,
-              left: 0,
-              child: HomePageAppBarWidget(isHome: false),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

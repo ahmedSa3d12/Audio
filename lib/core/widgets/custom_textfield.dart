@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import '../utils/app_colors.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     Key? key,
-     this.suffixWidget,
+    this.suffixWidget,
     required this.title,
     required this.textInputType,
     this.minLine = 1,
@@ -16,7 +14,10 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.imageColor = Colors.grey,
     required this.backgroundColor,
-    this.isEnable = true, this.onchange, required this.color1,
+    this.isEnable = true,
+    this.onchange,
+    this.maxLines,
+    required this.color1,
   }) : super(key: key);
   final Widget? suffixWidget;
   final Color imageColor;
@@ -30,7 +31,7 @@ class CustomTextField extends StatelessWidget {
   final Function(String)? onchange;
   final TextInputType textInputType;
   final TextEditingController? controller;
-
+  final int? maxLines;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -41,10 +42,12 @@ class CustomTextField extends StatelessWidget {
         obscureText: isPassword,
         enabled: isEnable,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 14),
+          contentPadding: EdgeInsets.symmetric(
+              vertical: getSize(context) / 22,
+              horizontal: getSize(context) / 22),
           hintStyle: TextStyle(
             color: color1,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w400,
           ),
           hintText: title,
           border: OutlineInputBorder(
@@ -56,7 +59,11 @@ class CustomTextField extends StatelessWidget {
           filled: true,
         ),
         onChanged: onchange,
-        maxLines: isPassword ? 1 : 20,
+        maxLines: maxLines != null
+            ? maxLines
+            : isPassword
+                ? 1
+                : 20,
         minLines: minLine,
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -118,9 +125,9 @@ class ThousandsSeparatorInputFormatter extends TextInputFormatter {
 class CardNumberFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue previousValue,
-      TextEditingValue nextValue,
-      ) {
+    TextEditingValue previousValue,
+    TextEditingValue nextValue,
+  ) {
     var inputText = nextValue.text;
 
     if (nextValue.selection.baseOffset == 0) {
