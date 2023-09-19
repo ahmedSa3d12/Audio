@@ -46,8 +46,13 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
   applyLessonExam(
       {required int lessonId,
       required String exam_type,
+      required int minutesLeft,
       required BuildContext context}) async {
+//////////////////////
+
+    ////////////////////
     emit(LoadingApplyLessonExam());
+    setDetailsList(minutesLeft);
     final response = await api.applyLessonExam(
         lessonId: lessonId, exam_type: exam_type, details: details);
     response.fold(
@@ -60,27 +65,67 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
           details.clear();
         } else if (r.code == 416) {
           toastMessage(r.message, context);
-        } else {}
+        } else {
+          toastMessage(r.message, context);
+        }
 
         emit(LoadedApplyLessonExam());
       },
     );
   }
 
+//////////////fill List of details
+  // setDetailsList(int minutesLeft) {
+  //   if (questionOfLessonData!.questions.length == details.length) {
+  //     print('all added');
+  //   } else {
+  //     int missingDetailsCount =
+  //         questionOfLessonData!.questions.length - details.length;
+  //     if (missingDetailsCount > 0) {}
+  //     for (int i = 0; i < questionOfLessonData!.questions.length; i++) {
+  //       for (int j = 0; j < details.length; j++) {
+  //         if (questionOfLessonData!.questions[i].id ==
+  //             int.parse(details[j].question)) {
+  //           print('skip ${details[j].question}');
+  //           continue;
+  //         } else {
+  //           print('---------------------added item $j-----------');
+  //           addUniqueApplyMakeExam(ApplyStudentExam(
+  //               timer: (questionOfLessonData!.quizMinute - minutesLeft),
+  //               answer: '',
+  //               question: questionOfLessonData!.questions[i].id.toString()));
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  setDetailsList(int minutesLeft) {
+    for (int i = 0; i < questionOfLessonData!.questions.length; i++) {
+      bool questionExistsInDetails = details.any((detail) =>
+          int.parse(detail.question) == questionOfLessonData!.questions[i].id);
+      if (!questionExistsInDetails) {
+        addUniqueApplyMakeExam(ApplyStudentExam(
+            timer: (questionOfLessonData!.quizMinute - minutesLeft),
+            answer: '',
+            question: questionOfLessonData!.questions[i].id.toString()));
+      }
+    }
+  }
+
   List<ApplyStudentExam> details = [];
-  void addUniqueApplyMakeExam(ApplyStudentExam exam) {
+  addUniqueApplyMakeExam(ApplyStudentExam exam) {
     int isfound = -1;
     if (details.isEmpty) {
       details.add(exam);
     } else {
       for (int i = 0; i < details.length; i++) {
-        print(details[i].question);
-        print('................${exam.question}');
+        if (details[i].question == exam.question &&
+            details[i].answer != exam.answer) {
+          details[i] = exam;
+        } else {}
         if (details[i].question == exam.question) {
-          print('true !=exist..................${exam.question}');
           isfound = i;
           return;
-          // break;
         }
       }
       if (isfound != -1) {

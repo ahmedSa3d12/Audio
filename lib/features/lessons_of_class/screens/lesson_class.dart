@@ -69,12 +69,13 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: getSize(context) / 22),
                               child: SizedBox(
-                                height: 180,
-                                width: MediaQuery.of(context).size.width - 80,
+                                height: getSize(context) / 2,
+                                width: getSize(context) - 80,
                                 child: Card(
                                   elevation: 20,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(
+                                        getSize(context) / 32),
                                   ),
                                   child: Stack(
                                     children: [
@@ -98,13 +99,16 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                         right: 0,
                                         child: CustomPaint(
                                           size: Size(
-                                            180,
-                                            115,
+                                            getSize(context) / 2,
+                                            getSize(context) / 2,
                                           ),
                                           painter: MyPainter(
-                                            HexColor(
-                                              cubit.oneClass!.backgroundColor!,
-                                            ),
+                                            darken(
+                                                HexColor(
+                                                  cubit.oneClass!
+                                                      .backgroundColor!,
+                                                ),
+                                                0.2),
                                           ),
                                         ),
                                       ),
@@ -116,46 +120,47 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                               80,
                                             ),
                                             painter: MyPainter(
-                                              darken(
-                                                HexColor(
-                                                  cubit.oneClass!
-                                                      .backgroundColor!,
-                                                ),
-                                                0.2,
+                                              HexColor(
+                                                cubit
+                                                    .oneClass!.backgroundColor!,
                                               ),
                                             ),
                                           ),
-                                          Positioned(
-                                            top: 6,
-                                            left: 55,
-                                            right: 15,
-                                            child: Text(
-                                              cubit.oneClass!.name!,
-                                              style: TextStyle(
-                                                color: AppColors.white,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                shadows: <Shadow>[
-                                                  Shadow(
-                                                    offset: Offset(3.0, 3.0),
-                                                    blurRadius: 3.0,
-                                                    color: Color.fromARGB(
-                                                        255, 0, 0, 0),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          )
                                         ],
                                       ),
                                       Positioned(
-                                        top: 2,
-                                        right: 8,
+                                        right: getSize(context) / 32,
+                                        top: getSize(context) / 15,
                                         child: Text(
                                           cubit.oneClass!.title!,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 20,
+                                            fontSize: getSize(context) / 18,
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: getSize(context) / 3.5,
+                                        right: getSize(context) / 32,
+                                        child: Container(
+                                          width: getSize(context) / 2,
+                                          child: Text(
+                                            cubit.oneClass!.name!,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              color: AppColors.white,
+                                              fontSize: getSize(context) / 22,
+                                              fontWeight: FontWeight.bold,
+                                              shadows: <Shadow>[
+                                                Shadow(
+                                                  offset: Offset(3.0, 3.0),
+                                                  blurRadius: 3.0,
+                                                  color: Color.fromARGB(
+                                                      255, 0, 0, 0),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       )
@@ -164,7 +169,7 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 16),
+                            SizedBox(height: getSize(context) / 32),
                             ...List.generate(
                               cubit.lessons.length,
                               (index) => InkWell(

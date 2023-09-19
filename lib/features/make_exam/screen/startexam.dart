@@ -490,8 +490,6 @@ class _StartMakeExamScreenState extends State<StartMakeExamScreen> {
                                                 Navigator.pushReplacementNamed(
                                                     context,
                                                     Routes.resultOfExamScreen);
-                                                print(
-                                                    'all questions solved....................');
                                               } else {
                                                 for (int i = 0;
                                                     i <
@@ -522,23 +520,6 @@ class _StartMakeExamScreenState extends State<StartMakeExamScreen> {
                                                     context,
                                                     Routes.resultOfExamScreen);
                                               }
-
-                                              // if (cubit.details.isEmpty) {
-                                              //   errorGetBar(
-                                              //       'answer_all_questions'
-                                              //           .tr());
-                                              // }
-                                              // else if (cubit.details.length <
-                                              //     cubit.questionNum) {
-                                              //   errorGetBar(
-                                              //       'answer_all_questions'
-                                              //           .tr());
-                                              // }
-                                              // else {
-                                              //   cubit.applyMakeExam(
-                                              //       context: context,
-                                              //       detailss: cubit.details);
-                                              // }
                                             },
                                             child: Container(
                                                 margin: EdgeInsets.all(

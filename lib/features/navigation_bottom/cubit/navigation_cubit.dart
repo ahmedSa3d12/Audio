@@ -1,11 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 import '../../../config/routes/app_routes.dart';
 import '../../../core/models/paper_exam_details_model.dart';
-import '../../../core/models/times_model.dart';
 import '../../../core/models/user_model.dart';
 import '../../../core/preferences/preferences.dart';
 import '../../../core/remote/service.dart';
