@@ -86,27 +86,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Positioned(
                                   right: getSize(context) / 22,
                                   top: getSize(context) / 22,
-                                  child: Container(
-                                    width: getSize(context) / 2.8,
-                                    height: getSize(context) / 10,
-                                    decoration: ShapeDecoration(
-                                      color: AppColors.white,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: SizedBox(
+                                  child: InkWell(
+                                    onTap: () {
+                                      cubit.downloadReport(
+                                          "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                                          context);
+                                      print('ddddd');
+                                    },
+                                    child: Container(
                                       width: getSize(context) / 2.8,
-                                      child: Text(
-                                        'student_reposrt'.tr(),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: AppColors.gray1,
-                                          fontSize: getSize(context) / 22,
-                                          fontWeight: FontWeight.w700,
+                                      height: getSize(context) / 10,
+                                      decoration: ShapeDecoration(
+                                        color: AppColors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
                                         ),
                                       ),
+                                      alignment: Alignment.center,
+                                      child: cubit.progresss != null
+                                          ? CircularProgressIndicator()
+                                          : SizedBox(
+                                              width: getSize(context) / 2.8,
+                                              child: Text(
+                                                'student_reposrt'.tr(),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: AppColors.gray1,
+                                                  fontSize:
+                                                      getSize(context) / 22,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ),
                                     ),
                                   ),
                                 ),

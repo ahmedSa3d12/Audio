@@ -19,3 +19,11 @@ class ErrorUpdateProfileState extends ProfileState {}
 class LoadedUpdateProfileState extends ProfileState {}
 
 class IChangeModeProfileState extends ProfileState {}
+
+class DownloadReportProfileState extends ProfileState {}
+
+class LoadingDownloadReportProfileState extends ProfileState {}
+
+class ErrorDownloadState extends ProfileState {}
+
+class SuccessDownloadState extends ProfileState {}

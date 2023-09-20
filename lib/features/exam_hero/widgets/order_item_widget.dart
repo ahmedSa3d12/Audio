@@ -11,7 +11,7 @@ class OrderItemWidget extends StatelessWidget {
   OrderItemWidget({required this.model, Key? key}) : super(key: key);
   final random = Random();
 
-  ExamHerosModelAuth model;
+  CurrentMonthModel model;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -72,11 +72,11 @@ class OrderItemWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-            top: 10,
-            left: 25,
+            top: getSize(context) / 100,
+            left: getSize(context) / 14,
             child: Container(
-              width: 30,
-              height: 30,
+              width: getSize(context) / 12,
+              height: getSize(context) / 12,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Color.fromRGBO(
@@ -86,7 +86,6 @@ class OrderItemWidget extends StatelessWidget {
                   2,
                 ),
               ),
-              // clipBehavior: Clip.antiAlias,
               child: Center(
                 child: Text(
                   model.ordered.toString(),

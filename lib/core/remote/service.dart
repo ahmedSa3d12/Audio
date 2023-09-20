@@ -1293,7 +1293,7 @@ class ServiceApi {
   }
 
 ////Heros
-  Future<Either<Failure, ExamHerosModel>> getExamHero() async {
+  Future<Either<Failure, HeroExamModel>> getExamHero() async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
     try {
@@ -1303,7 +1303,7 @@ class ServiceApi {
             'Accept-Language': lan
           }));
       print(response);
-      return Right(ExamHerosModel.fromJson(response));
+      return Right(HeroExamModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

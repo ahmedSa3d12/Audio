@@ -26,7 +26,7 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
     _tabController.animateTo(context.read<ExamHeroCubit>().currentIndex);
-    context.read<ExamHeroCubit>().getExamHero();
+    context.read<ExamHeroCubit>().getExamHero(context);
   }
 
   bool isLoading = true;
@@ -185,21 +185,16 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>
                             ),
                           ),
                           Expanded(
-                            child: RefreshIndicator(
-                              onRefresh: () async {
-                                cubit.getExamHero();
-                              },
-                              child: TabBarView(
-                                controller: _tabController,
-                                physics: NeverScrollableScrollPhysics(),
-                                children: [
-                                  ExamHeroDataWidget(),
-                                  ExamHeroDataWidget(),
-                                  ExamHeroDataWidget(),
+                            child: TabBarView(
+                              controller: _tabController,
+                              physics: NeverScrollableScrollPhysics(),
+                              children: [
+                                ExamHeroDataWidget(),
+                                ExamHeroDataWidget(),
+                                ExamHeroDataWidget(),
 
-                                  ///can be 3
-                                ],
-                              ),
+                                ///can be 3
+                              ],
                             ),
                           )
                         ],

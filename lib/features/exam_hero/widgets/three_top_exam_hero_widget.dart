@@ -1,5 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:new_mazoon/core/utils/assets_manager.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/widgets/network_image.dart';
 
 import '../../../core/models/exam_hero.dart';
@@ -8,13 +11,13 @@ import '../../../core/utils/app_colors.dart';
 class ThreeTopExamHeroWidget extends StatelessWidget {
   ThreeTopExamHeroWidget({required this.threeHeros, Key? key})
       : super(key: key);
-  List<ExamHerosModelAuth> threeHeros;
+  List<CurrentMonthModel> threeHeros;
   @override
   Widget build(BuildContext context) {
     return threeHeros.length == 0
         ? Container()
         : SizedBox(
-            height: 250,
+            height: getSize(context) / 1.4,
             width: MediaQuery.of(context).size.width,
             child: Stack(
               children: [
@@ -25,17 +28,17 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                         right: 0,
                         top: 0,
                         child: SizedBox(
-                          height: 190,
-                          width: 100,
+                          height: getSize(context) / 1.77,
+                          // width: getSize(context) / 10,
                           child: Stack(
                             children: [
                               Positioned(
                                 left: 0,
                                 right: 0,
-                                top: 30,
+                                top: getSize(context) / 18,
                                 child: Container(
-                                  width: 50,
-                                  height: 110,
+                                  // width: getSize(context) / 10,
+                                  height: getSize(context) / 3.3,
                                   child: Stack(
                                     children: [
                                       Row(
@@ -51,8 +54,8 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                         children: [
                                           ManageNetworkImage(
                                             imageUrl: threeHeros[0].image,
-                                            height: 80,
-                                            width: 80,
+                                            height: getSize(context) / 4.8,
+                                            width: getSize(context) / 4.8,
                                             borderRadius: 80,
                                           ),
                                         ],
@@ -62,7 +65,7 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                 ),
                               ),
                               Positioned(
-                                bottom: 70,
+                                bottom: getSize(context) / 5,
                                 left: 0,
                                 right: 0,
                                 child: Row(
@@ -70,15 +73,18 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Container(
-                                      height: 30,
-                                      width: 30,
+                                      height: getSize(context) / 10,
+                                      width: getSize(context) / 10,
                                       decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
+                                        borderRadius: BorderRadius.circular(
+                                            getSize(context) / 22),
                                         color: AppColors.orangeThirdPrimary,
                                       ),
                                       child: Center(
                                         child: Text(
                                           threeHeros[0].ordered.toString(),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.clip,
                                           style:
                                               TextStyle(color: AppColors.white),
                                         ),
@@ -95,32 +101,40 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                   children: [
                                     Text(
                                       threeHeros[0].name,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.clip,
                                       style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: getSize(context) / 22,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    Text(threeHeros[0].country),
+                                    Text(
+                                      threeHeros[0].country,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.clip,
+                                    ),
                                     Text(
                                       '${threeHeros[0].studentTotalDegrees} / ${threeHeros[0].examsTotalDegree}',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.clip,
                                       style: TextStyle(
                                           color: AppColors.orangeThirdPrimary,
-                                          fontSize: 14),
+                                          fontSize: getSize(context) / 24),
                                     ),
                                   ],
                                 ),
                               ),
                               Positioned(
                                 top: 0,
-                                left: 30,
+                                left: getSize(context) / 10,
                                 right: 0,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Image.asset(
                                       ImageAssets.crownImage,
-                                      width: 45,
-                                      height: 45,
+                                      width: getSize(context) / 8,
+                                      height: getSize(context) / 8,
                                     ),
                                   ],
                                 ),
@@ -132,7 +146,7 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                 threeHeros.length < 2
                     ? Container()
                     : Positioned(
-                        top: 80,
+                        top: getSize(context) / 4.5,
                         left: 0,
                         right: 0,
                         child: Row(
@@ -141,8 +155,8 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                             threeHeros.length < 2
                                 ? Container()
                                 : SizedBox(
-                                    height: 175,
-                                    width: 140,
+                                    height: getSize(context) / 2,
+                                    width: getSize(context) / 2.6,
                                     child: Stack(
                                       children: [
                                         Positioned(
@@ -150,8 +164,8 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                           right: 0,
                                           top: 0,
                                           child: SizedBox(
-                                            width: 80,
-                                            height: 120,
+                                            width: getSize(context) / 4.8,
+                                            height: getSize(context) / 3.3,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -160,17 +174,19 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                               children: [
                                                 ManageNetworkImage(
                                                   imageUrl: threeHeros[1].image,
-                                                  height: 80,
-                                                  width: 80,
-                                                  borderRadius: 80,
+                                                  height:
+                                                      getSize(context) / 4.8,
+                                                  width: getSize(context) / 4.8,
+                                                  borderRadius:
+                                                      getSize(context) / 4.8,
                                                 ),
                                               ],
                                             ),
                                           ),
                                         ),
                                         Positioned(
-                                          bottom: 65,
-                                          left: 60,
+                                          bottom: getSize(context) / 5,
+                                          left: getSize(context) / 5.5,
                                           right: 0,
                                           child: Row(
                                             mainAxisAlignment:
@@ -179,8 +195,8 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                                 CrossAxisAlignment.center,
                                             children: [
                                               Container(
-                                                height: 30,
-                                                width: 30,
+                                                height: getSize(context) / 10,
+                                                width: getSize(context) / 10,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(30),
@@ -192,6 +208,8 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                                     threeHeros[1]
                                                         .ordered
                                                         .toString(),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.clip,
                                                     style: TextStyle(
                                                         color: AppColors.white),
                                                   ),
@@ -208,18 +226,28 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                             children: [
                                               Text(
                                                 threeHeros[1].name,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.clip,
                                                 style: TextStyle(
-                                                  fontSize: 20,
+                                                  fontSize:
+                                                      getSize(context) / 22,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              Text(threeHeros[1].country),
+                                              Text(
+                                                threeHeros[1].country,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.clip,
+                                              ),
                                               Text(
                                                 '${threeHeros[1].studentTotalDegrees} / ${threeHeros[1].examsTotalDegree}',
+                                                maxLines: 1,
+                                                overflow: TextOverflow.clip,
                                                 style: TextStyle(
                                                     color: AppColors
                                                         .orangeThirdPrimary,
-                                                    fontSize: 14),
+                                                    fontSize:
+                                                        getSize(context) / 24),
                                               ),
                                             ],
                                           ),
@@ -227,12 +255,12 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                            SizedBox(width: 80),
+                            SizedBox(width: getSize(context) / 5),
                             threeHeros.length < 3
                                 ? Container()
                                 : SizedBox(
-                                    height: 175,
-                                    width: 140,
+                                    height: getSize(context) / 2,
+                                    width: getSize(context) / 2.6,
                                     child: Stack(
                                       children: [
                                         Positioned(
@@ -240,8 +268,8 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                           right: 0,
                                           top: 0,
                                           child: SizedBox(
-                                            width: 80,
-                                            height: 120,
+                                            width: getSize(context) / 4.8,
+                                            height: getSize(context) / 3.3,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -250,17 +278,19 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                               children: [
                                                 ManageNetworkImage(
                                                   imageUrl: threeHeros[2].image,
-                                                  height: 80,
-                                                  width: 80,
-                                                  borderRadius: 80,
+                                                  height:
+                                                      getSize(context) / 4.8,
+                                                  width: getSize(context) / 4.8,
+                                                  borderRadius:
+                                                      getSize(context) / 4.8,
                                                 ),
                                               ],
                                             ),
                                           ),
                                         ),
                                         Positioned(
-                                          bottom: 65,
-                                          left: 60,
+                                          bottom: getSize(context) / 5,
+                                          left: getSize(context) / 5.5,
                                           right: 0,
                                           child: Row(
                                             mainAxisAlignment:
@@ -269,8 +299,8 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                                 CrossAxisAlignment.center,
                                             children: [
                                               Container(
-                                                height: 30,
-                                                width: 30,
+                                                height: getSize(context) / 10,
+                                                width: getSize(context) / 10,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(30),
@@ -282,6 +312,8 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                                     threeHeros[2]
                                                         .ordered
                                                         .toString(),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.clip,
                                                     style: TextStyle(
                                                         color: AppColors.white),
                                                   ),
@@ -298,18 +330,28 @@ class ThreeTopExamHeroWidget extends StatelessWidget {
                                             children: [
                                               Text(
                                                 threeHeros[2].name,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.clip,
                                                 style: TextStyle(
-                                                  fontSize: 20,
+                                                  fontSize:
+                                                      getSize(context) / 22,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              Text(threeHeros[2].country),
+                                              Text(
+                                                threeHeros[2].country,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.clip,
+                                              ),
                                               Text(
                                                 '${threeHeros[2].studentTotalDegrees} / ${threeHeros[2].examsTotalDegree}',
+                                                maxLines: 1,
+                                                overflow: TextOverflow.clip,
                                                 style: TextStyle(
                                                     color: AppColors
                                                         .orangeThirdPrimary,
-                                                    fontSize: 14),
+                                                    fontSize:
+                                                        getSize(context) / 24),
                                               ),
                                             ],
                                           ),
