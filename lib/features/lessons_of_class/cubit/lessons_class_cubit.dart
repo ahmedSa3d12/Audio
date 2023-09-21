@@ -71,8 +71,13 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
     response.fold(
       (l) => emit(VideoLessonsError()),
       (r) {
-        videosofLessons = r.data;
-        emit(VideoLessonsLoaded());
+        if (r.code == 200) {
+          if (r.data[0].status == 'lock') {
+            openLessonAndClass(id: r.data[0].id);
+          } else {}
+          videosofLessons = r.data;
+          emit(VideoLessonsLoaded());
+        }
       },
     );
   }
@@ -116,5 +121,15 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
         emit(LessonExamClassesLoaded());
       },
     );
+  }
+
+  openLessonAndClass({required int id}) async {
+    emit(LessonsOpenLessonLoading());
+    final response = await api.openLessonAndClass(id: id, type: 'lesson');
+
+    response.fold((l) => emit(LessonsOpenLessonError()), (r) {
+      getVideosofLessonsData(id);
+      emit(LessonsOpenLessonLoaded());
+    });
   }
 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/utils/getsize.dart';
@@ -223,16 +222,18 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                   children: [
                                     Flexible(
                                       child: LinearPercentIndicator(
-                                        // width: MediaQuery.of(context).size.width / 1.1,
                                         lineHeight: getSize(context) / 66,
                                         barRadius: Radius.circular(
                                             getSize(context) / 22),
                                         backgroundColor: AppColors.grey2,
                                         percent: cubit.videosofLessons[index]
-                                                .progress /
-                                            100,
+                                                    .progress <
+                                                0
+                                            ? 0
+                                            : cubit.videosofLessons[index]
+                                                    .progress /
+                                                100,
                                         isRTL: true,
-
                                         progressColor: (cubit
                                                         .videosofLessons[index]
                                                         .progress >

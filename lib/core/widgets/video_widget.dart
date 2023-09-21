@@ -15,21 +15,19 @@ class VideoWidget extends StatefulWidget {
 }
 
 class _VideoWidgetState extends State<VideoWidget> {
-  late VideoPlayerController _videoPlayerController;
+  VideoPlayerController? _videoPlayerController;
   ChewieController? _chewieController;
 
   void checkVideo() {
-    //   print('video dlldkdkdk');
-
     context
         .read<VideoDetailsCubit>()
-        .setduration(_videoPlayerController.value.position);
-    if (_videoPlayerController.value.position ==
+        .setduration(_videoPlayerController!.value.position);
+    if (_videoPlayerController!.value.position ==
         Duration(seconds: 0, minutes: 0, hours: 0)) {
       print('video Started');
     }
-    if (_videoPlayerController.value.position ==
-        _videoPlayerController.value.duration) {
+    if (_videoPlayerController!.value.position ==
+        _videoPlayerController!.value.duration) {
       // context.read<StudyPageCubit>().accessNextVideo(widget.videoId);
       print('video Ended');
     }
@@ -43,19 +41,19 @@ class _VideoWidgetState extends State<VideoWidget> {
 
   Future<void> initializePlayer() async {
     _videoPlayerController = VideoPlayerController.network(widget.videoLink);
-    _videoPlayerController.addListener(
+    _videoPlayerController!.addListener(
       () {
         checkVideo();
       },
     );
-    await Future.wait([_videoPlayerController.initialize()]);
+    await Future.wait([_videoPlayerController!.initialize()]);
     _createChewieController();
     setState(() {});
   }
 
   void _createChewieController() {
     _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController,
+      videoPlayerController: _videoPlayerController!,
       autoPlay: false,
       allowFullScreen: false,
       aspectRatio: 2.06,
@@ -67,11 +65,11 @@ class _VideoWidgetState extends State<VideoWidget> {
 
   @override
   void dispose() {
-    context
-        .read<VideoDetailsCubit>()
-        .setduration(_videoPlayerController.value.duration);
-    _videoPlayerController.dispose();
-    _chewieController?.dispose();
+    // context
+    //     .read<VideoDetailsCubit>()
+    //     .setduration(_videoPlayerController!.value.duration);
+    _videoPlayerController!.dispose();
+    // _chewieController!.dispose();
     super.dispose();
   }
 

@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:new_mazoon/core/models/videoModel.dart';
+import 'package:new_mazoon/core/utils/dialogs.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -326,36 +327,47 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
   }
 
   void setduration(Duration duration) {
-    print("ddlldldl0");
+    print("<<<<<<<<<<<< start time >>>>>>>>>>>>>>");
     this.duration = duration;
     emit(CommentsLoaded());
   }
 
-  Future<void> updateTime() async {
-    if (type == "video_part") {
-      if (duration! >
-          Duration(
-              seconds: int.parse(videoModel!.video_minutes.split(":")[0]),
-              minutes: int.parse(videoModel!.video_minutes.split(":")[1]),
-              hours: int.parse(videoModel!.video_minutes.split(":")[2]))) {
-        final response = await api.updateVideoTime(
-          video_id: videoModel!.id,
-          minutes: duration!.inHours.toString() +
-              ":" +
-              duration!.inMinutes.toString() +
-              ":" +
-              duration!.inSeconds.toString(),
-        );
-        response.fold(
-          (l) => {
-            print(l.toString()),
-          },
-          (r) {
-            getVideoDetails(video_id!, type!);
-            emit(CommentsLoaded());
-          },
-        );
-      }
-    }
+  updateTime() async {
+    // if (type == "video_part") {
+    emit(VideoUpdateTimeLoading());
+    print("KDKDKDK");
+    print(duration!.inSeconds.toString());
+    // if (duration! >
+    //     Duration(
+    //         seconds: int.parse(videoModel!.video_minutes.split(":")[2]),
+    //         minutes: int.parse(videoModel!.video_minutes.split(":")[1]),
+    //         hours: int.parse(videoModel!.video_minutes.split(":")[0]))) {
+      final response = await api.updateVideoTime(
+        video_id: videoModel!.id,
+        minutes: duration!.inHours.toString() +
+            ":" +
+            duration!.inMinutes.toString() +
+            ":" +
+            duration!.inSeconds.toString(),
+      );
+      response.fold(
+        (l) {
+          print("<<<<<<<<<<<< updsssateTime >>>>>>>>>>>>>>");
+
+          print(l.toString());
+          emit(VideoUpdateTimeError());
+          errorGetBar(l.toString());
+        },
+        (r) {
+          print("<<<<<<<<<<<< updateTime >>>>>>>>>>>>>>");
+          getVideoDetails(video_id!, type!);
+          successGetBar(r.message +
+              '${duration!.inHours.toString() + ":" + duration!.inMinutes.toString() + ":" + duration!.inSeconds.toString()}');
+          emit(CommentsLoaded());
+        },
+      );
+    // } else {
+    //   print("flfkkfk");
+    // }
   }
 }

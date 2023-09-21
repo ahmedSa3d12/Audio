@@ -59,17 +59,10 @@ class _LessonDetailsState extends State<LessonDetails>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: getSize(context) / 3.5),
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      left: 0,
-                      bottom: 0,
-                      child: TitleWithCircleBackgroundWidget(
-                          width: double.infinity,
-                          /////////////
-                          title:
-                              '${widget.model.title} : ${widget.model.name}'),
-                    ),
+                    TitleWithCircleBackgroundWidget(
+                        width: double.infinity,
+                        /////////////
+                        title: '${widget.model.title} : ${widget.model.name}'),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(

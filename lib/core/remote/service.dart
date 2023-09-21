@@ -45,6 +45,7 @@ import '../models/sources_references_model.dart';
 import '../models/sources_referenes_by_id_model.dart';
 import '../models/student_reports_model.dart';
 import '../models/times_model.dart';
+import '../models/timeupdate.dart';
 import '../models/user_model.dart';
 import '../models/video_data_model.dart';
 import '../models/videolessonmodel.dart';
@@ -728,7 +729,7 @@ class ServiceApi {
     }
   }
 
-  Future<Either<Failure, StatusResponse>> updateVideoTime(
+  Future<Either<Failure, TimeUpdate>> updateVideoTime(
       {required int video_id, required String minutes}) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
@@ -746,7 +747,7 @@ class ServiceApi {
           },
         ),
       );
-      return Right(StatusResponse.fromJson(response));
+      return Right(TimeUpdate.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -1445,4 +1446,25 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
+
+  Future<Either<Failure, StatusResponseModel>> openLessonAndClass(
+      {required int id, required String type}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.post(
+        EndPoints.openFirstLesson + '$id?type=$type',
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(StatusResponseModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+  //openFirstLesson
 }

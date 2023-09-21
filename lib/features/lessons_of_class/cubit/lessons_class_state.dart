@@ -26,3 +26,9 @@ class ExamLessonsLoaded extends LessonsClassState {}
 class ExamLessonsError extends LessonsClassState {}
 
 class LessonExamClassesLoaded extends LessonsClassState {}
+
+class LessonsOpenLessonLoading extends LessonsClassState {}
+
+class LessonsOpenLessonLoaded extends LessonsClassState {}
+
+class LessonsOpenLessonError extends LessonsClassState {}

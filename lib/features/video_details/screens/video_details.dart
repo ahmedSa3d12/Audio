@@ -39,12 +39,12 @@ class _VideoDetailsState extends State<VideoDetails> {
 
   @override
   void dispose() {
-    context.read<VideoDetailsCubit>().audioRecorder.stop;
-    context.read<VideoDetailsCubit>().audioRecorder.dispose();
+    // context.read<VideoDetailsCubit>().audioRecorder.stop;
+    // context.read<VideoDetailsCubit>().audioRecorder.dispose();
     super.dispose();
-    if (mounted) {
-      setState(() {});
-    }
+    // if (mounted) {
+    //   setState(() {});
+    // }
   }
 
   @override
@@ -67,12 +67,25 @@ class _VideoDetailsState extends State<VideoDetails> {
             } else {
               return WillPopScope(
                 onWillPop: () async {
-                  context.read<VideoDetailsCubit>().updateTime();
+                  cubit.updateTime().then((value) {
+                    print('update time ${value.toString()}');
+                  });
                   Navigator.pop(context);
                   return Future(() => true);
                 },
                 child: Scaffold(
                   appBar: AppBar(
+                    leading: IconButton(
+                        onPressed: () {
+                          context
+                              .read<VideoDetailsCubit>()
+                              .updateTime()
+                              .then((value) {
+                            print('update time');
+                          });
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.arrow_back_ios)),
                     backgroundColor: AppColors.primary,
                     title: Text(
                       cubit.videoModel != null ? cubit.videoModel!.name : '',
@@ -428,6 +441,15 @@ class _VideoDetailsState extends State<VideoDetails> {
                                         height: getSize(context) / 10,
                                         width: getSize(context) / 10,
                                         fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Image.asset(
+                                            ImageAssets.userImage,
+                                            height: getSize(context) / 10,
+                                            width: getSize(context) / 10,
+                                            fit: BoxFit.cover,
+                                          );
+                                        },
                                       ),
                                     ),
                                     Expanded(

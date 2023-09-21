@@ -2,14 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
-
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/widgets/my_svg_widget.dart';
 import '../../../../core/widgets/network_image.dart';
 import '../../../../core/widgets/painting.dart';
-
-// import '../../downloads_videos/screens/downloads_video.dart';
 import '../../../config/routes/app_routes.dart';
 import '../../navigation_bottom/cubit/navigation_cubit.dart';
 import '../../sources_and_references/cubit/source_references_cubit.dart';
@@ -27,7 +24,7 @@ class HomePageAppBarWidget extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          height: getSize(context) / 2.7,
+          height: getSize(context) / 2.4,
           child: CustomPaint(
             size: Size(
               MediaQuery.of(context).size.width,
@@ -38,8 +35,8 @@ class HomePageAppBarWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: 20,
-          left: 5,
+          right: getSize(context) / 14,
+          left: getSize(context) / 44,
           child: BlocBuilder<NavigationCubit, NavigationState>(
             builder: (context, state) {
               NavigationCubit cubit = context.read<NavigationCubit>();
@@ -54,11 +51,11 @@ class HomePageAppBarWidget extends StatelessWidget {
                       children: [
                         ManageNetworkImage(
                           imageUrl: cubit.userModel!.data!.image,
-                          width: 50,
-                          height: 50,
+                          width: getSize(context) / 7.8,
+                          height: getSize(context) / 7.8,
                           borderRadius: 90,
                         ),
-                        SizedBox(width: 16),
+                        SizedBox(width: getSize(context) / 22),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,9 +66,11 @@ class HomePageAppBarWidget extends StatelessWidget {
                                     : Alignment.topLeft,
                                 child: Text(
                                   cubit.userModel!.data!.name,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.fade,
                                   style: TextStyle(
                                       color: AppColors.white,
-                                      fontSize: 16,
+                                      fontSize: getSize(context) / 22,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -89,10 +88,12 @@ class HomePageAppBarWidget extends StatelessWidget {
                                                 .userModel!.data!.season.nameAr
                                             : cubit
                                                 .userModel!.data!.season.nameEn,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.fade,
                                         style: TextStyle(
                                             color: AppColors.white,
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold),
+                                            fontSize: getSize(context) / 28,
+                                            fontWeight: FontWeight.w500),
                                       ),
                                     ),
                                     // SizedBox(width: 10),
@@ -103,10 +104,12 @@ class HomePageAppBarWidget extends StatelessWidget {
                                             ? cubit.userModel!.data!.term.nameAr
                                             : cubit
                                                 .userModel!.data!.term.nameEn,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             color: AppColors.white,
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold),
+                                            fontSize: getSize(context) / 28,
+                                            fontWeight: FontWeight.w500),
                                       ),
                                     ),
                                   ],
@@ -119,7 +122,7 @@ class HomePageAppBarWidget extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                SizedBox(width: 8),
+                                SizedBox(width: getSize(context) / 88),
                                 InkWell(
                                   onTap: () {
                                     // Navigator.of(context).push(
@@ -130,8 +133,8 @@ class HomePageAppBarWidget extends StatelessWidget {
                                   child: Stack(
                                     children: [
                                       SizedBox(
-                                        height: 35,
-                                        width: 35,
+                                        height: getSize(context) / 10,
+                                        width: getSize(context) / 10,
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -141,7 +144,7 @@ class HomePageAppBarWidget extends StatelessWidget {
                                             MySvgWidget(
                                               path:
                                                   ImageAssets.notificationsIcon,
-                                              size: 25,
+                                              size: getSize(context) / 16,
                                               imageColor: AppColors.white,
                                             ),
                                           ],
@@ -151,17 +154,18 @@ class HomePageAppBarWidget extends StatelessWidget {
                                         top: 0,
                                         right: 0,
                                         child: Container(
-                                          width: 20,
-                                          height: 20,
+                                          width: getSize(context) / 20,
+                                          height: getSize(context) / 20,
                                           decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(25),
+                                                  BorderRadius.circular(
+                                                      getSize(context) / 22),
                                               color: AppColors.white),
                                           child: Center(
                                             child: Text(
                                               '2',
                                               style: TextStyle(
-                                                fontSize: 13,
+                                                fontSize: getSize(context) / 28,
                                                 color: AppColors.primary,
                                                 fontWeight: FontWeight.bold,
                                               ),
@@ -172,7 +176,7 @@ class HomePageAppBarWidget extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                SizedBox(width: 18),
+                                SizedBox(width: getSize(context) / 24),
                                 Visibility(
                                   visible: isHome!,
                                   child: InkWell(
@@ -182,21 +186,24 @@ class HomePageAppBarWidget extends StatelessWidget {
                                     },
                                     child: MySvgWidget(
                                       path: ImageAssets.aboutIcon,
-                                      size: 25,
+                                      size: getSize(context) / 16,
                                       imageColor: AppColors.white,
                                     ),
                                   ),
                                 ),
                                 Visibility(
                                   visible: isHome!,
-                                  child: SizedBox(width: 18),
+                                  child: SizedBox(width: getSize(context) / 24),
                                 ),
                                 MySvgWidget(
                                   path: ImageAssets.loveIcon,
-                                  size: 25,
+                                  size: getSize(context) / 16,
                                   imageColor: AppColors.white,
                                 ),
-                                SizedBox(width: isHome! ? 8 : 25),
+                                SizedBox(
+                                    width: isHome!
+                                        ? getSize(context) / 24
+                                        : getSize(context) / 18),
                                 InkWell(
                                   onTap: () {
                                     Navigator.pop(context);
@@ -212,13 +219,13 @@ class HomePageAppBarWidget extends StatelessWidget {
                                     child: Icon(
                                       Icons.arrow_back_ios_new_sharp,
                                       color: AppColors.white,
-                                      size: 25,
+                                      size: getSize(context) / 18,
                                     ),
                                   ),
                                 ),
                                 Visibility(
                                   visible: !isHome!,
-                                  child: SizedBox(width: 8),
+                                  child: SizedBox(width: getSize(context) / 28),
                                 ),
                               ],
                             )

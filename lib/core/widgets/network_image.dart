@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
+import '../utils/assets_manager.dart';
+import '../utils/getsize.dart';
 
 class ManageNetworkImage extends StatelessWidget {
   const ManageNetworkImage(
@@ -29,6 +31,14 @@ class ManageNetworkImage extends StatelessWidget {
           fit: BoxFit.fill,
           height: height != 0 ? height : null,
           width: width != 0 ? width : null,
+          errorWidget: (context, error, stackTrace) {
+            return Image.asset(
+              ImageAssets.userImage,
+              height: getSize(context) / 10,
+              width: getSize(context) / 10,
+              fit: BoxFit.cover,
+            );
+          },
           placeholder: (context, url) => Center(
             child: CircularProgressIndicator(
               color: AppColors.primary,

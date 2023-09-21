@@ -16,3 +16,9 @@ class CommentsLoaded extends VideoDetailsState {}
 class CommentsError extends VideoDetailsState {}
 
 class CommentsLoading extends VideoDetailsState {}
+
+class VideoUpdateTimeLoaded extends VideoDetailsState {}
+
+class VideoUpdateTimeError extends VideoDetailsState {}
+
+class VideoUpdateTimeLoading extends VideoDetailsState {}

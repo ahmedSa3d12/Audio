@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,6 +23,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool isLoading = false;
   @override
+  void initState() {
+    context.read<HomePageCubit>().openFirstClass();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<HomePageCubit, HomePageState>(
@@ -40,7 +47,6 @@ class _HomePageState extends State<HomePage> {
                 physics: const BouncingScrollPhysics(),
                 children: [
                   SizedBox(height: getSize(context) / 3.5),
-
                   BannerWidget(sliderData: state.model.data!.sliders!),
                   //
                   state.model.data!.lifeExam != null
@@ -50,12 +56,12 @@ class _HomePageState extends State<HomePage> {
                         ),
                   HomePageVideoWidget(
                     videosBasics: cubit.videosBasics,
-                    title: 'train_yourself',
+                    title: 'train_yourself'.tr(),
                   ),
                   HomePageStartStudyWidget(classes: cubit.classes),
                   FinalReviewWidget(
                     model: cubit.videosResources,
-                    title: 'all_exams',
+                    title: 'all_exams'.tr(),
                   ),
                 ],
               ),

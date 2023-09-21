@@ -42,4 +42,13 @@ class HomePageCubit extends Cubit<HomePageState> {
       },
     );
   }
+
+  // openLessonAndClass
+  openFirstClass() async {
+    emit(HomePageLoadingClass());
+    final response = await api.openLessonAndClass(id: 1, type: 'subject_class');
+    response.fold((l) => emit(HomePageErrorClass()), (r) {
+      emit(HomePageLoadedClass());
+    });
+  }
 }

@@ -89,4 +89,5 @@ class EndPoints {
   static const String deleteReport = '${baseUrl}report/delete/';
 
   static const String addNewSuggest = '${baseUrl}auth/add-suggest';
+  static const String openFirstLesson = '${baseUrl}lesson/';
 }
