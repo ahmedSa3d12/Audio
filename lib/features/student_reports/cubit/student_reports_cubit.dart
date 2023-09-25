@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:new_mazoon/core/utils/dialogs.dart';
 
 import '../../../core/models/student_reports_model.dart';
 import '../../../core/remote/service.dart';
@@ -27,6 +28,7 @@ class StudentReportsCubit extends Cubit<StudentReportsState> {
     final response = await api.deleteReport(id: id);
     response.fold((l) => emit(DeleteStudentReportsPageError()), (r) async {
       await getAllReports();
+      successGetBar(r.message);
       emit(DeleteStudentReportsPageLoaded());
     });
   }

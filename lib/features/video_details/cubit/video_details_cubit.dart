@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,11 +11,9 @@ import 'package:new_mazoon/core/utils/dialogs.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-
 import '../../../core/models/comment_data_model.dart';
 import '../../../core/remote/service.dart';
 import '../../../core/utils/appwidget.dart';
-
 part 'video_details_state.dart';
 
 class VideoDetailsCubit extends Cubit<VideoDetailsState> {
@@ -152,6 +148,10 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
     response.fold(
       (l) => {print(l.toString()), emit(CommentsError())},
       (r) {
+        print('............................');
+        print(this.type!);
+        print('............................');
+
         comments!.data.insert(0, r.data);
         comment_control.text = '';
         imagePath = '';
@@ -173,11 +173,17 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
         comments!.data.removeAt(index);
         comments!.data.insert(index, r.data);
         editcomment_control.text = '';
-
+        successGetBar(r.message);
         emit(CommentsLoaded());
       },
     );
   }
+
+  // onTapOpenEdit(int index) {
+  //   editcomment_control.text = comments!.data[index].comment;
+  //   print(comments!.data[index].comment);
+  //   emit(VideoDetailsOnTapEditLoaded());
+  // }
 
   editreplay(String type, int index) async {
     final response = await api.editReplay(
@@ -232,6 +238,26 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
     );
   }
 
+  addAndRemoveToLike(String type, String action) async {
+    emit(VideoDetailsLikeLoading());
+
+    print(type);
+    final response = await api.addAndRemoveToLike(
+      action: action,
+      video_id: video_id!,
+      type: type == 'video_part' ? 'video' : type,
+    );
+    response.fold(
+      (l) => emit(VideoDetailsLikeError()),
+      (r) {
+        videoModel!.rate == "like"
+            ? videoModel!.rate = "dislike"
+            : videoModel!.rate = "like";
+        emit(VideoDetailsLikeLoaded());
+      },
+    );
+  }
+
   downloadvideo() async {
     final dio = Dio();
     var dir = await (Platform.isIOS
@@ -266,7 +292,12 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
     response.fold(
       (l) => {print(l.toString()), emit(CommentsError())},
       (r) {
-        comments!.data.removeAt(index);
+        if (r.code == 403) {
+          successGetBar(r.message);
+        } else {
+          comments!.data.removeAt(index);
+          successGetBar(r.message);
+        }
 
         emit(CommentsLoaded());
       },
@@ -307,7 +338,6 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
 
   Future<void> report(BuildContext context) async {
     AppWidget.createProgressDialog(context, 'wait'.tr());
-    print("lllll");
 
     final response = await api.addreport(
       video_id: videoModel!.id,
@@ -321,6 +351,7 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
         Navigator.pop(context);
         Navigator.pop(context);
         report_control.text = '';
+        successGetBar(r.message);
         emit(CommentsLoaded());
       },
     );
@@ -335,37 +366,29 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
   updateTime() async {
     // if (type == "video_part") {
     emit(VideoUpdateTimeLoading());
-    print("KDKDKDK");
     print(duration!.inSeconds.toString());
-    // if (duration! >
-    //     Duration(
-    //         seconds: int.parse(videoModel!.video_minutes.split(":")[2]),
-    //         minutes: int.parse(videoModel!.video_minutes.split(":")[1]),
-    //         hours: int.parse(videoModel!.video_minutes.split(":")[0]))) {
-      final response = await api.updateVideoTime(
+    int hours = duration!.inHours;
+    int minutes = (duration!.inMinutes % 60);
+    int seconds = (duration!.inSeconds % 60);
+    final response = await api.updateVideoTime(
         video_id: videoModel!.id,
-        minutes: duration!.inHours.toString() +
-            ":" +
-            duration!.inMinutes.toString() +
-            ":" +
-            duration!.inSeconds.toString(),
-      );
-      response.fold(
-        (l) {
-          print("<<<<<<<<<<<< updsssateTime >>>>>>>>>>>>>>");
-
-          print(l.toString());
-          emit(VideoUpdateTimeError());
-          errorGetBar(l.toString());
-        },
-        (r) {
-          print("<<<<<<<<<<<< updateTime >>>>>>>>>>>>>>");
-          getVideoDetails(video_id!, type!);
-          successGetBar(r.message +
-              '${duration!.inHours.toString() + ":" + duration!.inMinutes.toString() + ":" + duration!.inSeconds.toString()}');
-          emit(CommentsLoaded());
-        },
-      );
+        minutes:
+            "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}");
+    response.fold(
+      (l) {
+        print("<<<<<<<<<<<< updsssateTime >>>>>>>>>>>>>>");
+        print(l.toString());
+        emit(VideoUpdateTimeError());
+        errorGetBar(l.toString());
+      },
+      (r) {
+        print("<<<<<<<<<<<< updateTime >>>>>>>>>>>>>>");
+        getVideoDetails(video_id!, type!);
+        successGetBar(r.message +
+            "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}");
+        emit(CommentsLoaded());
+      },
+    );
     // } else {
     //   print("flfkkfk");
     // }

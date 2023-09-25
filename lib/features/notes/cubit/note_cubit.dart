@@ -6,6 +6,7 @@ import 'package:new_mazoon/core/models/note_model.dart';
 import '../../../core/models/addnotebystudent.dart';
 import '../../../core/models/datesofnotes.dart';
 import '../../../core/remote/service.dart';
+import '../../../core/utils/app_colors.dart';
 
 part 'note_state.dart';
 
@@ -76,17 +77,23 @@ class NoteCubit extends Cubit<NoteState> {
       (error) => emit(AddNewNoteError()),
       (res) {
         if (res.data != null) {
+          Navigator.pop(context);
           addNewNoteData = res.data;
           dateController.clear();
           titleController.clear();
           noteController.clear();
-          Navigator.pop(context);
           emit(NoteLoaded());
         }
       },
     );
   }
 
+  List<Color> colors = [AppColors.orange, AppColors.blue, AppColors.purple1];
+  List<Color> colorsLight = [
+    AppColors.orangelight,
+    AppColors.bluelight,
+    AppColors.purple1light
+  ];
   Future<void> deleteNote(int id, int index) async {
     emit(DeleteNoteLoading());
     final response = await api.deleteNote(

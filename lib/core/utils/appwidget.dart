@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
 
-class AppWidget{
+class AppWidget {
   static createProgressDialog(BuildContext context, String msg) {
     showDialog(
         barrierDismissible: false,
@@ -27,5 +27,4 @@ class AppWidget{
           );
         });
   }
-
 }

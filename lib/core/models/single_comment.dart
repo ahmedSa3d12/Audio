@@ -13,7 +13,7 @@ class SingleCommentModel {
 
   factory SingleCommentModel.fromJson(Map<String, dynamic> json) =>
       SingleCommentModel(
-        data: CommentsModel.fromJson(json["data"] ?? null),
+        data: CommentsModel.fromJson(json["data"]),
         message: json["message"],
         code: json["code"],
       );

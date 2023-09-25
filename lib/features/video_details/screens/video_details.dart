@@ -194,6 +194,11 @@ class _VideoDetailsState extends State<VideoDetails> {
                                             horizontal: getSize(context) / 100),
                                         child: InkWell(
                                           onTap: () {
+                                            cubit.addAndRemoveToLike(
+                                                cubit.type!,
+                                                cubit.videoModel!.rate == 'like'
+                                                    ? 'dislike'
+                                                    : 'like');
                                             //like video
                                           },
                                           child: Center(
@@ -202,15 +207,20 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                 Container(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
-                                                  width: getSize(context) / 9,
-                                                  height: getSize(context) / 9,
+                                                  width: getSize(context) / 11,
+                                                  height: getSize(context) / 11,
                                                   decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       color: AppColors.blue),
                                                   child: MySvgWidget(
                                                     path: ImageAssets.like1Icon,
-                                                    imageColor: AppColors.white,
-                                                    size: 20,
+                                                    imageColor: cubit
+                                                                .videoModel!
+                                                                .rate ==
+                                                            "like"
+                                                        ? AppColors.red
+                                                        : AppColors.white,
+                                                    size: getSize(context) / 11,
                                                   ),
                                                 ),
                                                 SizedBox(
@@ -244,8 +254,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                             child: Column(
                                               children: [
                                                 Container(
-                                                  width: getSize(context) / 9,
-                                                  height: getSize(context) / 9,
+                                                  width: getSize(context) / 11,
+                                                  height: getSize(context) / 11,
                                                   decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       color: AppColors.orange),
@@ -262,7 +272,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                               "un_favorite"
                                                           ? AppColors.white
                                                           : AppColors.red,
-                                                      size: 20,
+                                                      size:
+                                                          getSize(context) / 11,
                                                     ),
                                                   ),
                                                 ),
@@ -292,8 +303,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                             child: Column(
                                               children: [
                                                 Container(
-                                                  width: getSize(context) / 9,
-                                                  height: getSize(context) / 9,
+                                                  width: getSize(context) / 11,
+                                                  height: getSize(context) / 11,
                                                   decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       color: AppColors.purple1),
@@ -318,7 +329,9 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                                 .dowanload1Icon,
                                                             imageColor:
                                                                 AppColors.white,
-                                                            size: 20,
+                                                            size: getSize(
+                                                                    context) /
+                                                                11,
                                                           ),
                                                   ),
                                                 ),
@@ -353,8 +366,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                             child: Column(
                                               children: [
                                                 Container(
-                                                  width: getSize(context) / 9,
-                                                  height: getSize(context) / 9,
+                                                  width: getSize(context) / 11,
+                                                  height: getSize(context) / 11,
                                                   decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       color: AppColors.primary),
@@ -367,7 +380,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                           .attachmentIcon,
                                                       imageColor:
                                                           AppColors.white,
-                                                      size: 20,
+                                                      size:
+                                                          getSize(context) / 11,
                                                     ),
                                                   ),
                                                 ),
@@ -386,7 +400,6 @@ class _VideoDetailsState extends State<VideoDetails> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(),
                                       Flexible(
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(

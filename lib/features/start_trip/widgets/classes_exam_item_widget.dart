@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:new_mazoon/config/routes/app_routes.dart';
+
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/utils/change_to_mega_byte.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
 import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 
@@ -33,57 +33,55 @@ class ClassesExamItemWidget extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                height: 110,
+                height: getSize(context) / 3.5,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(getSize(context) / 22),
                   color: model.type == 'pdf'
                       ? HexColor('#FCB9B9')
                       : HexColor('#FDC286'),
                 ),
                 child: SizedBox(
-                  height: 65,
-                  width: 55,
+                  height: getSize(context) / 4.8,
+                  width: getSize(context) / 5.2,
                   child: Center(
                     child: Image.asset(
                       model.type == 'pdf'
                           ? ImageAssets.examPdfImage
                           : ImageAssets.examPaperImage,
-                      height: 65,
-                      width: 55,
+                      height: getSize(context) / 4.8,
+                      width: getSize(context) / 5.2,
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 8),
-              Expanded(
+              SizedBox(height: getSize(context) / 100),
+              Flexible(
+                fit: FlexFit.tight,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(getSize(context) / 66),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 2,
+                      Flexible(
+                        fit: FlexFit.tight,
                         child: Text(
                           model.name!,
                           overflow: TextOverflow.ellipsis,
-                          maxLines: 3,
+                          maxLines: 2,
                           style: TextStyle(
                             color: AppColors.black,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
+                            fontSize: getSize(context) / 24,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
                       Visibility(
                         visible: model.type == 'pdf',
-                        child: Expanded(
-                          child: Text(
-                            changeToMegaByte(model.examPdfSize.toString()),
-                            style: TextStyle(
+                        child: Text(
+                          changeToMegaByte(model.examPdfSize.toString()),
+                          style: TextStyle(
                               color: AppColors.black,
-                              fontSize: 16,
-                            ),
-                          ),
+                              fontSize: getSize(context) / 26),
                         ),
                       ),
                       // SizedBox(height: model.type == 'pdf'?10: 35),

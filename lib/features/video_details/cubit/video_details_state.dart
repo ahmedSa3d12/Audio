@@ -11,6 +11,14 @@ class VideoDetailsError extends VideoDetailsState {}
 
 class VideoDetailsLoading extends VideoDetailsState {}
 
+class VideoDetailsLikeLoaded extends VideoDetailsState {}
+
+class VideoDetailsOnTapEditLoaded extends VideoDetailsState {}
+
+class VideoDetailsLikeError extends VideoDetailsState {}
+
+class VideoDetailsLikeLoading extends VideoDetailsState {}
+
 class CommentsLoaded extends VideoDetailsState {}
 
 class CommentsError extends VideoDetailsState {}

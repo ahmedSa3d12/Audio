@@ -558,7 +558,6 @@ class ServiceApi {
       required String action}) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
-
     try {
       final response = await dio.post(
         EndPoints.addremovefavUrl,
@@ -567,6 +566,32 @@ class ServiceApi {
           "video_resource_id": type == 'video_resource' ? video_id : "",
           "video_part_id": type == 'video_part' ? video_id : "",
           "favorite_type": type,
+          "action": action,
+        },
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(StatusResponse.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  Future<Either<Failure, StatusResponse>> addAndRemoveToLike(
+      {required int video_id,
+      required String type,
+      required String action}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      //add to type _id
+      final response = await dio.post(
+        EndPoints.addremovelikeUrl + '/$video_id?type=${type}_id',
+        body: {
           "action": action,
         },
         options: Options(
@@ -592,7 +617,6 @@ class ServiceApi {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
     try {
-      print("sssss");
       print(videoType);
       final response = await dio.post(
         EndPoints.addcommentsUrl,
@@ -602,6 +626,7 @@ class ServiceApi {
           "type": type,
           "video_resource_id": videoType == 'video_resource' ? video_id : "",
           "video_basic_id": videoType == 'video_basic' ? video_id : "",
+          "video_part_id": videoType == 'video_part' ? video_id : "",
           if (image.isNotEmpty) ...{
             'image': await MultipartFile.fromFile(image),
           },
@@ -616,6 +641,7 @@ class ServiceApi {
           },
         ),
       );
+      print('response  : $response');
       return Right(SingleCommentModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
