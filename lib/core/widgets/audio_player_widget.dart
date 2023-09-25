@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart' as ap;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:new_mazoon/core/utils/app_colors.dart';
 
 class AudioPlayer extends StatefulWidget {
   /// Path from where to play recorded audio
@@ -40,16 +39,16 @@ class AudioPlayerState extends State<AudioPlayer> {
   void initState() {
     _playerStateChangedSubscription =
         _audioPlayer.onPlayerComplete.listen((state) async {
-          await stop();
-          setState(() {});
-        });
+      await stop();
+      setState(() {});
+    });
     _positionChangedSubscription = _audioPlayer.onPositionChanged.listen(
-          (position) => setState(() {
+      (position) => setState(() {
         _position = position;
       }),
     );
     _durationChangedSubscription = _audioPlayer.onDurationChanged.listen(
-          (duration) => setState(() {
+      (duration) => setState(() {
         _duration = duration;
       }),
     );
@@ -71,20 +70,23 @@ class AudioPlayerState extends State<AudioPlayer> {
     return Column(
       children: [
         Row(
-
           children: <Widget>[
             _buildControl(),
-            _buildSlider(widget.type=='upload'?MediaQuery.of(context).size.width / 2:MediaQuery.of(context).size.width /2+50),
-            widget.type=='upload'? IconButton(
-              icon: const Icon(
-                Icons.delete,
-                color: Color(0xFF73748D),
-                size: _deleteBtnSize,
-              ),
-              onPressed: () {
-                stop().then((value) => widget.onDelete());
-              },
-            ):SizedBox(),
+            _buildSlider(widget.type == 'upload'
+                ? MediaQuery.of(context).size.width / 2
+                : MediaQuery.of(context).size.width / 2 + 50),
+            widget.type == 'upload'
+                ? IconButton(
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Color(0xFF73748D),
+                      size: _deleteBtnSize,
+                    ),
+                    onPressed: () {
+                      stop().then((value) => widget.onDelete());
+                    },
+                  )
+                : SizedBox(),
           ],
         ),
       ],
@@ -105,8 +107,7 @@ class AudioPlayerState extends State<AudioPlayer> {
     }
 
     return InkWell(
-      child:
-      SizedBox(width: _controlSize, height: _controlSize, child: icon),
+      child: SizedBox(width: _controlSize, height: _controlSize, child: icon),
       onTap: () {
         if (_audioPlayer.state == ap.PlayerState.playing) {
           pause();

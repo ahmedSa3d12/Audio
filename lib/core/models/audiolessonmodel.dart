@@ -27,6 +27,7 @@ class AudioLessonModel {
 class LessonAudioData {
   int id;
   String name;
+  String imageOfSubjectClass;
   String type;
   String backgroundColor;
   String status;
@@ -36,6 +37,7 @@ class LessonAudioData {
   DateTime updatedAt;
 
   LessonAudioData({
+    required this.imageOfSubjectClass,
     required this.id,
     required this.name,
     required this.type,
@@ -50,6 +52,7 @@ class LessonAudioData {
   factory LessonAudioData.fromJson(Map<String, dynamic> json) =>
       LessonAudioData(
         id: json["id"],
+        imageOfSubjectClass: json['image_of_subject_class'],
         name: json["name"],
         type: json["type"],
         backgroundColor: json["background_color"],
@@ -67,6 +70,7 @@ class LessonAudioData {
         "background_color": backgroundColor,
         "status": status,
         "subscribe": subscribe,
+        "image_of_subject_class": imageOfSubjectClass,
         "link": link,
         "created_at":
             "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",

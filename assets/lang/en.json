@@ -268,5 +268,6 @@
   "start_studyy": "start study",
   "send_your_suggest": "Send your suggestion",
   "invalid_suggest": "please enter your suggest",
-  "lesson": "lessons"
+  "lesson": "lessons",
+  "have_access":"you don't have access this lesson"
 }
