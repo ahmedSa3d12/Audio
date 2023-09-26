@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/assets_manager.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import '../../../core/widgets/no_data_widget.dart';
 import '../../../core/widgets/show_loading_indicator.dart';
 import '../cubit/start_trip_cubit.dart';
@@ -32,21 +33,20 @@ class FinalReviewScreen extends StatelessWidget {
             cubit.getFinalReviewData();
           },
           child: Padding(
-            padding: const EdgeInsets.only(
-              left: 15.0,
-              right: 15,
+            padding: EdgeInsets.only(
+              left: getSize(context) / 44,
+              right: getSize(context) / 44,
             ),
             child: ListView(
               children: [
-                SizedBox(height: 10),
+                SizedBox(height: getSize(context) / 66),
                 cubit.finalReview.isNotEmpty
                     ? GridView.builder(
                         shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           childAspectRatio: 0.85,
                           mainAxisSpacing: 15,
-                          crossAxisSpacing: 20,
+                          crossAxisSpacing: getSize(context) / 66,
                           crossAxisCount: 2,
                         ),
                         physics: NeverScrollableScrollPhysics(),

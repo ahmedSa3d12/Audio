@@ -29,3 +29,7 @@ class ErrorRateYourselfAttchmentState extends AttachmentState {}
 class TruequestionStatusRateYourselfAttchmentState extends AttachmentState {}
 
 class FalsequestionStatusRateYourselfAttchmentState extends AttachmentState {}
+
+class ErrorAddHomeWorkToFavorite extends AttachmentState {}
+
+class LoadedAddHomeWorkToFavorite extends AttachmentState {}

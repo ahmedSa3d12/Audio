@@ -269,5 +269,6 @@
   "send_your_suggest": "Send your suggestion",
   "invalid_suggest": "please enter your suggest",
   "lesson": "lessons",
-  "have_access":"you don't have access this lesson"
+  "have_access":"you don't have access this lesson",
+  "enter_code":"enter code"
 }

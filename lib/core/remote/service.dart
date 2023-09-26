@@ -581,6 +581,34 @@ class ServiceApi {
     }
   }
 
+  Future<Either<Failure, StatusResponse>> addToFavouriteExam(
+      {required int video_id,
+      required String type,
+      required String action}) async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.post(
+        EndPoints.addremovefavUrlExam,
+        body: {
+          "online_exam_id": type == 'video_basic' ? video_id : "",
+          "all_exam_id": type == 'video_resource' ? video_id : "",
+          "life_exam_id": type == 'video_part' ? video_id : "",
+          "action": action,
+        },
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(StatusResponse.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
   Future<Either<Failure, StatusResponse>> addAndRemoveToLike(
       {required int video_id,
       required String type,

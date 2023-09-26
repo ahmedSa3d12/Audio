@@ -84,7 +84,7 @@
   "renew": "تجديد الاشتراك",
   "change_photo": "تغير الصوره",
   "update": "تعديل",
-  "start_study": "أبدا المذكرة",
+  "start_study": "أبدا المذاكرة",
   "home_page": "الصفحة الرئيسية",
   "delete": "حذف",
   "success_delete": "تم الحذف بنجاح",
@@ -269,7 +269,8 @@
   "send_your_suggest":"ارسل اقتراحك",
   "invalid_suggest": "الرجاء إدخال اقتراحك"
 
-,  "have_access":"ليس لديك صلاحيه لهذا الدرس"
+,  "have_access":"ليس لديك صلاحيه لهذا الدرس",
+"enter_code":"أدخل كود الدخول"
 
 
 }

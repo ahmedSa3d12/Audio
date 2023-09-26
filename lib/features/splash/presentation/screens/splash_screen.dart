@@ -1,19 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_mazoon/features/splash/presentation/screens/pop_ads_screen.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:new_mazoon/core/utils/app_colors.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../config/routes/app_routes.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/getsize.dart';
-import '../../../examinstructions/screen/examinstructions.dart';
-import '../../../../core/models/user_model.dart';
-import '../../../../core/preferences/preferences.dart';
-import '../../../monthplan/screen/monthplan.dart';
-import '../../../navigation_bottom/screens/navigation_bottom.dart';
-import '../../../onboarding/screens/onboarding_screen.dart';
+
 import '../cubit/splash_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -93,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    Image image = Image.asset('assets/images/logo.png');
+    Image image = Image.asset('assets/images/logo2.png');
     // return BlocBuilder<SplashCubit, SplashState>(
     //   builder: (context, state) {
     //     if (state is SplashLoading) {}
@@ -109,22 +104,22 @@ class _SplashScreenState extends State<SplashScreen>
               tag: 'logo',
               child: SizedBox(
                 child: Image.asset(
-                  'assets/images/logo.png',
-                  height: 150,
-                  width: 150,
+                  'assets/images/logo2.png',
+                  height: getSize(context) / 1.5,
+                  width: getSize(context) / 1.5,
                 ),
               ),
             ),
           ),
-          Positioned(
-              bottom: 0,
-              child: Container(
-                alignment: Alignment.bottomCenter,
-                child: Image.asset(
-                  ImageAssets.copyRight,
-                  width: getSize(context) / 1.2,
-                ),
-              )),
+          // Positioned(
+          //     bottom: 0,
+          //     child: Container(
+          //       alignment: Alignment.bottomCenter,
+          //       child: Image.asset(
+          //         ImageAssets.copyRight,
+          //         width: getSize(context) / 1.2,
+          //       ),
+          //     )),
         ],
       ),
     );

@@ -1,13 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
 import '../../../../config/routes/app_routes.dart';
 import '../../../../core/models/ads_model.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/widgets/network_image.dart';
-import '../../../navigation_bottom/screens/navigation_bottom.dart';
 
 class PopAdsScreen extends StatefulWidget {
   const PopAdsScreen({Key? key, required this.adsDatum}) : super(key: key);

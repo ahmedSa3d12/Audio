@@ -111,8 +111,8 @@ flutter_icons:
   android: true
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/images/logo.png"
-  adaptive_icon_foreground: "assets/images/logo.png"
+  image_path: "assets/images/app.png"
+  adaptive_icon_foreground: "assets/images/app.png"
 
 
 

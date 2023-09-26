@@ -174,15 +174,15 @@ class _OnBordingScreenState extends State<OnBordingScreen> {
                   ],
                 ),
               ),
-              Container(
-                width: double.infinity,
-                color: AppColors.white,
-                child: Image.asset(
-                  ImageAssets.copyRight,
-                  // height: getSize(context) / 8,
-                  width: getSize(context) / 1.2,
-                ),
-              )
+              // Container(
+              //   width: double.infinity,
+              //   color: AppColors.white,
+              //   child: Image.asset(
+              //     ImageAssets.copyRight,
+              //     // height: getSize(context) / 8,
+              //     width: getSize(context) / 1.2,
+              //   ),
+              // )
             ],
           ),
         );

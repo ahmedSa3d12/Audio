@@ -69,21 +69,20 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: getSize(context) / 44),
                   child: MySvgWidget(
-                    path: model.type == 'video'
-                        ? ImageAssets.videoIcon
-                        : ImageAssets.pdfIcon,
-                    imageColor: AppColors.white,
-                    size: 20,
-                  ),
+                      path: model.type == 'video'
+                          ? ImageAssets.videoIcon
+                          : ImageAssets.pdfIcon,
+                      imageColor: AppColors.white,
+                      size: getSize(context) / 18),
                 ),
                 Flexible(
                   child: Text(
                     model.name!,
                     overflow: TextOverflow.fade,
-                    maxLines: 3,
+                    maxLines: 2,
                     style: TextStyle(
                       color: AppColors.white,
-                      fontSize: getSize(context) / 22,
+                      fontSize: getSize(context) / 26,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -107,7 +106,7 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
                             ? MySvgWidget(
                                 path: ImageAssets.clockIcon,
                                 imageColor: AppColors.white,
-                                size: 16,
+                                size: getSize(context) / 24,
                               )
                             : SizedBox(),
                         SizedBox(
@@ -144,8 +143,8 @@ class ItemOfFinalReviewWidget extends StatelessWidget {
                                       .dowanload(model);
                                 },
                                 child: SizedBox(
-                                  width: 25,
-                                  height: 25,
+                                  width: getSize(context) / 44,
+                                  height: getSize(context) / 44,
                                   child: model.progress != 0
                                       ? CircularProgressIndicator(
                                           value: model.progress,

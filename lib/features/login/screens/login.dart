@@ -43,12 +43,10 @@ class _userScreenState extends State<LoginScreen> {
                     child: Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                      width: 361,
-                      height: 213,
                       child: Image.asset(
-                        'assets/images/logo.png',
-                        width: 200,
-                        height: 200,
+                        'assets/images/logo2.png',
+                        width: getSize(context) / 2,
+                        height: getSize(context) / 2,
                       ),
                     ),
                   ),
@@ -126,7 +124,7 @@ class _userScreenState extends State<LoginScreen> {
                                       style: TextStyle(
                                           color: AppColors.white,
                                           fontWeight: FontWeight.normal,
-                                          fontSize: 13),
+                                          fontSize: getSize(context) / 32),
                                     ),
                                     Container(
                                       child: Row(
@@ -145,7 +143,16 @@ class _userScreenState extends State<LoginScreen> {
                                               obscureText: true,
                                               textInputAction:
                                                   TextInputAction.done,
-                                              decoration: const InputDecoration(
+                                              decoration: InputDecoration(
+                                                hintText: 'enter_code'.tr(),
+                                                hintStyle: TextStyle(
+                                                  fontFamily: 'Cairo',
+                                                  fontSize:
+                                                      getSize(context) / 34,
+                                                  color: AppColors
+                                                      .unselectedTabColor,
+                                                  fontWeight: FontWeight.w100,
+                                                ),
                                                 border: InputBorder.none,
                                               ),
                                               validator: (value) {
@@ -166,9 +173,7 @@ class _userScreenState extends State<LoginScreen> {
                                       height: 3,
                                       thickness: 3,
                                     ),
-                                    const SizedBox(
-                                      height: 30,
-                                    ),
+                                    SizedBox(height: getSize(context) / 32),
                                     CustomButton(
                                       text: 'user'.tr(),
                                       textcolor: AppColors.white,
@@ -181,9 +186,10 @@ class _userScreenState extends State<LoginScreen> {
                                               .userWithCode(context);
                                         }
                                       },
-                                      paddingHorizontal: 20,
-                                      borderRadius: 15,
+                                      paddingHorizontal: getSize(context) / 14,
+                                      borderRadius: getSize(context) / 12,
                                     ),
+                                    SizedBox(height: getSize(context) / 32),
                                   ],
                                 ),
                               ),
@@ -246,8 +252,8 @@ class _userScreenState extends State<LoginScreen> {
                                   },
                                   child: Image.asset(
                                     ImageAssets.facebookImage,
-                                    width: 40.0,
-                                    height: 40.0,
+                                    width: getSize(context) / 12,
+                                    height: getSize(context) / 12,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -283,8 +289,8 @@ class _userScreenState extends State<LoginScreen> {
                                   },
                                   child: Image.asset(
                                     ImageAssets.twitterImage,
-                                    width: 40.0,
-                                    height: 40.0,
+                                    width: getSize(context) / 12,
+                                    height: getSize(context) / 12,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -320,8 +326,8 @@ class _userScreenState extends State<LoginScreen> {
                                   },
                                   child: Image.asset(
                                     ImageAssets.instagramImage,
-                                    width: 40.0,
-                                    height: 40.0,
+                                    width: getSize(context) / 12,
+                                    height: getSize(context) / 12,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -357,8 +363,8 @@ class _userScreenState extends State<LoginScreen> {
                                   },
                                   child: Image.asset(
                                     ImageAssets.websiteImage,
-                                    width: 40.0,
-                                    height: 40.0,
+                                    width: getSize(context) / 12,
+                                    height: getSize(context) / 12,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -394,8 +400,8 @@ class _userScreenState extends State<LoginScreen> {
                                   },
                                   child: Image.asset(
                                     ImageAssets.youtubeImage,
-                                    width: 40.0,
-                                    height: 40.0,
+                                    width: getSize(context) / 12,
+                                    height: getSize(context) / 12,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -425,8 +431,8 @@ class _userScreenState extends State<LoginScreen> {
                                   },
                                   child: Image.asset(
                                     ImageAssets.callImage,
-                                    width: 40.0,
-                                    height: 40.0,
+                                    width: getSize(context) / 12,
+                                    height: getSize(context) / 12,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -440,14 +446,14 @@ class _userScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: getSize(context) / 8,
                   ),
-                  Container(
-                    width: double.infinity,
-                    // color: AppColors.white,
-                    child: Image.asset(
-                      ImageAssets.copyRight,
-                      width: getSize(context) / 1.2,
-                    ),
-                  )
+                  // Container(
+                  //   width: double.infinity,
+                  //   // color: AppColors.white,
+                  //   child: Image.asset(
+                  //     ImageAssets.copyRight,
+                  //     width: getSize(context) / 1.2,
+                  //   ),
+                  // )
                 ],
               ),
             ),
@@ -497,13 +503,13 @@ class _userScreenState extends State<LoginScreen> {
                         'contact_us_from'.tr(),
                         style: TextStyle(
                           color: AppColors.white,
-                          fontSize: 20,
+                          fontSize: getSize(context) / 22,
                         ),
                       ),
                     ),
                   ),
                   SizedBox(
-                      height: 25,
+                      height: getSize(context) / 22,
                       width: MediaQuery.of(context).size.width - 50),
                   ...List.generate(
                     cubit.communicationData!.phones.length,
@@ -520,7 +526,7 @@ class _userScreenState extends State<LoginScreen> {
                             Icon(
                               Icons.call,
                               color: AppColors.blueLiteColor,
-                              size: 30,
+                              size: getSize(context) / 12,
                             ),
                             SizedBox(width: 20),
                             Expanded(
@@ -532,13 +538,14 @@ class _userScreenState extends State<LoginScreen> {
                                     cubit
                                         .communicationData!.phones[index].phone,
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: getSize(context) / 24,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
                                     cubit.communicationData!.phones[index].note,
-                                    style: TextStyle(fontSize: 16),
+                                    style: TextStyle(
+                                        fontSize: getSize(context) / 28),
                                   )
                                 ],
                               ),

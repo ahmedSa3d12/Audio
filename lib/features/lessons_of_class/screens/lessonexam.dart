@@ -92,7 +92,7 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                       context, Routes.examInstructionsRoute,
                                       arguments: [
                                         cubit.examsofLessons[index].id,
-                                        "online_exam"
+                                        "lesson"
                                       ]);
                                 } else {
                                   Navigator.push(

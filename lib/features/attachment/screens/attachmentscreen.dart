@@ -190,7 +190,7 @@ class _AttachmentScreenState extends State<AttachmentScreen> {
                           : myBodyIs == 1
                               ? SummaryScreen()
                               : myBodyIs == 2
-                                  ? HomeWorkScreen()
+                                  ? HomeWorkScreen(lessonId: widget.model.id)
                                   : RateYourSelfScreen()
                     ]),
                   ))

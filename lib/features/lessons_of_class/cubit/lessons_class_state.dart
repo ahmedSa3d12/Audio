@@ -32,3 +32,7 @@ class LessonsOpenLessonLoading extends LessonsClassState {}
 class LessonsOpenLessonLoaded extends LessonsClassState {}
 
 class LessonsOpenLessonError extends LessonsClassState {}
+
+class ErrorAddHomeWorkToFavorite extends LessonsClassState {}
+
+class LoadedAddHomeWorkToFavorite extends LessonsClassState {}

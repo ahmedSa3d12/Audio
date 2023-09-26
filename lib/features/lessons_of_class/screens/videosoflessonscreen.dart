@@ -125,26 +125,27 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        SizedBox(height: getSize(context) / 22),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal:
-                                                  getSize(context) / 100),
-                                          child: Text(
-                                            cubit.videosofLessons[index].name,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: getSize(context) / 26,
-                                              fontWeight: FontWeight.w700,
+                                        Flexible(
+                                          fit: FlexFit.tight,
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                top: getSize(context) / 88,
+                                                left: getSize(context) / 100,
+                                                right: getSize(context) / 100),
+                                            child: Text(
+                                              cubit.videosofLessons[index].name,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: getSize(context) / 26,
+                                                fontWeight: FontWeight.w700,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                        SizedBox(height: getSize(context) / 22),
-
-                                        // Spacer(),
                                         Padding(
                                           padding: EdgeInsets.symmetric(
+                                              vertical: getSize(context) / 22,
                                               horizontal:
                                                   getSize(context) / 100),
                                           child: Row(

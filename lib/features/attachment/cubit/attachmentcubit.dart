@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/utils/dialogs.dart';
 import 'package:new_mazoon/features/attachment/cubit/attachmentstate.dart';
 
 import '../../../core/models/audiolessonmodel.dart';
@@ -47,6 +48,7 @@ class AttachmentCubit extends Cubit<AttachmentState> {
       (l) => emit(ErrorHomeworkAttchmentState()),
       (r) {
         homeworkLessonData = r.data;
+
         emit(SucessHomeworkAttchmentState());
       },
     );
@@ -88,5 +90,24 @@ class AttachmentCubit extends Cubit<AttachmentState> {
       }
       emit(TruequestionStatusRateYourselfAttchmentState());
     }
+  }
+  ////add homework to fav
+
+  favourite(String type, String action, int lessonId) async {
+    final response = await api.addToFavourite(
+      action: action,
+      video_id: lessonId,
+      type: type,
+    );
+    response.fold(
+      (l) => emit(ErrorAddHomeWorkToFavorite()),
+      (r) {
+        homeworkLessonData!.examsFavorite == "un_favorite"
+            ? homeworkLessonData!.examsFavorite = "favorite"
+            : homeworkLessonData!.examsFavorite = "un_favorite";
+        successGetBar(r.message);
+        emit(LoadedAddHomeWorkToFavorite());
+      },
+    );
   }
 }

@@ -31,9 +31,9 @@ class _ExamInstructionsState extends State<ExamInstructions> {
   @override
   void initState() {
     super.initState();
-    context
-        .read<ExaminstructionsCubit>()
-        .examInstructions(widget.exam_id, widget.type);
+    // context
+    //     .read<ExaminstructionsCubit>()
+    //     .examInstructions(widget.exam_id, widget.type);
   }
 
   @override
@@ -73,7 +73,7 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                             children: [
                               SizedBox(height: getSize(context) / 3.5),
                               Text(
-                                examinstructions.data!.details!.name!,
+                                examinstructions.data!.details!.name ?? '',
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.black,
@@ -426,7 +426,12 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                       .getQuestionsOfLessonExam(
                                           context: context,
                                           lessonId: widget.exam_id,
-                                          exam_type: "lesson");
+                                          exam_type:
+                                              widget.type == 'online_exam'
+                                                  ? "subject_class"
+                                                  : widget.type == 'video'
+                                                      ? 'video'
+                                                      : "lesson");
                                 },
                                 child: Container(
                                     width: getSize(context) / 1.1,

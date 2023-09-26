@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 
 class OnBordingModel extends StatelessWidget {
   String image;
@@ -39,7 +40,7 @@ class OnBordingModel extends StatelessWidget {
                   title,
                   style: TextStyle(
                       color: AppColors.black,
-                      fontSize: 20,
+                      fontSize: getSize(context) / 24,
                       fontFamily: 'Cairo-Black',
                       fontWeight: FontWeight.bold),
                 ),
@@ -50,7 +51,7 @@ class OnBordingModel extends StatelessWidget {
                     style: TextStyle(
                         fontFamily: 'Cairo-Light',
                         color: AppColors.descriptionBoardingColor,
-                        fontSize: 15,
+                        fontSize: getSize(context) / 28,
                         fontWeight: FontWeight.bold),
                   ),
                 ),

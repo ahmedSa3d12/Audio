@@ -12,11 +12,12 @@ import '../../start_trip/widgets/class_exam_icon_widget.dart';
 import '../cubit/lessons_class_cubit.dart';
 
 class LessonsExamItemWidget extends StatelessWidget {
-  const LessonsExamItemWidget({Key? key, required this.model})
+  const LessonsExamItemWidget(
+      {Key? key, required this.model, required this.index})
       : super(key: key);
 
   final LessonExamData model;
-
+  final int index;
   @override
   Widget build(BuildContext context) {
     LessonsClassCubit cubit = context.read<LessonsClassCubit>();
@@ -67,7 +68,7 @@ class LessonsExamItemWidget extends StatelessWidget {
                           maxLines: 2,
                           style: TextStyle(
                             color: AppColors.black,
-                            fontSize: 17,
+                            fontSize: getSize(context) / 25,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -79,7 +80,7 @@ class LessonsExamItemWidget extends StatelessWidget {
                             changeToMegaByte(model.examPdfSize.toString()),
                             style: TextStyle(
                               color: AppColors.black,
-                              fontSize: 16,
+                              fontSize: getSize(context) / 28,
                             ),
                           ),
                         ),
@@ -102,7 +103,7 @@ class LessonsExamItemWidget extends StatelessWidget {
                             Expanded(
                               flex: 4,
                               child: ClassExamIconWidget(
-                                textData: ' ${model.totalTime} min',
+                                textData: '${model.totalTime} min',
                                 type: 'text',
                                 iconColor: AppColors.gray7,
                                 onclick: () {},
@@ -115,6 +116,14 @@ class LessonsExamItemWidget extends StatelessWidget {
                                 type: ImageAssets.noLoveIcon,
                                 iconColor: AppColors.error,
                                 onclick: () {
+                                  cubit.favourite(
+                                       cubit.examsofLessons[index].type,
+                                      cubit.examsofLessons[index]
+                                                  .examsFavorite ==
+                                              'un_favorite'
+                                          ? 'favorite'
+                                          : 'un_favorite',
+                                      index);
                                   print('wwwwwwwwwwwwwwwww');
                                 },
                               ),

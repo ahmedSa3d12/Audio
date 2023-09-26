@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../../core/models/lessonexammodel.dart';
 import '../../../core/models/lessons_model.dart';
 import '../../../core/models/videolessonmodel.dart';
+import '../../../core/utils/dialogs.dart';
 import '../../../core/utils/toast_message_method.dart';
 import '../../examdegreeaccreditation/cubit/examdegreedependcubit.dart';
 
@@ -131,5 +132,23 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
       getVideosofLessonsData(id);
       emit(LessonsOpenLessonLoaded());
     });
+  }
+
+  favourite(String type, String action, int index) async {
+    final response = await api.addToFavourite(
+      action: action,
+      video_id: examsofLessons[index].id,
+      type: type,
+    );
+    response.fold(
+      (l) => emit(ErrorAddHomeWorkToFavorite()),
+      (r) {
+        examsofLessons[index].examsFavorite == "un_favorite"
+            ? examsofLessons[index].examsFavorite = "favorite"
+            : examsofLessons[index].examsFavorite = "un_favorite";
+        successGetBar(r.message);
+        emit(LoadedAddHomeWorkToFavorite());
+      },
+    );
   }
 }

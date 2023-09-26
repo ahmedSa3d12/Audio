@@ -274,8 +274,8 @@ class ItemOfOneClassWidget extends StatelessWidget {
                               overflow: TextOverflow.clip,
                               style: TextStyle(
                                 color: AppColors.white,
-                                fontSize: getSize(context) / 28,
-                                fontWeight: FontWeight.bold,
+                                fontSize: getSize(context) / 30,
+                                fontWeight: FontWeight.w600,
                               ),
                             )
                           } else ...{
@@ -304,7 +304,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                       maxLines: 1,
                                       overflow: TextOverflow.clip,
                                       style: TextStyle(
-                                        fontSize: getSize(context) / 24,
+                                        fontSize: getSize(context) / 30,
                                         color: AppColors.white,
                                         fontWeight: FontWeight.bold,
                                       ),
