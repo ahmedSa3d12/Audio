@@ -39,12 +39,7 @@ class _VideoDetailsState extends State<VideoDetails> {
 
   @override
   void dispose() {
-    // context.read<VideoDetailsCubit>().audioRecorder.stop;
-    // context.read<VideoDetailsCubit>().audioRecorder.dispose();
     super.dispose();
-    // if (mounted) {
-    //   setState(() {});
-    // }
   }
 
   @override

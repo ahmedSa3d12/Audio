@@ -5,17 +5,21 @@ import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/utils/change_to_mega_byte.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
+import 'package:new_mazoon/features/lessons_of_class/screens/view_video_screen.dart';
 import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 
 import '../../../core/models/classes_exam_data_model.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/download_icon_widget.dart';
+import '../../../core/widgets/pdf_screen.dart';
+import '../../lessons_of_class/cubit/lessons_class_cubit.dart';
 import 'class_exam_icon_widget.dart';
 
 class ClassesExamItemWidget extends StatelessWidget {
-  const ClassesExamItemWidget({Key? key, required this.model})
+  const ClassesExamItemWidget(
+      {Key? key, required this.model, required this.index})
       : super(key: key);
-
+  final int index;
   final ClassesExamDatumModel model;
 
   @override
@@ -91,54 +95,83 @@ class ClassesExamItemWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              flex: 3,
+                              flex: 1,
                               child: ClassExamIconWidget(
-                                textData: '${model.numOfQuestion}Q',
-                                type: 'text',
-                                iconColor: AppColors.gray7,
-                                onclick: () {
-                                  print('rrrrrrrrrrrr');
-                                },
-                              ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: ClassExamIconWidget(
-                                textData: ' ${model.totalTime} min',
+                                textData: '${model.numOfQuestion}',
                                 type: 'text',
                                 iconColor: AppColors.gray7,
                                 onclick: () {},
                               ),
                             ),
                             Expanded(
-                              flex: 3,
+                              flex: 1,
+                              child: ClassExamIconWidget(
+                                textData: ' ${model.totalTime}',
+                                type: 'text',
+                                iconColor: AppColors.gray7,
+                                onclick: () {},
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
                               child: ClassExamIconWidget(
                                 radius: 1000,
-                                type: ImageAssets.noLoveIcon,
-                                iconColor: AppColors.error,
+                                type: ImageAssets.loveIcon,
+                                iconLoveColor:
+                                    model.examsFavorite == 'un_favorite'
+                                        ? AppColors.white
+                                        : AppColors.red,
+                                iconColor: HexColor(model.backgroundColor!),
                                 onclick: () {
-                                  print('wwwwwwwwwwwwwwwww');
+                                  context.read<LessonsClassCubit>().favourite(
+                                      'online_exam',
+                                      model.examsFavorite == 'un_favorite'
+                                          ? 'favorite'
+                                          : 'un_favorite',
+                                      index);
                                 },
                               ),
                             ),
-                            Expanded(
-                              flex: 3,
-                              child: ClassExamIconWidget(
-                                radius: 1000,
-                                type: ImageAssets.answerPdfIcon,
-                                iconColor: AppColors.goldColor,
-                                onclick: () {},
-                              ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: ClassExamIconWidget(
-                                type: ImageAssets.videoIcon,
-                                iconColor: AppColors.skyColor,
-                                onclick: () {},
-                                radius: 1000,
-                              ),
-                            ),
+                            model.answerPdfFile == null
+                                ? Container()
+                                : Expanded(
+                                    flex: 1,
+                                    child: ClassExamIconWidget(
+                                      radius: 1000,
+                                      type: ImageAssets.answerPdfIcon,
+                                      iconColor: AppColors.goldColor,
+                                      onclick: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => PdfScreen(
+                                                      pdfLink:
+                                                          model.answerPdfFile,
+                                                      pdfTitle: model.name!,
+                                                    )));
+                                      },
+                                    ),
+                                  ),
+                            model.answerVideoFile == null
+                                ? Container()
+                                : Expanded(
+                                    flex: 1,
+                                    child: ClassExamIconWidget(
+                                      type: ImageAssets.videoIcon,
+                                      iconColor: AppColors.skyColor,
+                                      onclick: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AnswerVideoViewScreen(
+                                                        videoId: model.id!,
+                                                        videoLink: model
+                                                            .answerVideoFile)));
+                                      },
+                                      radius: 1000,
+                                    ),
+                                  ),
                           ],
                         ),
                       )

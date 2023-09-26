@@ -96,6 +96,7 @@ class ClassesExamsScreen extends StatelessWidget {
                                 }
                               },
                               child: ClassesExamItemWidget(
+                                index: index,
                                 model: cubit.examClassList[index],
                               ),
                             );

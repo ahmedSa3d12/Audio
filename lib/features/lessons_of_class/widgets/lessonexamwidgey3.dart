@@ -90,17 +90,17 @@ class LessonsExamItemWidget extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
-                              flex: 1,
-                              child: ClassExamIconWidget(
-                                textData: ' ${model.numOfQuestion}',
-                                type: 'text',
-                                iconColor: AppColors.gray7,
-                                onclick: () {
-                                  print('rrrrrrrrrrrr');
-                                },
-                              ),
-                            ),
+                            model.numOfQuestion == null
+                                ? Container()
+                                : Expanded(
+                                    flex: 1,
+                                    child: ClassExamIconWidget(
+                                      textData: ' ${model.numOfQuestion}',
+                                      type: 'text',
+                                      iconColor: AppColors.gray7,
+                                      onclick: () {},
+                                    ),
+                                  ),
                             Expanded(
                               flex: 1,
                               child: ClassExamIconWidget(
@@ -200,7 +200,6 @@ class LessonsExamItemWidget extends StatelessWidget {
               right: getSize(context) / 44,
               child: InkWell(
                 onTap: () async {
-                  print('object');
                   cubit.downloadPdfOfLesson(model);
                 },
                 child: SizedBox(
