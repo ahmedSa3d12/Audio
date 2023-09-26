@@ -94,7 +94,7 @@ class AttachmentCubit extends Cubit<AttachmentState> {
   ////add homework to fav
 
   favourite(String type, String action, int lessonId) async {
-    final response = await api.addToFavourite(
+    final response = await api.addToFavouriteExam(
       action: action,
       video_id: lessonId,
       type: type,

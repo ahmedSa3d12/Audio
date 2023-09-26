@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/widgets/my_svg_widget.dart';
@@ -10,6 +11,7 @@ class ClassExamIconWidget extends StatelessWidget {
     required this.iconColor,
     required this.onclick,
     this.textData,
+    this.iconLoveColor = Colors.white,
     this.radius = 18,
   }) : super(key: key);
 
@@ -17,6 +19,7 @@ class ClassExamIconWidget extends StatelessWidget {
   final String? textData;
   final double? radius;
   final Color iconColor;
+  final Color iconLoveColor;
   final VoidCallback onclick;
 
   @override
@@ -24,8 +27,8 @@ class ClassExamIconWidget extends StatelessWidget {
     return InkWell(
       onTap: type == 'text' ? null : onclick,
       child: Container(
-        // width: 25,
-        // height: 25,
+        width: getSize(context) / 14,
+        height: getSize(context) / 14,
         padding: EdgeInsets.all(2),
         margin: EdgeInsets.all(2),
         decoration: BoxDecoration(
@@ -41,7 +44,7 @@ class ClassExamIconWidget extends StatelessWidget {
                     maxLines: 1,
                     style: TextStyle(
                         color: AppColors.white,
-                        fontSize: 10,
+                        fontSize: getSize(context) / 38,
                         overflow: TextOverflow.clip),
                   )
                 : Container(
@@ -50,8 +53,8 @@ class ClassExamIconWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(2.0),
                     child: MySvgWidget(
                       path: type,
-                      imageColor: AppColors.white,
-                      size: 18,
+                      imageColor: iconLoveColor,
+                      size: getSize(context) / 38,
                     ),
                   ),
           ),

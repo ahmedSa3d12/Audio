@@ -591,9 +591,9 @@ class ServiceApi {
       final response = await dio.post(
         EndPoints.addremovefavUrlExam,
         body: {
-          "online_exam_id": type == 'video_basic' ? video_id : "",
-          "all_exam_id": type == 'video_resource' ? video_id : "",
-          "life_exam_id": type == 'video_part' ? video_id : "",
+          "online_exam_id": type == 'online_exam' ? video_id : "",
+          "all_exam_id": type == 'all_exam' ? video_id : "",
+          "life_exam_id": type == 'life_exam' ? video_id : "",
           "action": action,
         },
         options: Options(

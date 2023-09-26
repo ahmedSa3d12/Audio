@@ -4,10 +4,11 @@ import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/utils/change_to_mega_byte.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
-
+import 'package:new_mazoon/features/lessons_of_class/screens/view_video_screen.dart';
 import '../../../core/models/lessonexammodel.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/download_icon_widget.dart';
+import '../../../core/widgets/pdf_screen.dart';
 import '../../start_trip/widgets/class_exam_icon_widget.dart';
 import '../cubit/lessons_class_cubit.dart';
 
@@ -90,9 +91,9 @@ class LessonsExamItemWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              flex: 3,
+                              flex: 1,
                               child: ClassExamIconWidget(
-                                textData: ' ${model.numOfQuestion} Q',
+                                textData: ' ${model.numOfQuestion}',
                                 type: 'text',
                                 iconColor: AppColors.gray7,
                                 onclick: () {
@@ -101,51 +102,88 @@ class LessonsExamItemWidget extends StatelessWidget {
                               ),
                             ),
                             Expanded(
-                              flex: 4,
+                              flex: 1,
                               child: ClassExamIconWidget(
-                                textData: '${model.totalTime} min',
+                                textData: '${model.totalTime}',
                                 type: 'text',
                                 iconColor: AppColors.gray7,
                                 onclick: () {},
                               ),
                             ),
                             Expanded(
-                              flex: 3,
+                              flex: 1,
                               child: ClassExamIconWidget(
                                 radius: 1000,
-                                type: ImageAssets.noLoveIcon,
-                                iconColor: AppColors.error,
+                                type: ImageAssets.loveIcon,
+                                iconLoveColor:
+                                    cubit.examsofLessons[index].examsFavorite ==
+                                            'un_favorite'
+                                        ? AppColors.white
+                                        : AppColors.red,
+                                iconColor: HexColor(cubit
+                                    .examsofLessons[index].backgroundColor),
                                 onclick: () {
                                   cubit.favourite(
-                                       cubit.examsofLessons[index].type,
+                                      'online_exam',
                                       cubit.examsofLessons[index]
                                                   .examsFavorite ==
                                               'un_favorite'
                                           ? 'favorite'
                                           : 'un_favorite',
                                       index);
-                                  print('wwwwwwwwwwwwwwwww');
                                 },
                               ),
                             ),
-                            Expanded(
-                              flex: 3,
-                              child: ClassExamIconWidget(
-                                radius: 1000,
-                                type: ImageAssets.answerPdfIcon,
-                                iconColor: AppColors.goldColor,
-                                onclick: () {},
-                              ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: ClassExamIconWidget(
-                                type: ImageAssets.videoIcon,
-                                iconColor: AppColors.skyColor,
-                                onclick: () {},
-                                radius: 1000,
-                              ),
-                            ),
+                            cubit.examsofLessons[index].answerPdfFile == null
+                                ? Container()
+                                : Expanded(
+                                    flex: 1,
+                                    child: ClassExamIconWidget(
+                                      radius: 1000,
+                                      type: ImageAssets.answerPdfIcon,
+                                      iconColor: AppColors.goldColor,
+                                      onclick: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => PdfScreen(
+                                                      pdfLink: cubit
+                                                          .examsofLessons[index]
+                                                          .answerPdfFile,
+                                                      pdfTitle: cubit
+                                                          .examsofLessons[index]
+                                                          .name,
+                                                    )));
+
+                                        ///open pdf answer
+                                      },
+                                    ),
+                                  ),
+                            cubit.examsofLessons[index].answerVideoFile == null
+                                ? Container()
+                                : Expanded(
+                                    flex: 1,
+                                    child: ClassExamIconWidget(
+                                      type: ImageAssets.videoIcon,
+                                      iconColor: AppColors.skyColor,
+                                      onclick: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AnswerVideoViewScreen(
+                                                        videoId: cubit
+                                                            .examsofLessons[
+                                                                index]
+                                                            .id,
+                                                        videoLink: cubit
+                                                            .examsofLessons[
+                                                                index]
+                                                            .answerVideoFile)));
+                                      },
+                                      radius: 1000,
+                                    ),
+                                  ),
                           ],
                         ),
                       )
@@ -166,8 +204,8 @@ class LessonsExamItemWidget extends StatelessWidget {
                   cubit.downloadPdfOfLesson(model);
                 },
                 child: SizedBox(
-                  width: 25,
-                  height: 25,
+                  width: getSize(context) / 14,
+                  height: getSize(context) / 14,
                   child: model.progress != 0
                       ? CircularProgressIndicator(
                           value: model.progress,

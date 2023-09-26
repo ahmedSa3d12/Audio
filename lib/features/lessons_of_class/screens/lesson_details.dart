@@ -116,7 +116,6 @@ class _LessonDetailsState extends State<LessonDetails>
                         children: [
                           VideoLessonScreen(),
                           LessonExamScreen(model: widget.model),
-                          // ClassesExamsScreen(),
                         ],
                       ),
                     )

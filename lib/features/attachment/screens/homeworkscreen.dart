@@ -130,13 +130,14 @@ class _HomeWorkScreenState extends State<HomeWorkScreen> {
                                             InkWell(
                                               onTap: () {
                                                 cubit.favourite(
-                                                    'video_part',
+                                                    'online_exam',
                                                     cubit.homeworkLessonData!
                                                                 .examsFavorite ==
                                                             "un_favorite"
                                                         ? 'favorite'
                                                         : 'un_favorite',
-                                                    widget.lessonId!);
+                                                    cubit.homeworkLessonData!
+                                                        .id);
                                                 print('fav');
                                               },
                                               child: Padding(

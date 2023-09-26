@@ -135,7 +135,7 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
   }
 
   favourite(String type, String action, int index) async {
-    final response = await api.addToFavourite(
+    final response = await api.addToFavouriteExam(
       action: action,
       video_id: examsofLessons[index].id,
       type: type,
