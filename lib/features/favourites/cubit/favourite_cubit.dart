@@ -7,4 +7,9 @@ part 'favourite_state.dart';
 class FavouriteCubit extends Cubit<FavouriteState> {
   FavouriteCubit(this.api) : super(FavouriteInitial());
   ServiceApi api;
+  int currentIndex = 0 ;
+  selectTap(int index) {
+    currentIndex = index;
+    emit(ChangeCurrentIndexTapState());
+  }
 }

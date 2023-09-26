@@ -14,10 +14,11 @@ import '../../sources_and_references/cubit/source_references_cubit.dart';
 
 class HomePageAppBarWidget extends StatelessWidget {
   const HomePageAppBarWidget(
-      {Key? key, this.isHome = true, this.isSource = false})
+      {Key? key, this.isHome = true, this.isSource = false,this.isFavourite = false})
       : super(key: key);
   final bool? isHome;
   final bool? isSource;
+  final bool? isFavourite;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +58,7 @@ class HomePageAppBarWidget extends StatelessWidget {
                           borderRadius: 90,
                         ),
                         SizedBox(width: getSize(context) / 22),
+                        //info column
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,6 +126,7 @@ class HomePageAppBarWidget extends StatelessWidget {
                             Row(
                               children: [
                                 SizedBox(width: getSize(context) / 88),
+                                //notification
                                 InkWell(
                                   onTap: () {
                                     Navigator.of(context).push(
@@ -178,6 +181,7 @@ class HomePageAppBarWidget extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(width: getSize(context) / 24),
+                                //info
                                 Visibility(
                                   visible: isHome!,
                                   child: InkWell(
@@ -192,14 +196,24 @@ class HomePageAppBarWidget extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+
                                 Visibility(
                                   visible: isHome!,
                                   child: SizedBox(width: getSize(context) / 24),
                                 ),
-                                MySvgWidget(
-                                  path: ImageAssets.loveIcon,
-                                  size: getSize(context) / 16,
-                                  imageColor: AppColors.white,
+                                //favourite
+                                Visibility(
+                                 visible:!isFavourite!,
+                                  child: InkWell(
+                                    onTap:(){
+                                      Navigator.pushNamed(context, Routes.favouriteScreen);
+                                    },
+                                    child: MySvgWidget(
+                                      path: ImageAssets.loveIcon,
+                                      size: getSize(context) / 16,
+                                      imageColor: AppColors.white,
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
                                     width: isHome!
