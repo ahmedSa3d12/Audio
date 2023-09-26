@@ -41,7 +41,7 @@ class ClassesExamDatumModel {
   final String? name;
   final String? type;
   final String? backgroundColor;
-  final String? examsFavorite;
+  String? examsFavorite;
   final dynamic pdfExamUpload;
   final dynamic answerPdfFile;
   final dynamic answerVideoFile;

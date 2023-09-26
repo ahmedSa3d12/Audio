@@ -8,6 +8,7 @@ import '../../../core/models/class_data.dart';
 import '../../../core/models/classes_exam_data_model.dart';
 import '../../../core/models/exam_classes_model.dart';
 import '../../../core/models/home_page_model.dart';
+import '../../../core/utils/dialogs.dart';
 
 part 'start_trip_state.dart';
 
@@ -129,6 +130,24 @@ class StartTripCubit extends Cubit<StartTripState> {
         examClassList.removeAt(index);
         examClassList.insert(index, model);
         emit(StartTripExamClassesLoaded());
+      },
+    );
+  }
+
+  favourite(String type, String action, int video_id, int index) async {
+    final response = await api.addToFavouriteExam(
+      action: action,
+      video_id: video_id,
+      type: type,
+    );
+    response.fold(
+      (l) => emit(ErrorAddHomeWorkToFavorite()),
+      (r) {
+        examClassList[index].examsFavorite == "un_favorite"
+            ? examClassList[index].examsFavorite = "favorite"
+            : examClassList[index].examsFavorite = "un_favorite";
+        successGetBar(r.message);
+        emit(LoadedAddHomeWorkToFavorite());
       },
     );
   }

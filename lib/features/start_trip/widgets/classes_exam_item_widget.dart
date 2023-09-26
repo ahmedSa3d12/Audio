@@ -12,7 +12,6 @@ import '../../../core/models/classes_exam_data_model.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/download_icon_widget.dart';
 import '../../../core/widgets/pdf_screen.dart';
-import '../../lessons_of_class/cubit/lessons_class_cubit.dart';
 import 'class_exam_icon_widget.dart';
 
 class ClassesExamItemWidget extends StatelessWidget {
@@ -123,11 +122,12 @@ class ClassesExamItemWidget extends StatelessWidget {
                                         : AppColors.red,
                                 iconColor: HexColor(model.backgroundColor!),
                                 onclick: () {
-                                  context.read<LessonsClassCubit>().favourite(
+                                  cubit.favourite(
                                       'online_exam',
                                       model.examsFavorite == 'un_favorite'
                                           ? 'favorite'
                                           : 'un_favorite',
+                                      model.id!,
                                       index);
                                 },
                               ),
