@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_mazoon/features/attachment/screens/attachmentscreen.dart';
 import 'package:new_mazoon/features/change_lang/screen/screen_change.dart';
+import 'package:new_mazoon/features/favourites/screens/favourite_screen.dart';
 import 'package:new_mazoon/features/lessonExamScreen/screens/resultexamscreen.dart';
 import 'package:new_mazoon/features/lessons_of_class/screens/lesson_details.dart';
 import 'package:new_mazoon/features/navigation_bottom/screens/navigation_bottom.dart';
@@ -26,6 +27,7 @@ import '../../features/lessonExamScreen/screens/lessonexamscreen.dart';
 import '../../features/make_exam/screen/make_exam.dart';
 import '../../features/make_exam/screen/resultexamscreen.dart';
 import '../../features/make_exam/screen/startexam.dart';
+import '../../features/notificationpage/presentation/screens/notification_page.dart';
 import '../../features/paperexamRegister/presentation/screens/paper_exam_register.dart';
 import '../../features/lessons_of_class/screens/lesson_class.dart';
 import '../../features/login/screens/login.dart';
@@ -86,6 +88,8 @@ class Routes {
   static const String resultOfExamScreen = '/resultOfExamScreen';
   static const String changeLanguageScreen = '/changeLanguageScreen';
   static const String suggestScreen = '/AddYourSuggest';
+  static const String favouriteScreen = '/favouriteScreen';
+  static const String notificationScreen = '/notificationScreen';
 }
 
 class AppRoutes {
@@ -326,6 +330,20 @@ class AppRoutes {
       case Routes.suggestScreen:
         return PageTransition(
           child: AddYourSuggest(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+      case Routes.favouriteScreen:
+        return PageTransition(
+          child: FavouriteScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+        case Routes.notificationScreen:
+        return PageTransition(
+          child: NotificationScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),

@@ -31,6 +31,7 @@ import 'features/downloads/cubit/downloadscubit.dart';
 import 'features/exam_hero/cubit/exam_hero_cubit.dart';
 import 'features/examdegreeaccreditation/cubit/examdegreedependcubit.dart';
 import 'features/examinstructions/cubit/examinstructions_cubit.dart';
+import 'features/favourites/cubit/favourite_cubit.dart';
 import 'features/invite_friends/cubit/cubit.dart';
 import 'features/lessonExamScreen/cubit/questionlessonexamcubit.dart';
 import 'features/notes/cubit/note_cubit.dart';
@@ -257,6 +258,9 @@ class _ElmazoonState extends State<Elmazoon> {
         ),
         BlocProvider(
           create: (_) => injector.serviceLocator<RateAppCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => injector.serviceLocator<FavouriteCubit>(),
         ),
         //    BlocProvider(
         //   create: (_) => injector.serviceLocator<RateAppCubit>(),

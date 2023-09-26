@@ -109,6 +109,7 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                 }
                               },
                               child: LessonsExamItemWidget(
+                                index: index,
                                 model: cubit.examsofLessons[index],
                               ),
                             );
