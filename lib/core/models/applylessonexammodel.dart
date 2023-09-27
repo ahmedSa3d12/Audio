@@ -1,6 +1,7 @@
+import 'package:dio/dio.dart';
+
 class ApplyStudentExam {
   String question;
-
   String? answer;
   String? audio;
   String? image;
@@ -11,13 +12,15 @@ class ApplyStudentExam {
       this.answer,
       this.audio,
       this.image});
-  Map<String, dynamic> toJson(int index) {
+  Future<Map<String, dynamic>> toJson(int index) async {
     return {
       'details[$index][question]': question,
       'timer': timer,
       if (answer != null) 'details[$index][answer]': answer,
-      if (audio != null) 'details[$index][audio]': audio,
-      if (image != null) 'details[$index][image]': image,
+      if (audio != '')
+        'details[$index][audio]': await MultipartFile.fromFile(audio!),
+      if (image != '')
+        'details[$index][image]': await MultipartFile.fromFile(image!),
     };
   }
 }

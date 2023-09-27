@@ -49,7 +49,7 @@ class _AttachmentScreenState extends State<AttachmentScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: getSize(context) / 4.2),
+                  SizedBox(height: getSize(context) / 3.5),
                   TitleWithCircleBackgroundWidget(title: widget.model.name),
                   SizedBox(height: getSize(context) / 22),
                   Flexible(

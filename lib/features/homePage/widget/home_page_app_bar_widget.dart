@@ -14,7 +14,10 @@ import '../../sources_and_references/cubit/source_references_cubit.dart';
 
 class HomePageAppBarWidget extends StatelessWidget {
   const HomePageAppBarWidget(
-      {Key? key, this.isHome = true, this.isSource = false,this.isFavourite = false})
+      {Key? key,
+      this.isHome = true,
+      this.isSource = false,
+      this.isFavourite = false})
       : super(key: key);
   final bool? isHome;
   final bool? isSource;
@@ -37,7 +40,7 @@ class HomePageAppBarWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: getSize(context) / 14,
+          right: getSize(context) / 22,
           left: getSize(context) / 44,
           child: BlocBuilder<NavigationCubit, NavigationState>(
             builder: (context, state) {
@@ -57,7 +60,7 @@ class HomePageAppBarWidget extends StatelessWidget {
                           height: getSize(context) / 7.8,
                           borderRadius: 90,
                         ),
-                        SizedBox(width: getSize(context) / 22),
+                        SizedBox(width: getSize(context) / 44),
                         //info column
                         Expanded(
                           child: Column(
@@ -78,42 +81,34 @@ class HomePageAppBarWidget extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 4.0),
+                                padding: EdgeInsets.only(
+                                    top: getSize(context) / 100),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        lang == 'ar'
-                                            ? cubit
-                                                .userModel!.data!.season.nameAr
-                                            : cubit
-                                                .userModel!.data!.season.nameEn,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.fade,
-                                        style: TextStyle(
-                                            color: AppColors.white,
-                                            fontSize: getSize(context) / 28,
-                                            fontWeight: FontWeight.w500),
-                                      ),
+                                    Text(
+                                      lang == 'ar'
+                                          ? cubit.userModel!.data!.season.nameAr
+                                          : cubit
+                                              .userModel!.data!.season.nameEn,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                          color: AppColors.white,
+                                          fontSize: getSize(context) / 28,
+                                          fontWeight: FontWeight.w500),
                                     ),
-                                    // SizedBox(width: 10),
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        lang == 'ar'
-                                            ? cubit.userModel!.data!.term.nameAr
-                                            : cubit
-                                                .userModel!.data!.term.nameEn,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            color: AppColors.white,
-                                            fontSize: getSize(context) / 28,
-                                            fontWeight: FontWeight.w500),
-                                      ),
+                                    SizedBox(height: getSize(context) / 100),
+                                    Text(
+                                      lang == 'ar'
+                                          ? cubit.userModel!.data!.term.nameAr
+                                          : cubit.userModel!.data!.term.nameEn,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                          color: AppColors.white,
+                                          fontSize: getSize(context) / 28,
+                                          fontWeight: FontWeight.w500),
                                     ),
                                   ],
                                 ),
@@ -203,10 +198,11 @@ class HomePageAppBarWidget extends StatelessWidget {
                                 ),
                                 //favourite
                                 Visibility(
-                                 visible:!isFavourite!,
+                                  visible: !isFavourite!,
                                   child: InkWell(
-                                    onTap:(){
-                                      Navigator.pushNamed(context, Routes.favouriteScreen);
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, Routes.favouriteScreen);
                                     },
                                     child: MySvgWidget(
                                       path: ImageAssets.loveIcon,

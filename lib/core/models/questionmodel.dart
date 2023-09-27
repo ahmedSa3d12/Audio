@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class MainQuestionModel {
   QuestionDateModel data;
   String message;
@@ -27,7 +29,6 @@ class QuestionDateModel {
   int id;
   String name;
   dynamic note;
-
   DateTime dateExam;
   int quizMinute;
   List<QuestionModel> questions;
@@ -71,6 +72,9 @@ class QuestionModel {
   int degree;
   bool isSolving;
   String note;
+  // TextEditingController? answerController = TextEditingController();
+  String? imagePath;
+  String? recordPath;
   List<AnswersModel> answers;
   DateTime createdAt;
   DateTime updatedAt;
@@ -84,6 +88,9 @@ class QuestionModel {
     required this.note,
     required this.answers,
     this.isSolving = false,
+    // this.answerController
+    this.imagePath,
+    this.recordPath,
     required this.createdAt,
     required this.updatedAt,
   });

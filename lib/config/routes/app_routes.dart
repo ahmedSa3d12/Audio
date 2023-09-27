@@ -341,7 +341,7 @@ class AppRoutes {
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),
         );
-        case Routes.notificationScreen:
+      case Routes.notificationScreen:
         return PageTransition(
           child: NotificationScreen(),
           type: PageTransitionType.fade,

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:new_mazoon/core/utils/toast_message_method.dart';
+import 'package:record/record.dart';
 
 import '../../../config/routes/app_routes.dart';
 import '../../../core/models/applylessonexammodel.dart';
@@ -48,8 +51,6 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
       required String exam_type,
       required int minutesLeft,
       required BuildContext context}) async {
-//////////////////////
-
     ////////////////////
     emit(LoadingApplyLessonExam());
     setDetailsList(minutesLeft);
@@ -63,42 +64,18 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
           Navigator.pushReplacementNamed(
               context, arguments: r.data, Routes.resultOfLessonExam);
           details.clear();
+          toastMessage(r.message, context);
         } else if (r.code == 416) {
           toastMessage(r.message, context);
         } else {
           toastMessage(r.message, context);
         }
-
         emit(LoadedApplyLessonExam());
       },
     );
   }
 
-//////////////fill List of details
-  // setDetailsList(int minutesLeft) {
-  //   if (questionOfLessonData!.questions.length == details.length) {
-  //     print('all added');
-  //   } else {
-  //     int missingDetailsCount =
-  //         questionOfLessonData!.questions.length - details.length;
-  //     if (missingDetailsCount > 0) {}
-  //     for (int i = 0; i < questionOfLessonData!.questions.length; i++) {
-  //       for (int j = 0; j < details.length; j++) {
-  //         if (questionOfLessonData!.questions[i].id ==
-  //             int.parse(details[j].question)) {
-  //           print('skip ${details[j].question}');
-  //           continue;
-  //         } else {
-  //           print('---------------------added item $j-----------');
-  //           addUniqueApplyMakeExam(ApplyStudentExam(
-  //               timer: (questionOfLessonData!.quizMinute - minutesLeft),
-  //               answer: '',
-  //               question: questionOfLessonData!.questions[i].id.toString()));
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
+//////////////fill List of details if you don't add answer
   setDetailsList(int minutesLeft) {
     for (int i = 0; i < questionOfLessonData!.questions.length; i++) {
       bool questionExistsInDetails = details.any((detail) =>
@@ -107,6 +84,8 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
         addUniqueApplyMakeExam(ApplyStudentExam(
             timer: (questionOfLessonData!.quizMinute - minutesLeft),
             answer: '',
+            audio: '',
+            image: '',
             question: questionOfLessonData!.questions[i].id.toString()));
       }
     }
@@ -134,6 +113,29 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
       details.add(exam);
     }
   }
+
+  // addUniqueApplyMakeExam2(ApplyStudentExam exam) {
+  //   // details.add(exam);
+  //   int isfound = -1;
+  //   if (details.isEmpty) {
+  //     details.add(exam);
+  //     print('item added ${exam.image}');
+  //     print('item added ${exam.audio}');
+  //   } else {
+  //     for (int i = 0; i < details.length; i++) {
+  //       if (details[i].question == exam.question) {
+  //         isfound = i;
+  //         return;
+  //       }
+  //     }
+  //     if (isfound != -1) {
+  //       details.removeAt(isfound);
+  //     }
+  //     details.add(exam);
+  //     print('item2 added ${exam.image}');
+  //     print('item2 added ${exam.audio}');
+  //   }
+  // }
 
   ///
   ///
@@ -173,5 +175,77 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
 //nav
       emit(LoadedAddNewtryExamLessonExam());
     });
+  }
+
+  //////////////
+  bool isRecording = false;
+  final audioRecorder = Record();
+  XFile? imageFile;
+  // String imagePath = '';
+  // String audioPath = '';
+  TextEditingController answerController = TextEditingController();
+  pickImage(
+      {required String type,
+      required dynamic timer,
+      required int index}) async {
+    imageFile = await ImagePicker().pickImage(
+      source: type == 'camera' ? ImageSource.camera : ImageSource.gallery,
+    );
+    CroppedFile? croppedFile = await ImageCropper.platform.cropImage(
+      sourcePath: imageFile!.path,
+      aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio7x5,
+        CropAspectRatioPreset.ratio16x9
+      ],
+      cropStyle: CropStyle.rectangle,
+      compressFormat: ImageCompressFormat.png,
+      compressQuality: 90,
+    );
+    questionOfLessonData!.questions[index].imagePath = croppedFile!.path;
+    ;
+
+    ///add answer
+    addUniqueApplyMakeExam(ApplyStudentExam(
+      question: questionOfLessonData!.questions[index].id.toString(),
+      image: questionOfLessonData!.questions[index].imagePath!,
+      timer: timer,
+      answer: '',
+    ));
+    solveQuestion(index);
+  }
+
+  Future<void> start() async {
+    try {
+      if (await audioRecorder.hasPermission()) {
+        await audioRecorder.start();
+        isRecording = await audioRecorder.isRecording();
+        pos = 200;
+        emit(LoadedAnswerQuestiionExam());
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  double pos = 50;
+
+  Future<void> stop(
+      {required String question,
+      required dynamic timer,
+      required int index}) async {
+    questionOfLessonData!.questions[index].recordPath =
+        await audioRecorder.stop();
+    isRecording = false;
+    pos = 50;
+    await addUniqueApplyMakeExam(ApplyStudentExam(
+      question: questionOfLessonData!.questions[index].id.toString(),
+      timer: timer,
+      answer: '',
+      audio: questionOfLessonData!.questions[index].recordPath,
+    ));
+    solveQuestion(index);
+    emit(LoadedAnswerQuestiionExam2());
   }
 }

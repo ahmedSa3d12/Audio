@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
@@ -6,8 +7,10 @@ import 'package:new_mazoon/features/attachment/cubit/attachmentstate.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
+import '../../../core/utils/dialogs.dart';
 import '../../../core/utils/getsize.dart';
 import '../../../core/widgets/my_svg_widget.dart';
+import '../../../core/widgets/pdf_screen.dart';
 
 class SummaryScreen extends StatefulWidget {
   const SummaryScreen({super.key});
@@ -44,64 +47,88 @@ class _SummaryScreenState extends State<SummaryScreen> {
                         physics: const BouncingScrollPhysics(),
                         itemCount: cubit.pdfLessonData.length,
                         itemBuilder: (context, index) {
-                          return Container(
-                            padding: EdgeInsets.all(getSize(context) / 22),
-                            margin: EdgeInsets.all(getSize(context) / 100),
-                            decoration: BoxDecoration(
-                                color: HexColor(
-                                    cubit.pdfLessonData[index].backgroundColor),
-                                borderRadius: BorderRadius.circular(
-                                    getSize(context) / 32)),
-                            width: double.infinity,
-                            child: Row(
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      cubit.pdfLessonData[index].name,
-                                      overflow: TextOverflow.clip,
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                          color: darken(
-                                              HexColor(cubit
-                                                  .pdfLessonData[index]
-                                                  .backgroundColor),
-                                              0.4),
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: getSize(context) / 22),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: getSize(context) / 44),
-                                      child: Text(
-                                        '2MB',
+                          return InkWell(
+                            onTap: () {
+                              if (cubit.pdfLessonData[index].status ==
+                                  'opened') {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => PdfScreen(
+                                              pdfLink: cubit
+                                                  .pdfLessonData[index].link,
+                                              pdfTitle: cubit
+                                                  .pdfLessonData[index].name,
+                                            )));
+                              } else {
+                                errorGetBar('have_access'.tr());
+                              }
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(getSize(context) / 22),
+                              margin: EdgeInsets.all(getSize(context) / 100),
+                              decoration: BoxDecoration(
+                                  color: HexColor(cubit
+                                      .pdfLessonData[index].backgroundColor),
+                                  borderRadius: BorderRadius.circular(
+                                      getSize(context) / 32)),
+                              width: double.infinity,
+                              child: Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        cubit.pdfLessonData[index].name,
+                                        overflow: TextOverflow.clip,
+                                        maxLines: 1,
                                         style: TextStyle(
-                                          color: darken(
-                                              HexColor(cubit
-                                                  .pdfLessonData[index]
-                                                  .backgroundColor),
-                                              0.4),
+                                            color: darken(
+                                                HexColor(cubit
+                                                    .pdfLessonData[index]
+                                                    .backgroundColor),
+                                                0.4),
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: getSize(context) / 22),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: getSize(context) / 44),
+                                        child: Text(
+                                          cubit.pdfLessonData[index].size
+                                                  .toString() +
+                                              ' MB',
+                                          style: TextStyle(
+                                            color: darken(
+                                                HexColor(cubit
+                                                    .pdfLessonData[index]
+                                                    .backgroundColor),
+                                                0.4),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Spacer(),
-                                CircleAvatar(
-                                  //color from back
-                                  backgroundColor: darken(
-                                      HexColor(cubit.pdfLessonData[index]
-                                          .backgroundColor),
-                                      0.4),
-                                  child: MySvgWidget(
-                                      //check if 100% done of lock
-                                      path: ImageAssets.lockIcon,
-                                      imageColor: AppColors.white,
-                                      size: getSize(context) / 22),
-                                )
-                              ],
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  CircleAvatar(
+                                    //color from back
+                                    backgroundColor: darken(
+                                        HexColor(cubit.pdfLessonData[index]
+                                            .backgroundColor),
+                                        0.4),
+                                    child: MySvgWidget(
+                                        path:
+                                            cubit.pdfLessonData[index].status ==
+                                                    'opened'
+                                                ? ImageAssets.doneIcon
+                                                : ImageAssets.lockIcon,
+                                        imageColor: AppColors.white,
+                                        size: getSize(context) / 22),
+                                  )
+                                ],
+                              ),
                             ),
                           );
                         },

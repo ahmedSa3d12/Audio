@@ -29,6 +29,7 @@ class LessonAudioData {
   String name;
   String imageOfSubjectClass;
   String type;
+  int size;
   String backgroundColor;
   String status;
   String subscribe;
@@ -44,6 +45,7 @@ class LessonAudioData {
     required this.backgroundColor,
     required this.status,
     required this.subscribe,
+    required this.size,
     required this.link,
     required this.createdAt,
     required this.updatedAt,
@@ -54,6 +56,7 @@ class LessonAudioData {
         id: json["id"],
         imageOfSubjectClass: json['image_of_subject_class'],
         name: json["name"],
+        size: json['size'],
         type: json["type"],
         backgroundColor: json["background_color"],
         status: json["status"],
@@ -66,6 +69,7 @@ class LessonAudioData {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
+        "size": size,
         "type": type,
         "background_color": backgroundColor,
         "status": status,

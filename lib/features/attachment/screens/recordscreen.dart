@@ -104,24 +104,24 @@ class _RecordScreenScreenState extends State<RecordScreenScreen> {
                                                   ),
                                                   .4),
                                               size: getSize(context) / 22),
-                                          // Padding(
-                                          //   padding: EdgeInsets.symmetric(
-                                          //       horizontal:
-                                          //           getSize(context) / 44),
-                                          //   child: Text(
-                                          //     '13 min',
-                                          //     style: TextStyle(
-                                          //       color: darken(
-                                          //           HexColor(
-                                          //             cubit
-                                          //                 .audioLessonData[
-                                          //                     index]
-                                          //                 .backgroundColor,
-                                          //           ),
-                                          //           .4),
-                                          //     ),
-                                          //   ),
-                                          // ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal:
+                                                    getSize(context) / 44),
+                                            child: Text(
+                                              '${cubit.audioLessonData[index].size} min',
+                                              style: TextStyle(
+                                                color: darken(
+                                                    HexColor(
+                                                      cubit
+                                                          .audioLessonData[
+                                                              index]
+                                                          .backgroundColor,
+                                                    ),
+                                                    .4),
+                                              ),
+                                            ),
+                                          ),
                                         ],
                                       )
                                     ],

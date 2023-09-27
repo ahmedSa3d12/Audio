@@ -1045,9 +1045,8 @@ class ServiceApi {
     String lan = await Preferences.instance.getSavedLang();
     try {
       Map<String, dynamic> requestBody = {};
-
       for (int i = 0; i < details.length; i++) {
-        requestBody.addAll(details[i].toJson(i));
+        requestBody.addAll(await details[i].toJson(i));
       }
       print("ahmed");
       print(requestBody);

@@ -273,4 +273,7 @@
   "lesson": "lessons",
   "have_access":"you don't have access this lesson",
   "enter_code":"enter code"
+  ,
+  "enter_ans":"enter answer"
+
 }
