@@ -14,6 +14,7 @@ import '../error/failures.dart';
 import '../models/addnewexamtry.dart';
 import '../models/addnotebystudent.dart';
 import '../models/ads_model.dart';
+import '../models/all_favourite.dart';
 import '../models/applaymakeexammodel.dart';
 import '../models/applylessonexammodel.dart';
 import '../models/audiolessonmodel.dart';
@@ -92,6 +93,27 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
+
+  //get  all favourite
+  Future<Either<Failure,AllFavourite>> getAllFavourite()async{
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try{
+
+      final response = await dio.get(
+        EndPoints.getFavoriteAllUrl,
+        options: Options(headers: {
+          'Authorization': loginModel.data!.token,
+          'Accept-Language': lan
+        }),
+      );
+
+     return Right(AllFavourite.fromJson(response));
+    } on ServerException{
+      return Left(ServerFailure());
+    }
+  }
+
 
   Future<Either<Failure, CommunicationModel>> getCommunicationData() async {
     try {

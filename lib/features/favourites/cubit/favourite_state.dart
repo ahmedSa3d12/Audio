@@ -5,3 +5,6 @@ abstract class FavouriteState {}
 
 class FavouriteInitial extends FavouriteState {}
 class ChangeCurrentIndexTapState extends FavouriteState {}
+class SuccessfullyGetFavourite extends FavouriteState {}
+class LoadingGetFavourite extends FavouriteState {}
+class FailureGetFavourite extends FavouriteState {}

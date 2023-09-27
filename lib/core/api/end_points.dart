@@ -56,6 +56,7 @@ class EndPoints {
   static const String updateVideoTimeUrl = '${baseUrl}video-update-time/';
   static const String applyLessonExam = '${baseUrl}ExamEntry/exam/';
   static const String rateYourSelf = "${baseUrl}lesson/exam-details-by-examId/";
+  static const String getFavoriteAllUrl = "${baseUrl}favorite/all";
   static const String dependLessonExam =
       "${baseUrl}ExamEntry/exam-degree-depends-with-student/";
 

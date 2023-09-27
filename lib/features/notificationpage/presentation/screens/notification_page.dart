@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/features/notificationpage/presentation/screens/widget/notification_details_widget.dart';
 
 import '../../../../../core/utils/assets_manager.dart';
@@ -14,116 +15,134 @@ import '../../cubit/notification_cubit.dart';
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     NotificationCubit cubit = context.read<NotificationCubit>();
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.secondPrimary,
-        toolbarHeight: 0,
-      ),
-      body:
-      SafeArea(
-      top: false,
-      maintainBottomViewPadding: true,
-    child: Stack(
-    children: [
-        Positioned(
-        top: 0,
-        right: 0,
-        left: 0,
-        bottom: 0,
-     child: BlocBuilder<NotificationCubit, NotificationState>(
-        builder: (context, state) {
-          if (state is NotificationPageError) {
-            return NoDataWidget(
-              onclick: () => cubit.getAllNotification(),
-              title: 'no_date',
-            );
-          }
-          return state is NotificationPageLoading
-              ? ShowLoadingIndicator()
-              : RefreshIndicator(
-                  onRefresh: () async {
-                    cubit.getAllNotification();
-                  },
-                  color: AppColors.primary,
-                  backgroundColor: AppColors.secondPrimary,
-                  child: Stack(
-                    children: [
-                      ListView(
-                        children: [
-                          ...List.generate(
-                            cubit.data != null ? cubit.data!.length : 0,
-                            (index) => InkWell(
-                              child: NotificationDetailsWidget(
-                                notificationModel: cubit.data!.elementAt(index),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        left: 0,
-                        child: CustomPaint(
-                          size: Size(
-                            MediaQuery.of(context).size.width,
-                            (MediaQuery.of(context).size.width *
-                                0.38676844783715014)
-                                .toDouble(),
-                          ),
-                          painter: RPSCustomPainter(),
+        appBar: AppBar(
+          backgroundColor: AppColors.secondPrimary,
+          toolbarHeight: 0,
+        ),
+        body: SafeArea(
+            top: false,
+            maintainBottomViewPadding: true,
+            child: Stack(children: [
+              Positioned(
+                  top: 0,
+                  right: 0,
+                  left: 0,
+                  bottom: 0,
+                  child: BlocBuilder<NotificationCubit, NotificationState>(
+                    builder: (context, state) {
 
-                          child: Container(
-                            // decoration:  BoxDecoration(
-                            //   image: DecorationImage(
-                            //     image: AssetImage(ImageAssets.appBarImage),
-                            //     fit: BoxFit.fill,
-                            //   ),
-                            // ),
-                            height: 120,
-
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-                              child: Column(
+                      if (state is NotificationPageError) {
+                        return NoDataWidget(
+                          onclick: () => cubit.getAllNotification(),
+                          title: 'no_date',
+                        );
+                      }
+                      return state is NotificationPageLoading
+                          ? ShowLoadingIndicator()
+                          : RefreshIndicator(
+                              onRefresh: () async {
+                                cubit.getAllNotification();
+                              },
+                              color: AppColors.primary,
+                              backgroundColor: AppColors.secondPrimary,
+                              child: Stack(
                                 children: [
-                                  Text(
-                                    'notification'.tr(),
-                                    style: TextStyle(
-                                      color: AppColors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
+                                  Padding(
+                                    padding:  EdgeInsets.only(top: getSize(context)*0.3),
+                                    child: cubit.data!.length>0?
+                                    ListView(
+                                      children: [
+                                        ...List.generate(
+                                          cubit.data != null
+                                              ? cubit.data!.length
+                                              : 0,
+                                          (index) => InkWell(
+                                            child: NotificationDetailsWidget(
+                                              notificationModel:
+                                                  cubit.data!.elementAt(index),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ):
+                                    Column(
+                                      mainAxisAlignment:MainAxisAlignment.center,
+                                      crossAxisAlignment:CrossAxisAlignment.center,
+                                      children: [
+                                        Image.asset(ImageAssets.sleepyImage),
+                                        SizedBox(height: 20,),
+                                        Text("no_notifications",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 20
+                                        ),).tr()
+                                      ],
                                     ),
                                   ),
-                                  Text(
-                                    'important_notification'.tr(),
-                                    style: TextStyle(
-                                      color: AppColors.primary,
-                                      fontSize: 16,
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    left: 0,
+                                    child: CustomPaint(
+                                      size: Size(
+                                        MediaQuery.of(context).size.width,
+                                        (MediaQuery.of(context).size.width *
+                                                0.38676844783715014)
+                                            .toDouble(),
+                                      ),
+                                      painter: RPSCustomPainter(),
+                                      child: Container(
+                                        // decoration:  BoxDecoration(
+                                        //   image: DecorationImage(
+                                        //     image: AssetImage(ImageAssets.appBarImage),
+                                        //     fit: BoxFit.fill,
+                                        //   ),
+                                        // ),
+                                        height: 120,
+
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 12, vertical: 15),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                'notification'.tr(),
+                                                style: TextStyle(
+                                                  color: AppColors.white,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                'important_notification'.tr(),
+                                                style: TextStyle(
+                                                  color: AppColors.primary,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-        },
-      )),
-
-      Positioned(
-        top: 0,
-        right: 0,
-        left: 0,
-        child: HomePageAppBarWidget(),
-      ),]
-    )
-    ));
+                            );
+                    },
+                  )),
+              Positioned(
+                top: 0,
+                right: 0,
+                left: 0,
+                child: HomePageAppBarWidget(),
+              ),
+            ])));
   }
 }
