@@ -1,15 +1,19 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-
 import '../../../../core/models/notifications_model.dart';
 import '../../../../core/remote/service.dart';
-import '../../../core/utils/app_colors.dart';
 
 part 'notification_state.dart';
 
 class NotificationCubit extends Cubit<NotificationState> {
   List<NotificationModel>? data;
   final ServiceApi api;
+  final List<bool> switches = List.generate(3, (index) => true);
+
+  changeSwitch(bool value,index){
+    switches[index] = value ;
+    emit(ChangingSwitchCaseState());
+  }
 
 
   NotificationCubit(this.api) : super(NotificationInitial()) {

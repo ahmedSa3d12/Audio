@@ -28,6 +28,7 @@ import '../../features/make_exam/screen/make_exam.dart';
 import '../../features/make_exam/screen/resultexamscreen.dart';
 import '../../features/make_exam/screen/startexam.dart';
 import '../../features/notificationpage/presentation/screens/notification_page.dart';
+import '../../features/notificationpage/presentation/screens/widget/notification_settings_screen.dart';
 import '../../features/paperexamRegister/presentation/screens/paper_exam_register.dart';
 import '../../features/lessons_of_class/screens/lesson_class.dart';
 import '../../features/login/screens/login.dart';
@@ -90,6 +91,7 @@ class Routes {
   static const String suggestScreen = '/AddYourSuggest';
   static const String favouriteScreen = '/favouriteScreen';
   static const String notificationScreen = '/notificationScreen';
+  static const String settingsNotificationScreen = '/notificationSettingsScreen';
 }
 
 class AppRoutes {
@@ -344,6 +346,13 @@ class AppRoutes {
       case Routes.notificationScreen:
         return PageTransition(
           child: NotificationScreen(),
+          type: PageTransitionType.fade,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 800),
+        );
+        case Routes.settingsNotificationScreen:
+        return PageTransition(
+          child: NotificationSettingsScreen(),
           type: PageTransitionType.fade,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),

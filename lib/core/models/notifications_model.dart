@@ -34,34 +34,47 @@ class NotificationModel {
     this.title,
     this.body,
     this.type,
+    this.seen,
+    this.serviceId,
     this.image,
-    this.updatedAt,
     this.createdAt,
+    this.updatedAt,
   });
 
   int? id;
-
   String? title;
   String? body;
   String? type;
+  String? seen;
+  int? serviceId;
   String? image;
-  String? createdAt;
-  String? updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) =>
       NotificationModel(
         id: json["id"],
         title: json["title"] != null ? json["title"] : '',
         body: json["body"] != null ? json["body"] : '',
-        createdAt: json["created_at"],
-        updatedAt: json["updated_at"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        image: json["image"] != null ? json["image"] : '',
+        seen:json["seen"] ,
+        serviceId: json["service_id"],
+        type:  json["type"] != null ? json["type"] : '',
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
         "body": body,
-        "created_at": createdAt,
-        "updated_at": updatedAt,
+    "created_at": "${createdAt!.year.toString().padLeft(4, '0')}-${createdAt!.month.toString().padLeft(2, '0')}-${createdAt!.day.toString().padLeft(2, '0')}",
+    "updated_at": "${updatedAt!.year.toString().padLeft(4, '0')}-${updatedAt!.month.toString().padLeft(2, '0')}-${updatedAt!.day.toString().padLeft(2, '0')}",
+        // "created_at": createdAt,
+        // "updated_at": updatedAt,
+        "service_id":serviceId,
+       "type":type,
+       "seen":seen,
+       "image":image
       };
 }

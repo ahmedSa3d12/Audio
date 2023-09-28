@@ -10,15 +10,16 @@ class CustomButton extends StatelessWidget {
       required this.onClick,
       this.paddingHorizontal = 0,
       this.isLoading = false,
-      this.borderRadius = 8,
+      this.borderRadius = 10,
       this.height,
       this.textcolor = Colors.white})
       : super(key: key);
   final String text;
   final Color color;
+
   final Color textcolor;
   final double paddingHorizontal;
-  final double? borderRadius;
+  final double borderRadius;
   final VoidCallback onClick;
   double? height;
   bool isLoading;
@@ -34,7 +35,7 @@ class CustomButton extends StatelessWidget {
           alignment: Alignment.center,
           height: height ?? getSize(context) / 10,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: color),
+              borderRadius: BorderRadius.circular(borderRadius), color: color),
           child: isLoading
               ? CircularProgressIndicator(color: AppColors.white)
               : Text(

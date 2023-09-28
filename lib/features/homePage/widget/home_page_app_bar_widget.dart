@@ -17,11 +17,13 @@ class HomePageAppBarWidget extends StatelessWidget {
       {Key? key,
       this.isHome = true,
       this.isSource = false,
-      this.isFavourite = false})
+      this.isFavourite = false,
+      this.isNotification= false})
       : super(key: key);
   final bool? isHome;
   final bool? isSource;
   final bool? isFavourite;
+  final bool isNotification;
 
   @override
   Widget build(BuildContext context) {
@@ -122,57 +124,60 @@ class HomePageAppBarWidget extends StatelessWidget {
                               children: [
                                 SizedBox(width: getSize(context) / 88),
                                 //notification
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                NotificationScreen()));
-                                  },
-                                  child: Stack(
-                                    children: [
-                                      SizedBox(
-                                        height: getSize(context) / 10,
-                                        width: getSize(context) / 10,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            MySvgWidget(
-                                              path:
-                                                  ImageAssets.notificationsIcon,
-                                              size: getSize(context) / 16,
-                                              imageColor: AppColors.white,
-                                            ),
-                                          ],
+                                Visibility(
+                                  visible:!isNotification,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  NotificationScreen()));
+                                    },
+                                    child: Stack(
+                                      children: [
+                                        SizedBox(
+                                          height: getSize(context) / 10,
+                                          width: getSize(context) / 10,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              MySvgWidget(
+                                                path:
+                                                    ImageAssets.notificationsIcon,
+                                                size: getSize(context) / 16,
+                                                imageColor: AppColors.white,
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Positioned(
-                                        top: 0,
-                                        right: 0,
-                                        child: Container(
-                                          width: getSize(context) / 20,
-                                          height: getSize(context) / 20,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      getSize(context) / 22),
-                                              color: AppColors.white),
-                                          child: Center(
-                                            child: Text(
-                                              '2',
-                                              style: TextStyle(
-                                                fontSize: getSize(context) / 28,
-                                                color: AppColors.primary,
-                                                fontWeight: FontWeight.bold,
+                                        Positioned(
+                                          top: 0,
+                                          right: 0,
+                                          child: Container(
+                                            width: getSize(context) / 20,
+                                            height: getSize(context) / 20,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        getSize(context) / 22),
+                                                color: AppColors.white),
+                                            child: Center(
+                                              child: Text(
+                                                '2',
+                                                style: TextStyle(
+                                                  fontSize: getSize(context) / 28,
+                                                  color: AppColors.primary,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      )
-                                    ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 SizedBox(width: getSize(context) / 24),

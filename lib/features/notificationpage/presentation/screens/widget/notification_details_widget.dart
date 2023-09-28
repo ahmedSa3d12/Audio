@@ -4,12 +4,18 @@ import '../../../../../../core/utils/app_colors.dart';
 import '../../../../../core/models/notifications_model.dart';
 
 class NotificationDetailsWidget extends StatelessWidget {
+final  List<Color> mainColors = [AppColors.primary,AppColors.orange,AppColors.purple1];
+ final List<Color> secondaryColors = [AppColors.litePrimary,AppColors.orangelight,AppColors.purple1light];
   NotificationDetailsWidget({
     Key? key,
     required this.notificationModel,
+    this.index = 0,
+    this.seen = "not_seen"
   }) : super(key: key);
 
   final NotificationModel notificationModel;
+  int index ;
+  String seen ;
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +34,12 @@ class NotificationDetailsWidget extends StatelessWidget {
                      Container(
                        padding: EdgeInsets.all(5),
                        decoration: BoxDecoration(
-                         color: AppColors.orangelight,
+                         color: secondaryColors[index],
                          borderRadius: BorderRadius.circular(10)
                        ),
                        child: Icon(
                          Icons.notifications_active,
-                         color: AppColors.orange,),
+                         color: mainColors[index],),
                      ),
                      SizedBox(width: 10,),
                      Text(
@@ -45,9 +51,12 @@ class NotificationDetailsWidget extends StatelessWidget {
                        ),
                      ),
                      SizedBox(width: 5,),
-                     CircleAvatar(
-                       radius: 3,
-                       backgroundColor: AppColors.green,
+                     Visibility(
+                       visible:seen=="not_seen"?true:false ,
+                       child: CircleAvatar(
+                         radius: 3,
+                         backgroundColor: AppColors.green,
+                       ),
                      )
                      // Icon(
                      //   Icons.access_time_filled_rounded,
@@ -76,6 +85,7 @@ class NotificationDetailsWidget extends StatelessWidget {
                  SizedBox(
                    height: 5,
                  ),
+              Text("منذ")
               //   Divider(height: 1, thickness: 1, color: AppColors.unselectedTab)
                ],
              ),
