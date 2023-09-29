@@ -35,7 +35,7 @@ class ExamsScreen extends StatelessWidget {
           child: GridView.builder(
             itemCount: cubit.allFavourite?.data?.onlineExams?.length ??0,
               gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: .80,
+                childAspectRatio: .75,
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 5,
                 crossAxisCount: 2,

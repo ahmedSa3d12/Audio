@@ -85,7 +85,7 @@ final  List<Color> mainColors = [AppColors.primary,AppColors.orange,AppColors.pu
                  SizedBox(
                    height: 5,
                  ),
-              Text("منذ")
+              Text("منذ ${notificationModel.createdAt}")
               //   Divider(height: 1, thickness: 1, color: AppColors.unselectedTab)
                ],
              ),
