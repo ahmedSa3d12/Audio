@@ -17,10 +17,10 @@ class ApplyStudentExam {
       'details[$index][question]': question,
       'timer': timer,
       if (answer != null) 'details[$index][answer]': answer,
-      if (audio != '')
-        'details[$index][audio]': await MultipartFile.fromFile(audio!),
-      if (image != '')
-        'details[$index][image]': await MultipartFile.fromFile(image!),
+      if (audio != null)
+        'details[$index][audio]': await MultipartFile.fromFile(audio ?? ''),
+      if (image != null)
+        'details[$index][image]': await MultipartFile.fromFile(image ?? ''),
     };
   }
 }
