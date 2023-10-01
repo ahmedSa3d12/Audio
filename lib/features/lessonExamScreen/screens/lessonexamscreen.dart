@@ -403,6 +403,9 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                             children: [
                                                               TextField(
                                                                 controller: cubit
+                                                                    .questionOfLessonData!
+                                                                    .questions[
+                                                                        index]
                                                                     .answerController,
                                                                 maxLines: 4,
                                                                 decoration:
@@ -434,7 +437,6 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                                       .isNotEmpty) {
                                                                     cubit.solveQuestion(
                                                                         index);
-
                                                                     cubit
                                                                         .addUniqueApplyMakeExam(
                                                                       ApplyStudentExam(
@@ -447,6 +449,8 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                                           timer: (cubit.questionOfLessonData!.quizMinute -
                                                                               _minutesLeft),
                                                                           answer: cubit
+                                                                              .questionOfLessonData!
+                                                                              .questions[index]
                                                                               .answerController
                                                                               .text),
                                                                     );
@@ -454,6 +458,9 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                                 },
                                                               ),
                                                               cubit
+                                                                      .questionOfLessonData!
+                                                                      .questions[
+                                                                          index]
                                                                       .answerController
                                                                       .text
                                                                       .isNotEmpty
@@ -532,7 +539,7 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                                           InkWell(
                                                                             onTap:
                                                                                 () {
-                                                                              cubit.answerController.text.isNotEmpty
+                                                                              cubit.questionOfLessonData!.questions[index].answerController.text.isNotEmpty
                                                                                   ? cubit.addUniqueApplyMakeExam(ApplyStudentExam(
                                                                                       question: cubit.questionOfLessonData!.questions[index].question,
                                                                                       timer: (cubit.questionOfLessonData!.quizMinute - _minutesLeft),

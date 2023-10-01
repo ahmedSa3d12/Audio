@@ -53,7 +53,7 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
       required BuildContext context}) async {
     ////////////////////
     emit(LoadingApplyLessonExam());
-    setDetailsList(minutesLeft);
+    await setDetailsList(minutesLeft);
     final response = await api.applyLessonExam(
         lessonId: lessonId, exam_type: exam_type, details: details);
     response.fold(
@@ -75,18 +75,21 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
     );
   }
 
-//////////////fill List of details if you don't add answer
+////////////// fill List of details if you don't add answer
   setDetailsList(int minutesLeft) {
     for (int i = 0; i < questionOfLessonData!.questions.length; i++) {
       bool questionExistsInDetails = details.any((detail) =>
           int.parse(detail.question) == questionOfLessonData!.questions[i].id);
       if (!questionExistsInDetails) {
-        addUniqueApplyMakeExam(ApplyStudentExam(
+        addUniqueApplyMakeExam(
+          ApplyStudentExam(
             timer: (questionOfLessonData!.quizMinute - minutesLeft),
             answer: '',
             audio: '',
             image: '',
-            question: questionOfLessonData!.questions[i].id.toString()));
+            question: questionOfLessonData!.questions[i].id.toString(),
+          ),
+        );
       }
     }
   }
@@ -204,12 +207,11 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
       compressQuality: 90,
     );
     questionOfLessonData!.questions[index].imagePath = croppedFile!.path;
-    ;
 
     ///add answer
     addUniqueApplyMakeExam(ApplyStudentExam(
       question: questionOfLessonData!.questions[index].id.toString(),
-      image: questionOfLessonData!.questions[index].imagePath!,
+      image: questionOfLessonData!.questions[index].imagePath,
       timer: timer,
       answer: '',
     ));

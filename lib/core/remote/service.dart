@@ -95,11 +95,10 @@ class ServiceApi {
   }
 
   //get  all favourite
-  Future<Either<Failure,AllFavourite>> getAllFavourite()async{
+  Future<Either<Failure, AllFavourite>> getAllFavourite() async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
-    try{
-
+    try {
       final response = await dio.get(
         EndPoints.getFavoriteAllUrl,
         options: Options(headers: {
@@ -108,12 +107,11 @@ class ServiceApi {
         }),
       );
 
-     return Right(AllFavourite.fromJson(response));
-    } on ServerException{
+      return Right(AllFavourite.fromJson(response));
+    } on ServerException {
       return Left(ServerFailure());
     }
   }
-
 
   Future<Either<Failure, CommunicationModel>> getCommunicationData() async {
     try {

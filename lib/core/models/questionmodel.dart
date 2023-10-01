@@ -72,7 +72,7 @@ class QuestionModel {
   int degree;
   bool isSolving;
   String note;
-  // TextEditingController? answerController = TextEditingController();
+  final answerController = TextEditingController();
   String? imagePath;
   String? recordPath;
   List<AnswersModel> answers;
