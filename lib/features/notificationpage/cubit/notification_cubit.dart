@@ -109,9 +109,10 @@ class NotificationCubit extends Cubit<NotificationState> {
                    Center(child: Text("${data![index].title}")),
                    content: Text("${data![index].body}"),
                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                   actions: [TextButton(onPressed: () {
+                   actions: [TextButton(
+                       onPressed: () {
                      Navigator.pop(context);
-                   }, child: Text("close".tr()))],
+                   }, child: Text("close".tr(),))],
 
                  );
                },);
