@@ -431,7 +431,9 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                   ? "subject_class"
                                                   : widget.type == 'video'
                                                       ? 'video'
-                                                      : "lesson");
+                                                      :widget.type=='all_exam'
+                                                  ?'all_exam':
+                                              "lesson");
                                 },
                                 child: Container(
                                     width: getSize(context) / 1.1,

@@ -186,7 +186,7 @@ class HomePageAppBarWidget extends StatelessWidget {
                                 SizedBox(width: getSize(context) / 24),
                                 //info
                                 Visibility(
-                                  visible: isHome!,
+                                  visible: isHome! || isNotification || isFavourite!,
                                   child: InkWell(
                                     onTap: () {
                                       Navigator.pushNamed(
@@ -201,7 +201,7 @@ class HomePageAppBarWidget extends StatelessWidget {
                                 ),
 
                                 Visibility(
-                                  visible: isHome!,
+                                  visible: isHome! || isNotification,
                                   child: SizedBox(width: getSize(context) / 24),
                                 ),
                                 //favourite

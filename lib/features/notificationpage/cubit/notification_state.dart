@@ -8,3 +8,5 @@ class NotificationPageLoading extends NotificationState {}
 class NotificationPageLoaded extends NotificationState {}
 class NotificationPageError extends NotificationState {}
 class ChangingSwitchCaseState extends NotificationState {}
+class FailedToUpdateState extends NotificationState {}
+class SuccessUpdateState extends NotificationState {}

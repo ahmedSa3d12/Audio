@@ -6,6 +6,7 @@ class EndPoints {
   static const String communicationUrl = '${baseUrl}auth/communication';
   static const String adsUrl = '${baseUrl}ads';
   static const String notificationUrl = '${baseUrl}auth/all-notifications';
+  static const String updateNotificationUrl = '${baseUrl}auth/notification-update-status/';
   static const String explanationUrl =
       '${baseUrl}auth/home-page/start-your-journey';
   static const String examsOflesson = '/ExamEntry/all-of-questions/';

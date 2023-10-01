@@ -71,16 +71,33 @@ class NotificationScreen extends StatelessWidget {
                                                 cubit.data != null
                                                     ? cubit.data!.length
                                                     : 0,
-                                                (index){
+                                                   (index){
                                                 //  randomNumber = random.nextInt(3);
                                                   return InkWell(
-                                                    onTap: () {
+                                                    onTap: () async {
+                                                      ///seen notification
+                                                    await cubit.notificationUpdate(index,context);
+                                                    ////navigate
+                                                    //   if(cubit.data![index].type=='text'){
+                                                    //     ///show pop
+                                                    //   }else if(){
 
+
+                                                        /*
+                                                            Navigator.pushNamed(context, Routes.videoDetailsScreenRoute,
+                    arguments: {
+                      'type': 'video_resource',
+                      'videoId': model.id!,
+                    })
+                                                        * */
+                                                   //   }
+
+                                                    /////
                                                     },
                                                     child: NotificationDetailsWidget(
                                                      // index: randomNumber,
                                                       index: index%3,
-                                                      seen: cubit.data![index].seen??"not_seen",
+                                                      seen: cubit.data![index].seen!,
                                                       notificationModel:
                                                       cubit.data!.elementAt(index),
                                                     ),
@@ -175,7 +192,7 @@ class NotificationScreen extends StatelessWidget {
                 top: 0,
                 right: 0,
                 left: 0,
-                child: HomePageAppBarWidget(isNotification: true,),
+                child: HomePageAppBarWidget(isNotification: true,isHome: false,),
               ),
               Positioned(
                 top: getSize(context)*0.27,
