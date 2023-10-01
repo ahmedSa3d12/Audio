@@ -17,12 +17,9 @@ class FavouriteScreen extends StatefulWidget {
   State<FavouriteScreen> createState() => _FavouriteScreenState();
 }
 
-class _FavouriteScreenState extends State<FavouriteScreen> with TickerProviderStateMixin{
-
-  List<String> titles = [
-    "videos".tr(),
-    "exams".tr()
-  ];
+class _FavouriteScreenState extends State<FavouriteScreen>
+    with TickerProviderStateMixin {
+  List<String> titles = ["videos".tr(), "exams".tr()];
 
   late TabController tabController;
 
@@ -50,76 +47,79 @@ class _FavouriteScreenState extends State<FavouriteScreen> with TickerProviderSt
             child: Stack(
               children: [
                 Column(
-         crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                   HomePageAppBarWidget(isFavourite: true,isHome: false,),
-
+                    HomePageAppBarWidget(
+                      isFavourite: true,
+                      isHome: false,
+                    ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
-                      child:Row(
+                      child: Row(
                         children: [
                           Row(
                             children: [
-                              ...List.generate(titles.length,
-                                    (index) => Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0,
-                                 // vertical: 8,
-                                ),
-                                child: InkWell(
-                                  onTap: () {
-                                    cubit.selectTap(index);
-                                    print(cubit.currentIndex);
-                                    tabController.animateTo(index);
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 50,
-                                      vertical: 10,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: cubit.currentIndex == index
-                                          ? AppColors.orangeThirdPrimary
-                                          : AppColors.unselectedTabColor,
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        titles[index],
-                                        style: TextStyle(
-                                          color: cubit.currentIndex == index
-                                              ? AppColors.white
-                                              : AppColors.black,
-                                          fontWeight: FontWeight.bold,
+                              ...List.generate(
+                                titles.length,
+                                (index) => Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8.0,
+                                    // vertical: 8,
+                                  ),
+                                  child: InkWell(
+                                    onTap: () {
+                                      cubit.selectTap(index);
+                                      print(cubit.currentIndex);
+                                      tabController.animateTo(index);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 50,
+                                        vertical: 10,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: cubit.currentIndex == index
+                                            ? AppColors.orangeThirdPrimary
+                                            : AppColors.unselectedTabColor,
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          titles[index],
+                                          style: TextStyle(
+                                            color: cubit.currentIndex == index
+                                                ? AppColors.white
+                                                : AppColors.black,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),)
+                              )
                             ],
                           )
                         ],
-                      ) ,
+                      ),
                     ),
-                    Expanded(child: RefreshIndicator(
-                      onRefresh: ()async {
+                    Expanded(
+                        child: RefreshIndicator(
+                      onRefresh: () async {
                         print(55555555);
                       },
-                      child:TabBarView(
+                      child: TabBarView(
                         controller: tabController,
                         physics: NeverScrollableScrollPhysics(),
-                        children: [
-                          videosScreen(),
-                          ExamsScreen()
-                        ],
-                      ) ,
+                        children: [videosScreen(), ExamsScreen()],
+                      ),
                     ))
                   ],
                 ),
                 Positioned(
-                  top: getSize(context)*0.27,
-                  child: TitleWithCircleBackgroundWidget(title: 'favourite'),)
+                  top: getSize(context) * 0.27,
+                  child: TitleWithCircleBackgroundWidget(title: 'favourite'),
+                )
               ],
             ),
           ),

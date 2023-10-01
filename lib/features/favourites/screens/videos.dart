@@ -8,6 +8,7 @@ import 'package:new_mazoon/features/favourites/cubit/favourite_cubit.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/my_svg_widget.dart';
+import '../../video_details/cubit/video_details_cubit.dart';
 
 class videosScreen extends StatelessWidget {
   const videosScreen({super.key});
@@ -37,16 +38,12 @@ class videosScreen extends StatelessWidget {
               itemCount: cubit.allFavourite?.data?.videoResources?.length ?? 0,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: .72,
-                mainAxisSpacing: 5,
-                crossAxisSpacing: 15,
+                mainAxisSpacing: getSize(context) / 66,
+                crossAxisSpacing: getSize(context) / 32,
                 crossAxisCount: 2,
               ),
               itemBuilder: (context, index) {
-                return
-                    //Column(
-                    // children: [
-                    // SizedBox(height: 20,),
-                    Material(
+                return Material(
                   borderRadius: BorderRadius.circular(10.0),
                   elevation: 20,
                   child: Container(
@@ -80,44 +77,55 @@ class videosScreen extends StatelessWidget {
                         Text(
                           "${cubit.allFavourite!.data!.videoResources![index].name}",
                           style: TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.w700),
+                              fontSize: getSize(context) / 28,
+                              fontWeight: FontWeight.w700),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            // SizedBox(width: getSize(context) / 44),
-                            MySvgWidget(
-                              path: ImageAssets.clockIcon,
-                              imageColor: AppColors.blue2,
-                              size: getSize(context) / 44,
-                            ),
-
-                            // Spacer(),
-                            Flexible(
-                              child: Text(
-                                '${cubit.allFavourite?.data?.videoResources?[index].time!}  ',
-                                style: TextStyle(
-                                  fontSize: getSize(context) / 32,
-                                  color: AppColors.blue2,
-                                  fontWeight: FontWeight.w600,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: getSize(context) / 66),
+                          child: Row(
+                            children: [
+                              MySvgWidget(
+                                path: ImageAssets.clockIcon,
+                                imageColor: AppColors.blue2,
+                                size: getSize(context) / 44,
+                              ),
+                              SizedBox(width: getSize(context) / 88),
+                              Flexible(
+                                fit: FlexFit.tight,
+                                child: Text(
+                                  '${cubit.allFavourite?.data?.videoResources?[index].time!}  ',
+                                  style: TextStyle(
+                                    fontSize: getSize(context) / 32,
+                                    color: AppColors.blue2,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Spacer(),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Icon(
-                                Icons.delete_forever_outlined,
-                                color: Colors.red,
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20,
+                              InkWell(
+                                onTap: () {
+                                  ///type must be
+                                  ///video_basic
+                                  /// video_resource
+                                  /// video_part
+                                  cubit.removeFavourite(
+                                      cubit.allFavourite!.data!
+                                          .videoResources![index].type!,
+                                      'un_favorite',
+                                      cubit.allFavourite!.data!
+                                          .videoResources![index].id!);
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0),
+                                  child: Icon(
+                                    Icons.delete_forever_outlined,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),

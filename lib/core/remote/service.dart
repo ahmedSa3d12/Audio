@@ -96,11 +96,10 @@ class ServiceApi {
   }
 
   //get  all favourite
-  Future<Either<Failure,AllFavourite>> getAllFavourite()async{
+  Future<Either<Failure, AllFavourite>> getAllFavourite() async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
-    try{
-
+    try {
       final response = await dio.get(
         EndPoints.getFavoriteAllUrl,
         options: Options(headers: {
@@ -109,39 +108,29 @@ class ServiceApi {
         }),
       );
 
-     return Right(AllFavourite.fromJson(response));
-    } on ServerException{
+      return Right(AllFavourite.fromJson(response));
+    } on ServerException {
       return Left(ServerFailure());
     }
   }
 
-
   // update notification
 
-  Future<Either<Failure,UpdateNotification>>  updateNotification(int id)async{
-    UserModel userModel =await  Preferences.instance.getUserModel();
+  Future<Either<Failure, UpdateNotification>> updateNotification(int id) async {
+    UserModel userModel = await Preferences.instance.getUserModel();
     String lang = await Preferences.instance.getSavedLang();
-    try{
-
+    try {
       final response = await dio.post(
-        EndPoints.updateNotificationUrl+id.toString(),
-        options: Options(
-          headers: {
+          EndPoints.updateNotificationUrl + id.toString(),
+          options: Options(headers: {
             'Authorization': userModel.data!.token,
             'Accept-Language': lang
-          }
-        )
-      );
+          }));
       return Right(UpdateNotification.fromJson(response));
-
-
-    } on ServerException{
+    } on ServerException {
       return Left(ServerFailure());
     }
-
-    }
-
-
+  }
 
   Future<Either<Failure, CommunicationModel>> getCommunicationData() async {
     try {

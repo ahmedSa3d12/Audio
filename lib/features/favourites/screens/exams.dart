@@ -40,25 +40,8 @@ class ExamsScreen extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {
-                    // if (cubit.classesData[index].status == 'lock') {
-                    //   toastMessage(
-                    //     'open_class'.tr(),
-                    //     context,
-                    //     color: AppColors.error,
-                    //   );
-                    // }
-                    // else {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => LessonsClassScreen(
-                    //         classId: cubit.classesData[index].id!,
-                    //       ),
-                    //     ),
-                    //   );
-                    // }
-                  },
+                  onTap: () {},
+                  /////////use must make another custom widget
                   child: ClassesExamItemWidget(
                     index: index,
                     model: cubit.allFavourite!.data!.onlineExams![index],

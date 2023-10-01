@@ -7,11 +7,11 @@ import '../../../core/models/all_favourite.dart';
 part 'favourite_state.dart';
 
 class FavouriteCubit extends Cubit<FavouriteState> {
-  FavouriteCubit(this.api) : super(FavouriteInitial()){
+  FavouriteCubit(this.api) : super(FavouriteInitial()) {
     getAllFavourite();
   }
   ServiceApi api;
-  int currentIndex = 0 ;
+  int currentIndex = 0;
   AllFavourite? allFavourite;
 
   //change tabs
@@ -22,14 +22,27 @@ class FavouriteCubit extends Cubit<FavouriteState> {
 
   //get all favourite data
 
-  getAllFavourite()async{
+  getAllFavourite() async {
     emit(LoadingGetFavourite());
     final response = await api.getAllFavourite();
-    response.fold((l) => emit(FailureGetFavourite()),
-            (r) {
-              allFavourite = r ;
-       emit(SuccessfullyGetFavourite());
-
+    response.fold((l) => emit(FailureGetFavourite()), (r) {
+      allFavourite = r;
+      emit(SuccessfullyGetFavourite());
     });
+  }
+
+  removeFavourite(String type, String action, int video_id) async {
+    final response = await api.addToFavourite(
+      action: action,
+      video_id: video_id,
+      type: type,
+    );
+    response.fold(
+      (l) => emit(VideoDetailsError()),
+      (r) {
+        getAllFavourite();
+        emit(VideoDetailsLoaded());
+      },
+    );
   }
 }

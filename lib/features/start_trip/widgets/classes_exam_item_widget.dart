@@ -89,7 +89,6 @@ class ClassesExamItemWidget extends StatelessWidget {
                       ),
                       // SizedBox(height: model.type == 'pdf'?10: 35),
                       SizedBox(
-                        // width: 210,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
