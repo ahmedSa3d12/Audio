@@ -32,6 +32,8 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
         return WillPopScope(
           onWillPop: () {
             Navigator.pop(context);
+            Navigator.pop(context);
+            cubit.isRecording = false;
             return Future<bool>.value(true);
           },
           child: Scaffold(
@@ -466,7 +468,7 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
                                         color: AppColors.orange,
-                                        fontSize: 18,
+                                        fontSize: getSize(context) / 24,
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
@@ -499,16 +501,10 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                                       lessonId: widget.model.examId,
                                       context: context,
                                       type: widget.model.examType,
-
-                                      ///need change to lesson
                                       time: widget.model.totalTimeTake);
 
-                                  Navigator.pushReplacementNamed(
-                                      context, Routes.examInstructionsRoute,
-                                      arguments: [
-                                        widget.model.examId,
-                                        widget.model.examName
-                                      ]);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
                                 },
                                 child: Container(
                                     height: getSize(context) / 8,
@@ -572,7 +568,7 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                   top: 0,
                   right: 0,
                   left: 0,
-                  child: HomePageAppBarWidget(isHome: false),
+                  child: HomePageAppBarWidget(isHome: false, isExam: true),
                 ),
               ],
             ),

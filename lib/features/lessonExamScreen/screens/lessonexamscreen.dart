@@ -7,7 +7,6 @@ import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/widgets/music_animation.dart';
 import 'package:new_mazoon/features/homePage/widget/home_page_app_bar_widget.dart';
-import '../../../core/models/applaymakeexammodel.dart';
 import '../../../core/models/applylessonexammodel.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/my_svg_widget.dart';
@@ -407,7 +406,7 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                                     .questions[
                                                                         index]
                                                                     .answerController,
-                                                                maxLines: 4,
+                                                                maxLines: 3,
                                                                 decoration:
                                                                     InputDecoration(
                                                                   hintText:

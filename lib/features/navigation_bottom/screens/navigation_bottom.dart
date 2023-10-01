@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
@@ -78,7 +79,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,
         index: 2,
-        height: 60.0,
+        height: getSize(context) / 6.5,
         items: [
           GestureDetector(
             onTap: () {

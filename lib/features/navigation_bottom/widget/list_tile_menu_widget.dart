@@ -19,11 +19,13 @@ class MenuListTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-     // contentPadding: EdgeInsets.only(right: 10),
+      minVerticalPadding: 0,
       title: Text(
         title,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
         style: TextStyle(
-          fontSize: getSize(context)/27,
+          fontSize: getSize(context) / 26,
           color: AppColors.white,
           fontWeight: FontWeight.bold,
         ),
@@ -31,7 +33,7 @@ class MenuListTileWidget extends StatelessWidget {
       leading: MySvgWidget(
         path: iconPath,
         imageColor: AppColors.white,
-        size: getSize(context)/20,
+        size: getSize(context) / 20,
       ),
       onTap: onclick,
     );

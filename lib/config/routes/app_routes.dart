@@ -91,7 +91,8 @@ class Routes {
   static const String suggestScreen = '/AddYourSuggest';
   static const String favouriteScreen = '/favouriteScreen';
   static const String notificationScreen = '/notificationScreen';
-  static const String settingsNotificationScreen = '/notificationSettingsScreen';
+  static const String settingsNotificationScreen =
+      '/notificationSettingsScreen';
 }
 
 class AppRoutes {
@@ -350,7 +351,7 @@ class AppRoutes {
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 800),
         );
-        case Routes.settingsNotificationScreen:
+      case Routes.settingsNotificationScreen:
         return PageTransition(
           child: NotificationSettingsScreen(),
           type: PageTransitionType.fade,

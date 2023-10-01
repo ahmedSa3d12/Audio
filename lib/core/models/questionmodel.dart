@@ -13,7 +13,7 @@ class MainQuestionModel {
 
   factory MainQuestionModel.fromJson(Map<String, dynamic> json) =>
       MainQuestionModel(
-        data: QuestionDateModel.fromJson(json["data"]),
+        data: QuestionDateModel.fromJson(json["data"] ?? ''),
         message: json["message"],
         code: json["code"],
       );

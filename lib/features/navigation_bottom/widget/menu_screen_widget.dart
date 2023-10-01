@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/assets_manager.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 
 import '../../../config/routes/app_routes.dart';
 import '../../../core/preferences/preferences.dart';
@@ -9,8 +10,7 @@ import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/dialogs.dart';
 import '../../../core/utils/restart_app_class.dart';
 import '../../../core/widgets/network_image.dart';
-import '../../../test.dart';
-import '../../change_lang/screen/screen_change.dart';
+
 import '../../downloads/screen/downlodsscreen.dart';
 import '../../rate_app/cubit/rate_app_cubit.dart';
 import '../cubit/navigation_cubit.dart';
@@ -49,17 +49,17 @@ class MenuScreenWidget extends StatelessWidget {
                           : Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                SizedBox(height: 10),
+                                SizedBox(height: getSize(context) / 44),
                                 ManageNetworkImage(
                                   imageUrl: cubit.userModel!.data!.image,
-                                  width: 80,
-                                  height: 80,
+                                  width: getSize(context) / 5,
+                                  height: getSize(context) / 5,
                                   borderRadius: 90,
                                 ),
-                                SizedBox(height: 10),
+                                SizedBox(height: getSize(context) / 44),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: getSize(context) / 22),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -70,9 +70,11 @@ class MenuScreenWidget extends StatelessWidget {
                                             : Alignment.topLeft,
                                         child: Text(
                                           cubit.userModel!.data!.name,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                               color: AppColors.white,
-                                              fontSize: 16,
+                                              fontSize: getSize(context) / 22,
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
@@ -82,40 +84,30 @@ class MenuScreenWidget extends StatelessWidget {
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(4.0),
-                                              child: Text(
-                                                lang == 'ar'
-                                                    ? cubit.userModel!.data!
-                                                        .season.nameAr
-                                                    : cubit.userModel!.data!
-                                                        .season.nameEn,
-                                                style: TextStyle(
-                                                    color: AppColors.white,
-                                                    fontSize: 10,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
+                                            Text(
+                                              lang == 'ar'
+                                                  ? cubit.userModel!.data!
+                                                      .season.nameAr
+                                                  : cubit.userModel!.data!
+                                                      .season.nameEn,
+                                              style: TextStyle(
+                                                  color: AppColors.white,
+                                                  fontSize:
+                                                      getSize(context) / 32,
+                                                  fontWeight: FontWeight.w700),
                                             ),
-                                            // SizedBox(width: 10),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(4.0),
-                                              child: Text(
-                                                lang == 'ar'
-                                                    ? cubit.userModel!.data!
-                                                        .term.nameAr
-                                                    : cubit.userModel!.data!
-                                                        .term.nameEn,
-                                                style: TextStyle(
-                                                    color: AppColors.white,
-                                                    fontSize: 10,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
+                                            Text(
+                                              lang == 'ar'
+                                                  ? cubit.userModel!.data!.term
+                                                      .nameAr
+                                                  : cubit.userModel!.data!.term
+                                                      .nameEn,
+                                              style: TextStyle(
+                                                  color: AppColors.white,
+                                                  fontSize:
+                                                      getSize(context) / 32,
+                                                  fontWeight: FontWeight.w700),
                                             ),
                                           ],
                                         ),
@@ -127,7 +119,7 @@ class MenuScreenWidget extends StatelessWidget {
                             );
                     },
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: getSize(context) / 24),
                   Expanded(
                     child: ListView(
                       children: [

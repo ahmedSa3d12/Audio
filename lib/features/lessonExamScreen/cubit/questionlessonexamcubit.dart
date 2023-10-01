@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -10,6 +11,7 @@ import '../../../core/models/applylessonexammodel.dart';
 import '../../../core/models/dependexam.dart';
 import '../../../core/models/questionmodel.dart';
 import '../../../core/remote/service.dart';
+import '../../../core/utils/show_dialog.dart';
 import 'lessonexamstate.dart';
 
 class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
@@ -51,6 +53,8 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
       required String exam_type,
       required int minutesLeft,
       required BuildContext context}) async {
+    createProgressDialog(context, 'wait'.tr());
+
     ////////////////////
     emit(LoadingApplyLessonExam());
     await setDetailsList(minutesLeft);
@@ -85,8 +89,8 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
           ApplyStudentExam(
             timer: (questionOfLessonData!.quizMinute - minutesLeft),
             answer: '',
-            audio: '',
-            image: '',
+            audio: null,
+            image: null,
             question: questionOfLessonData!.questions[i].id.toString(),
           ),
         );
@@ -155,7 +159,7 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
 
     response.fold((l) => emit(ErrorAppendLessonExam()), (r) {
       toastMessage(r.message, context);
-
+      Navigator.pop(context);
       Navigator.pushReplacementNamed(context, Routes.myGradeAndRating);
 //nav
       emit(LoadedAppendLessonExam());

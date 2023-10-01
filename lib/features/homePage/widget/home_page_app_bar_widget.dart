@@ -8,6 +8,7 @@ import '../../../../core/widgets/my_svg_widget.dart';
 import '../../../../core/widgets/network_image.dart';
 import '../../../../core/widgets/painting.dart';
 import '../../../config/routes/app_routes.dart';
+import '../../lessonExamScreen/cubit/questionlessonexamcubit.dart';
 import '../../navigation_bottom/cubit/navigation_cubit.dart';
 import '../../notificationpage/presentation/screens/notification_page.dart';
 import '../../sources_and_references/cubit/source_references_cubit.dart';
@@ -18,13 +19,14 @@ class HomePageAppBarWidget extends StatelessWidget {
       this.isHome = true,
       this.isSource = false,
       this.isFavourite = false,
-      this.isNotification= false})
+      this.isExam = false,
+      this.isNotification = false})
       : super(key: key);
   final bool? isHome;
   final bool? isSource;
   final bool? isFavourite;
   final bool isNotification;
-
+  final bool? isExam;
   @override
   Widget build(BuildContext context) {
     String lang = EasyLocalization.of(context)!.locale.languageCode;
@@ -125,7 +127,7 @@ class HomePageAppBarWidget extends StatelessWidget {
                                 SizedBox(width: getSize(context) / 88),
                                 //notification
                                 Visibility(
-                                  visible:!isNotification,
+                                  visible: !isNotification,
                                   child: InkWell(
                                     onTap: () {
                                       Navigator.of(context).push(
@@ -145,8 +147,8 @@ class HomePageAppBarWidget extends StatelessWidget {
                                                 CrossAxisAlignment.center,
                                             children: [
                                               MySvgWidget(
-                                                path:
-                                                    ImageAssets.notificationsIcon,
+                                                path: ImageAssets
+                                                    .notificationsIcon,
                                                 size: getSize(context) / 16,
                                                 imageColor: AppColors.white,
                                               ),
@@ -168,7 +170,8 @@ class HomePageAppBarWidget extends StatelessWidget {
                                               child: Text(
                                                 '2',
                                                 style: TextStyle(
-                                                  fontSize: getSize(context) / 28,
+                                                  fontSize:
+                                                      getSize(context) / 28,
                                                   color: AppColors.primary,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -228,7 +231,15 @@ class HomePageAppBarWidget extends StatelessWidget {
                                             .read<SourceReferencesCubit>()
                                             .sourcesReferencesByIdList
                                             .clear()
-                                        : null;
+                                        : isExam!
+                                            ? {
+                                                Navigator.pop(context),
+                                                context
+                                                    .read<
+                                                        QuestionsLessonExamCubit>()
+                                                    .isRecording = false
+                                              }
+                                            : null;
                                   },
                                   child: Visibility(
                                     visible: !isHome!,

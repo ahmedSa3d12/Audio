@@ -1,10 +1,8 @@
 import 'package:bloc/bloc.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:new_mazoon/features/paperexamdetials/screens/paper_details_exam_register.dart';
 
-import '../../../config/routes/app_routes.dart';
 import '../../../core/models/TimeModel.dart';
 import '../../../core/models/paper_exam_details_model.dart';
 import '../../../core/models/user_model.dart';
