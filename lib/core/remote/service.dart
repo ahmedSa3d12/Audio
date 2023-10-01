@@ -47,6 +47,7 @@ import '../models/sources_referenes_by_id_model.dart';
 import '../models/student_reports_model.dart';
 import '../models/times_model.dart';
 import '../models/timeupdate.dart';
+import '../models/update_notification.dart';
 import '../models/user_model.dart';
 import '../models/video_data_model.dart';
 import '../models/videolessonmodel.dart';
@@ -113,6 +114,33 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
+
+
+  // update notification
+
+  Future<Either<Failure,UpdateNotification>>  updateNotification(int id)async{
+    UserModel userModel =await  Preferences.instance.getUserModel();
+    String lang = await Preferences.instance.getSavedLang();
+    try{
+
+      final response = await dio.post(
+        EndPoints.updateNotificationUrl+id.toString(),
+        options: Options(
+          headers: {
+            'Authorization': userModel.data!.token,
+            'Accept-Language': lang
+          }
+        )
+      );
+      return Right(UpdateNotification.fromJson(response));
+
+
+    } on ServerException{
+      return Left(ServerFailure());
+    }
+
+    }
+
 
 
   Future<Either<Failure, CommunicationModel>> getCommunicationData() async {

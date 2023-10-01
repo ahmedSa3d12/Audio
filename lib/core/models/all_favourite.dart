@@ -35,11 +35,11 @@ class AllFavourite {
 }
 
 class Data {
-  final List<ClassesExamDatumModel>? onlineExams;
+  final List<ClassesExamDatumModel>? onlineExams;//
   final List<dynamic>? allExams;
   final List<dynamic>? liveExams;
   final List<VideoBasic>? videoBasics;
-  final List<VideoResource>? videoResources;
+  final List<VideoResource>? videoResources;//
   final List<VideoPart>? videoParts;
 
   Data({

@@ -52,7 +52,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> with TickerProviderSt
                 Column(
          crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                   HomePageAppBarWidget(isFavourite: true,),
+                   HomePageAppBarWidget(isFavourite: true,isHome: false,),
 
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,

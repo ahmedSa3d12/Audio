@@ -28,7 +28,6 @@ class NavigationCubit extends Cubit<NavigationState> {
 
   getTimes(BuildContext context) async {
     createProgressDialog(context, 'wait'.tr());
-
     final response = await api.paperExamDetails();
     response.fold(
       (error) => Navigator.of(context).pop(),
