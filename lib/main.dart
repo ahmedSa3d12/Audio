@@ -62,7 +62,7 @@ Future<void> main() async {
     print('************************************************');
   });
 
- // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   AppColors.getPrimaryColor();
 
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);

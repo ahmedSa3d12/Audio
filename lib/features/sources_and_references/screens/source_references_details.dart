@@ -40,7 +40,7 @@ class SourceReferencesDetails extends StatelessWidget {
                       context.read<SourceReferencesCubit>();
                   return ListView(
                     children: [
-                      SizedBox(height: getSize(context) / 3.5),
+                      SizedBox(height: getSize(context) / 3),
                       InkWell(
                         onTap: () {
                           Navigator.push(
@@ -57,7 +57,7 @@ class SourceReferencesDetails extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: Container(
                             // padding: EdgeInsets.all(12),
-                            height: 110,
+                            height: getSize(context) / 3.5,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               color: AppColors.greenDownloadColor,
@@ -83,14 +83,10 @@ class SourceReferencesDetails extends StatelessWidget {
                                             color: AppColors.primary,
                                           ),
                                         )
-                                      : Padding(
-                                          //////download icon
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: DownloadIconWidget(
-                                            color: AppColors.white,
-                                            iconColor:
-                                                AppColors.greenDownloadColor,
-                                          ),
+                                      : DownloadIconWidget(
+                                          color: AppColors.white,
+                                          iconColor:
+                                              AppColors.greenDownloadColor,
                                         ),
                                 ),
                                 Expanded(
@@ -125,8 +121,8 @@ class SourceReferencesDetails extends StatelessWidget {
                                   children: [
                                     ManageNetworkImage(
                                       imageUrl: cubit.referenceModel.icon!,
-                                      height: 60,
-                                      width: 60,
+                                      height: getSize(context) / 6,
+                                      width: getSize(context) / 4,
                                       borderRadius: 8,
                                     ),
                                   ],

@@ -6,6 +6,7 @@ import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:new_mazoon/core/preferences/preferences.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/utils/assets_manager.dart';
+import 'package:new_mazoon/core/utils/dialogs.dart';
 import 'package:new_mazoon/core/widgets/custom_button.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 
@@ -60,8 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           },
           child: SafeArea(
             child: Scaffold(
-              // backgroundColor: AppColors.white,
-              body: isLoading
+              body: (isLoading || cubit.userModel == null)
                   ? Center(
                       child:
                           CircularProgressIndicator(color: AppColors.primary),
@@ -88,10 +88,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   top: getSize(context) / 22,
                                   child: InkWell(
                                     onTap: () {
-                                      cubit.downloadReport(
-                                          "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-                                          context);
-                                      print('ddddd');
+                                      errorGetBar('student_report_des'.tr());
+                                      // cubit.downloadReport(
+                                      //     "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+                                      //     context);
+                                      // print('ddddd');
                                     },
                                     child: Container(
                                       width: getSize(context) / 2.8,
@@ -142,13 +143,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       BorderRadius.circular(
                                                           getSize(context) / 2),
                                                   child: Image.network(
-                                                      cubit.userModel!.data!
-                                                          .image,
-                                                      fit: BoxFit.cover,
-                                                      height:
-                                                          getSize(context) / 4,
-                                                      width: getSize(context) /
-                                                          4)),
+                                                    cubit
+                                                        .userModel!.data!.image,
+                                                    fit: BoxFit.cover,
+                                                    height:
+                                                        getSize(context) / 4,
+                                                    width: getSize(context) / 4,
+                                                    errorBuilder: (context,
+                                                        error, stackTrace) {
+                                                      return Image.asset(
+                                                          ImageAssets
+                                                              .userImage);
+                                                    },
+                                                  )),
                                             ),
                                           ),
                                           InkWell(
@@ -276,52 +283,53 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 SizedBox(
                                   height: getSize(context) / 44,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        child: Text(
-                                          'light_mode'.tr(),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: AppColors.black,
-                                            fontSize: getSize(context) / 22,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: CupertinoSwitch(
-                                          activeColor:
-                                              AppColors.liveExamGrayTextColor,
-                                          thumbColor: AppColors.switchColor,
-                                          trackColor:
-                                              AppColors.liveExamGrayTextColor,
-                                          value: ProfileCubit.mode,
-                                          onChanged: (value) {
-                                            print(ProfileCubit.mode);
-                                            cubit.changeMode(value);
-                                          }),
-                                    ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        child: Text(
-                                          'dark_mode'.tr(),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: AppColors.black,
-                                            fontSize: getSize(context) / 22,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                //theme UI
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.center,
+                                //   children: [
+                                //     Expanded(
+                                //       flex: 2,
+                                //       child: Container(
+                                //         child: Text(
+                                //           'light_mode'.tr(),
+                                //           textAlign: TextAlign.center,
+                                //           style: TextStyle(
+                                //             color: AppColors.black,
+                                //             fontSize: getSize(context) / 22,
+                                //             fontWeight: FontWeight.w700,
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //     Expanded(
+                                //       child: CupertinoSwitch(
+                                //           activeColor:
+                                //               AppColors.liveExamGrayTextColor,
+                                //           thumbColor: AppColors.switchColor,
+                                //           trackColor:
+                                //               AppColors.liveExamGrayTextColor,
+                                //           value: ProfileCubit.mode,
+                                //           onChanged: (value) {
+                                //             print(ProfileCubit.mode);
+                                //             cubit.changeMode(value);
+                                //           }),
+                                //     ),
+                                //     Expanded(
+                                //       flex: 2,
+                                //       child: Container(
+                                //         child: Text(
+                                //           'dark_mode'.tr(),
+                                //           textAlign: TextAlign.center,
+                                //           style: TextStyle(
+                                //             color: AppColors.black,
+                                //             fontSize: getSize(context) / 22,
+                                //             fontWeight: FontWeight.w700,
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
                                 SizedBox(height: getSize(context) / 22),
                                 ProfileDataItem(
                                     title: 'phone_num'.tr(),

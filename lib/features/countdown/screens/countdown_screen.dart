@@ -36,6 +36,11 @@ class CountdownScreen extends StatelessWidget {
                   CountdownCubit cubit = context.read<CountdownCubit>();
                   if (state is CountDownLoading || state is CountDownError) {
                     return Center(child: CircularProgressIndicator());
+                  } else if (DateTime.now()
+                      .isAfter(DateTime.parse(cubit.countDown!.dateExam))) {
+                    return Center(
+                      child: Text('have_exams'.tr()),
+                    );
                   } else {
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -123,12 +128,8 @@ class CountdownScreen extends StatelessWidget {
                                             child: Container(
                                               child: Center(
                                                 child: Text(
-                                                  ((cubit.countDown!.hours *
-                                                                  100) /
-                                                              24)
-                                                          .round()
-                                                          .toString() +
-                                                      "%",
+                                                  cubit.countDown!.hours
+                                                      .toString(),
                                                   style: TextStyle(
                                                     color: AppColors
                                                         .orangeThirdPrimary,
@@ -193,12 +194,8 @@ class CountdownScreen extends StatelessWidget {
                                             child: Container(
                                               child: Center(
                                                 child: Text(
-                                                  ((cubit.countDown!.days *
-                                                                  100) /
-                                                              30)
-                                                          .round()
-                                                          .toString() +
-                                                      "%",
+                                                  cubit.countDown!.days
+                                                      .toString(),
                                                   style: TextStyle(
                                                     color: AppColors.blue,
                                                     fontSize:
@@ -262,12 +259,8 @@ class CountdownScreen extends StatelessWidget {
                                             child: Container(
                                               child: Center(
                                                 child: Text(
-                                                  ((cubit.countDown!.months *
-                                                                  100) /
-                                                              12)
-                                                          .round()
-                                                          .toString() +
-                                                      "%",
+                                                  cubit.countDown!.months
+                                                      .toString(),
                                                   style: TextStyle(
                                                     color: AppColors.purple1,
                                                     fontSize:

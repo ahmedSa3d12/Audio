@@ -51,7 +51,7 @@ class _ElMazoonInfoState extends State<ElMazoonInfo>
         ElMazoonCubit cubit = context.read<ElMazoonCubit>();
         return SafeArea(
           child: Scaffold(
-            body: isLoading
+            body: (isLoading || cubit.data == null)
                 ? Center(
                     child: CircularProgressIndicator(
                       color: AppColors.primary,
@@ -112,6 +112,11 @@ class _ElMazoonInfoState extends State<ElMazoonInfo>
                                               getSize(context)),
                                           child: Image.network(
                                             cubit.data!.image,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Image.asset(
+                                                  ImageAssets.userImage);
+                                            },
                                           ),
                                         ),
                                       ),

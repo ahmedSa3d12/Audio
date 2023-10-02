@@ -32,5 +32,4 @@ class ElMazoonCubit extends Cubit<ElMazoonState> {
       emit(LoadedGetAboutMe());
     });
   }
-
 }
