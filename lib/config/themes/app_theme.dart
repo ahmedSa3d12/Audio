@@ -12,7 +12,7 @@ ThemeData appTheme() {
     fontFamily: AppStrings.fontFamily,
     textTheme: const TextTheme(
       bodyMedium: TextStyle(
-        height: 1.5,
+        height: 1.5, fontFamily: 'Cairo',
         fontSize: 18.0,
         // fontWeight: FontWeight.bold,
       ),
@@ -24,6 +24,7 @@ ThemeData appTheme() {
       titleTextStyle: const TextStyle(
         fontSize: 22.0,
         letterSpacing: 1.5,
+        fontFamily: 'Cairo',
         fontWeight: FontWeight.w500,
       ),
     ),
@@ -41,6 +42,7 @@ ThemeData appDarkTheme() {
       bodyMedium: TextStyle(
         height: 1.5,
         fontSize: 20.0,
+        fontFamily: 'Cairo',
         fontWeight: FontWeight.bold,
       ),
     ),
@@ -50,6 +52,7 @@ ThemeData appDarkTheme() {
       backgroundColor: AppColors.transparent,
       titleTextStyle: const TextStyle(
         fontSize: 22.0,
+        fontFamily: 'Cairo',
         letterSpacing: 1.5,
         fontWeight: FontWeight.w500,
       ),

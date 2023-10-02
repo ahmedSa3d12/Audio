@@ -1,14 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_mazoon/core/utils/app_colors.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../config/routes/app_routes.dart';
-import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/utils/getsize.dart';
-
 import '../cubit/splash_cubit.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -23,24 +18,13 @@ class _SplashScreenState extends State<SplashScreen>
   late Timer _timer;
 
   _goNext() {
-    // Navigator.pushReplacement(
-    //   context,
-    //   PageTransition(
-    //     type: PageTransitionType.fade,
-    //     alignment: Alignment.center,
-    //     duration: const Duration(milliseconds: 1300),
-    //     child: NavigatorBar(),
-    //   ),
-    // );
-
     _getStoreUser();
   }
 
   _startDelay() async {
     _timer = Timer(
-      const Duration(milliseconds: 1000),
+      const Duration(seconds: 8, milliseconds: 500),
       () {
-        // Preferences.instance.clearAllData();
         _goNext();
       },
     );
@@ -88,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    Image image = Image.asset('assets/images/logo2.png');
+    Image image = Image.asset('assets/images/intro.gif');
     // return BlocBuilder<SplashCubit, SplashState>(
     //   builder: (context, state) {
     //     if (state is SplashLoading) {}
@@ -104,9 +88,9 @@ class _SplashScreenState extends State<SplashScreen>
               tag: 'logo',
               child: SizedBox(
                 child: Image.asset(
-                  'assets/images/logo2.png',
-                  height: getSize(context) / 1.5,
-                  width: getSize(context) / 1.5,
+                  'assets/images/intro.gif',
+                  // height: getSize(context) / 1.2,
+                  // width: getSize(context) / 1.2,
                 ),
               ),
             ),

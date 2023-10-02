@@ -274,14 +274,17 @@
   "send_report":"ارسال بلاغ عن خطأ",
   "Please_add_problem_discription": "يرجى إضافة وصف المشكلة",
   "no_comments":"لا توجد تعليقات",
-  "lesson_lock":"لم يتم فتخ هذا الفصل بعد",
+  "lesson_lock":"لم يتم فتح هذا الفصل بعد",
   "start_studyy":"ابدأ ذاكر",
   "send_your_suggest":"ارسل اقتراحك",
   "invalid_suggest": "الرجاء إدخال اقتراحك"
 
 ,  "have_access":"ليس لديك صلاحيه لهذا الدرس",
 "enter_code":"أدخل كود الدخول",
-"enter_ans":"أدخل اجابتك"
+"enter_ans":"أدخل اجابتك",
+"student_report_des":"تقرير الطالب لم يعد موجود الان"
+,
+  "have_exams":"لقد مر وقت الامتحان الخاص بك"
 
 
 }

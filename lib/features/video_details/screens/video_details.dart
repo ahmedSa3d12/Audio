@@ -84,7 +84,10 @@ class _VideoDetailsState extends State<VideoDetails> {
                     backgroundColor: AppColors.primary,
                     title: Text(
                       cubit.videoModel != null ? cubit.videoModel!.name : '',
-                      style: TextStyle(color: AppColors.white),
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontFamily: 'Cairo',
+                      ),
                     ),
                   ),
                   body: Stack(
@@ -117,6 +120,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                         overflow: TextOverflow.clip,
                                         style: TextStyle(
                                           color: AppColors.black,
+                                          fontFamily: 'Cairo',
                                           fontSize: getSize(context) / 22,
                                           fontWeight: FontWeight.w700,
                                         ),

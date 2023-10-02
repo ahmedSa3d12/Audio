@@ -35,29 +35,25 @@ class _userScreenState extends State<LoginScreen> {
             myWidget: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 100,
+                  SizedBox(
+                    height: getSize(context) / 3,
                   ),
                   Hero(
                     tag: 'logo',
                     child: Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                      child: Image.asset(
-                        'assets/images/logo2.png',
-                        width: getSize(context) / 2,
-                        height: getSize(context) / 2,
-                      ),
+                      child: Image.asset('assets/images/logo2.png',
+                          width: getSize(context) / 1.2,
+                          height: getSize(context) / 1.8),
                     ),
                   ),
-                  SizedBox(
-                    height: 16,
-                  ),
+
                   BlocBuilder<LoginCubit, LoginState>(
                     builder: (context, state) {
                       if (state is userLoading) {
                         return SizedBox(
-                          height: 120,
+                          height: getSize(context) / 3,
                           child: Center(
                             child: CircularProgressIndicator(
                               color: AppColors.primary,
@@ -106,19 +102,15 @@ class _userScreenState extends State<LoginScreen> {
                                     horizontal: 20.0),
                                 child: Column(
                                   children: [
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
+                                    SizedBox(height: getSize(context) / 32),
                                     Text(
                                       'user_account'.tr(),
                                       style: TextStyle(
                                           color: AppColors.white,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 15),
+                                          fontSize: getSize(context) / 24),
                                     ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
+                                    SizedBox(height: getSize(context) / 32),
                                     Text(
                                       'please_write_code'.tr(),
                                       style: TextStyle(

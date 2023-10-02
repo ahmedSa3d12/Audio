@@ -38,22 +38,20 @@ class ItemOfOneClassWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned(
-          top: getSize(context) / 22,
-          left: getSize(context) / 22,
-          right: 0,
-          bottom: 0,
-          child: Container(
+    return Container(
+      height: getSize(context) / 1.5,
+      padding: EdgeInsets.all(5),
+      child: Stack(
+        children: [
+          Container(
+            margin: EdgeInsets.all(getSize(context) / 44),
             decoration: BoxDecoration(
-              color: mainColor,
-              borderRadius: BorderRadius.circular(getSize(context) / 32),
-            ),
+                color: mainColor,
+                borderRadius: BorderRadius.circular(getSize(context) / 32)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: getSize(context) / 44),
+                SizedBox(height: getSize(context) / 88),
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: getSize(context) / 22),
@@ -69,7 +67,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                 SizedBox(height: getSize(context) / 88),
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: getSize(context) / 44),
+                      EdgeInsets.symmetric(horizontal: getSize(context) / 88),
                   child: Text(
                     classTitle,
                     maxLines: 1,
@@ -81,51 +79,47 @@ class ItemOfOneClassWidget extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Expanded(
-                      flex: 5,
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width / 3.9,
-                        height: MediaQuery.of(context).size.width / 3.9,
-                        child: SfCircularChart(
-                          palette: [darken(mainColor, 0.08)],
-                          annotations: <CircularChartAnnotation>[
-                            CircularChartAnnotation(
-                              widget: status == 'lock'
-                                  ? MySvgWidget(
-                                      size: getSize(context) / 22,
-                                      imageColor: AppColors.white,
-                                      path: ImageAssets.lockIcon,
-                                    )
-                                  : Text(
-                                      classPresentFinished,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.clip,
-                                      style: TextStyle(
-                                        color: AppColors.white,
-                                        fontSize: getSize(context) / 28,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 3.9,
+                      height: MediaQuery.of(context).size.width / 3.9,
+                      child: SfCircularChart(
+                        palette: [darken(mainColor, 0.08)],
+                        annotations: <CircularChartAnnotation>[
+                          CircularChartAnnotation(
+                            widget: status == 'lock'
+                                ? MySvgWidget(
+                                    size: getSize(context) / 22,
+                                    imageColor: AppColors.white,
+                                    path: ImageAssets.lockIcon,
+                                  )
+                                : Text(
+                                    classPresentFinished,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: getSize(context) / 28,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                            ),
-                          ],
-                          series: <CircularSeries>[
-                            RadialBarSeries<int, String>(
-                              maximumValue: 100,
-                              innerRadius: '18',
-                              dataSource: [int.parse(classPresentFinished)],
-                              cornerStyle: classPresentFinished == '100'
-                                  ? CornerStyle.bothFlat
-                                  : CornerStyle.endCurve,
-                              xValueMapper: (int data, _) => data.toString(),
-                              yValueMapper: (int data, _) =>
-                                  double.parse(data.toString()),
-                            )
-                          ],
-                        ),
+                                  ),
+                          ),
+                        ],
+                        series: <CircularSeries>[
+                          RadialBarSeries<int, String>(
+                            maximumValue: 100,
+                            innerRadius: '18',
+                            dataSource: [int.parse(classPresentFinished)],
+                            cornerStyle: classPresentFinished == '100'
+                                ? CornerStyle.bothFlat
+                                : CornerStyle.endCurve,
+                            xValueMapper: (int data, _) => data.toString(),
+                            yValueMapper: (int data, _) =>
+                                double.parse(data.toString()),
+                          )
+                        ],
                       ),
                     ),
-                    Expanded(
-                      flex: 7,
+                    Flexible(
                       child: Row(
                         children: [
                           Padding(
@@ -252,88 +246,87 @@ class ItemOfOneClassWidget extends StatelessWidget {
                         EdgeInsets.symmetric(vertical: getSize(context) / 66),
                     child: Container(
                       height: 2,
-                      width: getSize(context) / 2.8,
+                      width: getSize(context) / 1.5,
                       color: AppColors.white,
                     ),
                   ),
                 ),
                 Flexible(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: status == 'lock'
-                            ? MainAxisAlignment.center
-                            : MainAxisAlignment.end,
-                        children: [
-                          if (status == 'lock') ...{
-                            Text(
-                              'lesson_lock'.tr(),
-                              maxLines: 1,
-                              overflow: TextOverflow.clip,
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: getSize(context) / 30,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            )
-                          } else ...{
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: getSize(context) / 44),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    Routes.lessonClassScreenRoute,
-                                    arguments: classId,
-                                  );
-                                },
-                                child: Container(
-                                  width: getSize(context) / 4,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: AppColors.white, width: 2),
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: darken(mainColor, 0.1),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'start_studyy'.tr(),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.clip,
-                                      style: TextStyle(
-                                        fontSize: getSize(context) / 30,
-                                        color: AppColors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        if (status == 'lock') ...{
+                          Text(
+                            'lesson_lock'.tr(),
+                            maxLines: 1,
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: getSize(context) / 30,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )
+                        } else ...{
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: getSize(context) / 44),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  Routes.lessonClassScreenRoute,
+                                  arguments: classId,
+                                );
+                              },
+                              child: Container(
+                                width: getSize(context) / 2,
+                                height: getSize(context) / 8,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: AppColors.white, width: 2),
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: darken(mainColor, 0.1),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'start_studyy'.tr(),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.clip,
+                                    style: TextStyle(
+                                      fontSize: getSize(context) / 24,
+                                      color: AppColors.white,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          }
-                        ],
-                      ),
-                    ],
+                          ),
+                        }
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-        ),
-        Positioned(
-          top: 0,
-          left: 0,
-          child: ManageNetworkImage(
-            imageUrl: imagePath,
-            height: getSize(context) / 6.2,
-            width: getSize(context) / 6.2,
-            borderRadius: getSize(context) / 6.2,
-          ),
-        )
-      ],
+          Positioned(
+            top: -getSize(context) / 66,
+            left: -getSize(context) / 66,
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: ManageNetworkImage(
+                imageUrl: imagePath,
+                height: getSize(context) / 6.2,
+                width: getSize(context) / 6.2,
+                borderRadius: getSize(context) / 6.2,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

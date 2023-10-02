@@ -123,7 +123,7 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                                                               FontWeight.bold,
                                                           fontSize:
                                                               getSize(context) /
-                                                                  32),
+                                                                  24),
                                                     ),
                                                     circularStrokeCap:
                                                         CircularStrokeCap.butt,
@@ -178,7 +178,22 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                                                           getSize(context) / 28,
                                                     ),
                                                   ),
-                                                  Spacer(),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: getSize(
+                                                                    context) /
+                                                                22),
+                                                    child: Text(
+                                                      '|',
+                                                      style: TextStyle(
+                                                        color: AppColors.black,
+                                                        fontSize:
+                                                            getSize(context) /
+                                                                28,
+                                                      ),
+                                                    ),
+                                                  ),
                                                   Text(
                                                     '${widget.model.motivationalWord}',
                                                     style: TextStyle(
@@ -477,7 +492,7 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
                                         color: AppColors.liveExamGrayTextColor,
-                                        fontSize: 14,
+                                        fontSize: getSize(context) / 28,
                                         fontWeight: FontWeight.w400,
                                       ),
                                     )

@@ -28,14 +28,14 @@ class ManageNetworkImage extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius),
         child: CachedNetworkImage(
           imageUrl: imageUrl,
-          fit: BoxFit.fill,
+          fit: BoxFit.fitHeight,
           height: height != 0 ? height : null,
           width: width != 0 ? width : null,
           errorWidget: (context, error, stackTrace) {
             return Image.asset(
               ImageAssets.userImage,
-              height: getSize(context) / 10,
-              width: getSize(context) / 10,
+              height: getSize(context) / 6,
+              width: getSize(context) / 4,
               fit: BoxFit.cover,
             );
           },

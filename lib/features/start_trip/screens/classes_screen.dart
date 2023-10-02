@@ -37,14 +37,14 @@ class ClassesScreen extends StatelessWidget {
           },
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: GridView.builder(
+            child: ListView.builder(
               shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: .80,
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 5,
-                crossAxisCount: 2,
-              ),
+              // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //   childAspectRatio: .80,
+              //   mainAxisSpacing: 20,
+              //   crossAxisSpacing: 5,
+              //   crossAxisCount: 2,
+              // ),
               itemCount: cubit.classesData.length,
               itemBuilder: (BuildContext context, int index) {
                 print(cubit.classesData[index].totalTimes);
