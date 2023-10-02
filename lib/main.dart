@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,18 +17,41 @@ import 'core/utils/app_colors.dart';
 import 'core/utils/restart_app_class.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import 'firebase_options.dart';
+
 //call MakeYourExam before apply exam
 //make exam
+//TODO HWB=> step 4)a
+FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+FlutterLocalNotificationsPlugin();
+
+NotificationDetails notificationDetails = NotificationDetails(
+android: AndroidNotificationDetails(channel.id, channel.name,
+channelDescription: channel.description,
+importance: Importance.max,
+icon: '@mipmap/ic_launcher'));
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  // await Firebase.initializeApp(
-  //
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+   await Firebase.initializeApp(
+
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  //TODO HWB=> step 4)b
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    badge: true,
+    sound: true
+  );
+  print("settings of permission : ${settings.authorizationStatus}");
+  //TODO HWB=> step 5)
+  getToken();
 
   // await PushNotificationService.instance.initialise();
   await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
@@ -55,7 +79,7 @@ Future<void> main() async {
   // );
   await injector.setup();
   Bloc.observer = AppBlocObserver();
-
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   runApp(
     EasyLocalization(
       supportedLocales: [Locale('ar', ''), Locale('en', '')],
@@ -68,18 +92,23 @@ Future<void> main() async {
   );
 }
 
+void getToken()async{
+  String? token = await messaging.getToken();
+  print("token =  $token");
+}
+
+
 PushNotificationService? pushNotificationService = PushNotificationService();
 
 final locator = GetIt.instance;
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+
 
 late AndroidNotificationChannel channel;
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   print("Handling a background message:");
 
   AndroidInitializationSettings initializationSettingsAndroid =
@@ -124,11 +153,9 @@ void showNotification(RemoteMessage message) async {
       message.data['title'],
       message.data['body'],
       payload: paylod,
-      NotificationDetails(
-          android: AndroidNotificationDetails(channel.id, channel.name,
-              channelDescription: channel.description,
-              importance: Importance.max,
-              icon: '@mipmap/ic_launcher')));
+      notificationDetails
+
+  );
 }
 
 void checkData(RemoteMessage message) {
