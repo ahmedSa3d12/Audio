@@ -254,4 +254,12 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
     solveQuestion(index);
     emit(LoadedAnswerQuestiionExam2());
   }
+
+  Future<void> stopRecord(int index) async {
+    await audioRecorder.stop();
+    isRecording = false;
+    questionOfLessonData!.questions[index].recordPath == null;
+    pos = 50;
+    emit(StopRecordingState());
+  }
 }

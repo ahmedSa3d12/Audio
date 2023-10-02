@@ -144,15 +144,37 @@ class _MakeYourExamScreenState extends State<MakeYourExamScreen> {
                                           children: [
                                             Flexible(
                                               fit: FlexFit.tight,
-                                              child: CircleAvatar(
-                                                radius: getSize(context) / 10,
-                                                backgroundImage: NetworkImage(
-                                                  cubit
-                                                      .allClassesAndLessons[
-                                                          index]
-                                                      .image,
+                                              child: Stack(children: [
+                                                CircleAvatar(
+                                                  radius: getSize(context) / 10,
+                                                  backgroundImage: NetworkImage(
+                                                    cubit
+                                                        .allClassesAndLessons[
+                                                            index]
+                                                        .image,
+                                                  ),
                                                 ),
-                                              ),
+                                                cubit.currentClassID ==
+                                                        cubit
+                                                            .allClassesAndLessons[
+                                                                index]
+                                                            .id
+                                                    ? Positioned(
+                                                        bottom: 0,
+                                                        child: CircleAvatar(
+                                                          radius:
+                                                              getSize(context) /
+                                                                  28,
+                                                          backgroundColor: AppColors
+                                                              .greenDownloadColor,
+                                                          child: Icon(
+                                                              Icons.done,
+                                                              color: AppColors
+                                                                  .white),
+                                                        ),
+                                                      )
+                                                    : Container()
+                                              ]),
                                             ),
                                             Container(
                                               height: getSize(context) / 8,
@@ -429,7 +451,9 @@ class _MakeYourExamScreenState extends State<MakeYourExamScreen> {
                   top: 0,
                   right: 0,
                   left: 0,
-                  child: HomePageAppBarWidget(isHome: false),
+                  child: HomePageAppBarWidget(
+                    isHome: true,
+                  ),
                 ),
               ],
             )),

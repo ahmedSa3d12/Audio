@@ -535,6 +535,23 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                                           ),
                                                                           SizedBox(
                                                                               width: getSize(context) / 44),
+                                                                          Visibility(
+                                                                              visible: cubit.isRecording,
+                                                                              child: InkWell(
+                                                                                onTap: () {
+                                                                                  cubit.stopRecord(index);
+                                                                                },
+                                                                                child: Container(
+                                                                                  decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.white),
+                                                                                  child: Padding(
+                                                                                    padding: const EdgeInsets.all(8.0),
+                                                                                    child: Icon(
+                                                                                      Icons.close,
+                                                                                      color: AppColors.red,
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              )),
                                                                           InkWell(
                                                                             onTap:
                                                                                 () {

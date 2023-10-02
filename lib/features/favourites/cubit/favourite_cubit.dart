@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:meta/meta.dart';
 import 'package:new_mazoon/core/remote/service.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../core/models/all_favourite.dart';
+import '../../../core/utils/dialogs.dart';
 
 part 'favourite_state.dart';
 
@@ -42,6 +48,35 @@ class FavouriteCubit extends Cubit<FavouriteState> {
       (r) {
         getAllFavourite();
         emit(VideoDetailsLoaded());
+      },
+    );
+  }
+
+  downloadPdf(AllExamFavorite model) async {
+    emit(FavDownloadPdfLoading());
+    final dio = Dio();
+    int index = allFavourite!.data.allExamFavorites!.indexOf(model);
+
+    var dir = await (Platform.isIOS
+        ? getApplicationSupportDirectory()
+        : getApplicationDocumentsDirectory());
+    await dio.download(
+      model.answerPdfFile!,
+      dir.path + "/pdf/" + model.name!.split("/").toList().last + '.pdf',
+      onReceiveProgress: (count, total) {
+        model.progress = (count / total);
+        allFavourite!.data.allExamFavorites!.removeAt(index);
+        allFavourite!.data.allExamFavorites!.insert(index, model);
+        emit(FavDownloadPdfLoaded());
+      },
+    ).whenComplete(
+      () {
+        successGetBar('success_download'.tr());
+
+        model.progress = 0;
+        allFavourite!.data.allExamFavorites!.removeAt(index);
+        allFavourite!.data.allExamFavorites!.insert(index, model);
+        emit(Fav2DownloadPdfLoaded());
       },
     );
   }

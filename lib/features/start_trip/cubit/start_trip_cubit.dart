@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:meta/meta.dart';
 import 'package:new_mazoon/core/remote/service.dart';
 import 'package:path_provider/path_provider.dart';
@@ -100,6 +101,8 @@ class StartTripCubit extends Cubit<StartTripState> {
       },
     ).whenComplete(
       () {
+        successGetBar('success_download'.tr());
+
         model.progress = 0;
         finalReview.removeAt(index);
         finalReview.insert(index, model);
@@ -126,6 +129,8 @@ class StartTripCubit extends Cubit<StartTripState> {
       },
     ).whenComplete(
       () {
+        successGetBar('success_download'.tr());
+
         model.progress = 0;
         examClassList.removeAt(index);
         examClassList.insert(index, model);

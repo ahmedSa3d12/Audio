@@ -1,20 +1,23 @@
+import 'dart:io';
+
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoWidget extends StatefulWidget {
-  const VideoWidget({Key? key, required this.videoLink, required this.videoId})
+class VideoWidgetFile extends StatefulWidget {
+  const VideoWidgetFile(
+      {Key? key, required this.videoLink, required this.videoId})
       : super(key: key);
-  final String videoLink;
+  final File videoLink;
   final int videoId;
 
   @override
-  State<VideoWidget> createState() => _VideoWidgetState();
+  State<VideoWidgetFile> createState() => _VideoWidgetFileState();
 }
 
-class _VideoWidgetState extends State<VideoWidget> {
+class _VideoWidgetFileState extends State<VideoWidgetFile> {
   VideoPlayerController? _videoPlayerController;
   ChewieController? _chewieController;
 
@@ -28,7 +31,6 @@ class _VideoWidgetState extends State<VideoWidget> {
     }
     if (_videoPlayerController!.value.position ==
         _videoPlayerController!.value.duration) {
-      // context.read<StudyPageCubit>().accessNextVideo(widget.videoId);
       print('video Ended');
     }
   }
@@ -40,7 +42,7 @@ class _VideoWidgetState extends State<VideoWidget> {
   }
 
   Future<void> initializePlayer() async {
-    _videoPlayerController = VideoPlayerController.network(widget.videoLink);
+    _videoPlayerController = VideoPlayerController.file(widget.videoLink);
     _videoPlayerController!.addListener(
       () {
         checkVideo();
@@ -66,11 +68,7 @@ class _VideoWidgetState extends State<VideoWidget> {
 
   @override
   void dispose() {
-    // context
-    //     .read<VideoDetailsCubit>()
-    //     .setduration(_videoPlayerController!.value.duration);
     _videoPlayerController!.dispose();
-    // _chewieController!.dispose();
     super.dispose();
   }
 

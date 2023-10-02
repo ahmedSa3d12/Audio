@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart' as local;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/utils/dialogs.dart';
 
 import 'package:new_mazoon/core/widgets/network_image.dart';
 import 'package:new_mazoon/features/sources_and_references/cubit/source_references_cubit.dart';
@@ -69,9 +70,9 @@ class SourceReferencesDetails extends StatelessWidget {
                               children: [
                                 InkWell(
                                   onTap: () {
+                                    //ckeck if exist show dowloaded
                                     print('download');
                                     cubit.downloadPdf(cubit.referenceModel);
-                                    //download
                                   },
                                   child: cubit.referenceModel.progress != 0
                                       ? Padding(
@@ -83,10 +84,13 @@ class SourceReferencesDetails extends StatelessWidget {
                                             color: AppColors.primary,
                                           ),
                                         )
-                                      : DownloadIconWidget(
-                                          color: AppColors.white,
-                                          iconColor:
-                                              AppColors.greenDownloadColor,
+                                      : Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: DownloadIconWidget(
+                                            color: AppColors.white,
+                                            iconColor:
+                                                AppColors.greenDownloadColor,
+                                          ),
                                         ),
                                 ),
                                 Expanded(

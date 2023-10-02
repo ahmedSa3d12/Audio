@@ -16,3 +16,9 @@ class FailureGetFavourite extends FavouriteState {}
 class VideoDetailsLoaded extends FavouriteState {}
 
 class VideoDetailsError extends FavouriteState {}
+
+class FavDownloadPdfLoaded extends FavouriteState {}
+
+class Fav2DownloadPdfLoaded extends FavouriteState {}
+
+class FavDownloadPdfLoading extends FavouriteState {}

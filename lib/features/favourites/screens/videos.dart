@@ -35,7 +35,8 @@ class videosScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
             child: GridView.builder(
-              itemCount: cubit.allFavourite?.data?.videoResources?.length ?? 0,
+              itemCount:
+                  cubit.allFavourite!.data.allVideoFavorites!.length ?? 0,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: .72,
                 mainAxisSpacing: getSize(context) / 66,
@@ -64,8 +65,8 @@ class videosScreen extends StatelessWidget {
                           borderRadius:
                               BorderRadius.circular(getSize(context) / 44),
                           child: Image.network(
-                            cubit.allFavourite!.data!.videoResources![index]
-                                .image!,
+                            cubit.allFavourite!.data.allVideoFavorites![index]
+                                .image,
                             // width: getSize(context)*0.45,
                             height: getSize(context) * 0.35,
                             fit: BoxFit.fill,
@@ -75,7 +76,7 @@ class videosScreen extends StatelessWidget {
                           height: 10,
                         ),
                         Text(
-                          "${cubit.allFavourite!.data!.videoResources![index].name}",
+                          "${cubit.allFavourite!.data.allVideoFavorites![index].name}",
                           style: TextStyle(
                               fontSize: getSize(context) / 28,
                               fontWeight: FontWeight.w700),
@@ -94,7 +95,7 @@ class videosScreen extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.tight,
                                 child: Text(
-                                  '${cubit.allFavourite?.data?.videoResources?[index].time!}  ',
+                                  '${cubit.allFavourite!.data.allVideoFavorites![index].time!}  ',
                                   style: TextStyle(
                                     fontSize: getSize(context) / 32,
                                     color: AppColors.blue2,
@@ -109,11 +110,11 @@ class videosScreen extends StatelessWidget {
                                   /// video_resource
                                   /// video_part
                                   cubit.removeFavourite(
-                                      cubit.allFavourite!.data!
-                                          .videoResources![index].type!,
+                                      cubit.allFavourite!.data
+                                          .allVideoFavorites![index].type,
                                       'un_favorite',
-                                      cubit.allFavourite!.data!
-                                          .videoResources![index].id!);
+                                      cubit.allFavourite!.data
+                                          .allVideoFavorites![index].id);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(

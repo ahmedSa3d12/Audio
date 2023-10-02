@@ -66,6 +66,13 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
     }
   }
 
+  Future<void> stopRecord() async {
+    await audioRecorder.stop();
+    isRecording = false;
+    pos = 50;
+    emit(StopRecordingState());
+  }
+
   VideoDetailsCubit(this.api) : super(VideoDetailsInitial()) {}
 
   pickImage({required String type, required String type1}) async {
@@ -276,6 +283,8 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
       },
     ).whenComplete(
       () {
+        successGetBar('success_download_v'.tr());
+
         print(videoModel!.name);
         videoModel!.progress = 0;
         emit(VideoDetailsLoaded());
