@@ -4,10 +4,11 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
-  connectivity_plus
+  connectivity_plus_windows
   file_selector_windows
   firebase_auth
   firebase_core
+  network_info_plus_windows
   permission_handler_windows
   record_windows
   syncfusion_pdfviewer_windows

@@ -1,14 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:new_mazoon/core/utils/app_colors.dart';
-import 'package:new_mazoon/core/utils/change_to_mega_byte.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
 import 'package:new_mazoon/features/lessons_of_class/screens/view_video_screen.dart';
-import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 
 import '../../../core/models/all_favourite.dart';
 import '../../../core/utils/assets_manager.dart';
@@ -61,14 +60,19 @@ class FavExamItemWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                       Positioned(
+                    Positioned(
                         left: 0,
-                          top: 0,
-                          child: IconButton(icon: Icon(Icons.delete,color: AppColors.red,),onPressed: () async {
-                            await  cubit.removeFavouriteExam(model.type, "un_favourite", model.examId, index);
-                          },)),
-
+                        top: 0,
+                        child: IconButton(
+                          icon: Icon(
+                            CupertinoIcons.heart_fill,
+                            color: AppColors.red,
+                          ),
+                          onPressed: () async {
+                            await cubit.removeFavouriteExam(model.type,
+                                "un_favourite", model.examId, index);
+                          },
+                        )),
                   ],
                 ),
               ),
@@ -83,12 +87,12 @@ class FavExamItemWidget extends StatelessWidget {
                       Flexible(
                         fit: FlexFit.tight,
                         child: Text(
-                          model.name!,
+                          model.name,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: TextStyle(
                             color: AppColors.black,
-                            fontSize: getSize(context) / 24,
+                            fontSize: getSize(context) / 28,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -108,27 +112,28 @@ class FavExamItemWidget extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            model.numOfQuestions!=null?
-                            Expanded(
-                              flex: 1,
-                              child:
-                              ClassExamIconWidget(
-                                textData: '${model.numOfQuestions}',
-                                type: 'text',
-                                iconColor: AppColors.gray7,
-                                onclick: () {},
-                              ),
-                            ):SizedBox(),
-                            model.quizMinutes!=null?
-                            Expanded(
-                              flex: 1,
-                              child: ClassExamIconWidget(
-                                textData: ' ${model.quizMinutes}',
-                                type: 'text',
-                                iconColor: AppColors.gray7,
-                                onclick: () {},
-                              ),
-                            ):SizedBox(),
+                            model.numOfQuestions != null
+                                ? Expanded(
+                                    flex: 1,
+                                    child: ClassExamIconWidget(
+                                      textData: '${model.numOfQuestions}',
+                                      type: 'text',
+                                      iconColor: AppColors.gray7,
+                                      onclick: () {},
+                                    ),
+                                  )
+                                : SizedBox(),
+                            model.quizMinutes != null
+                                ? Expanded(
+                                    flex: 1,
+                                    child: ClassExamIconWidget(
+                                      textData: ' ${model.quizMinutes}',
+                                      type: 'text',
+                                      iconColor: AppColors.gray7,
+                                      onclick: () {},
+                                    ),
+                                  )
+                                : SizedBox(),
                             // Expanded(
                             //   flex: 1,
                             //   child: ClassExamIconWidget(

@@ -319,9 +319,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                     height: 4,
                                                   ),
                                                   Text(
-                                            trans.tr("dowanloded"),
+                                                    trans.tr("dowanloded"),
                                                     style: TextStyle(
-                                                      color: AppColors.transparent,
                                                       fontSize:
                                                           getSize(context) / 32,
                                                     ),

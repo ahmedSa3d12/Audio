@@ -65,7 +65,8 @@ dependencies:
   google_fonts: ^4.0.3
   lottie: ^2.3.2
   screen_capture_event: ^1.1.1
-  connectivity_plus: ^3.0.6
+  connectivity_plus: ^2.3.9
+  flutter_offline: ^2.1.0
   syncfusion_flutter_charts: ^21.2.3
   flutter_credit_card: ^3.0.6
   #  screenshot_callback: ^2.0.3

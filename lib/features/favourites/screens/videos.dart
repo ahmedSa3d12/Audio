@@ -36,24 +36,33 @@ class videosScreen extends StatelessWidget {
             cubit.getAllFavourite();
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+            padding: EdgeInsets.symmetric(
+                horizontal: getSize(context) / 22,
+                vertical: getSize(context) / 32),
             child: GridView.builder(
-              itemCount:
-                  cubit.allFavourite!.data.allVideoFavorites!.length ?? 0,
+              itemCount: cubit.allFavourite!.data.allVideoFavorites!.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: .72,
-                mainAxisSpacing: getSize(context) / 20,
-                crossAxisSpacing: getSize(context) / 32,
-                crossAxisCount: 2,
-              ),
+                  childAspectRatio: .82,
+                  mainAxisSpacing: getSize(context) / 20,
+                  crossAxisSpacing: getSize(context) / 32,
+                  crossAxisCount: 2),
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>VideoDetails(type: cubit.allFavourite!.data.allVideoFavorites![index].type,
-                    videoId:    cubit.allFavourite!.data.allVideoFavorites![index].videoId,)));
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => VideoDetails(
+                                  type: cubit.allFavourite!.data
+                                      .allVideoFavorites![index].type,
+                                  videoId: cubit.allFavourite!.data
+                                      .allVideoFavorites![index].videoId,
+                                )));
                     ////////
                   },
-                  child:FavoriteVideoWidget(index: index,),
+                  child: FavoriteVideoWidget(
+                    index: index,
+                  ),
                 );
                 //   SizedBox(height: 10,)
                 //   ],

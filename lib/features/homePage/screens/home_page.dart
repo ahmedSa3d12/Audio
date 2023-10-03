@@ -1,8 +1,7 @@
-import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 import '../../../../core/widgets/banner.dart';
 import '../../../../core/widgets/no_data_widget.dart';
 import '../../../../core/widgets/show_loading_indicator.dart';
@@ -36,53 +35,82 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<HomePageCubit, HomePageState>(
-        builder: (context, state) {
-          HomePageCubit cubit = context.read<HomePageCubit>();
-          if (state is HomePageLoading) {
-            return ShowLoadingIndicator();
-          } else if (state is HomePageLoaded) {
-            return RefreshIndicator(
-              onRefresh: () async {
-                cubit.getHomePageData();
-              },
-              color: AppColors.white,
-              backgroundColor: AppColors.secondPrimary,
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                children: [
-                  SizedBox(height: getSize(context) / 3.5),
-                  BannerWidget(sliderData: state.model.data!.sliders!),
-                  //
-                  state.model.data!.lifeExam != null
-                      ? LiveExamWarningWidget()
-                      : SizedBox(
-                          height: 30,
-                        ),
-                  HomePageVideoWidget(
-                    videosBasics: cubit.videosBasics,
-                    title: 'train_yourself'.tr(),
-                  ),
-                  HomePageStartStudyWidget(classes: cubit.classes),
-                  FinalReviewWidget(
-                    model: cubit.videosResources,
-                    title: 'all_exams'.tr(),
-                  ),
-                ],
-              ),
-            );
-          } else {
-            return NoDataWidget(
-              onclick: () {
-                if (state is HomePageError) {
-                  cubit.getHomePageData();
-                } else {}
-              },
-              title: 'no_internet'.tr(),
-            );
-          }
-        },
-      ),
+      body: OfflineBuilder(
+          child: Text(
+            'no_internet'.tr(),
+            style: TextStyle(
+              fontSize: 22,
+              color: Color.fromARGB(255, 255, 255, 255),
+              shadows: [
+                Shadow(
+                    blurRadius: 4,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                    offset: Offset(0, 0))
+              ],
+            ),
+          ),
+          connectivityBuilder: (BuildContext context,
+              ConnectivityResult connectivity, Widget child) {
+            final bool connected = connectivity != ConnectivityResult.none;
+            if (connected) {
+              context.read<HomePageCubit>().getHomePageData();
+
+              return BlocBuilder<HomePageCubit, HomePageState>(
+                builder: (context, state) {
+                  HomePageCubit cubit = context.read<HomePageCubit>();
+                  if (state is HomePageLoading) {
+                    return ShowLoadingIndicator();
+                  } else if (state is HomePageLoaded) {
+                    return RefreshIndicator(
+                      onRefresh: () async {
+                        cubit.getHomePageData();
+                      },
+                      color: AppColors.white,
+                      backgroundColor: AppColors.secondPrimary,
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
+                        children: [
+                          SizedBox(height: getSize(context) / 3.5),
+                          BannerWidget(sliderData: state.model.data!.sliders!),
+                          //
+                          state.model.data!.lifeExam != null
+                              ? LiveExamWarningWidget()
+                              : SizedBox(
+                                  height: 30,
+                                ),
+                          HomePageVideoWidget(
+                            videosBasics: cubit.videosBasics,
+                            title: 'train_yourself'.tr(),
+                          ),
+                          HomePageStartStudyWidget(classes: cubit.classes),
+                          FinalReviewWidget(
+                            model: cubit.videosResources,
+                            title: 'all_exams'.tr(),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return NoDataWidget(
+                      onclick: () {
+                        if (state is HomePageError) {
+                          cubit.getHomePageData();
+                        } else {}
+                      },
+                      title: 'no_data'.tr(),
+                    );
+                  }
+                },
+              );
+            } else {
+              return NoDataWidget(
+                onclick: () {
+                  context.read<HomePageCubit>().getHomePageData();
+                },
+                title: 'no_internet'.tr(),
+              );
+            }
+          }),
     );
   }
 }
