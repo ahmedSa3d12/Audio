@@ -22,8 +22,8 @@ ThemeData appTheme() {
       elevation: 0.0,
       backgroundColor: AppColors.transparent,
       titleTextStyle: const TextStyle(
-        fontSize: 22.0,
-        letterSpacing: 1.5,
+        fontSize: 20.0,
+        // letterSpacing: 1.5,
         fontFamily: 'Cairo',
         fontWeight: FontWeight.w500,
       ),
@@ -51,9 +51,9 @@ ThemeData appDarkTheme() {
       elevation: 0.0,
       backgroundColor: AppColors.transparent,
       titleTextStyle: const TextStyle(
-        fontSize: 22.0,
+        fontSize: 20.0,
         fontFamily: 'Cairo',
-        letterSpacing: 1.5,
+        // letterSpacing: 1.5,
         fontWeight: FontWeight.w500,
       ),
     ),

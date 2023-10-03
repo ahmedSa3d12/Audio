@@ -29,3 +29,5 @@ class ErrorAddNewtryExamLessonExam extends QuestionsOfLessonExamState {}
 class LoadedAnswerQuestiionExam extends QuestionsOfLessonExamState {}
 
 class LoadedAnswerQuestiionExam2 extends QuestionsOfLessonExamState {}
+
+class StopRecordingState extends QuestionsOfLessonExamState {}

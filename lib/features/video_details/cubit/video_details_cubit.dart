@@ -70,6 +70,14 @@ var dirpath;
   getDirectionPath();
   }
 getDirectionPath() async{
+  Future<void> stopRecord() async {
+    await audioRecorder.stop();
+    isRecording = false;
+    pos = 50;
+    emit(StopRecordingState());
+  }
+
+  VideoDetailsCubit(this.api) : super(VideoDetailsInitial()) {}
 
   dirpath = await (Platform.isIOS
         ? getApplicationSupportDirectory()
@@ -283,6 +291,8 @@ getDirectionPath() async{
       },
     ).whenComplete(
       () {
+        successGetBar('success_download_v'.tr());
+
         print(videoModel!.name);
         videoModel!.progress = 0;
         emit(VideoDetailsLoaded());

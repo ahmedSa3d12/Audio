@@ -7,6 +7,7 @@ import 'package:new_mazoon/features/downloads/cubit/downloadsstate.dart';
 import 'package:video_player/video_player.dart';
 
 import '../cubit/downloadscubit.dart';
+import '../widget/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   final File videoPath;
@@ -18,76 +19,19 @@ class VideoPlayerScreen extends StatefulWidget {
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
-  bool isLoading = true;
-  @override
-  void initState() {
-    context.read<DownloadedFilesCubit>().initVideoView(widget.videoPath);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    context.read<DownloadedFilesCubit>().controller!.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DownloadedFilesCubit, DownloadedFilesState>(
-      listener: (context, state) {
-        if (state is LoadingViewVideo) {
-          isLoading = true;
-        } else {
-          isLoading = false;
-        }
-      },
+    return BlocBuilder<DownloadedFilesCubit, DownloadedFilesState>(
       builder: (context, state) {
         var cubit = context.read<DownloadedFilesCubit>();
         return Scaffold(
-            backgroundColor: AppColors.black,
-            body: Center(
-                child: isLoading
-                    ? CircularProgressIndicator()
-                    : Stack(
-                        children: [
-                          AspectRatio(
-                            aspectRatio: cubit.controller!.value.aspectRatio,
-                            child: VideoPlayer(
-                              cubit.controller!,
-                            ),
-                          ),
-                          Positioned(
-                              bottom: 0,
-                              width: MediaQuery.of(context).size.width,
-                              child: VideoProgressIndicator(
-                                cubit.controller!,
-                                allowScrubbing: false,
-                                colors: VideoProgressColors(
-                                    backgroundColor: Colors.blueGrey,
-                                    bufferedColor: Colors.blueGrey,
-                                    playedColor: AppColors.orange),
-                              ))
-                        ],
-                      )),
-            floatingActionButton: isLoading
-                ? Container()
-                : FloatingActionButton(
-                    backgroundColor: AppColors.orange,
-                    onPressed: () {
-                      setState(() {
-                        if (cubit.controller!.value.isPlaying) {
-                          cubit.controller!.pause();
-                        } else {
-                          cubit.controller!.play();
-                        }
-                      });
-                    },
-                    child: Icon(
-                      cubit.controller!.value.isPlaying
-                          ? Icons.pause
-                          : Icons.play_arrow,
-                    ),
-                  ));
+          backgroundColor: AppColors.black,
+          body: Center(
+              child: AspectRatio(
+                  aspectRatio: cubit.controller!.value.aspectRatio,
+                  child: VideoWidgetFile(
+                      videoId: 0, videoLink: widget.videoPath))),
+        );
       },
     );
   }

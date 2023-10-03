@@ -30,3 +30,5 @@ class VideoUpdateTimeLoaded extends VideoDetailsState {}
 class VideoUpdateTimeError extends VideoDetailsState {}
 
 class VideoUpdateTimeLoading extends VideoDetailsState {}
+
+class StopRecordingState extends VideoDetailsState {}

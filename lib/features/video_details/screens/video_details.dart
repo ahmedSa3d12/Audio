@@ -69,30 +69,30 @@ class _VideoDetailsState extends State<VideoDetails> {
                     print('update time ${value.toString()}');
                   });
                   Navigator.pop(context);
+                  cubit.stopRecord();
                   return Future(() => true);
                 },
                 child: Scaffold(
                   appBar: AppBar(
-                    leading: IconButton(
-                        onPressed: () {
-                          context
-                              .read<VideoDetailsCubit>()
-                              .updateTime()
-                              .then((value) {
-                            print('update time');
-                          });
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(Icons.arrow_back_ios)),
-                    backgroundColor: AppColors.primary,
-                    title: Text(
-                      cubit.videoModel != null ? cubit.videoModel!.name : '',
-                      style: TextStyle(
-                        color: AppColors.white,
-                        fontFamily: 'Cairo',
-                      ),
-                    ),
-                  ),
+                      leading: IconButton(
+                          onPressed: () {
+                            context
+                                .read<VideoDetailsCubit>()
+                                .updateTime()
+                                .then((value) {
+                              print('update time');
+                            });
+                            cubit.stopRecord();
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(Icons.arrow_back_ios)),
+                      backgroundColor: AppColors.primary,
+                      title: Text(
+                          cubit.videoModel != null
+                              ? cubit.videoModel!.name
+                              : '',
+                          style: TextStyle(
+                              color: AppColors.white, fontFamily: 'Cairo'))),
                   body: Stack(
                     alignment: Alignment.bottomCenter,
                     children: [
@@ -486,117 +486,138 @@ class _VideoDetailsState extends State<VideoDetails> {
                                         onchange: (p0) {
                                           cubit.updateicone();
                                         },
-                                        suffixWidget: InkWell(
-                                          onTap: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (ctx) => AlertDialog(
-                                                title: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 5),
-                                                  child:
-                                                      Text(trans.tr('choose')),
-                                                ),
-                                                contentPadding: EdgeInsets.zero,
-                                                content: SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width -
-                                                      60,
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      ChooseIconDialog(
-                                                        title:
-                                                            trans.tr('camera'),
-                                                        icon: Icons.camera_alt,
-                                                        onTap: () {
-                                                          cubit.pickImage(
-                                                              type: 'camera',
-                                                              type1: '1');
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                          // Future.delayed(Duration(milliseconds: 500),
-                                                          //         () {
-                                                          //       showDialog(
-                                                          //         context: context,
-                                                          //         barrierDismissible: false,
-                                                          //         builder: (ctx) => AlertDialog(
-                                                          //           title: Padding(
-                                                          //             padding: const EdgeInsets.symmetric(
-                                                          //               vertical: 5,
-                                                          //             ),
-                                                          //             child: Text('photo'.tr()),
-                                                          //           ),
-                                                          //           contentPadding: EdgeInsets.zero,
-                                                          //           content: RecordWidget(
-                                                          //             type: 'image',
-                                                          //             sendType: type,
-                                                          //             id: id,
-                                                          //           ),
-                                                          //         ),
-                                                          //       );
-                                                          //     });
-                                                        },
+                                        suffixWidget: cubit.isRecording
+                                            ? Container(
+                                                child: InkWell(
+                                                    onTap: () {
+                                                      cubit.stopRecord();
+                                                    },
+                                                    child: Icon(Icons.close,
+                                                        color: AppColors.red)))
+                                            : InkWell(
+                                                onTap: () {
+                                                  showDialog(
+                                                    context: context,
+                                                    builder: (ctx) =>
+                                                        AlertDialog(
+                                                      title: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                vertical: 5),
+                                                        child: Text(
+                                                            trans.tr('choose')),
                                                       ),
-                                                      ChooseIconDialog(
-                                                        title:
-                                                            trans.tr('photo'),
-                                                        icon: Icons.photo,
-                                                        onTap: () {
-                                                          cubit.pickImage(
-                                                              type: 'photo',
-                                                              type1: '1');
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                          // Future.delayed(Duration(milliseconds: 500),
-                                                          //         () {
-                                                          //       showDialog(
-                                                          //         context: context,
-                                                          //         barrierDismissible: false,
-                                                          //         builder: (ctx) => AlertDialog(
-                                                          //           title: Padding(
-                                                          //             padding: const EdgeInsets.symmetric(
-                                                          //               vertical: 5,
-                                                          //             ),
-                                                          //             child: Text('photo'.tr()),
-                                                          //           ),
-                                                          //           contentPadding: EdgeInsets.zero,
-                                                          //           content: RecordWidget(
-                                                          //             type: 'image',
-                                                          //             sendType: type,
-                                                          //             id: id,
-                                                          //           ),
-                                                          //         ),
-                                                          //       );
-                                                          //     });
-                                                        },
+                                                      contentPadding:
+                                                          EdgeInsets.zero,
+                                                      content: SizedBox(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width -
+                                                            60,
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            ChooseIconDialog(
+                                                              title: trans
+                                                                  .tr('camera'),
+                                                              icon: Icons
+                                                                  .camera_alt,
+                                                              onTap: () {
+                                                                cubit.pickImage(
+                                                                    type:
+                                                                        'camera',
+                                                                    type1: '1');
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                // Future.delayed(Duration(milliseconds: 500),
+                                                                //         () {
+                                                                //       showDialog(
+                                                                //         context: context,
+                                                                //         barrierDismissible: false,
+                                                                //         builder: (ctx) => AlertDialog(
+                                                                //           title: Padding(
+                                                                //             padding: const EdgeInsets.symmetric(
+                                                                //               vertical: 5,
+                                                                //             ),
+                                                                //             child: Text('photo'.tr()),
+                                                                //           ),
+                                                                //           contentPadding: EdgeInsets.zero,
+                                                                //           content: RecordWidget(
+                                                                //             type: 'image',
+                                                                //             sendType: type,
+                                                                //             id: id,
+                                                                //           ),
+                                                                //         ),
+                                                                //       );
+                                                                //     });
+                                                              },
+                                                            ),
+                                                            ChooseIconDialog(
+                                                              title: trans
+                                                                  .tr('photo'),
+                                                              icon: Icons.photo,
+                                                              onTap: () {
+                                                                cubit.pickImage(
+                                                                    type:
+                                                                        'photo',
+                                                                    type1: '1');
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                // Future.delayed(Duration(milliseconds: 500),
+                                                                //         () {
+                                                                //       showDialog(
+                                                                //         context: context,
+                                                                //         barrierDismissible: false,
+                                                                //         builder: (ctx) => AlertDialog(
+                                                                //           title: Padding(
+                                                                //             padding: const EdgeInsets.symmetric(
+                                                                //               vertical: 5,
+                                                                //             ),
+                                                                //             child: Text('photo'.tr()),
+                                                                //           ),
+                                                                //           contentPadding: EdgeInsets.zero,
+                                                                //           content: RecordWidget(
+                                                                //             type: 'image',
+                                                                //             sendType: type,
+                                                                //             id: id,
+                                                                //           ),
+                                                                //         ),
+                                                                //       );
+                                                                //     });
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ],
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Text(trans
+                                                              .tr('cancel')),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: MySvgWidget(
+                                                    path: ImageAssets
+                                                        .attachmentIcon,
+                                                    imageColor: AppColors.white,
+                                                    size: 10,
                                                   ),
                                                 ),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Text(
-                                                        trans.tr('cancel')),
-                                                  )
-                                                ],
                                               ),
-                                            );
-                                          },
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: MySvgWidget(
-                                              path: ImageAssets.attachmentIcon,
-                                              imageColor: AppColors.white,
-                                              size: 10,
-                                            ),
-                                          ),
-                                        ),
                                         textInputType: TextInputType.text,
                                       ),
                                     ),

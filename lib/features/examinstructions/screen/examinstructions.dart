@@ -355,7 +355,9 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                         style: TextStyle(
                                                             color:
                                                                 AppColors.blue,
-                                                            fontSize: 10,
+                                                            fontSize: getSize(
+                                                                    context) /
+                                                                32,
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold),
@@ -369,44 +371,47 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                         ),
                                       ),
                                     ),
-                              SizedBox(
-                                height: 20,
-                              ),
+                              SizedBox(height: getSize(context) / 22),
                               ListView.builder(
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
                                 itemCount: examinstructions
                                     .data!.details!.instruction!.length,
                                 itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 20),
+                                  return Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 0,
+                                        vertical: getSize(context) / 44),
                                     child: Row(
                                       children: [
-                                        Container(
-                                          child: Center(
-                                              child: Text(
-                                            (index + 1).toString(),
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                                color: AppColors.blue),
-                                          )),
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: AppColors.bluelight),
-                                          width: 30,
-                                          height: 30,
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  getSize(context) / 44),
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: Center(
+                                                child: Text(
+                                              (index + 1).toString(),
+                                              style: TextStyle(
+                                                  fontSize:
+                                                      getSize(context) / 22,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.blue),
+                                            )),
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: AppColors.bluelight),
+                                            width: getSize(context) / 14,
+                                            height: getSize(context) / 14,
+                                          ),
                                         ),
-                                        SizedBox(
-                                          width: 7,
-                                        ),
-                                        Expanded(
+                                        Flexible(
                                           child: Text(
                                             examinstructions.data!.details!
                                                 .instruction![index],
                                             style: TextStyle(
-                                                fontSize: 14,
+                                                fontSize: getSize(context) / 24,
                                                 color: AppColors.black),
                                           ),
                                         )
@@ -415,25 +420,24 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                   );
                                 },
                               ),
-                              SizedBox(
-                                height: getSize(context) / 32,
-                              ),
+                              // SizedBox(
+                              //   height: getSize(context) / 32,
+                              // ),
                               InkWell(
                                 onTap: () {
-                                  //
                                   context
                                       .read<QuestionsLessonExamCubit>()
                                       .getQuestionsOfLessonExam(
                                           context: context,
                                           lessonId: widget.exam_id,
-                                          exam_type:
-                                              widget.type == 'online_exam'
-                                                  ? "subject_class"
-                                                  : widget.type == 'video'
-                                                      ? 'video'
-                                                      :widget.type=='all_exam'
-                                                  ?'all_exam':
-                                              "lesson");
+                                          exam_type: widget.type ==
+                                                  'online_exam'
+                                              ? "subject_class"
+                                              : widget.type == 'video'
+                                                  ? 'video'
+                                                  : widget.type == 'all_exam'
+                                                      ? 'all_exam'
+                                                      : "lesson");
                                 },
                                 child: Container(
                                     width: getSize(context) / 1.1,

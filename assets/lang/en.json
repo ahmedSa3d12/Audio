@@ -279,11 +279,13 @@
   "send_your_suggest": "Send your suggestion",
   "invalid_suggest": "please enter your suggest",
   "lesson": "lessons",
-  "have_access":"you don't have access this lesson",
-  "enter_code":"enter code"
-  ,
-  "enter_ans":"enter answer",
-  "student_report_des":"student report doesn't exist now",
-  "have_exams":"your exam time is passed"
-
+  "have_access": "you don't have access this lesson",
+  "enter_code": "enter code",
+  "enter_ans": "enter answer",
+  "student_report_des": "student report doesn't exist now",
+  "have_exams": "your exam time is passed",
+  "success_download": "The pdf has been downloaded successfully",
+  "success_download_v": "The video has been downloaded successfully"
+,
+"deleted_success":"Deleted successfully"
 }

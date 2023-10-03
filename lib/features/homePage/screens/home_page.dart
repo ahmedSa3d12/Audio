@@ -20,9 +20,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool isLoading = false;
+  bool isLoading = true;
   @override
   void initState() {
+    context.read<HomePageCubit>().getUserData().then(
+          (value) => context.read<HomePageCubit>().getHomePageData(),
+        );
+
     context.read<HomePageCubit>().openFirstClass();
     super.initState();
   }

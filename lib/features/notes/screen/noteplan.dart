@@ -7,13 +7,9 @@ import 'package:new_mazoon/core/utils/assets_manager.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 import 'package:new_mazoon/core/widgets/title_with_circle_background_widget.dart';
-
 import 'package:new_mazoon/features/notes/widget/note.dart';
-
 import '../../../core/utils/app_colors.dart';
-
 import '../../../core/widgets/no_data_widget.dart';
-
 import '../cubit/note_cubit.dart';
 
 class NotePlan extends StatefulWidget {
@@ -85,6 +81,8 @@ class _NoteState extends State<NotePlan> {
         _days.add(context.read<NoteCubit>().datesOfNotes[i].date);
       }
     });
+    context.read<NoteCubit>().getNotes(
+        context.read<NoteCubit>().date, DateTime.now(), DateTime.now());
     super.initState();
   }
 
