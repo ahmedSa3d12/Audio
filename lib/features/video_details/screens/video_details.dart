@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart' as trans;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,6 +32,7 @@ class VideoDetails extends StatefulWidget {
 class _VideoDetailsState extends State<VideoDetails> {
   @override
   void initState() {
+    context.read<VideoDetailsCubit>().getDirectionPath();
     context.read<VideoDetailsCubit>().videoModel = null;
     context
         .read<VideoDetailsCubit>()
@@ -291,7 +294,11 @@ class _VideoDetailsState extends State<VideoDetails> {
                                           ),
                                         ),
                                       ),
-                                      Container(
+                                   File(cubit.dirpath.path +
+                                                           "/videos/" +
+                                                            cubit. videoModel!.name.split("/").toList().last +
+                                                           '.mp4' ) .existsSync()
+                                      ?Container(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: getSize(context) / 100),
                                         child: InkWell(
@@ -348,7 +355,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                             ),
                                           ),
                                         ),
-                                      ),
+                                      ):
+                                      Icon(Icons.check_circle,color: AppColors.success,),
                                       Visibility(
                                         visible:
                                             cubit.type == "video_resource" ||

@@ -34,7 +34,7 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
   bool isRecording = false;
   final audioRecorder = Record();
   Stream<FileResponse>? fileStream;
-
+var dirpath;
   double pos = 50;
 
   int ishour = 0;
@@ -66,8 +66,15 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
     }
   }
 
-  VideoDetailsCubit(this.api) : super(VideoDetailsInitial()) {}
+  VideoDetailsCubit(this.api) : super(VideoDetailsInitial()) {
+  getDirectionPath();
+  }
+getDirectionPath() async{
 
+  dirpath = await (Platform.isIOS
+        ? getApplicationSupportDirectory()
+        : getApplicationDocumentsDirectory());
+}
   pickImage({required String type, required String type1}) async {
     imageFile = await ImagePicker().pickImage(
       source: type == 'camera' ? ImageSource.camera : ImageSource.gallery,
