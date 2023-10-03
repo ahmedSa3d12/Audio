@@ -25,13 +25,13 @@ import 'firebase_options.dart';
 FirebaseMessaging messaging = FirebaseMessaging.instance;
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 
 NotificationDetails notificationDetails = NotificationDetails(
-android: AndroidNotificationDetails(channel.id, channel.name,
-channelDescription: channel.description,
-importance: Importance.max,
-icon: '@mipmap/ic_launcher'));
+    android: AndroidNotificationDetails(channel.id, channel.name,
+        channelDescription: channel.description,
+        importance: Importance.max,
+        icon: '@mipmap/ic_launcher'));
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,16 +39,12 @@ Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-   await Firebase.initializeApp(
-
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   //TODO HWB=> step 4)b
-  NotificationSettings settings = await messaging.requestPermission(
-    alert: true,
-    badge: true,
-    sound: true
-  );
+  NotificationSettings settings =
+      await messaging.requestPermission(alert: true, badge: true, sound: true);
   print("settings of permission : ${settings.authorizationStatus}");
   //TODO HWB=> step 5)
   getToken();
@@ -92,16 +88,14 @@ Future<void> main() async {
   );
 }
 
-void getToken()async{
+void getToken() async {
   String? token = await messaging.getToken();
   print("token =  $token");
 }
 
-
 PushNotificationService? pushNotificationService = PushNotificationService();
 
 final locator = GetIt.instance;
-
 
 late AndroidNotificationChannel channel;
 
@@ -153,9 +147,7 @@ void showNotification(RemoteMessage message) async {
       message.data['title'],
       message.data['body'],
       payload: paylod,
-      notificationDetails
-
-  );
+      notificationDetails);
 }
 
 void checkData(RemoteMessage message) {
