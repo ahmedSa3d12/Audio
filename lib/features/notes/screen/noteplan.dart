@@ -179,7 +179,7 @@ class _NoteState extends State<NotePlan> {
                                     context: context,
                                     initialDate: cubit.selectedDate,
                                     firstDate: DateTime.utc(2010),
-                                    lastDate: DateTime.parse('2999-10-03'),
+                                    lastDate: DateTime.parse('5999-10-03'),
                                   ).then((value) {
                                     cubit.dateController.text =
                                         DateFormat('y-MM-dd').format(
@@ -191,7 +191,8 @@ class _NoteState extends State<NotePlan> {
                                   });
                                 },
                                 style: TextStyle(
-                                    color: AppColors.black, fontSize: 18),
+                                    color: AppColors.black,
+                                    fontSize: getSize(context) / 28),
                                 decoration: InputDecoration(
                                     filled: true,
                                     // enabled: false,
@@ -203,7 +204,7 @@ class _NoteState extends State<NotePlan> {
                                           initialDate: cubit.selectedDate,
                                           firstDate: DateTime.utc(2010),
                                           lastDate:
-                                              DateTime.parse('2999-10-03'),
+                                              DateTime.parse('5999-10-03'),
                                         ).then((value) {
                                           cubit.dateController.text =
                                               DateFormat('y-MM-dd').format(
@@ -473,7 +474,7 @@ class _NoteState extends State<NotePlan> {
                                         Material(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(
-                                                  getSize(context) / 32)),
+                                                  getSize(context) / 44)),
                                           elevation: 5,
                                           child: Container(
                                             decoration: BoxDecoration(
