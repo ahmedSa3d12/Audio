@@ -70,6 +70,9 @@ var dirpath;
   getDirectionPath();
   }
 getDirectionPath() async{
+  dirpath = await (Platform.isIOS
+      ? getApplicationSupportDirectory()
+      : getApplicationDocumentsDirectory());}
   Future<void> stopRecord() async {
     await audioRecorder.stop();
     isRecording = false;
@@ -77,12 +80,9 @@ getDirectionPath() async{
     emit(StopRecordingState());
   }
 
-  VideoDetailsCubit(this.api) : super(VideoDetailsInitial()) {}
 
-  dirpath = await (Platform.isIOS
-        ? getApplicationSupportDirectory()
-        : getApplicationDocumentsDirectory());
-}
+
+
   pickImage({required String type, required String type1}) async {
     imageFile = await ImagePicker().pickImage(
       source: type == 'camera' ? ImageSource.camera : ImageSource.gallery,

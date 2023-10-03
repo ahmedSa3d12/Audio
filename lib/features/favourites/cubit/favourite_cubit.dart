@@ -14,11 +14,18 @@ part 'favourite_state.dart';
 
 class FavouriteCubit extends Cubit<FavouriteState> {
   FavouriteCubit(this.api) : super(FavouriteInitial()) {
+    getDirectionPath();
+
     getAllFavourite();
   }
+  getDirectionPath() async{
+    dirpath = await (Platform.isIOS
+        ? getApplicationSupportDirectory()
+        : getApplicationDocumentsDirectory());}
   ServiceApi api;
   int currentIndex = 0;
   AllFavourite? allFavourite;
+  var dirpath;
 
   //change tabs
   selectTap(int index) {
@@ -65,7 +72,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
         : getApplicationDocumentsDirectory());
     await dio.download(
       model.pdfFileUpload!,
-      dir.path + "/pdf/" + model.name!.split("/").toList().last + '.pdf',
+      dir.path + "/pdf/" + model.name.split("/").toList().last + '.pdf',
       onReceiveProgress: (count, total) {
         model.progress = (count / total);
         allFavourite!.data.allExamFavorites!.removeAt(index);

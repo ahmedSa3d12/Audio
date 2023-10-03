@@ -286,7 +286,8 @@
   "have_exams": "لقد مر وقت الامتحان الخاص بك",
   "success_download": "تم تحميل المف بنجاح",
   "success_download_v": "تم تحميل الفيديو بنجاح",
-  "deleted_success": "تمت عملة الحذف بنجاح",
+  "deleted_success":"تمت عملة الحذف بنجاح",
+  "dowanloded":"تم التحميل",
   "no_internet": "لا يوجد اتصال بالانترنت",
   "welcome": "أهلا "
 }

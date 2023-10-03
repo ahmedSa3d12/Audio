@@ -15,8 +15,15 @@ part 'source_references_state.dart';
 
 class SourceReferencesCubit extends Cubit<SourceReferencesState> {
   SourceReferencesCubit(this.api) : super(SourceReferencesInitial()) {
+    getDirectionPath();
     sourcesAndReferencesData();
+
   }
+  getDirectionPath() async{
+    dirpath = await (Platform.isIOS
+        ? getApplicationSupportDirectory()
+        : getApplicationDocumentsDirectory());}
+  var dirpath;
 
   final ServiceApi api;
   List<SourcesReferencesDatum> sourcesReferencesList = [];

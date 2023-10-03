@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart' as local;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,7 +70,13 @@ class SourceReferencesDetails extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                InkWell(
+                                cubit.referenceModel.progress==0&&File(cubit.dirpath.path +
+                                    "/pdf/" +
+                  cubit.referenceModel.title!.split("/").toList().last+
+                                    '.pdf' ) .existsSync()
+                                    ? SizedBox(
+                                    width: 25,
+                                    height: 25,child: Icon(Icons.check_circle,color: AppColors.success,)):  InkWell(
                                   onTap: () {
                                     //ckeck if exist show dowloaded
                                     print('download');

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/features/sources_and_references/cubit/source_references_cubit.dart';
@@ -182,7 +184,17 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                                                             AppColors.primary,
                                                       ),
                                                     )
-                                                  : ClassExamIconWidget(
+                                                  : cubit
+                                              .sourcesReferencesByIdList[
+                                          index].progress==0&&File(cubit.dirpath.path +
+                                              "/pdf/" +
+                                                  cubit.sourcesReferencesByIdList[
+                                              index].title!.split("/").toList().last+
+                                              '.pdf' ) .existsSync()
+                                              ? SizedBox(
+                                              width: 25,
+                                              height: 25,child: Icon(Icons.check_circle,color: AppColors.success,)):
+                                          ClassExamIconWidget(
                                                       type: ImageAssets
                                                           .downloadsIcon,
                                                       iconColor:

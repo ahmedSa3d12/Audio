@@ -15,10 +15,17 @@ part 'start_trip_state.dart';
 
 class StartTripCubit extends Cubit<StartTripState> {
   StartTripCubit(this.api) : super(StartTripInitial()) {
+    getDirectionPath();
     getExplanationData();
     getFinalReviewData();
     getExamClassesData();
+
   }
+  getDirectionPath() async{
+    dirpath = await (Platform.isIOS
+        ? getApplicationSupportDirectory()
+        : getApplicationDocumentsDirectory());}
+  var dirpath;
 
   final ServiceApi api;
 

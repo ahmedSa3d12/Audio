@@ -25,6 +25,7 @@ class VideoDetails extends StatefulWidget {
   VideoDetails({this.type, this.videoId, Key? key}) : super(key: key);
   final int? videoId;
   final String? type;
+
   @override
   State<VideoDetails> createState() => _VideoDetailsState();
 }
@@ -294,69 +295,109 @@ class _VideoDetailsState extends State<VideoDetails> {
                                           ),
                                         ),
                                       ),
-                                   File(cubit.dirpath.path +
-                                                           "/videos/" +
-                                                            cubit. videoModel!.name.split("/").toList().last +
-                                                           '.mp4' ) .existsSync()
-                                      ?Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: getSize(context) / 100),
-                                        child: InkWell(
-                                          onTap: () {
-                                            cubit.downloadvideo();
-                                          },
-                                          child: Center(
-                                            child: Column(
-                                              children: [
-                                                Container(
-                                                  width: getSize(context) / 11,
-                                                  height: getSize(context) / 11,
-                                                  decoration: BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color: AppColors.purple1),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: cubit.videoModel!
-                                                                .progress !=
-                                                            0
-                                                        ? CircularProgressIndicator(
-                                                            value: cubit
-                                                                .videoModel!
-                                                                .progress,
-                                                            backgroundColor:
-                                                                AppColors.white,
-                                                            color: AppColors
-                                                                .primary,
-                                                          )
-                                                        : MySvgWidget(
-                                                            path: ImageAssets
-                                                                .dowanload1Icon,
-                                                            imageColor:
-                                                                AppColors.white,
-                                                            size: getSize(
-                                                                    context) /
+                                      cubit.videoModel!.progress == 0 &&
+                                              File(cubit.dirpath.path +
+                                                      "/videos/" +
+                                                      cubit.videoModel!.name
+                                                          .split("/")
+                                                          .toList()
+                                                          .last +
+                                                      '.mp4')
+                                                  .existsSync()
+                                          ? Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      getSize(context) / 100),
+                                              child: Column(
+                                                children: [
+                                                  Icon(
+                                                    Icons.check_circle,
+                                                    color: AppColors.success,
+                                                    size: getSize(context) / 10,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 4,
+                                                  ),
+                                                  Text(
+                                            trans.tr("dowanloded"),
+                                                    style: TextStyle(
+                                                      color: AppColors.transparent,
+                                                      fontSize:
+                                                          getSize(context) / 32,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          : Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      getSize(context) / 100),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  cubit.downloadvideo();
+                                                },
+                                                child: Center(
+                                                  child: Column(
+                                                    children: [
+                                                      Container(
+                                                        width:
+                                                            getSize(context) /
                                                                 11,
-                                                          ),
+                                                        height:
+                                                            getSize(context) /
+                                                                11,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                color: AppColors
+                                                                    .purple1),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: cubit.videoModel!
+                                                                      .progress !=
+                                                                  0
+                                                              ? CircularProgressIndicator(
+                                                                  value: cubit
+                                                                      .videoModel!
+                                                                      .progress,
+                                                                  backgroundColor:
+                                                                      AppColors
+                                                                          .white,
+                                                                  color: AppColors
+                                                                      .primary,
+                                                                )
+                                                              : MySvgWidget(
+                                                                  path: ImageAssets
+                                                                      .dowanload1Icon,
+                                                                  imageColor:
+                                                                      AppColors
+                                                                          .white,
+                                                                  size: getSize(
+                                                                          context) /
+                                                                      11,
+                                                                ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 4,
+                                                      ),
+                                                      Text(
+                                                        trans.tr("dowanload"),
+                                                        style: TextStyle(
+                                                          fontSize:
+                                                              getSize(context) /
+                                                                  32,
+                                                        ),
+                                                      )
+                                                    ],
                                                   ),
                                                 ),
-                                                SizedBox(
-                                                  height: 4,
-                                                ),
-                                                Text(
-                                                  trans.tr("dowanload"),
-                                                  style: TextStyle(
-                                                    fontSize:
-                                                        getSize(context) / 32,
-                                                  ),
-                                                )
-                                              ],
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ):
-                                      Icon(Icons.check_circle,color: AppColors.success,),
                                       Visibility(
                                         visible:
                                             cubit.type == "video_resource" ||

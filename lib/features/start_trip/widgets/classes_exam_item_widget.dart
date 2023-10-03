@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -185,7 +187,14 @@ class ClassesExamItemWidget extends StatelessWidget {
             child: Positioned(
               top: 95,
               right: 10,
-              child: InkWell(
+
+              child: model.progress==0&&File(cubit.dirpath.path +
+                  "/pdf/" +
+                  model.name!.split("/").toList().last+
+                  '.pdf' ) .existsSync()
+                  ? SizedBox(
+                  width: 25,
+                  height: 25,child: Icon(Icons.check_circle,color: AppColors.success,)): InkWell(
                 onTap: () async {
                   print('object');
                   cubit.downloadPdf(model);

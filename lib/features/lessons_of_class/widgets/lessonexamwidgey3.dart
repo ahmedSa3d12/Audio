@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
@@ -198,7 +200,14 @@ class LessonsExamItemWidget extends StatelessWidget {
             child: Positioned(
               top: getSize(context) / 6,
               right: getSize(context) / 44,
-              child: InkWell(
+
+              child:  cubit.examsofLessons.elementAt(index).progress==0&&File(cubit.dirpath.path +
+                "/pdf/" +
+                  cubit.examsofLessons.elementAt(index).name.split("/").toList().last+
+                '.pdf' ) .existsSync()
+                ? SizedBox(
+                width: 25,
+                height: 25,child: Icon(Icons.check_circle,color: AppColors.success,)): InkWell(
                 onTap: () async {
                   cubit.downloadPdfOfLesson(model);
                 },
