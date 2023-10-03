@@ -37,16 +37,19 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     });
   }
 
-  removeFavourite(String type, String action, int video_id) async {
+  removeFavouriteVideo(String type, String action, int video_id) async {
     final response = await api.addToFavourite(
       action: action,
       video_id: video_id,
       type: type,
     );
     response.fold(
-      (l) => emit(VideoDetailsError()),
+      (l) {
+        emit(VideoDetailsError());
+      },
       (r) {
         getAllFavourite();
+        successGetBar(r.message);
         emit(VideoDetailsLoaded());
       },
     );
@@ -61,7 +64,7 @@ class FavouriteCubit extends Cubit<FavouriteState> {
         ? getApplicationSupportDirectory()
         : getApplicationDocumentsDirectory());
     await dio.download(
-      model.answerPdfFile!,
+      model.pdfFileUpload!,
       dir.path + "/pdf/" + model.name!.split("/").toList().last + '.pdf',
       onReceiveProgress: (count, total) {
         model.progress = (count / total);
@@ -77,6 +80,24 @@ class FavouriteCubit extends Cubit<FavouriteState> {
         allFavourite!.data.allExamFavorites!.removeAt(index);
         allFavourite!.data.allExamFavorites!.insert(index, model);
         emit(Fav2DownloadPdfLoaded());
+      },
+    );
+  }
+
+  removeFavouriteExam(String type, String action, int video_id, int index) async {
+    print("________________________________________________________________________");
+    print("type = $type , action = $action , video_id = $video_id   , index = $index");
+    final response = await api.addToFavouriteExam(
+      action: 'un_favorite',
+      exam_id: video_id,
+      type: type,
+    );
+    response.fold(
+          (l) => emit(ErrorRemoveFavoriteExam()),
+          (r) {
+            emit(SuccessRemoveFavoriteExam());
+        successGetBar(r.message);
+
       },
     );
   }

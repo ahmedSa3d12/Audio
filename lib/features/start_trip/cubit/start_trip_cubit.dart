@@ -142,7 +142,7 @@ class StartTripCubit extends Cubit<StartTripState> {
   favourite(String type, String action, int video_id, int index) async {
     final response = await api.addToFavouriteExam(
       action: action,
-      video_id: video_id,
+      exam_id: video_id,
       type: type,
     );
     response.fold(

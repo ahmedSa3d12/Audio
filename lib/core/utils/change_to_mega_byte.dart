@@ -10,6 +10,6 @@ String changeToMegaByte(String size) {
     return '$size KB';
   }   else {
     mySize = mySize / 1024;
-    return '${mySize.toStringAsFixed(2)} MB';
+    return '${mySize.toStringAsFixed(2).toString()} MB';
   }
 }

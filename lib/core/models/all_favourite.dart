@@ -63,6 +63,7 @@ class AllExamFavorite {
   String? answerVideoFile;
   String name;
   double progress;
+  String ?pdfFileUpload;
   String type;
   String backgroundColor;
   int quizMinutes;
@@ -76,6 +77,7 @@ class AllExamFavorite {
     required this.answerPdfFile,
     required this.answerVideoFile,
     required this.name,
+    required this.pdfFileUpload,
     this.progress = 0,
     required this.type,
     required this.backgroundColor,
@@ -87,6 +89,7 @@ class AllExamFavorite {
   factory AllExamFavorite.fromJson(Map<String, dynamic> json) =>
       AllExamFavorite(
         id: json["id"],
+        pdfFileUpload:json['pdf_file_upload'],
         image: json["image"],
         numOfQuestions: json["num_of_questions"],
         answerPdfFile: json["answer_pdf_file"],
@@ -101,6 +104,7 @@ class AllExamFavorite {
 
   Map<String, dynamic> toJson() => {
         "id": id,
+    'pdf_file_upload':pdfFileUpload,
         "image": image,
         "num_of_questions": numOfQuestions,
         "answer_pdf_file": answerPdfFile,

@@ -12,7 +12,12 @@ class ExamsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FavouriteCubit, FavouriteState>(
+    return BlocConsumer<FavouriteCubit, FavouriteState>(
+      listener: (context, state) {
+        if(state is SuccessRemoveFavoriteExam){
+          context.read<FavouriteCubit>().getAllFavourite();
+        }
+      },
       builder: (context, state) {
         FavouriteCubit cubit = context.read<FavouriteCubit>();
         if (state is LoadingGetFavourite) {
