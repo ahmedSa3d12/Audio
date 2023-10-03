@@ -7,9 +7,7 @@ import 'package:new_mazoon/core/utils/assets_manager.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:popover/popover.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../features/login/cubit/login_cubit.dart';
 import '../preferences/preferences.dart';
 import '../utils/app_colors.dart';
