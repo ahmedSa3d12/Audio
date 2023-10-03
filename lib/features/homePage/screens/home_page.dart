@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,8 +73,12 @@ class _HomePageState extends State<HomePage> {
             );
           } else {
             return NoDataWidget(
-              onclick: () => cubit.getHomePageData(),
-              title: 'no_date',
+              onclick: () {
+                if (state is HomePageError) {
+                  cubit.getHomePageData();
+                } else {}
+              },
+              title: 'no_internet'.tr(),
             );
           }
         },

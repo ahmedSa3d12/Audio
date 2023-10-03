@@ -285,7 +285,8 @@
   "student_report_des": "student report doesn't exist now",
   "have_exams": "your exam time is passed",
   "success_download": "The pdf has been downloaded successfully",
-  "success_download_v": "The video has been downloaded successfully"
-,
-"deleted_success":"Deleted successfully"
+  "success_download_v": "The video has been downloaded successfully",
+  "deleted_success": "Deleted successfully",
+  "no_internet": "not Internet",
+  "welcome": "ًwelcome "
 }
