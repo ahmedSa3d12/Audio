@@ -43,18 +43,31 @@ class FavExamItemWidget extends StatelessWidget {
                       ? HexColor('#FCB9B9')
                       : HexColor('#FDC286'),
                 ),
-                child: SizedBox(
-                  height: getSize(context) / 4.8,
-                  width: getSize(context) / 5.2,
-                  child: Center(
-                    child: Image.asset(
-                      model.type == 'pdf'
-                          ? ImageAssets.examPdfImage
-                          : ImageAssets.examPaperImage,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SizedBox(
                       height: getSize(context) / 4.8,
                       width: getSize(context) / 5.2,
+                      child: Center(
+                        child: Image.asset(
+                          model.type == 'pdf'
+                              ? ImageAssets.examPdfImage
+                              : ImageAssets.examPaperImage,
+                          height: getSize(context) / 4.8,
+                          width: getSize(context) / 5.2,
+                        ),
+                      ),
                     ),
-                  ),
+
+                       Positioned(
+                        left: 0,
+                          top: 0,
+                          child: IconButton(icon: Icon(Icons.delete,color: AppColors.red,),onPressed: () async {
+                            await  cubit.removeFavouriteExam(model.type, "un_favourite", model.examId, index);
+                          },)),
+
+                  ],
                 ),
               ),
               SizedBox(height: getSize(context) / 100),
@@ -78,29 +91,33 @@ class FavExamItemWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Visibility(
-                        visible: model.type == 'pdf',
-                        child: Text(
-                          changeToMegaByte(model.answerPdfFile.toString()),
-                          style: TextStyle(
-                              color: AppColors.black,
-                              fontSize: getSize(context) / 26),
-                        ),
-                      ),
+                      // Visibility(
+                      //   visible: model.type == 'pdf',
+                      //   child: Text(
+                      //    // "ooo",
+                      //     changeToMegaByte(model.answerPdfFile.toString()),
+                      //     style: TextStyle(
+                      //         color: AppColors.black,
+                      //         fontSize: getSize(context) / 26),
+                      //   ),
+                      // ),
                       // SizedBox(height: model.type == 'pdf'?10: 35),
                       SizedBox(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            model.numOfQuestions!=null?
                             Expanded(
                               flex: 1,
-                              child: ClassExamIconWidget(
+                              child:
+                              ClassExamIconWidget(
                                 textData: '${model.numOfQuestions}',
                                 type: 'text',
                                 iconColor: AppColors.gray7,
                                 onclick: () {},
                               ),
-                            ),
+                            ):SizedBox(),
+                            model.quizMinutes!=null?
                             Expanded(
                               flex: 1,
                               child: ClassExamIconWidget(
@@ -109,7 +126,7 @@ class FavExamItemWidget extends StatelessWidget {
                                 iconColor: AppColors.gray7,
                                 onclick: () {},
                               ),
-                            ),
+                            ):SizedBox(),
                             // Expanded(
                             //   flex: 1,
                             //   child: ClassExamIconWidget(

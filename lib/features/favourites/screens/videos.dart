@@ -4,11 +4,14 @@ import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/widgets/no_data_widget.dart';
 import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
 import 'package:new_mazoon/features/favourites/cubit/favourite_cubit.dart';
+import 'package:new_mazoon/features/video_details/screens/video_details.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/my_svg_widget.dart';
+import '../../../core/widgets/video_widget.dart';
 import '../../video_details/cubit/video_details_cubit.dart';
+import '../widget/favourite_video_widget.dart';
 
 class videosScreen extends StatelessWidget {
   const videosScreen({super.key});
@@ -39,98 +42,18 @@ class videosScreen extends StatelessWidget {
                   cubit.allFavourite!.data.allVideoFavorites!.length ?? 0,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: .72,
-                mainAxisSpacing: getSize(context) / 66,
+                mainAxisSpacing: getSize(context) / 20,
                 crossAxisSpacing: getSize(context) / 32,
                 crossAxisCount: 2,
               ),
               itemBuilder: (context, index) {
-                return Material(
-                  borderRadius: BorderRadius.circular(10.0),
-                  elevation: 20,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0.0, 1.0), //(x,y)
-                          blurRadius: 2.0,
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(getSize(context) / 44),
-                          child: Image.network(
-                            cubit.allFavourite!.data.allVideoFavorites![index]
-                                .image,
-                            // width: getSize(context)*0.45,
-                            height: getSize(context) * 0.35,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "${cubit.allFavourite!.data.allVideoFavorites![index].name}",
-                          style: TextStyle(
-                              fontSize: getSize(context) / 28,
-                              fontWeight: FontWeight.w700),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: getSize(context) / 66),
-                          child: Row(
-                            children: [
-                              MySvgWidget(
-                                path: ImageAssets.clockIcon,
-                                imageColor: AppColors.blue2,
-                                size: getSize(context) / 44,
-                              ),
-                              SizedBox(width: getSize(context) / 88),
-                              Flexible(
-                                fit: FlexFit.tight,
-                                child: Text(
-                                  '${cubit.allFavourite!.data.allVideoFavorites![index].time!}  ',
-                                  style: TextStyle(
-                                    fontSize: getSize(context) / 32,
-                                    color: AppColors.blue2,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  ///type must be
-                                  ///video_basic
-                                  /// video_resource
-                                  /// video_part
-                                  cubit.removeFavourite(
-                                      cubit.allFavourite!.data
-                                          .allVideoFavorites![index].type,
-                                      'un_favorite',
-                                      cubit.allFavourite!.data
-                                          .allVideoFavorites![index].id);
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: Icon(
-                                    Icons.delete_forever_outlined,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                return InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>VideoDetails(type: cubit.allFavourite!.data.allVideoFavorites![index].type,
+                    videoId:    cubit.allFavourite!.data.allVideoFavorites![index].videoId,)));
+                    ////////
+                  },
+                  child:FavoriteVideoWidget(index: index,),
                 );
                 //   SizedBox(height: 10,)
                 //   ],

@@ -96,7 +96,7 @@ class AttachmentCubit extends Cubit<AttachmentState> {
   favourite(String type, String action, int lessonId) async {
     final response = await api.addToFavouriteExam(
       action: action,
-      video_id: lessonId,
+      exam_id: lessonId,
       type: type,
     );
     response.fold(

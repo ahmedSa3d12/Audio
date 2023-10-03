@@ -621,7 +621,7 @@ class ServiceApi {
   }
 
   Future<Either<Failure, StatusResponse>> addToFavouriteExam(
-      {required int video_id,
+      {required int exam_id,
       required String type,
       required String action}) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
@@ -630,9 +630,9 @@ class ServiceApi {
       final response = await dio.post(
         EndPoints.addremovefavUrlExam,
         body: {
-          "online_exam_id": type == 'online_exam' ? video_id : "",
-          "all_exam_id": type == 'all_exam' ? video_id : "",
-          "life_exam_id": type == 'life_exam' ? video_id : "",
+          "online_exam_id": type == 'online_exam' ? exam_id : "",
+          "all_exam_id": type == 'all_exam' ? exam_id : "",
+          "life_exam_id": type == 'life_exam' ? exam_id : "",
           "action": action,
         },
         options: Options(
