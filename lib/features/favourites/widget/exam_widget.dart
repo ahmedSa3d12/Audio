@@ -1,14 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
 import 'package:new_mazoon/features/lessons_of_class/screens/view_video_screen.dart';
-
 import '../../../core/models/all_favourite.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/download_icon_widget.dart';
@@ -209,30 +206,45 @@ class FavExamItemWidget extends StatelessWidget {
             child: Positioned(
               top: 95,
               right: 10,
-              child:cubit.allFavourite!.data.allExamFavorites!.elementAt(index).progress==0&&File(cubit.dirpath.path +
-                  "/pdf/" +
-                  cubit.allFavourite!.data.allExamFavorites!.elementAt(index).name.split("/").toList().last +
-                  '.pdf' ) .existsSync()
+              child: cubit.allFavourite!.data.allExamFavorites!
+                              .elementAt(index)
+                              .progress ==
+                          0 &&
+                      File(cubit.dirpath.path +
+                              "/pdf/" +
+                              cubit.allFavourite!.data.allExamFavorites!
+                                  .elementAt(index)
+                                  .name
+                                  .split("/")
+                                  .toList()
+                                  .last +
+                              '.pdf')
+                          .existsSync()
                   ? SizedBox(
-                  width: 25,
-                  height: 25,child: Icon(Icons.check_circle,color: AppColors.success,)): InkWell(
-                onTap: () async {
-                  cubit.downloadPdf(model);
-                },
-                child: SizedBox(
-                  width: 25,
-                  height: 25,
-                  child: model.progress != 0
-                      ? CircularProgressIndicator(
-                          value: model.progress,
-                          backgroundColor: AppColors.white,
-                          color: AppColors.primary,
-                        )
-                      : DownloadIconWidget(
-                          color: HexColor(model.backgroundColor),
-                        ),
-                ),
-              ),
+                      width: 25,
+                      height: 25,
+                      child: Icon(
+                        Icons.check_circle,
+                        color: AppColors.success,
+                      ))
+                  : InkWell(
+                      onTap: () async {
+                        cubit.downloadPdf(model);
+                      },
+                      child: SizedBox(
+                        width: 25,
+                        height: 25,
+                        child: model.progress != 0
+                            ? CircularProgressIndicator(
+                                value: model.progress,
+                                backgroundColor: AppColors.white,
+                                color: AppColors.primary,
+                              )
+                            : DownloadIconWidget(
+                                color: HexColor(model.backgroundColor),
+                              ),
+                      ),
+                    ),
             ),
           )
         ],

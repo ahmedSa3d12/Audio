@@ -753,12 +753,12 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                         ),
 
                   ///
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    left: 0,
-                    child: HomePageAppBarWidget(),
-                  ),
+                  // Positioned(
+                  //   top: 0,
+                  //   right: 0,
+                  //   left: 0,
+                  //   child: HomePageAppBarWidget(),
+                  // ),
                 ],
               ),
             ),

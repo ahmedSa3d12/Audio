@@ -9,6 +9,7 @@ import 'package:new_mazoon/core/widgets/no_data_widget.dart';
 import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:new_mazoon/features/video_details/widget/replies.dart';
+import 'package:readmore/readmore.dart';
 
 import '../../../core/models/user_model.dart';
 import '../../../core/preferences/preferences.dart';
@@ -150,16 +151,43 @@ class _CommentsState extends State<Comments> {
                                                             .elementAt(index)
                                                             .type ==
                                                         'text'
-                                                    ? Text(
+                                                    ? ReadMoreText(
                                                         cubit.comments!.data
                                                             .elementAt(index)
                                                             .comment,
+                                                        trimLines: 3,
+                                                        colorClickableText:
+                                                            AppColors
+                                                                .unselectedTabColor,
+                                                        trimMode: TrimMode.Line,
+                                                        lessStyle: TextStyle(
+                                                            color:
+                                                                AppColors.blue3,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: getSize(
+                                                                    context) /
+                                                                30),
+                                                        trimCollapsedText: trans
+                                                            .tr('see_more'),
+                                                        trimExpandedText: trans
+                                                            .tr('see_less'),
+                                                        moreStyle: TextStyle(
+                                                            color:
+                                                                AppColors.blue3,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: getSize(
+                                                                    context) /
+                                                                30),
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             color:
                                                                 AppColors.gray1,
-                                                            fontSize: 16),
+                                                            fontSize: getSize(
+                                                                    context) /
+                                                                24),
                                                       )
                                                     : cubit.comments!.data
                                                                 .elementAt(

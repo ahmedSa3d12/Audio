@@ -5,6 +5,7 @@ import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/utils/assets_manager.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
+import 'package:readmore/readmore.dart';
 
 import '../../../core/models/student_reports_model.dart';
 import '../cubit/student_reports_cubit.dart';
@@ -83,16 +84,24 @@ class _ReportWidgetState extends State<ReportWidget> {
                     height: getSize(context) / 90,
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: getSize(context) / 40),
-                    child: Text(
-                      widget.reports.report,
-                      style: TextStyle(
-                          color: AppColors.liveExamGrayTextColor,
-                          fontWeight: FontWeight.normal,
-                          fontSize: getSize(context) / 30),
-                    ),
-                  ),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: getSize(context) / 40),
+                      child: ReadMoreText(
+                        widget.reports.report,
+                        trimLines: 3,
+                        colorClickableText: AppColors.unselectedTabColor,
+                        trimMode: TrimMode.Line,
+                        lessStyle: TextStyle(
+                            color: colors[widget.index % 3],
+                            fontWeight: FontWeight.bold,
+                            fontSize: getSize(context) / 30),
+                        trimCollapsedText: 'see_more'.tr(),
+                        trimExpandedText: 'see_less'.tr(),
+                        moreStyle: TextStyle(
+                            color: colors[widget.index % 3],
+                            fontWeight: FontWeight.bold,
+                            fontSize: getSize(context) / 30),
+                      )),
                   SizedBox(
                     height: getSize(context) / 60,
                   ),

@@ -551,12 +551,12 @@ class _StartMakeExamScreenState extends State<StartMakeExamScreen> {
                       ),
 
                 ///
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  left: 0,
-                  child: HomePageAppBarWidget(isHome: false),
-                ),
+                // Positioned(
+                //   top: 0,
+                //   right: 0,
+                //   left: 0,
+                //   child: HomePageAppBarWidget(isHome: false),
+                // ),
               ],
             ),
           ),

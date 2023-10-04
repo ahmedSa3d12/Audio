@@ -9,7 +9,6 @@ import 'package:new_mazoon/features/favourites/cubit/favourite_cubit.dart';
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/dialogs.dart';
 import '../../examinstructions/cubit/examinstructions_cubit.dart';
-import '../../start_trip/widgets/classes_exam_item_widget.dart';
 import '../widget/exam_widget.dart';
 
 class ExamsScreen extends StatelessWidget {
@@ -65,7 +64,24 @@ class ExamsScreen extends StatelessWidget {
                             cubit.allFavourite!.data.allExamFavorites![index]
                                 .examId,
                             cubit.allFavourite!.data.allExamFavorites![index]
-                                .examType
+                                        .examCategoryType ==
+                                    'subject_class'
+                                ? 'online_exam'
+                                : cubit
+                                            .allFavourite!
+                                            .data
+                                            .allExamFavorites![index]
+                                            .examCategoryType ==
+                                        'video'
+                                    ? 'video'
+                                    : cubit
+                                                .allFavourite!
+                                                .data
+                                                .allExamFavorites![index]
+                                                .examCategoryType ==
+                                            'all_exam'
+                                        ? 'all_exam'
+                                        : 'lesson'
                           ]);
                     } else if (cubit.allFavourite!.data.allExamFavorites![index]
                             .answerPdfFile ==

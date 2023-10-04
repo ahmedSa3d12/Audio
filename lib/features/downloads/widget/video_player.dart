@@ -7,11 +7,9 @@ import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart
 import 'package:video_player/video_player.dart';
 
 class VideoWidgetFile extends StatefulWidget {
-  const VideoWidgetFile(
-      {Key? key, required this.videoLink, required this.videoId})
-      : super(key: key);
+  const VideoWidgetFile({Key? key, required this.videoLink}) : super(key: key);
   final File videoLink;
-  final int videoId;
+  // final int videoId;
 
   @override
   State<VideoWidgetFile> createState() => _VideoWidgetFileState();
@@ -56,7 +54,7 @@ class _VideoWidgetFileState extends State<VideoWidgetFile> {
   void _createChewieController() {
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController!,
-      autoPlay: false,
+      autoPlay: true,
       allowFullScreen: true,
       aspectRatio: 2.06,
       controlsSafeAreaMinimum: EdgeInsets.zero,

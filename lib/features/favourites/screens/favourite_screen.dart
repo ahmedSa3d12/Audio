@@ -26,6 +26,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>
   @override
   void initState() {
     super.initState();
+    context.read<FavouriteCubit>().getAllFavourite();
     tabController = TabController(length: 2, vsync: this);
     tabController.animateTo(context.read<FavouriteCubit>().currentIndex);
   }
@@ -33,9 +34,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<FavouriteCubit, FavouriteState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         FavouriteCubit cubit = context.read<FavouriteCubit>();
         return Scaffold(

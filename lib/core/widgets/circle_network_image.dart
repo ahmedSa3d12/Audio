@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
+import '../utils/assets_manager.dart';
 
 class ManageCircleNetworkImage extends StatelessWidget {
   const ManageCircleNetworkImage(
@@ -34,6 +35,9 @@ class ManageCircleNetworkImage extends StatelessWidget {
                 color: AppColors.primary,
               ),
             ),
+            errorWidget: (context, url, error) {
+              return Image.asset(ImageAssets.userExamImage);
+            },
           ),
         ));
   }

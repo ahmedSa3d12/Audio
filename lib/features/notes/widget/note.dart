@@ -45,44 +45,43 @@ class _NoteWidgetState extends State<NoteWidget> {
               width: MediaQuery.of(context).size.width,
               child: Row(
                 children: [
-                  Expanded(
-                    flex: 2,
-                    child: Stack(
-                      alignment: Alignment.centerRight,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width / 10,
-                          height: MediaQuery.of(context).size.width / 3.5,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                                MediaQuery.of(context).size.width / 32),
-                            color: cubit.colors[widget.index % 3],
-                          ),
-                          child: Container(),
+                  Stack(
+                    alignment: Alignment.centerRight,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 10,
+                        height: MediaQuery.of(context).size.width / 3.5,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.width / 32),
+                          color: cubit.colors[widget.index % 3],
                         ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              right: MediaQuery.of(context).size.width / 72),
-                          width: MediaQuery.of(context).size.width / 8,
-                          decoration: BoxDecoration(
-                              color: cubit.colorsLight[widget.index % 3],
-                              borderRadius: BorderRadius.all(Radius.circular(
-                                  MediaQuery.of(context).size.width / 44))),
-                          child: Center(
-                              child: Text(
-                            '${(widget.index < 10) ? '0' : ''}${widget.index + 1}',
-                            style: TextStyle(
-                                color: cubit.colors[widget.index % 3],
-                                fontWeight: FontWeight.bold,
-                                fontSize: getSize(context) / 22),
-                          )),
-                        )
-                      ],
-                    ),
+                        child: Container(),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            right: MediaQuery.of(context).size.width / 72),
+                        width: MediaQuery.of(context).size.width / 8,
+                        decoration: BoxDecoration(
+                            color: cubit.colorsLight[widget.index % 3],
+                            borderRadius: BorderRadius.all(Radius.circular(
+                                MediaQuery.of(context).size.width / 44))),
+                        child: Center(
+                            child: Text(
+                          '${(widget.index < 10) ? '0' : ''}${widget.index + 1}',
+                          style: TextStyle(
+                              color: cubit.colors[widget.index % 3],
+                              fontWeight: FontWeight.bold,
+                              fontSize: getSize(context) / 22),
+                        )),
+                      )
+                    ],
                   ),
-                  Expanded(
-                    flex: 9,
+                  Flexible(
+                    fit: FlexFit.tight,
                     child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: getSize(context) / 44),
                       margin: EdgeInsets.symmetric(
                           vertical: MediaQuery.of(context).size.width / 88),
                       child: Column(
@@ -110,22 +109,21 @@ class _NoteWidgetState extends State<NoteWidget> {
                                 fontSize:
                                     MediaQuery.of(context).size.width / 26),
                           ),
-                          Text(
-                            DateFormat.yMMMEd().format(widget.noteModel.date),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: AppColors.liveExamGrayTextColor,
-                                fontWeight: FontWeight.w200,
-                                fontSize:
-                                    MediaQuery.of(context).size.width / 32),
-                          ),
+                          // Text(
+                          //   DateFormat.yMMMEd().format(widget.noteModel.date),
+                          //   maxLines: 1,
+                          //   overflow: TextOverflow.ellipsis,
+                          //   style: TextStyle(
+                          //       color: AppColors.liveExamGrayTextColor,
+                          //       fontWeight: FontWeight.w200,
+                          //       fontSize:
+                          //           MediaQuery.of(context).size.width / 32),
+                          // ),
                         ],
                       ),
                     ),
                   ),
-                  Expanded(
-                      child: Container(
+                  Container(
                     alignment: Alignment.topCenter,
                     child: IconButton(
                       padding: EdgeInsets.only(
@@ -137,7 +135,7 @@ class _NoteWidgetState extends State<NoteWidget> {
                           size: MediaQuery.of(context).size.width / 18),
                       onPressed: widget.onPressed,
                     ),
-                  ))
+                  )
                 ],
               ),
             ),

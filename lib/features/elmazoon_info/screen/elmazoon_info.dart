@@ -57,221 +57,227 @@ class _ElMazoonInfoState extends State<ElMazoonInfo>
                       color: AppColors.primary,
                     ),
                   )
-                : ListView(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    children: [
-                      Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(
-                                  bottom: getSize(context) / 3.5,
-                                ),
-                                height: getSize(context) / 3.5,
-                                decoration: BoxDecoration(
-                                    color: AppColors.primary,
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(
-                                          getSize(context) / 12),
-                                      bottomRight: Radius.circular(
-                                          getSize(context) / 12),
-                                    )),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Color(0x3F000000),
-                                          blurRadius: 4,
-                                          offset:
-                                              Offset(-getSize(context) / 22, 0),
-                                          spreadRadius: 0,
-                                        )
-                                      ],
-                                    ),
-                                    padding: EdgeInsets.only(
-                                      right: getSize(context) / 8,
-                                      left: getSize(context) / 44,
-                                    ),
-                                    child: CircleAvatar(
-                                      radius: getSize(context) / 9,
-                                      backgroundColor: AppColors.white,
-                                      child: Padding(
-                                        padding: EdgeInsets.all(
-                                            getSize(context) / 88),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                              getSize(context)),
-                                          child: Image.network(
-                                            cubit.data!.image,
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return Image.asset(
-                                                  ImageAssets.userImage);
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        cubit.data!.teacherName,
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                          color: AppColors.white,
-                                          fontSize: getSize(context) / 22,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                      SizedBox(height: getSize(context) / 22),
-                                      Text(
-                                        cubit.data!.department,
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                          color: AppColors.gray1,
-                                          fontSize: getSize(context) / 24,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                              Positioned(
-                                  left: 0,
-                                  top: 0,
-                                  child: IconButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      icon: Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        color: AppColors.white,
-                                      ))),
-                            ],
-                          ),
-                          SingleChildScrollView(
-                            physics: const BouncingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
+                : Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Column(
+                      children: [
+                        Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            Stack(
+                              alignment: Alignment.center,
                               children: [
-                                ...List.generate(
-                                  titles.length,
-                                  (index) => Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: getSize(context) / 32,
-                                      vertical: 2,
-                                    ),
-                                    child: InkWell(
-                                      onTap: () {
-                                        cubit.selectTap(index);
-                                        print(cubit.currentIndex);
-                                        _tabController.animateTo(index);
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: getSize(context) / 16,
-                                          vertical: getSize(context) / 52,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: cubit.currentIndex == index
-                                              ? AppColors.orangeThirdPrimary
-                                              : AppColors.unselectedTabColor,
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            titles[index],
-                                            style: TextStyle(
-                                              color: cubit.currentIndex == index
-                                                  ? AppColors.white
-                                                  : AppColors.black,
-                                              fontWeight: FontWeight.bold,
+                                Container(
+                                  margin: EdgeInsets.only(
+                                    bottom: getSize(context) / 3.5,
+                                  ),
+                                  height: getSize(context) / 3.5,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.primary,
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(
+                                            getSize(context) / 12),
+                                        bottomRight: Radius.circular(
+                                            getSize(context) / 12),
+                                      )),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color(0x3F000000),
+                                            blurRadius: 4,
+                                            offset: Offset(
+                                                -getSize(context) / 22, 0),
+                                            spreadRadius: 0,
+                                          )
+                                        ],
+                                      ),
+                                      padding: EdgeInsets.only(
+                                        right: getSize(context) / 8,
+                                        left: getSize(context) / 44,
+                                      ),
+                                      child: CircleAvatar(
+                                        radius: getSize(context) / 9,
+                                        backgroundColor: AppColors.white,
+                                        child: Padding(
+                                          padding: EdgeInsets.all(
+                                              getSize(context) / 88),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                                getSize(context)),
+                                            child: Image.network(
+                                              cubit.data!.image,
+                                              errorBuilder:
+                                                  (context, error, stackTrace) {
+                                                return Image.asset(
+                                                    ImageAssets.userImage);
+                                              },
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                )
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          cubit.data!.teacherName,
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                            color: AppColors.white,
+                                            fontSize: getSize(context) / 22,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        SizedBox(height: getSize(context) / 22),
+                                        Text(
+                                          cubit.data!.department,
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                            color: AppColors.gray1,
+                                            fontSize: getSize(context) / 24,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Positioned(
+                                    left: 0,
+                                    top: 0,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        icon: Icon(
+                                          Icons.arrow_forward_ios_rounded,
+                                          color: AppColors.white,
+                                        ))),
                               ],
                             ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                          padding: EdgeInsets.all(getSize(context) / 22),
-                          margin: EdgeInsets.symmetric(
-                            vertical: getSize(context) / 12,
-                            horizontal: getSize(context) / 22,
-                          ),
-                          decoration: ShapeDecoration(
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                            SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  ...List.generate(
+                                    titles.length,
+                                    (index) => Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: getSize(context) / 32,
+                                        vertical: 2,
+                                      ),
+                                      child: InkWell(
+                                        onTap: () {
+                                          cubit.selectTap(index);
+                                          print(cubit.currentIndex);
+                                          _tabController.animateTo(index);
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: getSize(context) / 16,
+                                            vertical: getSize(context) / 52,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: cubit.currentIndex == index
+                                                ? AppColors.orangeThirdPrimary
+                                                : AppColors.unselectedTabColor,
+                                            borderRadius:
+                                                BorderRadius.circular(25),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              titles[index],
+                                              style: TextStyle(
+                                                color:
+                                                    cubit.currentIndex == index
+                                                        ? AppColors.white
+                                                        : AppColors.black,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                            shadows: [
-                              BoxShadow(
-                                color: Color(0x3F000000),
-                                blurRadius: 25,
-                                offset: Offset(0, 4),
-                                spreadRadius: 0,
-                              )
-                            ],
-                          ),
-                          child: RefreshIndicator(
-                            onRefresh: () async {
-                              cubit.aboutMeMethod();
-                            },
-                            child: MazoonInfoWidget(
-                                allData: cubit.data!,
-                                data: cubit.currentIndex == 0
-                                    ? cubit.qualifications
-                                    : cubit.currentIndex == 1
-                                        ? cubit.experiences
-                                        : cubit.skills),
-                          )),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              onPressed: () async {
-                                await _launchUrl(cubit.data!.facebookLink);
-                              },
-                              icon: FaIcon(FontAwesomeIcons.facebook,
-                                  color: AppColors.blueColor3,
-                                  size: getSize(context) / 12)),
-                          IconButton(
-                              onPressed: () async {
-                                await _launchUrl(cubit.data!.youtubeLink);
-                              },
-                              icon: FaIcon(FontAwesomeIcons.youtube,
-                                  color: AppColors.red,
-                                  size: getSize(context) / 12)),
-                          IconButton(
-                              onPressed: () async {
-                                await _launchUrl(cubit.data!.instagramLink);
-                              },
-                              icon: SvgPicture.asset(
-                                ImageAssets.instgramIcon,
-                                width: getSize(context) / 12,
-                                height: getSize(context) / 12,
+                          ],
+                        ),
+                        Flexible(
+                          fit: FlexFit.tight,
+                          child: Container(
+                              padding: EdgeInsets.all(getSize(context) / 22),
+                              margin: EdgeInsets.symmetric(
+                                vertical: getSize(context) / 12,
+                                horizontal: getSize(context) / 22,
+                              ),
+                              decoration: ShapeDecoration(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                shadows: [
+                                  BoxShadow(
+                                    color: Color(0x3F000000),
+                                    blurRadius: 25,
+                                    offset: Offset(0, 4),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: RefreshIndicator(
+                                onRefresh: () async {
+                                  cubit.aboutMeMethod();
+                                },
+                                child: MazoonInfoWidget(
+                                    allData: cubit.data!,
+                                    data: cubit.currentIndex == 0
+                                        ? cubit.qualifications
+                                        : cubit.currentIndex == 1
+                                            ? cubit.experiences
+                                            : cubit.skills),
                               )),
-                        ],
-                      ),
-                    ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                onPressed: () async {
+                                  await _launchUrl(cubit.data!.facebookLink);
+                                },
+                                icon: FaIcon(FontAwesomeIcons.facebook,
+                                    color: AppColors.blueColor3,
+                                    size: getSize(context) / 12)),
+                            IconButton(
+                                onPressed: () async {
+                                  await _launchUrl(cubit.data!.youtubeLink);
+                                },
+                                icon: FaIcon(FontAwesomeIcons.youtube,
+                                    color: AppColors.red,
+                                    size: getSize(context) / 12)),
+                            IconButton(
+                                onPressed: () async {
+                                  await _launchUrl(cubit.data!.instagramLink);
+                                },
+                                icon: SvgPicture.asset(
+                                  ImageAssets.instgramIcon,
+                                  width: getSize(context) / 12,
+                                  height: getSize(context) / 12,
+                                )),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
           ),
         );

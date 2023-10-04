@@ -35,7 +35,7 @@ class SourcesAndReferencesMainScreen extends StatelessWidget {
                 SizedBox(height: getSize(context) / 3.5),
                 TitleWithCircleBackgroundWidget(
                     title: 'sources_and_references'),
-                SizedBox(height: 25),
+                SizedBox(height: getSize(context) / 18),
                 BlocBuilder<SourceReferencesCubit, SourceReferencesState>(
                   builder: (context, state) {
                     SourceReferencesCubit cubit =

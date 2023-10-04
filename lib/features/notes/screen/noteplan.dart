@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:new_mazoon/core/utils/assets_manager.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
@@ -472,107 +473,94 @@ class _NoteState extends State<NotePlan> {
                                         ),
                                         SizedBox(height: getSize(context) / 44),
                                         Material(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(
-                                                  getSize(context) / 44)),
-                                          elevation: 5,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(
+                                                    getSize(context) / 44)),
+                                            elevation: 5,
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.all(Radius.circular(
                                                         getSize(context) / 32)),
-                                                color: AppColors.white),
-                                            child: CalendarCarousel<Event>(
-                                              markedDatesMap: _getMarkedDateMap(
-                                                  _days, context),
-                                              markedDateShowIcon: true,
-                                              markedDateIconMaxShown: 1,
-                                              markedDateMoreShowTotal: null,
-                                              markedDateIconBuilder: (event) =>
-                                                  event.icon,
-                                              height: getSize(context) / 1.25,
-                                              selectedDayButtonColor:
-                                                  AppColors.redPrimary,
-                                              selectedDayBorderColor:
-                                                  AppColors.redPrimary,
-                                              todayButtonColor:
-                                                  AppColors.unselectedTabColor,
-                                              todayBorderColor:
-                                                  AppColors.unselectedTabColor,
-                                              scrollDirection: Axis.horizontal,
-                                              showHeaderButton: false,
-                                              onCalendarChanged: (p0) {
-                                                cubit.getNotes(
-                                                    DateFormat('yyyy-MM-dd')
-                                                        .format(p0),
-                                                    p0,
-                                                    p0);
-                                              },
-                                              showOnlyCurrentMonthDate: true,
-                                              showHeader: false,
-                                              weekdayTextStyle: TextStyle(
-                                                  color: AppColors.blue,
-                                                  fontWeight: FontWeight.w300),
-                                              daysTextStyle: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  color: AppColors.black),
-                                              selectedDayTextStyle: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  color: AppColors.white),
-                                              customWeekDayBuilder:
-                                                  (weekday, weekdayName) {
-                                                return Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(3.0),
-                                                  child: Text(
-                                                    weekdayName,
-                                                    style: TextStyle(
-                                                        color: AppColors.blue,
-                                                        fontSize:
-                                                            getSize(context) /
-                                                                28,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                );
-                                              },
-                                              pageSnapping: true,
-                                              dayPadding: 2,
-                                              weekDayPadding: EdgeInsets.all(
-                                                  getSize(context) / 22),
-                                              weekendTextStyle: TextStyle(
-                                                  color: AppColors.black),
-                                              nextDaysTextStyle: TextStyle(
-                                                  color: AppColors
-                                                      .descriptionBoardingColor),
-                                              headerTextStyle: TextStyle(
-                                                  color: AppColors.black,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize:
-                                                      getSize(context) / 28),
-                                              locale:
-                                                  EasyLocalization.of(context)!
-                                                      .currentLocale!
-                                                      .languageCode,
-                                              todayTextStyle: TextStyle(
-                                                  color: AppColors.black,
-                                                  fontWeight: FontWeight.w700),
-                                              onDayPressed: (DateTime date,
-                                                  List<Event> events) {
-                                                cubit.getNotes(
-                                                    DateFormat('yyyy-MM-dd')
-                                                        .format(date),
-                                                    date,
-                                                    date);
-                                              },
-                                              weekFormat: false,
-                                              showWeekDays: true,
-                                              selectedDateTime:
-                                                  cubit.datecurrent,
-                                              daysHaveCircularBorder: true,
-                                            ),
-                                          ),
-                                        )
+                                                    color: AppColors.white),
+                                                child: CalendarCarousel<Event>(
+                                                    markedDatesMap:
+                                                        _getMarkedDateMap(
+                                                            _days, context),
+                                                    markedDateShowIcon: true,
+                                                    markedDateIconMaxShown: 1,
+                                                    markedDateMoreShowTotal:
+                                                        null,
+                                                    markedDateIconBuilder:
+                                                        (event) => event.icon,
+                                                    height:
+                                                        getSize(context) / 1.25,
+                                                    selectedDayButtonColor:
+                                                        AppColors.redPrimary,
+                                                    selectedDayBorderColor:
+                                                        AppColors.redPrimary,
+                                                    todayButtonColor: AppColors
+                                                        .unselectedTabColor,
+                                                    todayBorderColor: AppColors
+                                                        .unselectedTabColor,
+                                                    scrollDirection: Axis.horizontal,
+                                                    showHeaderButton: false,
+                                                    onCalendarChanged: (p0) {
+                                                      cubit.getNotes(
+                                                          DateFormat(
+                                                                  'yyyy-MM-dd')
+                                                              .format(p0),
+                                                          p0,
+                                                          p0);
+                                                    },
+                                                    showOnlyCurrentMonthDate: true,
+                                                    showHeader: false,
+                                                    weekdayTextStyle: TextStyle(color: AppColors.blue, fontWeight: FontWeight.w300),
+                                                    daysTextStyle: TextStyle(fontWeight: FontWeight.w700, color: AppColors.black),
+                                                    selectedDayTextStyle: TextStyle(fontWeight: FontWeight.w700, color: AppColors.white),
+                                                    customWeekDayBuilder: (weekday, weekdayName) {
+                                                      return Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(0.0),
+                                                        child: Text(
+                                                          weekdayName,
+                                                          style: TextStyle(
+                                                              color: AppColors
+                                                                  .blue,
+                                                              fontSize: getSize(
+                                                                      context) /
+                                                                  32,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700),
+                                                        ),
+                                                      );
+                                                    },
+                                                    pageSnapping: true,
+                                                    dayPadding: 2,
+                                                    weekDayPadding: EdgeInsets.all(getSize(context) / 22),
+                                                    weekendTextStyle: TextStyle(
+                                                      color: AppColors.black,
+                                                    ),
+                                                    nextDaysTextStyle: TextStyle(
+                                                      color: AppColors
+                                                          .descriptionBoardingColor,
+                                                    ),
+                                                    headerTextStyle: TextStyle(color: AppColors.black, fontWeight: FontWeight.bold, fontSize: getSize(context) / 28),
+                                                    locale: EasyLocalization.of(context)!.currentLocale!.languageCode,
+                                                    todayTextStyle: TextStyle(color: AppColors.black, fontWeight: FontWeight.w700),
+                                                    onDayPressed: (DateTime date, List<Event> events) {
+                                                      cubit.getNotes(
+                                                          DateFormat(
+                                                                  'yyyy-MM-dd')
+                                                              .format(date),
+                                                          date,
+                                                          date);
+                                                    },
+                                                    weekFormat: false,
+                                                    showWeekDays: true,
+                                                    selectedDateTime: cubit.datecurrent,
+                                                    daysHaveCircularBorder: true)))
                                       ]);
                                 },
                               ),

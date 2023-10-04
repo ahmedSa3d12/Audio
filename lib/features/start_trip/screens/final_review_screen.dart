@@ -44,7 +44,7 @@ class FinalReviewScreen extends StatelessWidget {
                     ? GridView.builder(
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 0.85,
+                          childAspectRatio: 1,
                           mainAxisSpacing: 15,
                           crossAxisSpacing: getSize(context) / 66,
                           crossAxisCount: 2,
@@ -66,10 +66,10 @@ class FinalReviewScreen extends StatelessWidget {
                                   MediaQuery.of(context).size.height * 0.15),
                           Image.asset(
                             ImageAssets.comingSoonImage,
-                            width: 250,
-                            height: 190,
+                            width: getSize(context) / 4,
+                            height: getSize(context) / 5,
                           ),
-                          SizedBox(height: 25),
+                          SizedBox(height: getSize(context) / 22),
                           Visibility(
                             visible: cubit.finalReview.isEmpty,
                             child: Text(
@@ -79,7 +79,7 @@ class FinalReviewScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                SizedBox(height: 25),
+                SizedBox(height: getSize(context) / 22),
               ],
             ),
           ),

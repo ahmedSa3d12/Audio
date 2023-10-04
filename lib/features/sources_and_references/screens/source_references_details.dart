@@ -70,37 +70,53 @@ class SourceReferencesDetails extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                cubit.referenceModel.progress==0&&File(cubit.dirpath.path +
-                                    "/pdf/" +
-                  cubit.referenceModel.title!.split("/").toList().last+
-                                    '.pdf' ) .existsSync()
+                                cubit.referenceModel.progress == 0 &&
+                                        File(cubit.dirpath.path +
+                                                "/pdf/" +
+                                                cubit.referenceModel.title!
+                                                    .split("/")
+                                                    .toList()
+                                                    .last +
+                                                '.pdf')
+                                            .existsSync()
                                     ? SizedBox(
-                                    width: 25,
-                                    height: 25,child: Icon(Icons.check_circle,color: AppColors.success,)):  InkWell(
-                                  onTap: () {
-                                    //ckeck if exist show dowloaded
-                                    print('download');
-                                    cubit.downloadPdf(cubit.referenceModel);
-                                  },
-                                  child: cubit.referenceModel.progress != 0
-                                      ? Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: CircularProgressIndicator(
-                                            value:
-                                                cubit.referenceModel.progress,
-                                            backgroundColor: AppColors.white,
-                                            color: AppColors.primary,
-                                          ),
-                                        )
-                                      : Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: DownloadIconWidget(
-                                            color: AppColors.white,
-                                            iconColor:
-                                                AppColors.greenDownloadColor,
-                                          ),
-                                        ),
-                                ),
+                                        width: getSize(context) / 12,
+                                        height: getSize(context) / 12,
+                                        child: Icon(
+                                          Icons.check_circle,
+                                          color: AppColors.success,
+                                        ))
+                                    : InkWell(
+                                        onTap: () {
+                                          //ckeck if exist show dowloaded
+                                          print('download');
+                                          cubit.downloadPdf(
+                                              cubit.referenceModel);
+                                        },
+                                        child: cubit.referenceModel.progress !=
+                                                0
+                                            ? Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  value: cubit
+                                                      .referenceModel.progress,
+                                                  backgroundColor:
+                                                      AppColors.white,
+                                                  color: AppColors.primary,
+                                                ),
+                                              )
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: DownloadIconWidget(
+                                                  color: AppColors.white,
+                                                  iconColor: AppColors
+                                                      .greenDownloadColor,
+                                                ),
+                                              ),
+                                      ),
                                 Expanded(
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),

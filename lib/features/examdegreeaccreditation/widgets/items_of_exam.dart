@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-
 import '../../../core/models/grade_and_rate.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/getsize.dart';

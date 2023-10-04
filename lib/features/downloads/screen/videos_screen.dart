@@ -38,6 +38,7 @@ class _VideosDownloadedScreenState extends State<VideosDownloadedScreen> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
+                        print(cubit.savedList[index].path);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

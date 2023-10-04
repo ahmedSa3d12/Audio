@@ -51,12 +51,14 @@ class _MonthPlanState extends State<MonthPlan> {
                       physics: const BouncingScrollPhysics(),
                       child: Column(
                         children: [
-                          SizedBox(height: getSize(context) / 3.5),
+                          SizedBox(height: getSize(context) / 3),
 
                           Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: getSize(context) / 22),
                               decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(getSize(context) / 22)),
                                 gradient: LinearGradient(
                                   begin: Alignment.centerLeft,
                                   end: Alignment.centerRight,
@@ -73,9 +75,7 @@ class _MonthPlanState extends State<MonthPlan> {
                                       shrinkWrap: true,
                                       physics: const BouncingScrollPhysics(),
                                       children: [
-                                        SizedBox(
-                                          height: 20,
-                                        ),
+                                        SizedBox(height: getSize(context) / 22),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Text(DateFormat(
@@ -85,11 +85,9 @@ class _MonthPlanState extends State<MonthPlan> {
                                                       .languageCode)
                                               .format(cubit.datecurrent)),
                                         ),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
+                                        SizedBox(height: getSize(context) / 22),
                                         CalendarCarousel<Event>(
-                                          height: 310,
+                                          height: getSize(context) / 1.2,
                                           selectedDayButtonColor:
                                               AppColors.white,
                                           selectedDayBorderColor:
@@ -97,9 +95,7 @@ class _MonthPlanState extends State<MonthPlan> {
                                           todayButtonColor: AppColors.red,
                                           todayBorderColor: AppColors.red,
                                           scrollDirection: Axis.horizontal,
-
                                           showHeaderButton: false,
-
                                           onCalendarChanged: (p0) {
                                             cubit.getMonthPlan(
                                                 DateFormat('yyyy-MM-dd')
@@ -109,13 +105,11 @@ class _MonthPlanState extends State<MonthPlan> {
                                           },
                                           showOnlyCurrentMonthDate: true,
                                           showHeader: false,
-
                                           weekdayTextStyle: TextStyle(
                                               color: AppColors.blue,
                                               fontWeight: FontWeight.w300),
                                           daysTextStyle:
                                               TextStyle(color: AppColors.black),
-
                                           customWeekDayBuilder:
                                               (weekday, weekdayName) {
                                             return Padding(
@@ -125,7 +119,8 @@ class _MonthPlanState extends State<MonthPlan> {
                                                 weekdayName,
                                                 style: TextStyle(
                                                     color: AppColors.blue,
-                                                    fontSize: 13,
+                                                    fontSize:
+                                                        getSize(context) / 32,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
@@ -133,23 +128,21 @@ class _MonthPlanState extends State<MonthPlan> {
                                           },
                                           pageSnapping: true,
                                           dayPadding: 2,
-
                                           weekDayPadding: EdgeInsets.all(8),
                                           weekendTextStyle:
                                               TextStyle(color: AppColors.black),
                                           nextDaysTextStyle: TextStyle(
                                               color: AppColors
                                                   .descriptionBoardingColor),
-
                                           headerTextStyle: TextStyle(
                                               color: AppColors.black,
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 17),
+                                              fontSize: getSize(context) / 24),
                                           locale: EasyLocalization.of(context)!
                                               .currentLocale!
                                               .languageCode,
                                           todayTextStyle:
-                                              TextStyle(color: AppColors.white),
+                                              TextStyle(color: AppColors.black),
                                           onDayPressed: (DateTime date,
                                               List<Event> events) {
                                             cubit.getMonthPlan(
@@ -158,17 +151,10 @@ class _MonthPlanState extends State<MonthPlan> {
                                                 date,
                                                 date);
                                           },
-
-                                          // weekendTextStyle: TextStyle(
-                                          //   color: Colors.red,
-                                          // ),
-
                                           weekFormat: false,
                                           showWeekDays: true,
                                           selectedDateTime: cubit.datecurrent,
                                           daysHaveCircularBorder: true,
-
-                                          /// null for not rendering any border, true for circular border, false for rectangular border
                                         )
                                       ]);
                                 },

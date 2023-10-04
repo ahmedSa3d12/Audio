@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
@@ -11,29 +12,23 @@ class MainScreenItemWidget extends StatelessWidget {
 
   final SourcesReferencesDatum model;
 
-  static const _durations = [
-    8000,
-    7000,
-  ];
+  static const _durations = [8000, 7000];
 
-  static const _heightPercentages = [
-    0.20,
-    0.50,
-  ];
+  static const _heightPercentages = [0.20, 0.50];
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 12),
       child: Container(
-        height: 200,
+        height: getSize(context) / 2,
         width: null,
         decoration: BoxDecoration(
           color: lightens(model.color!, 0.4),
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(getSize(context) / 22),
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(getSize(context) / 22),
           child: Stack(
             children: [
               Positioned(
@@ -63,22 +58,16 @@ class MainScreenItemWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        model.title!,
-                        style: TextStyle(
-                          color: HexColor(model.color!),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                        ),
-                      ),
+                      Text(model.title!,
+                          style: TextStyle(
+                              color: HexColor(model.color!),
+                              fontWeight: FontWeight.bold,
+                              fontSize: getSize(context) / 22)),
                       SizedBox(height: 12),
-                      Text(
-                        model.description!,
-                        style: TextStyle(
-                          color: AppColors.gray,
-                          fontSize: 18,
-                        ),
-                      ),
+                      Text(model.description!,
+                          style: TextStyle(
+                              color: AppColors.black,
+                              fontSize: getSize(context) / 26))
                     ],
                   ),
                 ),

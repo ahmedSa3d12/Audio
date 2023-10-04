@@ -6,11 +6,6 @@ import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
 import 'package:new_mazoon/features/favourites/cubit/favourite_cubit.dart';
 import 'package:new_mazoon/features/video_details/screens/video_details.dart';
 
-import '../../../core/utils/app_colors.dart';
-import '../../../core/utils/assets_manager.dart';
-import '../../../core/widgets/my_svg_widget.dart';
-import '../../../core/widgets/video_widget.dart';
-import '../../video_details/cubit/video_details_cubit.dart';
 import '../widget/favourite_video_widget.dart';
 
 class videosScreen extends StatelessWidget {

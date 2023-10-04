@@ -289,5 +289,7 @@
   "success_download_v": "The video has been downloaded successfully",
   "deleted_success": "Deleted successfully",
   "no_internet": "not Internet",
-  "welcome": "ًwelcome "
+  "welcome": "ًwelcome ",
+  "see_more":"Show more",
+  "see_less":"Show less"
 }

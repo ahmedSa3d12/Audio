@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 
 import '../utils/app_colors.dart';
 import '../utils/assets_manager.dart';
@@ -51,7 +52,7 @@ class ContainerWithTwoColorWidget extends StatelessWidget {
               maxLines: 1,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 12,
+                fontSize: getSize(context) / 32,
               ),
             ),
           ),

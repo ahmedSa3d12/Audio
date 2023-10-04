@@ -490,7 +490,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                 child: MusicList(),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(5.0),
                                 child: Row(
                                   children: [
                                     ClipRRect(
@@ -512,7 +512,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                         },
                                       ),
                                     ),
-                                    Expanded(
+                                    Flexible(
+                                      fit: FlexFit.tight,
                                       child: CustomTextField(
                                         // minLine: 1,
                                         maxLines: 4,
@@ -573,27 +574,6 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                                 Navigator.of(
                                                                         context)
                                                                     .pop();
-                                                                // Future.delayed(Duration(milliseconds: 500),
-                                                                //         () {
-                                                                //       showDialog(
-                                                                //         context: context,
-                                                                //         barrierDismissible: false,
-                                                                //         builder: (ctx) => AlertDialog(
-                                                                //           title: Padding(
-                                                                //             padding: const EdgeInsets.symmetric(
-                                                                //               vertical: 5,
-                                                                //             ),
-                                                                //             child: Text('photo'.tr()),
-                                                                //           ),
-                                                                //           contentPadding: EdgeInsets.zero,
-                                                                //           content: RecordWidget(
-                                                                //             type: 'image',
-                                                                //             sendType: type,
-                                                                //             id: id,
-                                                                //           ),
-                                                                //         ),
-                                                                //       );
-                                                                //     });
                                                               },
                                                             ),
                                                             ChooseIconDialog(
@@ -608,27 +588,6 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                                 Navigator.of(
                                                                         context)
                                                                     .pop();
-                                                                // Future.delayed(Duration(milliseconds: 500),
-                                                                //         () {
-                                                                //       showDialog(
-                                                                //         context: context,
-                                                                //         barrierDismissible: false,
-                                                                //         builder: (ctx) => AlertDialog(
-                                                                //           title: Padding(
-                                                                //             padding: const EdgeInsets.symmetric(
-                                                                //               vertical: 5,
-                                                                //             ),
-                                                                //             child: Text('photo'.tr()),
-                                                                //           ),
-                                                                //           contentPadding: EdgeInsets.zero,
-                                                                //           content: RecordWidget(
-                                                                //             type: 'image',
-                                                                //             sendType: type,
-                                                                //             id: id,
-                                                                //           ),
-                                                                //         ),
-                                                                //       );
-                                                                //     });
                                                               },
                                                             ),
                                                           ],
@@ -653,8 +612,9 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                   child: MySvgWidget(
                                                     path: ImageAssets
                                                         .attachmentIcon,
-                                                    imageColor: AppColors.white,
-                                                    size: 10,
+                                                    imageColor:
+                                                        AppColors.blueColor2,
+                                                    size: getSize(context) / 16,
                                                   ),
                                                 ),
                                               ),

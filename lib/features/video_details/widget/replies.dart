@@ -5,10 +5,12 @@ import 'package:new_mazoon/core/widgets/network_image.dart';
 import 'package:new_mazoon/core/widgets/no_data_widget.dart';
 import 'package:new_mazoon/core/widgets/show_loading_indicator.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
+import 'package:readmore/readmore.dart';
 
 import '../../../core/models/comment_data_model.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
+import '../../../core/utils/getsize.dart';
 import '../../../core/widgets/audio_player_widget.dart';
 import '../../../core/widgets/circle_network_image.dart';
 import '../../../core/widgets/custom_textfield.dart';
@@ -120,16 +122,49 @@ class _RepliesState extends State<Replies> {
                                                                     index)
                                                                 .type ==
                                                             'text'
-                                                        ? Text(
+                                                        ? ReadMoreText(
                                                             cubit.commentsModel!
                                                                 .replies
                                                                 .elementAt(
                                                                     index)
                                                                 .comment,
+                                                            trimLines: 3,
+                                                            colorClickableText:
+                                                                AppColors
+                                                                    .unselectedTabColor,
+                                                            trimMode:
+                                                                TrimMode.Line,
+                                                            lessStyle: TextStyle(
+                                                                color: AppColors
+                                                                    .blue3,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: getSize(
+                                                                        context) /
+                                                                    30),
+                                                            trimCollapsedText:
+                                                                'see_more'.tr(),
+                                                            trimExpandedText:
+                                                                'see_less'.tr(),
+                                                            moreStyle: TextStyle(
+                                                                color: AppColors
+                                                                    .blue3,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: getSize(
+                                                                        context) /
+                                                                    30),
                                                             style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
                                                                 color: AppColors
                                                                     .gray1,
-                                                                fontSize: 14),
+                                                                fontSize: getSize(
+                                                                        context) /
+                                                                    24),
                                                           )
                                                         : cubit.commentsModel!
                                                                     .replies
@@ -249,6 +284,8 @@ class _RepliesState extends State<Replies> {
                                               children: [
                                                 Expanded(
                                                   child: CustomTextField(
+                                                    maxLines: 3,
+                                                    minLine: 1,
                                                     color1:
                                                         AppColors.secondPrimary,
                                                     title: 'edit_replay'.tr(),

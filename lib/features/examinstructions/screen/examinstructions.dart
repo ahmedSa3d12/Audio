@@ -436,7 +436,7 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                               : widget.type == 'video'
                                                   ? 'video'
                                                   : widget.type == 'all_exam'
-                                                      ? 'all_exam'
+                                                      ? 'full_exam'
                                                       : "lesson");
                                 },
                                 child: Container(

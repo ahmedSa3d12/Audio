@@ -15,13 +15,14 @@ part 'favourite_state.dart';
 class FavouriteCubit extends Cubit<FavouriteState> {
   FavouriteCubit(this.api) : super(FavouriteInitial()) {
     getDirectionPath();
-
-    getAllFavourite();
+    // getAllFavourite();
   }
-  getDirectionPath() async{
+  getDirectionPath() async {
     dirpath = await (Platform.isIOS
         ? getApplicationSupportDirectory()
-        : getApplicationDocumentsDirectory());}
+        : getApplicationDocumentsDirectory());
+  }
+
   ServiceApi api;
   int currentIndex = 0;
   AllFavourite? allFavourite;
@@ -91,20 +92,22 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     );
   }
 
-  removeFavouriteExam(String type, String action, int video_id, int index) async {
-    print("________________________________________________________________________");
-    print("type = $type , action = $action , video_id = $video_id   , index = $index");
+  removeFavouriteExam(
+      String type, String action, int video_id, int index) async {
+    print(
+        "________________________________________________________________________");
+    print(
+        "type = $type , action = $action , video_id = $video_id   , index = $index");
     final response = await api.addToFavouriteExam(
       action: 'un_favorite',
       exam_id: video_id,
       type: type,
     );
     response.fold(
-          (l) => emit(ErrorRemoveFavoriteExam()),
-          (r) {
-            emit(SuccessRemoveFavoriteExam());
+      (l) => emit(ErrorRemoveFavoriteExam()),
+      (r) {
+        emit(SuccessRemoveFavoriteExam());
         successGetBar(r.message);
-
       },
     );
   }

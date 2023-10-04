@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/features/sources_and_references/cubit/source_references_cubit.dart';
 
 import '../../../core/utils/app_colors.dart';
@@ -56,9 +57,10 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                               );
                       },
                       child: Card(
-                        elevation: 12,
+                        elevation: 3,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius:
+                              BorderRadius.circular(getSize(context) / 22),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -73,8 +75,8 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
-                                      width: 40,
-                                      height: 40,
+                                      width: getSize(context) / 8,
+                                      height: getSize(context) / 8,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(40),
                                         color: colors[i],
@@ -88,7 +90,7 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                                                   'pdf'
                                               ? ImageAssets.pdfIcon
                                               : ImageAssets.resourceVideoIcon,
-                                          size: 20,
+                                          size: getSize(context) / 18,
                                           imageColor: AppColors.white,
                                         ),
                                       ),
@@ -131,7 +133,7 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                                                     Icons.access_time_outlined,
                                                     color: AppColors
                                                         .liveExamGrayTextColor,
-                                                    size: 16,
+                                                    size: getSize(context) / 28,
                                                   ),
                                                   Padding(
                                                     padding: const EdgeInsets
@@ -146,7 +148,9 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                                                       style: TextStyle(
                                                         color: AppColors
                                                             .liveExamGrayTextColor,
-                                                        fontSize: 16,
+                                                        fontSize:
+                                                            getSize(context) /
+                                                                28,
                                                       ),
                                                     ),
                                                   ),
@@ -185,27 +189,43 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                                                       ),
                                                     )
                                                   : cubit
-                                              .sourcesReferencesByIdList[
-                                          index].progress==0&&File(cubit.dirpath.path +
-                                              "/pdf/" +
-                                                  cubit.sourcesReferencesByIdList[
-                                              index].title!.split("/").toList().last+
-                                              '.pdf' ) .existsSync()
-                                              ? SizedBox(
-                                              width: 25,
-                                              height: 25,child: Icon(Icons.check_circle,color: AppColors.success,)):
-                                          ClassExamIconWidget(
-                                                      type: ImageAssets
-                                                          .downloadsIcon,
-                                                      iconColor:
-                                                          AppColors.green,
-                                                      radius: 8,
-                                                      onclick: () {
-                                                        cubit.downloadPdfLessons(
-                                                            cubit.sourcesReferencesByIdList[
-                                                                index]);
-                                                      },
-                                                    ),
+                                                                  .sourcesReferencesByIdList[
+                                                                      index]
+                                                                  .progress ==
+                                                              0 &&
+                                                          File(cubit.dirpath
+                                                                      .path +
+                                                                  "/pdf/" +
+                                                                  cubit
+                                                                      .sourcesReferencesByIdList[
+                                                                          index]
+                                                                      .title!
+                                                                      .split(
+                                                                          "/")
+                                                                      .toList()
+                                                                      .last +
+                                                                  '.pdf')
+                                                              .existsSync()
+                                                      ? SizedBox(
+                                                          width: 25,
+                                                          height: 25,
+                                                          child: Icon(
+                                                            Icons.check_circle,
+                                                            color: AppColors
+                                                                .success,
+                                                          ))
+                                                      : ClassExamIconWidget(
+                                                          type: ImageAssets
+                                                              .downloadsIcon,
+                                                          iconColor:
+                                                              AppColors.green,
+                                                          radius: 8,
+                                                          onclick: () {
+                                                            cubit.downloadPdfLessons(
+                                                                cubit.sourcesReferencesByIdList[
+                                                                    index]);
+                                                          },
+                                                        ),
                                           SizedBox(width: 8),
                                           cubit.sourcesReferencesByIdList[index]
                                                       .answerPdfFile ==
