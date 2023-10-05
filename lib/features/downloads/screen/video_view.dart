@@ -21,10 +21,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.black,
-      body: Center(
-          child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: VideoWidgetFile(videoLink: widget.videoPath))),
+      body: Center(child: VideoWidgetFile(videoLink: widget.videoPath)),
     );
   }
 }

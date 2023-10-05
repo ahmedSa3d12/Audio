@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:video_player/video_player.dart';
 
@@ -57,9 +58,8 @@ class _VideoWidgetState extends State<VideoWidget> {
       autoPlay: false,
       allowFullScreen: true,
       aspectRatio: 2.06,
-      controlsSafeAreaMinimum: EdgeInsets.zero,
+      controlsSafeAreaMinimum: EdgeInsets.all(getSize(context) / 88),
       looping: false,
-      fullScreenByDefault: false,
       hideControlsTimer: const Duration(seconds: 3),
     );
   }

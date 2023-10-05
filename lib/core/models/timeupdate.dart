@@ -27,7 +27,7 @@ class TimeUpdateData {
   int id;
   String name;
   String link;
-  int time;
+  String time;
   int size;
   VideoOpened videoOpened;
   DateTime createdAt;

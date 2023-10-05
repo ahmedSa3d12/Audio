@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../core/utils/getsize.dart';
+
 class VideoWidgetFile extends StatefulWidget {
   const VideoWidgetFile({Key? key, required this.videoLink}) : super(key: key);
   final File videoLink;
@@ -57,7 +59,7 @@ class _VideoWidgetFileState extends State<VideoWidgetFile> {
       autoPlay: true,
       allowFullScreen: true,
       aspectRatio: 2.06,
-      controlsSafeAreaMinimum: EdgeInsets.zero,
+      controlsSafeAreaMinimum: EdgeInsets.all(getSize(context) / 88),
       looping: false,
       fullScreenByDefault: false,
       hideControlsTimer: const Duration(seconds: 3),

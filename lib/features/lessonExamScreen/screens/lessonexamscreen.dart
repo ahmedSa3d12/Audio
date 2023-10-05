@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:new_mazoon/core/widgets/music_animation.dart';
 import 'package:new_mazoon/features/homePage/widget/home_page_app_bar_widget.dart';
 import '../../../core/models/applylessonexammodel.dart';
 import '../../../core/utils/assets_manager.dart';
+import '../../../core/widgets/audio_player_widget.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../video_details/widget/choose_icon_dialog.dart';
 import '../cubit/lessonexamstate.dart';
@@ -160,7 +162,8 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: getSize(context) / 3.5),
+                              // SizedBox(height: getSize(context) / 3.5),
+                              SizedBox(height: getSize(context) / 8),
                               Flexible(
                                 child: ListView(
                                   shrinkWrap: true,
@@ -400,62 +403,114 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                             physics:
                                                                 const BouncingScrollPhysics(),
                                                             children: [
-                                                              TextField(
-                                                                controller: cubit
-                                                                    .questionOfLessonData!
-                                                                    .questions[
-                                                                        index]
-                                                                    .answerController,
-                                                                maxLines: 3,
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                  hintText:
-                                                                      'enter_ans'
-                                                                          .tr(),
-                                                                  hintStyle:
-                                                                      TextStyle(
-                                                                    color: AppColors
-                                                                        .black,
-                                                                    fontSize:
-                                                                        getSize(context) /
-                                                                            28,
-                                                                    fontFamily:
-                                                                        'Cairo',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w400,
-                                                                    height: 0,
-                                                                  ),
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none,
-                                                                ),
-                                                                onChanged:
-                                                                    (value) {
-                                                                  if (value
-                                                                      .isNotEmpty) {
-                                                                    cubit.solveQuestion(
-                                                                        index);
-                                                                    cubit
-                                                                        .addUniqueApplyMakeExam(
-                                                                      ApplyStudentExam(
-                                                                          question: cubit
-                                                                              .questionOfLessonData!
-                                                                              .questions[
-                                                                                  index]
-                                                                              .id
-                                                                              .toString(),
-                                                                          timer: (cubit.questionOfLessonData!.quizMinute -
-                                                                              _minutesLeft),
-                                                                          answer: cubit
+                                                              cubit
+                                                                          .questionOfLessonData!
+                                                                          .questions[
+                                                                              index]
+                                                                          .imagePath !=
+                                                                      null
+                                                                  ? Stack(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Container(
+                                                                          padding:
+                                                                              EdgeInsets.symmetric(vertical: getSize(context) / 66),
+                                                                          child:
+                                                                              Image.file(
+                                                                            File(
+                                                                              cubit.questionOfLessonData!.questions[index].imagePath!,
+                                                                            ),
+                                                                            fit:
+                                                                                BoxFit.contain,
+                                                                            height:
+                                                                                getSize(context) / 2.5,
+                                                                          ),
+                                                                        ),
+                                                                        Positioned(
+                                                                          top:
+                                                                              5,
+                                                                          right:
+                                                                              5,
+                                                                          child:
+                                                                              IconButton(
+                                                                            icon:
+                                                                                Icon(
+                                                                              Icons.delete,
+                                                                              color: AppColors.red,
+                                                                              size: getSize(context) / 18,
+                                                                            ),
+                                                                            onPressed:
+                                                                                () {
+                                                                              setState(() {
+                                                                                cubit.questionOfLessonData!.questions[index].imagePath = null;
+                                                                                cubit.questionOfLessonData!.questions[index].isSolving = false;
+                                                                              });
+                                                                            },
+                                                                          ),
+                                                                        )
+                                                                      ],
+                                                                    )
+                                                                  : cubit.questionOfLessonData!.questions[index]
+                                                                              .recordPath !=
+                                                                          null
+                                                                      ? Container(
+                                                                          height:
+                                                                              getSize(context) / 3,
+                                                                          child:
+                                                                              AudioPlayer(
+                                                                            source:
+                                                                                cubit.questionOfLessonData!.questions[index].recordPath!,
+                                                                            onDelete:
+                                                                                () {
+                                                                              setState(() {
+                                                                                cubit.questionOfLessonData!.questions[index].recordPath = null;
+                                                                                cubit.questionOfLessonData!.questions[index].isSolving = false;
+                                                                              });
+                                                                            },
+                                                                            type:
+                                                                                'upload',
+                                                                            color:
+                                                                                Colors.red,
+                                                                          ),
+                                                                        )
+                                                                      : TextField(
+                                                                          controller: cubit
                                                                               .questionOfLessonData!
                                                                               .questions[index]
-                                                                              .answerController
-                                                                              .text),
-                                                                    );
-                                                                  } else {}
-                                                                },
-                                                              ),
+                                                                              .answerController,
+                                                                          maxLines:
+                                                                              3,
+                                                                          decoration:
+                                                                              InputDecoration(
+                                                                            hintText:
+                                                                                'enter_ans'.tr(),
+                                                                            hintStyle:
+                                                                                TextStyle(
+                                                                              color: AppColors.black,
+                                                                              fontSize: getSize(context) / 28,
+                                                                              fontFamily: 'Cairo',
+                                                                              fontWeight: FontWeight.w400,
+                                                                              height: 0,
+                                                                            ),
+                                                                            border:
+                                                                                InputBorder.none,
+                                                                          ),
+                                                                          onChanged:
+                                                                              (value) {
+                                                                            if (value.isNotEmpty) {
+                                                                              cubit.solveQuestion(index);
+                                                                              cubit.addUniqueApplyMakeExam(
+                                                                                ApplyStudentExam(question: cubit.questionOfLessonData!.questions[index].id.toString(), timer: (cubit.questionOfLessonData!.quizMinute - _minutesLeft), answer: cubit.questionOfLessonData!.questions[index].answerController.text),
+                                                                              );
+                                                                            } else {
+                                                                              setState(() {
+                                                                                cubit.questionOfLessonData!.questions[index].isSolving = false;
+                                                                              });
+                                                                            }
+                                                                          },
+                                                                        ),
                                                               cubit
                                                                       .questionOfLessonData!
                                                                       .questions[
@@ -473,113 +528,131 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                                         children: [
                                                                           SizedBox(
                                                                               width: getSize(context) / 44),
-                                                                          InkWell(
-                                                                            onTap:
-                                                                                () {
-                                                                              showDialog(
-                                                                                context: context,
-                                                                                builder: (ctx) => AlertDialog(
-                                                                                  title: Padding(
-                                                                                    padding: const EdgeInsets.symmetric(vertical: 5),
-                                                                                    child: Text(('choose'.tr())),
-                                                                                  ),
-                                                                                  contentPadding: EdgeInsets.zero,
-                                                                                  content: SizedBox(
-                                                                                    width: MediaQuery.of(context).size.width - 60,
-                                                                                    child: Column(
-                                                                                      mainAxisSize: MainAxisSize.min,
-                                                                                      children: [
-                                                                                        ChooseIconDialog(
-                                                                                          title: ('camera'.tr()),
-                                                                                          icon: Icons.camera_alt,
-                                                                                          onTap: () {
-                                                                                            cubit.pickImage(
-                                                                                              index: index,
-                                                                                              type: 'camera',
-                                                                                              timer: (cubit.questionOfLessonData!.quizMinute - _minutesLeft),
-                                                                                            );
-                                                                                            Navigator.of(context).pop();
-                                                                                          },
-                                                                                        ),
-                                                                                        ChooseIconDialog(
-                                                                                          title: ('photo'.tr()),
-                                                                                          icon: Icons.photo,
-                                                                                          onTap: () {
-                                                                                            cubit.pickImage(
-                                                                                              index: index,
-                                                                                              type: 'photo',
-                                                                                              timer: (cubit.questionOfLessonData!.quizMinute - _minutesLeft),
-                                                                                            );
-                                                                                            Navigator.of(context).pop();
-                                                                                          },
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ),
-                                                                                  actions: [
-                                                                                    TextButton(
-                                                                                      onPressed: () {
-                                                                                        Navigator.pop(context);
+                                                                          cubit.questionOfLessonData!.questions[index].isSolving == true
+                                                                              ? Container()
+                                                                              : cubit.isRecording
+                                                                                  ? InkWell(
+                                                                                      onTap: () {
+                                                                                        cubit.stopRecord(index);
+                                                                                        cubit.questionOfLessonData!.questions[index].isSolving = false;
                                                                                       },
-                                                                                      child: Text(('cancel'.tr())),
+                                                                                      child: Container(
+                                                                                        decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.white),
+                                                                                        child: Padding(
+                                                                                          padding: const EdgeInsets.all(8.0),
+                                                                                          child: Icon(
+                                                                                            Icons.close,
+                                                                                            color: AppColors.red,
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
                                                                                     )
-                                                                                  ],
-                                                                                ),
-                                                                              );
-                                                                            },
-                                                                            child:
-                                                                                CircleAvatar(
-                                                                              backgroundColor: AppColors.purple1,
-                                                                              child: MySvgWidget(path: ImageAssets.attachmentIcon, imageColor: AppColors.white, size: getSize(context) / 18),
-                                                                            ),
-                                                                          ),
+                                                                                  : InkWell(
+                                                                                      onTap: () {
+                                                                                        showDialog(
+                                                                                          context: context,
+                                                                                          builder: (ctx) => AlertDialog(
+                                                                                            title: Padding(
+                                                                                              padding: const EdgeInsets.symmetric(vertical: 5),
+                                                                                              child: Text(('choose'.tr())),
+                                                                                            ),
+                                                                                            contentPadding: EdgeInsets.zero,
+                                                                                            content: SizedBox(
+                                                                                              width: MediaQuery.of(context).size.width - 60,
+                                                                                              child: Column(
+                                                                                                mainAxisSize: MainAxisSize.min,
+                                                                                                children: [
+                                                                                                  ChooseIconDialog(
+                                                                                                    title: ('camera'.tr()),
+                                                                                                    icon: Icons.camera_alt,
+                                                                                                    onTap: () {
+                                                                                                      cubit.pickImage(
+                                                                                                        index: index,
+                                                                                                        type: 'camera',
+                                                                                                        timer: (cubit.questionOfLessonData!.quizMinute - _minutesLeft),
+                                                                                                      );
+                                                                                                      Navigator.of(context).pop();
+                                                                                                    },
+                                                                                                  ),
+                                                                                                  ChooseIconDialog(
+                                                                                                    title: ('photo'.tr()),
+                                                                                                    icon: Icons.photo,
+                                                                                                    onTap: () {
+                                                                                                      cubit.pickImage(
+                                                                                                        index: index,
+                                                                                                        type: 'photo',
+                                                                                                        timer: (cubit.questionOfLessonData!.quizMinute - _minutesLeft),
+                                                                                                      );
+                                                                                                      Navigator.of(context).pop();
+                                                                                                    },
+                                                                                                  ),
+                                                                                                ],
+                                                                                              ),
+                                                                                            ),
+                                                                                            actions: [
+                                                                                              TextButton(
+                                                                                                onPressed: () {
+                                                                                                  Navigator.pop(context);
+                                                                                                },
+                                                                                                child: Text(('cancel'.tr())),
+                                                                                              )
+                                                                                            ],
+                                                                                          ),
+                                                                                        );
+                                                                                      },
+                                                                                      child: CircleAvatar(
+                                                                                        backgroundColor: AppColors.purple1,
+                                                                                        child: MySvgWidget(path: ImageAssets.attachmentIcon, imageColor: AppColors.white, size: getSize(context) / 18),
+                                                                                      ),
+                                                                                    ),
                                                                           SizedBox(
                                                                               width: getSize(context) / 44),
-                                                                          Visibility(
-                                                                              visible: cubit.isRecording,
-                                                                              child: InkWell(
-                                                                                onTap: () {
-                                                                                  cubit.stopRecord(index);
-                                                                                },
-                                                                                child: Container(
-                                                                                  decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.white),
-                                                                                  child: Padding(
-                                                                                    padding: const EdgeInsets.all(8.0),
-                                                                                    child: Icon(
-                                                                                      Icons.close,
-                                                                                      color: AppColors.red,
+                                                                          // Visibility(
+                                                                          //     visible: cubit.isRecording,
+                                                                          //     child: InkWell(
+                                                                          //       onTap: () {
+                                                                          //         cubit.stopRecord(index);
+                                                                          //         cubit.questionOfLessonData!.questions[index].isSolving = false;
+                                                                          //       },
+                                                                          //       child: Container(
+                                                                          //         decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.white),
+                                                                          //         child: Padding(
+                                                                          //           padding: const EdgeInsets.all(8.0),
+                                                                          //           child: Icon(
+                                                                          //             Icons.close,
+                                                                          //             color: AppColors.red,
+                                                                          //           ),
+                                                                          //         ),
+                                                                          //       ),
+                                                                          //     )),
+                                                                          cubit.questionOfLessonData!.questions[index].isSolving == true
+                                                                              ? Container()
+                                                                              : InkWell(
+                                                                                  onTap: () {
+                                                                                    cubit.questionOfLessonData!.questions[index].answerController.text.isNotEmpty
+                                                                                        ? cubit.addUniqueApplyMakeExam(ApplyStudentExam(
+                                                                                            question: cubit.questionOfLessonData!.questions[index].question,
+                                                                                            timer: (cubit.questionOfLessonData!.quizMinute - _minutesLeft),
+                                                                                          ))
+                                                                                        : cubit.isRecording
+                                                                                            ? cubit.stop(
+                                                                                                index: index,
+                                                                                                question: cubit.questionOfLessonData!.questions[index].question,
+                                                                                                timer: (cubit.questionOfLessonData!.quizMinute - _minutesLeft),
+                                                                                              )
+                                                                                            : cubit.start();
+                                                                                  },
+                                                                                  child: Container(
+                                                                                    decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.blue4),
+                                                                                    child: Padding(
+                                                                                      padding: const EdgeInsets.all(8.0),
+                                                                                      child: Icon(
+                                                                                        cubit.isRecording ? Icons.stop : Icons.mic,
+                                                                                        color: AppColors.white,
+                                                                                      ),
                                                                                     ),
                                                                                   ),
                                                                                 ),
-                                                                              )),
-                                                                          InkWell(
-                                                                            onTap:
-                                                                                () {
-                                                                              cubit.questionOfLessonData!.questions[index].answerController.text.isNotEmpty
-                                                                                  ? cubit.addUniqueApplyMakeExam(ApplyStudentExam(
-                                                                                      question: cubit.questionOfLessonData!.questions[index].question,
-                                                                                      timer: (cubit.questionOfLessonData!.quizMinute - _minutesLeft),
-                                                                                    ))
-                                                                                  : cubit.isRecording
-                                                                                      ? cubit.stop(
-                                                                                          index: index,
-                                                                                          question: cubit.questionOfLessonData!.questions[index].question,
-                                                                                          timer: (cubit.questionOfLessonData!.quizMinute - _minutesLeft),
-                                                                                        )
-                                                                                      : cubit.start();
-                                                                            },
-                                                                            child:
-                                                                                Container(
-                                                                              decoration: BoxDecoration(shape: BoxShape.circle, color: AppColors.blue4),
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.all(8.0),
-                                                                                child: Icon(
-                                                                                  cubit.isRecording ? Icons.stop : Icons.mic,
-                                                                                  color: AppColors.white,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
                                                                           Flexible(
                                                                             child:
                                                                                 Visibility(visible: cubit.isRecording, child: MusicList()),
@@ -590,6 +663,7 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                             ],
                                                           ),
                                                         )
+                                                      //////////////options//////////////
                                                       : ListView.builder(
                                                           shrinkWrap: true,
                                                           physics:

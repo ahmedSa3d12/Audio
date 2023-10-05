@@ -8,16 +8,18 @@ class AudioPlayer extends StatefulWidget {
   /// Path from where to play recorded audio
   final String source;
   final String type;
+  Color? color;
 
   /// Callback when audio file should be removed
   /// Setting this to null hides the delete button
   final VoidCallback onDelete;
 
-  const AudioPlayer({
+  AudioPlayer({
     Key? key,
     required this.source,
     required this.onDelete,
     required this.type,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -34,7 +36,6 @@ class AudioPlayerState extends State<AudioPlayer> {
   late StreamSubscription<Duration> _positionChangedSubscription;
   Duration? _position;
   Duration? _duration;
-
   @override
   void initState() {
     _playerStateChangedSubscription =
@@ -72,14 +73,16 @@ class AudioPlayerState extends State<AudioPlayer> {
         Row(
           children: <Widget>[
             _buildControl(),
-            _buildSlider(widget.type == 'upload'
-                ? MediaQuery.of(context).size.width / 2
-                : MediaQuery.of(context).size.width / 2 + 50),
+            Flexible(
+              child: _buildSlider(widget.type == 'upload'
+                  ? MediaQuery.of(context).size.width
+                  : MediaQuery.of(context).size.width / 2 + 50),
+            ),
             widget.type == 'upload'
                 ? IconButton(
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.delete,
-                      color: Color(0xFF73748D),
+                      color: widget.color ?? Color(0xFF73748D),
                       size: _deleteBtnSize,
                     ),
                     onPressed: () {
