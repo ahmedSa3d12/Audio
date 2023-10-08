@@ -17,12 +17,20 @@ class SourceReferencesCubit extends Cubit<SourceReferencesState> {
   SourceReferencesCubit(this.api) : super(SourceReferencesInitial()) {
     getDirectionPath();
     sourcesAndReferencesData();
-
   }
-  getDirectionPath() async{
+  getDirectionPath() async {
     dirpath = await (Platform.isIOS
         ? getApplicationSupportDirectory()
-        : getApplicationDocumentsDirectory());}
+        : getApplicationDocumentsDirectory());
+  }
+
+  Duration? duration;
+  void setduration(Duration duration) {
+    print("<<<<<<<<<<<< start time >>>>>>>>>>>>>>");
+    this.duration = duration;
+    emit(emitNewState());
+  }
+
   var dirpath;
 
   final ServiceApi api;

@@ -11,6 +11,7 @@ import '../../../core/utils/change_to_mega_byte.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../../core/widgets/pdf_screen.dart';
 import '../../start_trip/widgets/class_exam_icon_widget.dart';
+import '../screens/video_view.dart';
 
 class SourceReferenceDetailsItemWidget extends StatelessWidget {
   SourceReferenceDetailsItemWidget({Key? key}) : super(key: key);
@@ -40,8 +41,17 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                         vertical: 8.0, horizontal: 4.0),
                     child: InkWell(
                       onTap: () {
+                        print('aaaaaaaa');
                         cubit.sourcesReferencesByIdList[index].fileType != 'pdf'
-                            ? null
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => VideoWidgetLink(
+                                      videoLink: cubit
+                                          .sourcesReferencesByIdList[index]
+                                          .filePath!),
+                                ),
+                              )
                             : Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -57,7 +67,7 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                               );
                       },
                       child: Card(
-                        elevation: 3,
+                        elevation: 2.5,
                         shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.circular(getSize(context) / 22),
@@ -239,8 +249,8 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                                                   radius: 8,
                                                   onclick: () {
                                                     cubit.sourcesReferencesByIdList[index]
-                                                                .fileType !=
-                                                            'pdf'
+                                                                .answerPdfFile ==
+                                                            ''
                                                         ? null
                                                         : Navigator.push(
                                                             context,
@@ -272,6 +282,19 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                                                   iconColor: AppColors.skyColor,
                                                   radius: 8,
                                                   onclick: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            VideoWidgetLink(
+                                                          videoLink: cubit
+                                                              .sourcesReferencesByIdList[
+                                                                  index]
+                                                              .answerVideoFile!,
+                                                        ),
+                                                      ),
+                                                    );
+
                                                     ///Nav video
                                                   },
                                                 ),

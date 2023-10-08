@@ -17,6 +17,7 @@ import '../../../core/widgets/pdf_screen.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../../start_trip/widgets/expansion_tile_widget.dart';
 import '../widgets/source_references_details_item_widget.dart';
+import 'video_view.dart';
 
 class SourceReferencesDetails extends StatelessWidget {
   SourceReferencesDetails({Key? key}) : super(key: key);
@@ -46,6 +47,8 @@ class SourceReferencesDetails extends StatelessWidget {
                       SizedBox(height: getSize(context) / 3),
                       InkWell(
                         onTap: () {
+                          print(cubit.referenceModel.filePath);
+                          print('0.....................');
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -55,6 +58,8 @@ class SourceReferencesDetails extends StatelessWidget {
                               ),
                             ),
                           );
+
+                          ///read video
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),

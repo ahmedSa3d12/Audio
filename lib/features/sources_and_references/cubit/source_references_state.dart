@@ -22,4 +22,7 @@ class PDFSourceReferencesByIdLoading extends SourceReferencesState {}
 class PDFSourceReferencesByIdLoaded extends SourceReferencesState {}
 
 class PDFSLessonourceReferencesByIdLoaded extends SourceReferencesState {}
+
 class PDFSLessonourceReferencesByIdLoading extends SourceReferencesState {}
+
+class emitNewState extends SourceReferencesState {}
