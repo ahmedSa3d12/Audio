@@ -17,14 +17,14 @@ import '../../examdegreeaccreditation/cubit/examdegreedependcubit.dart';
 part 'lessons_class_state.dart';
 
 class LessonsClassCubit extends Cubit<LessonsClassState> {
-
-  LessonsClassCubit(this.api) : super(LessonsClassInitial()){
+  LessonsClassCubit(this.api) : super(LessonsClassInitial()) {
     getDirectionPath();
   }
-  getDirectionPath() async{
+  getDirectionPath() async {
     dirpath = await (Platform.isIOS
         ? getApplicationSupportDirectory()
-        : getApplicationDocumentsDirectory());}
+        : getApplicationDocumentsDirectory());
+  }
 
   final ServiceApi api;
   var dirpath;
@@ -82,7 +82,7 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
       (r) {
         if (r.code == 200) {
           if (r.data[0].status == 'lock') {
-            openLessonAndClass(id: r.data[0].id);
+            openLessonAndClass(id: lessonId);
           } else {}
           videosofLessons = r.data;
           emit(VideoLessonsLoaded());

@@ -185,7 +185,6 @@ class FavExamItemWidget extends StatelessWidget {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     AnswerVideoViewScreen(
-                                                        videoId: model.id,
                                                         videoLink: model
                                                             .answerVideoFile!)));
                                       },

@@ -280,6 +280,7 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
     var dir = await (Platform.isIOS
         ? getApplicationSupportDirectory()
         : getApplicationDocumentsDirectory());
+
     await dio.download(
       videoModel!.link,
       dir.path +

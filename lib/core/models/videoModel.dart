@@ -4,6 +4,7 @@ class VideoModel {
   String link;
   String rate;
   String favorite;
+  int isYoutube;
   int totalWatch;
   int totalLike;
   int likeActive;
@@ -15,6 +16,7 @@ class VideoModel {
 
   VideoModel({
     required this.id,
+    required this.isYoutube,
     required this.name,
     required this.link,
     required this.rate,
@@ -31,6 +33,7 @@ class VideoModel {
 
   factory VideoModel.fromJson(Map<String, dynamic> json) => VideoModel(
         id: json["id"],
+        isYoutube: json['is_youtube'],
         name: json["name"],
         link: json["link"],
         rate: json["rate"],
@@ -50,6 +53,7 @@ class VideoModel {
         "link": link,
         "rate": rate,
         "favorite": favorite,
+        "is_youtube": isYoutube,
         "progress": progress,
         "total_watch": totalWatch,
         "total_like": totalLike,

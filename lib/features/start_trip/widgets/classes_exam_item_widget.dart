@@ -166,7 +166,6 @@ class ClassesExamItemWidget extends StatelessWidget {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     AnswerVideoViewScreen(
-                                                        videoId: model.id!,
                                                         videoLink: model
                                                             .answerVideoFile)));
                                       },
@@ -187,32 +186,38 @@ class ClassesExamItemWidget extends StatelessWidget {
             child: Positioned(
               top: 95,
               right: 10,
-
-              child: model.progress==0&&File(cubit.dirpath.path +
-                  "/pdf/" +
-                  model.name!.split("/").toList().last+
-                  '.pdf' ) .existsSync()
+              child: model.progress == 0 &&
+                      File(cubit.dirpath.path +
+                              "/pdf/" +
+                              model.name!.split("/").toList().last +
+                              '.pdf')
+                          .existsSync()
                   ? SizedBox(
-                  width: 25,
-                  height: 25,child: Icon(Icons.check_circle,color: AppColors.success,)): InkWell(
-                onTap: () async {
-                  print('object');
-                  cubit.downloadPdf(model);
-                },
-                child: SizedBox(
-                  width: 25,
-                  height: 25,
-                  child: model.progress != 0
-                      ? CircularProgressIndicator(
-                          value: model.progress,
-                          backgroundColor: AppColors.white,
-                          color: AppColors.primary,
-                        )
-                      : DownloadIconWidget(
-                          color: HexColor(model.backgroundColor!),
-                        ),
-                ),
-              ),
+                      width: 25,
+                      height: 25,
+                      child: Icon(
+                        Icons.check_circle,
+                        color: AppColors.success,
+                      ))
+                  : InkWell(
+                      onTap: () async {
+                        print('object');
+                        cubit.downloadPdf(model);
+                      },
+                      child: SizedBox(
+                        width: 25,
+                        height: 25,
+                        child: model.progress != 0
+                            ? CircularProgressIndicator(
+                                value: model.progress,
+                                backgroundColor: AppColors.white,
+                                color: AppColors.primary,
+                              )
+                            : DownloadIconWidget(
+                                color: HexColor(model.backgroundColor!),
+                              ),
+                      ),
+                    ),
             ),
           )
         ],

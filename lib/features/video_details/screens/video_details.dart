@@ -16,6 +16,7 @@ import '../../../core/widgets/music_animation.dart';
 import '../../../core/widgets/no_data_widget.dart';
 import '../../../core/widgets/show_loading_indicator.dart';
 import '../../../core/widgets/video_widget.dart';
+import '../../../core/widgets/youtube_video_view.dart';
 import '../../homePage/cubit/home_page_cubit.dart';
 import '../widget/choose_icon_dialog.dart';
 import '../widget/report.dart';
@@ -105,10 +106,13 @@ class _VideoDetailsState extends State<VideoDetails> {
                         child: ListView(
                           shrinkWrap: true,
                           children: [
-                            VideoWidget(
-                              videoLink: cubit.videoModel!.link,
-                              videoId: cubit.videoModel!.id,
-                            ),
+                            cubit.videoModel!.isYoutube == 1
+                                ? YoutubeVideoPlayer(
+                                    videoLinkId: cubit.videoModel!.link,
+                                  )
+                                : VideoWidget(
+                                    videoLink: cubit.videoModel!.link,
+                                  ),
                             SizedBox(
                               height: 10,
                             ),

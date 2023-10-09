@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:new_mazoon/core/widgets/youtube_video_view.dart';
 
 import '../../../core/widgets/video_widget.dart';
 
 class AnswerVideoViewScreen extends StatefulWidget {
   const AnswerVideoViewScreen({
-    required this.videoId,
     required this.videoLink,
     super.key,
   });
   final String videoLink;
-  final int videoId;
   @override
   State<AnswerVideoViewScreen> createState() => _AnswerVideoViewScreenState();
 }
@@ -19,8 +18,7 @@ class _AnswerVideoViewScreenState extends State<AnswerVideoViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child:
-            VideoWidget(videoLink: widget.videoLink, videoId: widget.videoId),
+        child: VideoWidget(videoLink: widget.videoLink),
       ),
     );
   }

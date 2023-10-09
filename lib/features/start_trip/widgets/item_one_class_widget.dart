@@ -79,161 +79,157 @@ class ItemOfOneClassWidget extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 3.9,
-                      height: MediaQuery.of(context).size.width / 3.9,
-                      child: SfCircularChart(
-                        palette: [darken(mainColor, 0.08)],
-                        annotations: <CircularChartAnnotation>[
-                          CircularChartAnnotation(
-                            widget: status == 'lock'
-                                ? MySvgWidget(
-                                    size: getSize(context) / 22,
-                                    imageColor: AppColors.white,
-                                    path: ImageAssets.lockIcon,
-                                  )
-                                : Text(
-                                    classPresentFinished,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.clip,
-                                    style: TextStyle(
-                                      color: AppColors.white,
-                                      fontSize: getSize(context) / 28,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                          ),
-                        ],
-                        series: <CircularSeries>[
-                          RadialBarSeries<int, String>(
-                            maximumValue: 100,
-                            innerRadius: '18',
-                            dataSource: [int.parse(classPresentFinished)],
-                            cornerStyle: classPresentFinished == '100'
-                                ? CornerStyle.bothFlat
-                                : CornerStyle.endCurve,
-                            xValueMapper: (int data, _) => data.toString(),
-                            yValueMapper: (int data, _) =>
-                                double.parse(data.toString()),
-                          )
-                        ],
-                      ),
-                    ),
-                    Flexible(
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: getSize(context) / 44),
-                            child: Container(
-                              width: 2,
-                              height: getSize(context) / 5.5,
-                              color: AppColors.white,
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Flexible(
-                                      child: Icon(
-                                        Icons.sticky_note_2_outlined,
-                                        color: AppColors.white,
-                                        size: getSize(context) / 22,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: getSize(context) / 66,
-                                      ),
-                                      child: Text(
-                                        lessonNum,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.clip,
-                                        style: TextStyle(
-                                            color: AppColors.white,
-                                            fontSize: getSize(context) / 28),
-                                      ),
-                                    ),
-                                    Text(
-                                      'lesson'.tr(),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.clip,
-                                      style: TextStyle(
-                                          color: AppColors.white,
-                                          fontSize: getSize(context) / 28),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Flexible(
-                                      child: Icon(Icons.slow_motion_video,
-                                          color: AppColors.white,
-                                          size: getSize(context) / 28),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0,
-                                      ),
-                                      child: Text(
-                                        videoNum,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.clip,
-                                        style: TextStyle(
-                                            color: AppColors.white,
-                                            fontSize: getSize(context) / 28),
-                                      ),
-                                    ),
-                                    Text(
-                                      'video'.tr(),
+                    Expanded(
+                      flex: 9,
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 3.9,
+                        height: MediaQuery.of(context).size.width / 3.9,
+                        child: SfCircularChart(
+                          palette: [darken(mainColor, 0.08)],
+                          annotations: <CircularChartAnnotation>[
+                            CircularChartAnnotation(
+                              widget: status == 'lock'
+                                  ? MySvgWidget(
+                                      size: getSize(context) / 22,
+                                      imageColor: AppColors.white,
+                                      path: ImageAssets.lockIcon,
+                                    )
+                                  : Text(
+                                      classPresentFinished,
                                       maxLines: 1,
                                       overflow: TextOverflow.clip,
                                       style: TextStyle(
                                         color: AppColors.white,
                                         fontSize: getSize(context) / 28,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(Icons.access_time_outlined,
-                                        color: AppColors.white,
-                                        size: getSize(context) / 28),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 5.0,
-                                      ),
-                                      child: Text(
-                                        formatedTime(
-                                                timeInSecond:
-                                                    int.parse(hourNum))
-                                            .toStringAsFixed(1)
-                                            .toString(),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.clip,
-                                        style: TextStyle(
-                                            color: AppColors.white,
-                                            fontSize: getSize(context) / 28),
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: Text(
-                                        'hours'.tr(),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.clip,
-                                        style: TextStyle(
-                                            color: AppColors.white,
-                                            fontSize: getSize(context) / 28),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
                             ),
-                          )
+                          ],
+                          series: <CircularSeries>[
+                            RadialBarSeries<int, String>(
+                              maximumValue: 100,
+                              innerRadius: '24',
+                              dataSource: [int.parse(classPresentFinished)],
+                              cornerStyle: classPresentFinished == '100'
+                                  ? CornerStyle.bothFlat
+                                  : CornerStyle.endCurve,
+                              xValueMapper: (int data, _) => data.toString(),
+                              yValueMapper: (int data, _) =>
+                                  double.parse(data.toString()),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: getSize(context) / 44),
+                      child: Container(
+                        width: 2,
+                        height: getSize(context) / 5.5,
+                        color: AppColors.white,
+                      ),
+                    ),
+                    Expanded(
+                      flex: 9,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Flexible(
+                                child: Icon(
+                                  Icons.sticky_note_2_outlined,
+                                  color: AppColors.white,
+                                  size: getSize(context) / 22,
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: getSize(context) / 66,
+                                ),
+                                child: Text(
+                                  lessonNum,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: getSize(context) / 28),
+                                ),
+                              ),
+                              Text(
+                                'lesson'.tr(),
+                                maxLines: 1,
+                                overflow: TextOverflow.clip,
+                                style: TextStyle(
+                                    color: AppColors.white,
+                                    fontSize: getSize(context) / 28),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Flexible(
+                                child: Icon(Icons.slow_motion_video,
+                                    color: AppColors.white,
+                                    size: getSize(context) / 28),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                ),
+                                child: Text(
+                                  videoNum,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: getSize(context) / 28),
+                                ),
+                              ),
+                              Text(
+                                'video'.tr(),
+                                maxLines: 1,
+                                overflow: TextOverflow.clip,
+                                style: TextStyle(
+                                  color: AppColors.white,
+                                  fontSize: getSize(context) / 28,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Icon(Icons.access_time_outlined,
+                                  color: AppColors.white,
+                                  size: getSize(context) / 28),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 5.0,
+                                ),
+                                child: Text(
+                                  formatedTime(timeInSecond: int.parse(hourNum))
+                                      .toStringAsFixed(1)
+                                      .toString(),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: getSize(context) / 28),
+                                ),
+                              ),
+                              Flexible(
+                                child: Text(
+                                  'hours'.tr(),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: getSize(context) / 28),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -329,4 +325,6 @@ class ItemOfOneClassWidget extends StatelessWidget {
       ),
     );
   }
+
+
 }

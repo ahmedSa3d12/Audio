@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
     context.read<HomePageCubit>().getUserData().then(
           (value) => context.read<HomePageCubit>().getHomePageData(),
         );
-
     context.read<HomePageCubit>().openFirstClass();
     super.initState();
   }
@@ -83,10 +82,12 @@ class _HomePageState extends State<HomePage> {
                             title: 'train_yourself'.tr(),
                           ),
                           HomePageStartStudyWidget(classes: cubit.classes),
-                          FinalReviewWidget(
-                            model: cubit.videosResources,
-                            title: 'all_exams'.tr(),
-                          ),
+                          cubit.videosResources.isEmpty
+                              ? Container()
+                              : FinalReviewWidget(
+                                  model: cubit.videosResources,
+                                  title: 'all_exams'.tr(),
+                                ),
                         ],
                       ),
                     );

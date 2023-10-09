@@ -174,10 +174,6 @@ class LessonsExamItemWidget extends StatelessWidget {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     AnswerVideoViewScreen(
-                                                        videoId: cubit
-                                                            .examsofLessons[
-                                                                index]
-                                                            .id,
                                                         videoLink: cubit
                                                             .examsofLessons[
                                                                 index]
@@ -200,31 +196,42 @@ class LessonsExamItemWidget extends StatelessWidget {
             child: Positioned(
               top: getSize(context) / 6,
               right: getSize(context) / 44,
-
-              child:  cubit.examsofLessons.elementAt(index).progress==0&&File(cubit.dirpath.path +
-                "/pdf/" +
-                  cubit.examsofLessons.elementAt(index).name.split("/").toList().last+
-                '.pdf' ) .existsSync()
-                ? SizedBox(
-                width: 25,
-                height: 25,child: Icon(Icons.check_circle,color: AppColors.success,)): InkWell(
-                onTap: () async {
-                  cubit.downloadPdfOfLesson(model);
-                },
-                child: SizedBox(
-                  width: getSize(context) / 14,
-                  height: getSize(context) / 14,
-                  child: model.progress != 0
-                      ? CircularProgressIndicator(
-                          value: model.progress,
-                          backgroundColor: AppColors.white,
-                          color: AppColors.primary,
-                        )
-                      : DownloadIconWidget(
-                          color: HexColor(model.backgroundColor),
-                        ),
-                ),
-              ),
+              child: cubit.examsofLessons.elementAt(index).progress == 0 &&
+                      File(cubit.dirpath.path +
+                              "/pdf/" +
+                              cubit.examsofLessons
+                                  .elementAt(index)
+                                  .name
+                                  .split("/")
+                                  .toList()
+                                  .last +
+                              '.pdf')
+                          .existsSync()
+                  ? SizedBox(
+                      width: 25,
+                      height: 25,
+                      child: Icon(
+                        Icons.check_circle,
+                        color: AppColors.success,
+                      ))
+                  : InkWell(
+                      onTap: () async {
+                        cubit.downloadPdfOfLesson(model);
+                      },
+                      child: SizedBox(
+                        width: getSize(context) / 14,
+                        height: getSize(context) / 14,
+                        child: model.progress != 0
+                            ? CircularProgressIndicator(
+                                value: model.progress,
+                                backgroundColor: AppColors.white,
+                                color: AppColors.primary,
+                              )
+                            : DownloadIconWidget(
+                                color: HexColor(model.backgroundColor),
+                              ),
+                      ),
+                    ),
             ),
           )
         ],
