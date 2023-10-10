@@ -85,7 +85,7 @@ class _NavigatorBarState extends State<NavigatorBar> {
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,
         index: 2,
-        height: getSize(context) / 6.5,
+        height:75,
         items: [
           GestureDetector(
             onTap: () {

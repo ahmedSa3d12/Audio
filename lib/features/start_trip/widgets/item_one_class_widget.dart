@@ -109,7 +109,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                           series: <CircularSeries>[
                             RadialBarSeries<int, String>(
                               maximumValue: 100,
-                              innerRadius: '24',
+                              innerRadius: '50',
                               dataSource: [int.parse(classPresentFinished)],
                               cornerStyle: classPresentFinished == '100'
                                   ? CornerStyle.bothFlat

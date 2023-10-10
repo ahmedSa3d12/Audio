@@ -100,7 +100,7 @@ class _NoteState extends State<NotePlan> {
         child: MySvgWidget(
             path: ImageAssets.addIcon,
             imageColor: AppColors.white,
-            size: MediaQuery.of(context).size.width / 16),
+            size: getSize(context)/18),
         onPressed: () {
           showDialog(
             barrierDismissible: false,

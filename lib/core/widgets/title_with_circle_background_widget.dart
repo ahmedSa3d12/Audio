@@ -13,7 +13,7 @@ class TitleWithCircleBackgroundWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: getSize(context)/12 ,
       width: width ?? MediaQuery.of(context).size.width / 2,
       child: Stack(
         children: [
@@ -21,8 +21,8 @@ class TitleWithCircleBackgroundWidget extends StatelessWidget {
             bottom: 0,
             right: 15,
             child: Container(
-              width: 40,
-              height: 40,
+              width:  getSize(context)/12 ,
+              height: getSize(context)/12 ,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(40),
                 color: AppColors.orangeThirdPrimary,

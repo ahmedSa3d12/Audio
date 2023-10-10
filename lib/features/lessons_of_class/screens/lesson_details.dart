@@ -99,6 +99,7 @@ class _LessonDetailsState extends State<LessonDetails>
                                             ? AppColors.white
                                             : AppColors.black,
                                         fontWeight: FontWeight.bold,
+                                        fontSize: getSize(context)/30
                                       ),
                                     ),
                                   ),

@@ -80,6 +80,7 @@ class _StartTripScreenState extends State<StartTripScreen>
                                       ? AppColors.white
                                       : AppColors.black,
                                   fontWeight: FontWeight.bold,
+                                  fontSize: getSize(context)/30
                                 ),
                               ),
                             ),

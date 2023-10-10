@@ -49,5 +49,23 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>LSRequiresIPhoneOS</key>
+    	<true/>
+    	<key>UILaunchStoryboardName</key>
+    	<string>LaunchScreen</string>
+    	<key>UIMainStoryboardFile</key>
+    	<string>Main</string>
+    	<key>FirebaseAppDelegateProxyEnabled</key>
+        	<false/>
+        	<key>FirebaseScreenReportingEnabled</key>
+            <true/>
+        	<key>LSRequiresIPhoneOS</key>
+        	<true/>
+        	<key>NSCameraUsageDescription</key>
+        	<string>The Camera will be used if you would like to update profile picture and share photos.</string>
+        	<key>NSMicrophoneUsageDescription</key>
+        	<string>flutter pub run flutter_launcher_iconsTo capture audio for pick image plugin</string>
+        	<key>NSPhotoLibraryUsageDescription</key>
+        	<string>The Photo Gallery will be used if you would like to update profile picture and share photos.</string>
 </dict>
 </plist>

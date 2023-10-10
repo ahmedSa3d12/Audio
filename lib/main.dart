@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -50,14 +52,16 @@ Future<void> main() async {
   getToken();
 
   // await PushNotificationService.instance.initialise();
-  await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
-  await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE)
-      .then((value) {
-    print('************************************************');
-    print(value);
-    print('************************************************');
-  });
+  if(Platform.isAndroid){
+    await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+    await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE)
+        .then((value) {
+      print('************************************************');
+      print(value);
+      print('************************************************');
+    });
 
+  }
   // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   AppColors.getPrimaryColor();
 

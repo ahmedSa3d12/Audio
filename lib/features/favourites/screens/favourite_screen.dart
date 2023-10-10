@@ -88,7 +88,8 @@ class _FavouriteScreenState extends State<FavouriteScreen>
                                           style: TextStyle(
                                             color: cubit.currentIndex == index
                                                 ? AppColors.white
-                                                : AppColors.black,
+                                                : AppColors.black,                                        fontSize: getSize(context)/30,
+
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),

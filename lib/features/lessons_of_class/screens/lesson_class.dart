@@ -116,8 +116,8 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                         children: [
                                           CustomPaint(
                                             size: Size(
-                                              250,
-                                              80,
+                                              getSize(context)/2,
+                                              getSize(context)/3,
                                             ),
                                             painter: MyPainter(
                                               HexColor(
