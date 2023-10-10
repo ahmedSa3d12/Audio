@@ -455,19 +455,19 @@ class _userScreenState extends State<LoginScreen> {
 
   getCommunicationTab(String type, LoginCubit cubit) async {
     if (type == 'facebook') {
-      await launchUrl(Uri.parse(cubit.communicationData!.facebookLink),
+      await launchUrl(Uri.parse(cubit.communicationData!.facebookLink ?? ''),
           mode: LaunchMode.externalApplication);
     } else if (type == 'youtube') {
-      await launchUrl(Uri.parse(cubit.communicationData!.youtubeLink),
+      await launchUrl(Uri.parse(cubit.communicationData!.youtubeLink ?? ''),
           mode: LaunchMode.externalApplication);
     } else if (type == 'twitter') {
-      await launchUrl(Uri.parse(cubit.communicationData!.twitterLink),
+      await launchUrl(Uri.parse(cubit.communicationData!.twitterLink ?? ''),
           mode: LaunchMode.externalApplication);
     } else if (type == 'instagram') {
-      await launchUrl(Uri.parse(cubit.communicationData!.instagramLink),
+      await launchUrl(Uri.parse(cubit.communicationData!.instagramLink ?? ''),
           mode: LaunchMode.externalApplication);
     } else if (type == 'website') {
-      await launchUrl(Uri.parse(cubit.communicationData!.websiteLink),
+      await launchUrl(Uri.parse(cubit.communicationData!.websiteLink ?? ''),
           mode: LaunchMode.externalApplication);
     } else {
       showDialog(
@@ -504,11 +504,11 @@ class _userScreenState extends State<LoginScreen> {
                       height: getSize(context) / 22,
                       width: MediaQuery.of(context).size.width - 50),
                   ...List.generate(
-                    cubit.communicationData!.phones.length,
+                    cubit.communicationData!.phones!.length,
                     (index) => InkWell(
                       onTap: () {
                         phoneCallMethod(
-                          cubit.communicationData!.phones[index].phone,
+                          cubit.communicationData!.phones![index].phone,
                         );
                       },
                       child: Padding(
@@ -527,15 +527,16 @@ class _userScreenState extends State<LoginScreen> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    cubit
-                                        .communicationData!.phones[index].phone,
+                                    cubit.communicationData!.phones![index]
+                                        .phone,
                                     style: TextStyle(
                                       fontSize: getSize(context) / 24,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
-                                    cubit.communicationData!.phones[index].note,
+                                    cubit
+                                        .communicationData!.phones![index].note,
                                     style: TextStyle(
                                         fontSize: getSize(context) / 28),
                                   )

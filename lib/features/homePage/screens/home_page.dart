@@ -77,11 +77,16 @@ class _HomePageState extends State<HomePage> {
                               : SizedBox(
                                   height: 30,
                                 ),
-                          HomePageVideoWidget(
-                            videosBasics: cubit.videosBasics,
-                            title: 'train_yourself'.tr(),
-                          ),
-                          HomePageStartStudyWidget(classes: cubit.classes),
+                          cubit.videosBasics.isEmpty
+                              ? Container()
+                              : HomePageVideoWidget(
+                                  videosBasics: cubit.videosBasics,
+                                  title: 'train_yourself'.tr(),
+                                ),
+                          cubit.classes.isEmpty
+                              ? Container()
+                              : HomePageStartStudyWidget(
+                                  classes: cubit.classes),
                           cubit.videosResources.isEmpty
                               ? Container()
                               : FinalReviewWidget(

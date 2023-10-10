@@ -63,304 +63,317 @@ class _CallUsWidgetState extends State<CallUsWidget> {
                 child: Center(
                     child: CircularPercentIndicator(
                         radius: getSize(context) / 22)))
-            : AnimatedContainer(
-                height: _height,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(getSize(context) / 22),
-                    topRight: Radius.circular(getSize(context) / 22),
-                  ),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      AppColors.primary,
-                      AppColors.litePrimary,
-                      AppColors.white,
-                    ],
-                  ),
-                ),
-                duration: const Duration(milliseconds: 500),
-                child: ListView(
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: getSize(context) / 22),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            : cubit.isCommunicationData
+                ? AnimatedContainer(
+                    height: _height,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(getSize(context) / 22),
+                        topRight: Radius.circular(getSize(context) / 22),
+                      ),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          AppColors.primary,
+                          AppColors.litePrimary,
+                          AppColors.white,
+                        ],
+                      ),
+                    ),
+                    duration: const Duration(milliseconds: 500),
+                    child: ListView(
+                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(height: getSize(context) / 22),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: getSize(context) / 22),
+                              child: Text(
+                                trans.tr('welcome') + userModel!.data!.name,
+                                style: TextStyle(
+                                    fontSize: getSize(context) / 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.white),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              icon: Icon(
+                                Icons.close,
+                                size: getSize(context) / 12,
+                                color: AppColors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: getSize(context) / 22),
                         Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: getSize(context) / 22),
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: Text(
-                            trans.tr('welcome') + userModel!.data!.name,
+                            trans.tr('contact_us_from'),
                             style: TextStyle(
                                 fontSize: getSize(context) / 22,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.white),
                           ),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          icon: Icon(
-                            Icons.close,
-                            size: getSize(context) / 12,
-                            color: AppColors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: getSize(context) / 22),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(
-                        trans.tr('contact_us_from'),
-                        style: TextStyle(
-                            fontSize: getSize(context) / 22,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.white),
-                      ),
-                    ),
-                    SizedBox(height: getSize(context) / 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(width: 0),
-                        InkWell(
-                          onTap: () {
-                            _launchUrl(cubit.communicationData!.whatsApp);
-                          },
-                          child: Image.asset(
-                            ImageAssets.callUsWhatsappImage,
-                            width: getSize(context) / 6,
-                            height: getSize(context) / 6,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            showPopover(
-                              context: context,
-                              bodyBuilder: (context) => Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Row(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        _launchUrlPhone(
-                                            cubit.communicationData!.sms);
-                                      },
-                                      child: Icon(
-                                        Icons.email_outlined,
-                                        color: AppColors.red,
-                                        size: getSize(context) / 16,
-                                      ),
-                                    ),
-                                    SizedBox(width: getSize(context) / 32),
-                                    Expanded(
-                                      child: SingleChildScrollView(
-                                        child: Container(
-                                          margin: EdgeInsets.all(
-                                              getSize(context) / 32),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                cubit.communicationData!.sms,
-                                                style: TextStyle(
-                                                  fontSize:
-                                                      getSize(context) / 22,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                cubit.communicationData!
-                                                    .smsMessage,
-                                                style: TextStyle(
-                                                    fontSize:
-                                                        getSize(context) / 24),
-                                              )
-                                            ],
+                        SizedBox(height: getSize(context) / 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(width: 0),
+                            InkWell(
+                              onTap: () {
+                                _launchUrl(cubit.communicationData!.whatsApp);
+                              },
+                              child: Image.asset(
+                                ImageAssets.callUsWhatsappImage,
+                                width: getSize(context) / 6,
+                                height: getSize(context) / 6,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                showPopover(
+                                  context: context,
+                                  bodyBuilder: (context) => Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Row(
+                                      children: [
+                                        InkWell(
+                                          onTap: () {
+                                            _launchUrlPhone(
+                                                cubit.communicationData!.sms);
+                                          },
+                                          child: Icon(
+                                            Icons.email_outlined,
+                                            color: AppColors.red,
+                                            size: getSize(context) / 16,
                                           ),
                                         ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              onPop: () => print('Popover was popped!'),
-                              direction: PopoverDirection.bottom,
-                              backgroundColor: Colors.white,
-                              width: getSize(context) / 1.5,
-                              arrowHeight: 40,
-                              arrowWidth: 30,
-                            );
-                          },
-                          child: Image.asset(
-                            ImageAssets.callUsSmsImage,
-                            width: getSize(context) / 6,
-                            height: getSize(context) / 6,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            _launchUrl(cubit.communicationData!.facebookLink);
-                          },
-                          child: Image.asset(
-                            ImageAssets.callUsMessengerImage,
-                            width: getSize(context) / 6,
-                            height: getSize(context) / 6,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            if (isHeight) {
-                              setState(() {
-                                _height = 300;
-                                _listHeight = 0;
-                                isHeight = !isHeight;
-                              });
-                            } else {
-                              setState(() {
-                                _height = 500;
-                                _listHeight = getSize(context) / 1.8;
-                                isHeight = !isHeight;
-                              });
-                            }
-                          },
-                          child: Image.asset(
-                            ImageAssets.callUsCallImage,
-                            width: getSize(context) / 6,
-                            height: getSize(context) / 6,
-                          ),
-                        ),
-                        SizedBox(width: 0),
-                      ],
-                    ),
-                    // SizedBox(height: 30),
-                    AnimatedContainer(
-                      height: _listHeight,
-                      duration: const Duration(milliseconds: 500),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              // color: AppColors.white,
-                              borderRadius: BorderRadius.circular(18)),
-                          padding: const EdgeInsets.all(6.0),
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: 0,
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: CustomPaint(
-                                  size: Size(
-                                    MediaQuery.of(context).size.width,
-                                    (MediaQuery.of(context).size.width *
-                                            0.5573333333333333)
-                                        .toDouble(),
-                                  ),
-                                  //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                                  painter: RPSCustomPainter(),
-                                ),
-                              ),
-                              Positioned(
-                                top: 40,
-                                bottom: 12,
-                                left: 12,
-                                right: 12,
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                      child: ListView.separated(
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(12.0),
-                                            child: Row(
-                                              children: [
-                                                InkWell(
-                                                  onTap: () {
-                                                    _launchUrlPhone2(cubit
-                                                        .communicationData!
-                                                        .phones[index]
-                                                        .phone);
-                                                  },
-                                                  child: Icon(
-                                                    Icons.call,
-                                                    color:
-                                                        AppColors.blueLiteColor,
-                                                    size: 30,
-                                                  ),
-                                                ),
-                                                SizedBox(width: 20),
-                                                Expanded(
-                                                  child: SingleChildScrollView(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: [
-                                                        Text(
-                                                          cubit
-                                                              .communicationData!
-                                                              .phones[index]
-                                                              .phone,
-                                                          style: TextStyle(
-                                                            fontSize: getSize(
-                                                                    context) /
-                                                                22,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          cubit
-                                                              .communicationData!
-                                                              .phones[index]
-                                                              .note,
-                                                          style: TextStyle(
-                                                              fontSize: getSize(
-                                                                      context) /
-                                                                  26),
-                                                        )
-                                                      ],
+                                        SizedBox(width: getSize(context) / 32),
+                                        Expanded(
+                                          child: SingleChildScrollView(
+                                            child: Container(
+                                              margin: EdgeInsets.all(
+                                                  getSize(context) / 32),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(
+                                                    cubit.communicationData!
+                                                            .sms ??
+                                                        '',
+                                                    style: TextStyle(
+                                                      fontSize:
+                                                          getSize(context) / 22,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
                                                   ),
-                                                )
-                                              ],
+                                                  Text(
+                                                    cubit.communicationData!
+                                                            .smsMessage ??
+                                                        '',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            getSize(context) /
+                                                                24),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          );
-                                        },
-                                        separatorBuilder: (context, sIndex) =>
-                                            Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.80,
-                                          height: 1,
-                                          color: AppColors.gray,
-                                        ),
-                                        itemCount: cubit
-                                            .communicationData!.phones.length,
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  onPop: () => print('Popover was popped!'),
+                                  direction: PopoverDirection.bottom,
+                                  backgroundColor: Colors.white,
+                                  width: getSize(context) / 1.5,
+                                  arrowHeight: 40,
+                                  arrowWidth: 30,
+                                );
+                              },
+                              child: Image.asset(
+                                ImageAssets.callUsSmsImage,
+                                width: getSize(context) / 6,
+                                height: getSize(context) / 6,
                               ),
-                            ],
-                          ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                _launchUrl(
+                                    cubit.communicationData!.facebookLink);
+                              },
+                              child: Image.asset(
+                                ImageAssets.callUsMessengerImage,
+                                width: getSize(context) / 6,
+                                height: getSize(context) / 6,
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                if (isHeight) {
+                                  setState(() {
+                                    _height = 300;
+                                    _listHeight = 0;
+                                    isHeight = !isHeight;
+                                  });
+                                } else {
+                                  setState(() {
+                                    _height = 500;
+                                    _listHeight = getSize(context) / 1.8;
+                                    isHeight = !isHeight;
+                                  });
+                                }
+                              },
+                              child: Image.asset(
+                                ImageAssets.callUsCallImage,
+                                width: getSize(context) / 6,
+                                height: getSize(context) / 6,
+                              ),
+                            ),
+                            SizedBox(width: 0),
+                          ],
                         ),
-                      ),
-                    )
-                  ],
-                ),
-              );
+                        // SizedBox(height: 30),
+                        AnimatedContainer(
+                          height: _listHeight,
+                          duration: const Duration(milliseconds: 500),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  // color: AppColors.white,
+                                  borderRadius: BorderRadius.circular(18)),
+                              padding: const EdgeInsets.all(6.0),
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    top: 0,
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    child: CustomPaint(
+                                      size: Size(
+                                        MediaQuery.of(context).size.width,
+                                        (MediaQuery.of(context).size.width *
+                                                0.5573333333333333)
+                                            .toDouble(),
+                                      ),
+                                      //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                                      painter: RPSCustomPainter(),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    top: 40,
+                                    bottom: 12,
+                                    left: 12,
+                                    right: 12,
+                                    child: Column(
+                                      children: [
+                                        Expanded(
+                                          child: ListView.separated(
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding:
+                                                    const EdgeInsets.all(12.0),
+                                                child: Row(
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        _launchUrlPhone2(cubit
+                                                            .communicationData!
+                                                            .phones![index]
+                                                            .phone);
+                                                      },
+                                                      child: Icon(
+                                                        Icons.call,
+                                                        color: AppColors
+                                                            .blueLiteColor,
+                                                        size: 30,
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 20),
+                                                    Expanded(
+                                                      child:
+                                                          SingleChildScrollView(
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          children: [
+                                                            Text(
+                                                              cubit
+                                                                  .communicationData!
+                                                                  .phones![
+                                                                      index]
+                                                                  .phone,
+                                                              style: TextStyle(
+                                                                fontSize: getSize(
+                                                                        context) /
+                                                                    22,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              cubit
+                                                                  .communicationData!
+                                                                  .phones![
+                                                                      index]
+                                                                  .note,
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      getSize(context) /
+                                                                          26),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                            separatorBuilder:
+                                                (context, sIndex) => Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.80,
+                                              height: 1,
+                                              color: AppColors.gray,
+                                            ),
+                                            itemCount: cubit.communicationData!
+                                                .phones!.length,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                : Center(child: CircularProgressIndicator());
       },
     );
   }

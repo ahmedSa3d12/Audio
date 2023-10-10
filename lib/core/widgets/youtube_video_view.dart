@@ -40,9 +40,12 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return YoutubePlayerBuilder(
-      builder: (context, player) => player,
-      player: youtubePlayer,
+    return FittedBox(
+      fit: BoxFit.contain,
+      child: YoutubePlayerBuilder(
+        builder: (context, player) => player,
+        player: youtubePlayer,
+      ),
     );
   }
 }

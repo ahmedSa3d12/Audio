@@ -48,17 +48,17 @@ class CommunicationData {
   });
 
   int id;
-  String facebookLink;
-  String youtubeLink;
-  String websiteLink;
-  String smsMessage;
-  String instagramLink;
-  String twitterLink;
-  String sms;
-  String whatsApp;
-  List<Phone> phones;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String? facebookLink;
+  String? youtubeLink;
+  String? websiteLink;
+  String? smsMessage;
+  String? instagramLink;
+  String? twitterLink;
+  String? sms;
+  String? whatsApp;
+  List<Phone>? phones;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   factory CommunicationData.fromJson(Map<String, dynamic> json) =>
       CommunicationData(
@@ -85,11 +85,11 @@ class CommunicationData {
         "instagram_link": instagramLink,
         "sms_message": smsMessage,
         "twitter_link": twitterLink,
-        "phones": List<dynamic>.from(phones.map((x) => x.toJson())),
+        "phones": List<dynamic>.from(phones!.map((x) => x.toJson())),
         "created_at":
-            "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
+            "${createdAt!.year.toString().padLeft(4, '0')}-${createdAt!.month.toString().padLeft(2, '0')}-${createdAt!.day.toString().padLeft(2, '0')}",
         "updated_at":
-            "${updatedAt.year.toString().padLeft(4, '0')}-${updatedAt.month.toString().padLeft(2, '0')}-${updatedAt.day.toString().padLeft(2, '0')}",
+            "${updatedAt!.year.toString().padLeft(4, '0')}-${updatedAt!.month.toString().padLeft(2, '0')}-${updatedAt!.day.toString().padLeft(2, '0')}",
       };
 }
 
