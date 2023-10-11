@@ -77,11 +77,12 @@ class _VideoDetailsState extends State<VideoDetails> {
                 } else {
                   return WillPopScope(
                     onWillPop: () async {
-                      await cubit.updateTime(context);
-                      await context
+                      Navigator.pop(context);
+                      cubit.updateTime(context);
+                      context
                           .read<LessonsClassCubit>()
                           .getVideosofLessonsData(cubit.lessonId);
-                      Navigator.pop(context);
+
                       context.read<LessonsClassCubit>().getLessonsClassData(
                           context.read<LessonsClassCubit>().oneClass!.id!,
                           cubit.lessonId,
@@ -99,11 +100,12 @@ class _VideoDetailsState extends State<VideoDetails> {
                           : AppBar(
                               leading: IconButton(
                                   onPressed: () async {
-                                    await cubit.updateTime(context);
-                                    await context
+                                    Navigator.pop(context);
+                                    cubit.updateTime(context);
+                                    context
                                         .read<LessonsClassCubit>()
                                         .getVideosofLessonsData(cubit.lessonId);
-                                    Navigator.pop(context);
+
                                     context
                                         .read<LessonsClassCubit>()
                                         .getLessonsClassData(
