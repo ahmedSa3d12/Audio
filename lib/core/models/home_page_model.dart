@@ -6,9 +6,6 @@ import 'dart:convert';
 
 import 'class_data.dart';
 
-HomePageModel homePageModelFromJson(String str) =>
-    HomePageModel.fromJson(json.decode(str));
-
 String homePageModelToJson(HomePageModel data) => json.encode(data.toJson());
 
 class HomePageModel {
@@ -246,7 +243,7 @@ class AllExams {
   final int? id;
   final String? name;
   final int? numOfQuestion;
-  final int? totalTime;
+  final double? totalTime;
 
   factory AllExams.fromJson(Map<String, dynamic> json) => AllExams(
         id: json["id"],

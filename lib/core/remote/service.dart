@@ -547,7 +547,6 @@ class ServiceApi {
       {required int video_id, required String type}) async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
-
     try {
       final response = await dio.get(
         EndPoints.videoDetailsUrl + video_id.toString(),

@@ -452,7 +452,7 @@ class _NoteState extends State<NotePlan> {
                                       shrinkWrap: true,
                                       physics: const BouncingScrollPhysics(),
                                       children: [
-                                        TitleWithCircleBackgroundWidget(
+                                        TitleWithCircleBackgroundWidget(    width: double.infinity,
                                             title: 'add_note'.tr()),
                                         SizedBox(height: getSize(context) / 44),
                                         Padding(

@@ -10,6 +10,7 @@ import '../../../core/utils/toast_message_method.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../../core/widgets/show_loading_indicator.dart';
 import '../cubit/lessons_class_cubit.dart';
+import '../cubit/lessons_class_state.dart';
 
 ///الشرح الخاص بالدروس need make get data
 class VideoLessonScreen extends StatefulWidget {
@@ -94,6 +95,13 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                             cubit.videosofLessons[index]
                                                 .background_image,
                                             width: getSize(context) / 3,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Image.asset(
+                                                ImageAssets.videoImage,
+                                                width: getSize(context) / 3,
+                                              );
+                                            },
                                           ),
                                         ),
                                       ),
@@ -227,41 +235,58 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                         barRadius: Radius.circular(
                                             getSize(context) / 22),
                                         backgroundColor: AppColors.grey2,
-                                        percent: cubit.videosofLessons[index]
-                                                    .progress <
+                                        percent: double.parse(cubit
+                                                    .videosofLessons[index]
+                                                    .progress) <=
                                                 0
-                                            ? 0
-                                            : cubit.videosofLessons[index]
-                                                    .progress /
+                                            ? 0.0
+                                            : double.parse(cubit
+                                                    .videosofLessons[index]
+                                                    .progress
+                                                    .toString()) /
                                                 100,
                                         isRTL: true,
-                                        progressColor: (cubit
-                                                        .videosofLessons[index]
-                                                        .progress >
+                                        progressColor: (double.parse(cubit
+                                                            .videosofLessons[
+                                                                index]
+                                                            .progress)
+                                                        .round() >
                                                     0 &&
-                                                cubit.videosofLessons[index]
-                                                        .progress <=
+                                                double.parse(cubit
+                                                            .videosofLessons[
+                                                                index]
+                                                            .progress)
+                                                        .round() <=
                                                     30)
                                             ? AppColors.red
-                                            : (cubit.videosofLessons[index]
-                                                            .progress >
+                                            : (double.parse(cubit.videosofLessons[index].progress)
+                                                            .round() >
                                                         30 &&
-                                                    cubit.videosofLessons[index]
-                                                            .progress <
+                                                    double.parse(cubit
+                                                                .videosofLessons[
+                                                                    index]
+                                                                .progress)
+                                                            .round() <
                                                         65)
                                                 ? AppColors.orange
                                                 : AppColors.greenDownloadColor,
                                       ),
                                     ),
                                     SizedBox(width: getSize(context) / 18),
-                                    cubit.videosofLessons[index].progress >= 100
+                                    double.parse(cubit.videosofLessons[index]
+                                                    .progress)
+                                                .round() >=
+                                            100
                                         ? CircleAvatar(
                                             backgroundColor:
                                                 AppColors.greenDownloadColor,
-                                            child: MySvgWidget(
-                                                path: ImageAssets.doneIcon,
-                                                imageColor: AppColors.white,
-                                                size: getSize(context) / 28))
+                                            child:
+                                                MySvgWidget(
+                                                    path: ImageAssets.doneIcon,
+                                                    imageColor: AppColors.white,
+                                                    size: getSize(
+                                                            context) /
+                                                        28))
                                         : cubit.videosofLessons[index].status ==
                                                 'lock'
                                             ? CircleAvatar(

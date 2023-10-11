@@ -20,7 +20,7 @@ class AllLessonsModel {
   final String? note;
   final String? status;
   final int? numOfVideos;
-  final int? totalWatch;
+  final dynamic totalWatch;
   final dynamic totalTimes;
   final DateTime? createdAt;
   final DateTime? updatedAt;

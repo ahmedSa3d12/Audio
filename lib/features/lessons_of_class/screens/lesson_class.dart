@@ -12,7 +12,9 @@ import 'package:new_mazoon/features/lessons_of_class/cubit/lessons_class_cubit.d
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/toast_message_method.dart';
 import '../../../core/widgets/my_painter_widget.dart';
+import '../../homePage/cubit/home_page_cubit.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
+import '../cubit/lessons_class_state.dart';
 import '../widgets/lesson_class_item_widget.dart';
 
 class LessonsClassScreen extends StatefulWidget {
@@ -30,6 +32,8 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
     context
         .read<LessonsClassCubit>()
         .getLessonsClassData(widget.classId, 1, context, false, false, false);
+
+    context.read<HomePageCubit>().openFirstClass(widget.classId);
   }
 
   bool isLoading = true;
@@ -116,8 +120,8 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                         children: [
                                           CustomPaint(
                                             size: Size(
-                                              getSize(context)/2,
-                                              getSize(context)/3,
+                                              getSize(context) / 2,
+                                              getSize(context) / 3,
                                             ),
                                             painter: MyPainter(
                                               HexColor(

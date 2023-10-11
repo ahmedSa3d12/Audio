@@ -23,10 +23,10 @@ class AllClasses {
   final String? backgroundColor;
   final String? name;
   final String? title;
-  final int? totalWatch;
+  final dynamic totalWatch;
   final int? numOfLessons;
   final int? numOfVideos;
-  final int? totalTimes;
+  final dynamic totalTimes;
   final List<AllExams>? exams;
   final DateTime? createdAt;
   final DateTime? updatedAt;

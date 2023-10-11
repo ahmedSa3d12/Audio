@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/utils/numformat.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
@@ -95,7 +94,7 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                       path: ImageAssets.lockIcon,
                                     )
                                   : Text(
-                                      classPresentFinished,
+                                      '${double.parse(classPresentFinished).round()} %',
                                       maxLines: 1,
                                       overflow: TextOverflow.clip,
                                       style: TextStyle(
@@ -109,8 +108,10 @@ class ItemOfOneClassWidget extends StatelessWidget {
                           series: <CircularSeries>[
                             RadialBarSeries<int, String>(
                               maximumValue: 100,
-                              innerRadius: '50',
-                              dataSource: [int.parse(classPresentFinished)],
+                              innerRadius: '24', //50 in i pod
+                              dataSource: [
+                                double.parse(classPresentFinished).round()
+                              ],
                               cornerStyle: classPresentFinished == '100'
                                   ? CornerStyle.bothFlat
                                   : CornerStyle.endCurve,
@@ -282,7 +283,8 @@ class ItemOfOneClassWidget extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: AppColors.white, width: 2),
-                                  borderRadius: BorderRadius.circular(50),
+                                  borderRadius: BorderRadius.circular(
+                                      getSize(context) / 22),
                                   color: darken(mainColor, 0.1),
                                 ),
                                 child: Center(
@@ -325,6 +327,4 @@ class ItemOfOneClassWidget extends StatelessWidget {
       ),
     );
   }
-
-
 }

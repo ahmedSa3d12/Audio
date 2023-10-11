@@ -60,6 +60,7 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>
                           SizedBox(height: getSize(context) / 3.5),
                           TitleWithCircleBackgroundWidget(
                             title: 'exam_hero'.tr(),
+                            width: double.infinity,
                           ),
                           SizedBox(height: getSize(context) / 30),
                           SingleChildScrollView(

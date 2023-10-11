@@ -32,6 +32,8 @@ class ImageAssets {
   static const String Image2 = '$imagePath/2.png';
   static const String Image3 = '$imagePath/3.png';
   static const String Image4 = '$imagePath/4.png';
+
+  static const videoImage = '$imagePath/videoex.png';
   static const String liveExamImage = '$imagePath/live_exam.png';
   static const String examPdfImage = '$imagePath/exam_pdf.png';
   static const String examPaperImage = '$imagePath/exam_paper.png';

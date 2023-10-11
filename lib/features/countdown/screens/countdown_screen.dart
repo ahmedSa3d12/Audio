@@ -49,6 +49,7 @@ class CountdownScreen extends StatelessWidget {
                         SizedBox(height: getSize(context) / 3.5),
                         TitleWithCircleBackgroundWidget(
                           title: 'countdown',
+                          width: double.infinity,
                         ),
                         SizedBox(height: getSize(context) / 22),
                         ManageNetworkImage(

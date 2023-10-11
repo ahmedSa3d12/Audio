@@ -124,6 +124,7 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                   ? Container()
                                   : TitleWithCircleBackgroundWidget(
                                       title: "best_result",
+                                      width: double.infinity,
                                     ),
                               SizedBox(
                                 height: getSize(context) / 22,

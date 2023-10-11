@@ -75,9 +75,11 @@ class VideoOpened {
   String status;
   String type;
   String user;
+  int LessonId;
 
   VideoOpened({
     required this.id,
+    required this.LessonId,
     required this.minutes,
     required this.status,
     required this.type,
@@ -87,6 +89,7 @@ class VideoOpened {
   factory VideoOpened.fromJson(Map<String, dynamic> json) => VideoOpened(
         id: json["id"],
         minutes: json["minutes"],
+        LessonId: json['lesson_id'],
         status: json["status"],
         type: json["type"],
         user: json["user"],
@@ -96,6 +99,7 @@ class VideoOpened {
         "id": id,
         "minutes": minutes,
         "status": status,
+        "lesson_id": LessonId,
         "type": type,
         "user": user,
       };

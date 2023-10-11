@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
     context.read<HomePageCubit>().getUserData().then(
           (value) => context.read<HomePageCubit>().getHomePageData(),
         );
-    context.read<HomePageCubit>().openFirstClass();
+    // context.read<HomePageCubit>().openFirstClass();
     super.initState();
   }
 
@@ -96,12 +96,17 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     );
+                  } else if (state is HomePageError) {
+                    return NoDataWidget(
+                      onclick: () {
+                        context.read<HomePageCubit>().getHomePageData();
+                      },
+                      title: 'no_data'.tr(),
+                    );
                   } else {
                     return NoDataWidget(
                       onclick: () {
-                        if (state is HomePageError) {
-                          cubit.getHomePageData();
-                        } else {}
+                        context.read<HomePageCubit>().getHomePageData();
                       },
                       title: 'no_data'.tr(),
                     );

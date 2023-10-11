@@ -50,7 +50,10 @@ class _AttachmentScreenState extends State<AttachmentScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: getSize(context) / 3.5),
-                  TitleWithCircleBackgroundWidget(title: widget.model.name),
+                  TitleWithCircleBackgroundWidget(
+                    title: widget.model.name,
+                    width: double.infinity,
+                  ),
                   SizedBox(height: getSize(context) / 22),
                   Flexible(
                       child: SingleChildScrollView(

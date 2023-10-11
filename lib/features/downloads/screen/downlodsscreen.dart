@@ -55,7 +55,9 @@ class _DownloadedFilesScreenState extends State<DownloadedFilesScreen>
                           children: [
                             SizedBox(height: getSize(context) / 3.5),
                             TitleWithCircleBackgroundWidget(
-                                title: 'downloads'.tr()),
+                              title: 'downloads'.tr(),
+                              width: double.infinity,
+                            ),
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(

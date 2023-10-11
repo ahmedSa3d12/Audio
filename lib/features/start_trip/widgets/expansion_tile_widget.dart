@@ -8,6 +8,7 @@ import '../../../core/utils/assets_manager.dart';
 import '../../../core/utils/toast_message_method.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../lessons_of_class/cubit/lessons_class_cubit.dart';
+import '../../lessons_of_class/cubit/lessons_class_state.dart';
 
 class ExpansionTileWidget extends StatefulWidget {
   final String title;
@@ -66,7 +67,6 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
           builder: (context, state) {
             StartTripCubit cubit = context.read<StartTripCubit>();
             var cubit2 = context.read<LessonsClassCubit>();
-
             return Row(
               children: [
                 Expanded(

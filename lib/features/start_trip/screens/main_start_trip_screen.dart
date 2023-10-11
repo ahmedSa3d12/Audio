@@ -43,7 +43,8 @@ class _StartTripScreenState extends State<StartTripScreen>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: getSize(context) / 3.5),
-              TitleWithCircleBackgroundWidget(title: 'start_trip'),
+              TitleWithCircleBackgroundWidget(
+                  width: double.infinity, title: 'start_trip'),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -76,12 +77,11 @@ class _StartTripScreenState extends State<StartTripScreen>
                               child: Text(
                                 titles[index],
                                 style: TextStyle(
-                                  color: cubit.currentIndex == index
-                                      ? AppColors.white
-                                      : AppColors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: getSize(context)/30
-                                ),
+                                    color: cubit.currentIndex == index
+                                        ? AppColors.white
+                                        : AppColors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: getSize(context) / 30),
                               ),
                             ),
                           ),

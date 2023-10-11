@@ -88,8 +88,8 @@ class _FavouriteScreenState extends State<FavouriteScreen>
                                           style: TextStyle(
                                             color: cubit.currentIndex == index
                                                 ? AppColors.white
-                                                : AppColors.black,                                        fontSize: getSize(context)/30,
-
+                                                : AppColors.black,
+                                            fontSize: getSize(context) / 30,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -118,7 +118,10 @@ class _FavouriteScreenState extends State<FavouriteScreen>
                 ),
                 Positioned(
                   top: getSize(context) * 0.27,
-                  child: TitleWithCircleBackgroundWidget(title: 'favourite'),
+                  child: TitleWithCircleBackgroundWidget(
+                    title: 'favourite',
+                    width: double.infinity,
+                  ),
                 )
               ],
             ),

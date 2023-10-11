@@ -63,8 +63,8 @@ class LessonClassItemWidget extends StatelessWidget {
             ),
             if (model.status == 'lock') ...{
               Container(
-                width: getSize(context)/7,
-                height:getSize(context)/7,
+                width: getSize(context) / 7,
+                height: getSize(context) / 7,
                 decoration: BoxDecoration(
                   color: darken(HexColor(model.backgroundColor!), 0.3),
                   borderRadius: BorderRadius.circular(80),
@@ -72,7 +72,7 @@ class LessonClassItemWidget extends StatelessWidget {
                 child: Center(
                   child: MySvgWidget(
                     path: ImageAssets.lockIcon,
-                    size: getSize(context)/16,
+                    size: getSize(context) / 16,
                     imageColor: AppColors.white,
                   ),
                 ),
@@ -80,8 +80,8 @@ class LessonClassItemWidget extends StatelessWidget {
             } else ...{
               if (model.totalWatch == 100) ...{
                 Container(
-                  width: getSize(context)/7,
-                  height: getSize(context)/7,
+                  width: getSize(context) / 7,
+                  height: getSize(context) / 7,
                   decoration: BoxDecoration(
                     color: darken(HexColor(model.backgroundColor!), 0.3),
                     borderRadius: BorderRadius.circular(80),
@@ -94,23 +94,20 @@ class LessonClassItemWidget extends StatelessWidget {
                         Icons.check,
                         color: AppColors.white,
                       ),
-
-
-                        Text(
-                          '100 %',
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: getSize(context)/18,
-                          ),
-
+                      Text(
+                        '100 %',
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: getSize(context) / 18,
+                        ),
                       ),
                     ],
                   ),
                 ),
               } else ...{
                 SizedBox(
-                  width: getSize(context)/7,
-                  height: getSize(context)/7,
+                  width: getSize(context) / 7,
+                  height: getSize(context) / 7,
                   child: SfCircularChart(
                     margin: EdgeInsets.zero,
                     palette: [
@@ -119,11 +116,11 @@ class LessonClassItemWidget extends StatelessWidget {
                     annotations: <CircularChartAnnotation>[
                       CircularChartAnnotation(
                         widget: Text(
-                          model.totalWatch.toString(),
-            style: TextStyle(
-            color:
-            darken(HexColor(model.backgroundColor!), 0.3),
-            fontSize: getSize(context)/22,
+                          '${model.totalWatch.toString() == "0" ? '0' : (double.parse(model.totalWatch.toString()).round() ~/ double.parse(model.totalTimes.toString()).round()).toString()}%',
+                          style: TextStyle(
+                            color:
+                                darken(HexColor(model.backgroundColor!), 0.3),
+                            fontSize: getSize(context) / 22,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -132,9 +129,16 @@ class LessonClassItemWidget extends StatelessWidget {
                     series: <CircularSeries>[
                       RadialBarSeries<int, String>(
                         maximumValue: 100,
-                        innerRadius: model.totalWatch.toString(),
-                        dataSource: [model.totalWatch!],
+                        innerRadius: '22',
+                        dataSource: [
+                          model.totalWatch.toString() == "0"
+                              ? 0
+                              : (double.parse(model.totalWatch.toString()) /
+                                      double.parse(model.totalTimes.toString()))
+                                  .round()
+                        ],
                         cornerStyle: CornerStyle.endCurve,
+                        // cornerStyle: CornerStyle.endCurve,
                         xValueMapper: (int data, _) => data.toString(),
                         yValueMapper: (int data, _) =>
                             double.parse(data.toString()),
@@ -145,13 +149,13 @@ class LessonClassItemWidget extends StatelessWidget {
               },
             },
             Padding(
-              padding:  EdgeInsets.symmetric(
+              padding: EdgeInsets.symmetric(
                 vertical: 8.0,
-                horizontal: getSize(context)/22,
+                horizontal: getSize(context) / 22,
               ),
               child: Container(
                 width: 1,
-                height: getSize(context)/8,
+                height: getSize(context) / 8,
                 color: darken(HexColor(model.backgroundColor!), 0.3),
               ),
             ),
@@ -166,7 +170,7 @@ class LessonClassItemWidget extends StatelessWidget {
                       Icon(
                         Icons.slow_motion_video,
                         color: darken(HexColor(model.backgroundColor!), 0.3),
-                        size: getSize(context)/16,
+                        size: getSize(context) / 16,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -179,7 +183,7 @@ class LessonClassItemWidget extends StatelessWidget {
                           style: TextStyle(
                               color:
                                   darken(HexColor(model.backgroundColor!), 0.3),
-                              fontSize: getSize(context)/24,
+                              fontSize: getSize(context) / 24,
                               fontWeight: FontWeight.w400),
                         ),
                       ),
@@ -191,7 +195,7 @@ class LessonClassItemWidget extends StatelessWidget {
                           style: TextStyle(
                               color:
                                   darken(HexColor(model.backgroundColor!), 0.3),
-                              fontSize: getSize(context)/24,
+                              fontSize: getSize(context) / 24,
                               fontWeight: FontWeight.w400),
                         ),
                       ),
@@ -202,7 +206,7 @@ class LessonClassItemWidget extends StatelessWidget {
                       Icon(
                         Icons.access_time_outlined,
                         color: darken(HexColor(model.backgroundColor!), 0.3),
-                        size: getSize(context)/16,
+                        size: getSize(context) / 16,
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -219,7 +223,7 @@ class LessonClassItemWidget extends StatelessWidget {
                           style: TextStyle(
                               color:
                                   darken(HexColor(model.backgroundColor!), 0.3),
-                              fontSize: getSize(context)/22,
+                              fontSize: getSize(context) / 22,
                               fontWeight: FontWeight.w400),
                         ),
                       ),
@@ -231,7 +235,7 @@ class LessonClassItemWidget extends StatelessWidget {
                           style: TextStyle(
                               color:
                                   darken(HexColor(model.backgroundColor!), 0.3),
-                              fontSize: getSize(context)/22,
+                              fontSize: getSize(context) / 22,
                               fontWeight: FontWeight.w400),
                         ),
                       ),

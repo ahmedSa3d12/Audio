@@ -4,14 +4,18 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:new_mazoon/core/models/lessons_class_model.dart';
 import 'package:new_mazoon/core/models/videoModel.dart';
 import 'package:new_mazoon/core/utils/dialogs.dart';
+import 'package:new_mazoon/features/lessons_of_class/cubit/lessons_class_cubit.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import '../../../core/models/comment_data_model.dart';
+import '../../../core/models/timeupdate.dart';
 import '../../../core/remote/service.dart';
 import '../../../core/utils/appwidget.dart';
 part 'video_details_state.dart';
@@ -116,7 +120,6 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
       (r) {
         videoModel = r.data;
         getcomments(videoModel!.id, type);
-
         emit(VideoDetailsLoaded());
       },
     );
@@ -383,7 +386,8 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
     emit(CommentsLoaded());
   }
 
-  updateTime() async {
+  int lessonId = 0;
+  updateTime(BuildContext context) async {
     // if (type == "video_part") {
     emit(VideoUpdateTimeLoading());
     print(duration!.inSeconds.toString());
@@ -399,14 +403,20 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
         print("<<<<<<<<<<<< updsssateTime >>>>>>>>>>>>>>");
         print(l.toString());
         emit(VideoUpdateTimeError());
-        errorGetBar(l.toString());
+        // errorGetBar(l.toString());
       },
       (r) {
         print("<<<<<<<<<<<< updateTime >>>>>>>>>>>>>>");
         getVideoDetails(video_id!, type!);
         successGetBar(r.message +
             "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}");
+        // context
+        //     .read<LessonsClassCubit>()
+        //     .getVideosofLessonsData(r.data!.videoOpened.LessonId);
+
+        lessonId = r.data!.videoOpened.LessonId;
         emit(CommentsLoaded());
+        emit(UpdateTimeDoneLoaded());
       },
     );
     // } else {

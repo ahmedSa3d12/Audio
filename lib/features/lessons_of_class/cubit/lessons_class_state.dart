@@ -1,6 +1,4 @@
-part of 'lessons_class_cubit.dart';
 
-@immutable
 abstract class LessonsClassState {}
 
 class LessonsClassInitial extends LessonsClassState {}

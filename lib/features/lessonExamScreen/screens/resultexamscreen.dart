@@ -52,7 +52,8 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: getSize(context) / 3.5),
-                        TitleWithCircleBackgroundWidget(title: 'result_exam'),
+                        TitleWithCircleBackgroundWidget(
+                            width: double.infinity, title: 'result_exam'),
                         Container(
                           width: double.infinity,
                           alignment: Alignment.center,

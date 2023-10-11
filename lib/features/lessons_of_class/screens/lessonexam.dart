@@ -10,6 +10,7 @@ import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/pdf_screen.dart';
 import '../../examinstructions/cubit/examinstructions_cubit.dart';
 import '../cubit/lessons_class_cubit.dart';
+import '../cubit/lessons_class_state.dart';
 import '../widgets/lessonexamwidgey3.dart';
 
 class LessonExamScreen extends StatefulWidget {

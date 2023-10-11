@@ -31,14 +31,14 @@ class VideoLessonData {
   String subscribe;
   dynamic progress;
   String link;
-  int time;
+  // dynamic time;
   String rate;
-  int totalWatch;
-  int totalLike;
+  dynamic totalWatch;
+  dynamic totalLike;
   int likeActive;
   String videoMinutes;
   String background_image;
-  int viewActive;
+  dynamic viewActive;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -49,7 +49,7 @@ class VideoLessonData {
       required this.subscribe,
       required this.progress,
       required this.link,
-      required this.time,
+      // required this.time,
       required this.rate,
       required this.totalWatch,
       required this.totalLike,
@@ -69,7 +69,7 @@ class VideoLessonData {
         subscribe: json["subscribe"],
         progress: json["progress"],
         link: json["link"],
-        time: json["time"],
+        // time: json["time"],
         rate: json["rate"],
         totalWatch: json["total_watch"],
         totalLike: json["total_like"],
@@ -87,7 +87,7 @@ class VideoLessonData {
         "subscribe": subscribe,
         "progress": progress,
         "link": link,
-        "time": time,
+        // "time": time,
         "rate": rate,
         "total_watch": totalWatch,
         "total_like": totalLike,

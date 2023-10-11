@@ -8,6 +8,7 @@ import '../../../core/utils/toast_message_method.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../examdegreeaccreditation/cubit/examdegreedependcubit.dart';
 import '../../lessons_of_class/cubit/lessons_class_cubit.dart';
+import '../../lessons_of_class/cubit/lessons_class_state.dart';
 
 class ExpansionTilLessonWidget extends StatefulWidget {
   final String title;

@@ -14,7 +14,7 @@ import '../../../core/utils/dialogs.dart';
 import '../../../core/utils/toast_message_method.dart';
 import '../../examdegreeaccreditation/cubit/examdegreedependcubit.dart';
 
-part 'lessons_class_state.dart';
+import 'lessons_class_state.dart';
 
 class LessonsClassCubit extends Cubit<LessonsClassState> {
   LessonsClassCubit(this.api) : super(LessonsClassInitial()) {

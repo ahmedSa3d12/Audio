@@ -44,9 +44,10 @@ class HomePageCubit extends Cubit<HomePageState> {
   }
 
   // openLessonAndClass
-  openFirstClass() async {
+  openFirstClass(int classId) async {
     emit(HomePageLoadingClass());
-    final response = await api.openLessonAndClass(id: 1, type: 'subject_class');
+    final response =
+        await api.openLessonAndClass(id: classId, type: 'subject_class');
     response.fold((l) => emit(HomePageErrorClass()), (r) {
       emit(HomePageLoadedClass());
     });

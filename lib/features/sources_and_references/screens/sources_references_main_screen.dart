@@ -10,6 +10,7 @@ import 'package:new_mazoon/features/sources_and_references/cubit/source_referenc
 import '../../../core/utils/getsize.dart';
 import '../../../core/widgets/title_with_circle_background_widget.dart';
 import '../../lessons_of_class/cubit/lessons_class_cubit.dart';
+import '../../lessons_of_class/cubit/lessons_class_state.dart';
 import '../widgets/main_screen_item_widget.dart';
 
 class SourcesAndReferencesMainScreen extends StatelessWidget {
@@ -34,7 +35,7 @@ class SourcesAndReferencesMainScreen extends StatelessWidget {
               children: [
                 SizedBox(height: getSize(context) / 3.5),
                 TitleWithCircleBackgroundWidget(
-                    title: 'sources_and_references'),
+                    width: double.infinity, title: 'sources_and_references'),
                 SizedBox(height: getSize(context) / 18),
                 BlocBuilder<SourceReferencesCubit, SourceReferencesState>(
                   builder: (context, state) {

@@ -52,7 +52,7 @@ Future<void> main() async {
   getToken();
 
   // await PushNotificationService.instance.initialise();
-  if(Platform.isAndroid){
+  if (Platform.isAndroid) {
     await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
     await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE)
         .then((value) {
@@ -60,7 +60,6 @@ Future<void> main() async {
       print(value);
       print('************************************************');
     });
-
   }
   // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   AppColors.getPrimaryColor();

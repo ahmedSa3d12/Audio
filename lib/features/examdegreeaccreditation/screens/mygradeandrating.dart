@@ -59,7 +59,10 @@ class _MyGradeAndRatingState extends State<MyGradeAndRating>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 105),
-                    TitleWithCircleBackgroundWidget(title: 'grade_rate'),
+                    TitleWithCircleBackgroundWidget(
+                      title: 'grade_rate',
+                      width: double.infinity,
+                    ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(

@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/widgets/title_with_circle_background_widget.dart';
 import 'package:new_mazoon/features/lessons_of_class/screens/videosoflessonscreen.dart';
+import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 
 import '../../../core/models/lessons_model.dart';
 import '../../../core/utils/getsize.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../cubit/lessons_class_cubit.dart';
+import '../cubit/lessons_class_state.dart';
 import 'lessonexam.dart';
 
 class LessonDetails extends StatefulWidget {
@@ -95,12 +97,12 @@ class _LessonDetailsState extends State<LessonDetails>
                                     child: Text(
                                       titles[index],
                                       style: TextStyle(
-                                        color: controller.currentIndex == index
-                                            ? AppColors.white
-                                            : AppColors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: getSize(context)/30
-                                      ),
+                                          color:
+                                              controller.currentIndex == index
+                                                  ? AppColors.white
+                                                  : AppColors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: getSize(context) / 30),
                                     ),
                                   ),
                                 ),
@@ -128,7 +130,10 @@ class _LessonDetailsState extends State<LessonDetails>
                   top: 0,
                   right: 0,
                   left: 0,
-                  child: HomePageAppBarWidget(isHome: false),
+                  child: HomePageAppBarWidget(
+                    isHome: false,
+                    // isLessonOfClass: true,
+                  ),
                 ),
               ],
             ),

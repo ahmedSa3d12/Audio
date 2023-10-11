@@ -18,14 +18,12 @@ import '../../../homePage/widget/home_page_app_bar_widget.dart';
 import '../../cubit/notification_cubit.dart';
 
 class NotificationScreen extends StatelessWidget {
-   NotificationScreen({Key? key}) : super(key: key);
- final Random random = Random();
-
+  NotificationScreen({Key? key}) : super(key: key);
+  final Random random = Random();
 
   @override
   Widget build(BuildContext context) {
-
-   // int randomNumber =random.nextInt(3);
+    // int randomNumber =random.nextInt(3);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.secondPrimary,
@@ -42,7 +40,8 @@ class NotificationScreen extends StatelessWidget {
                   bottom: 0,
                   child: BlocBuilder<NotificationCubit, NotificationState>(
                     builder: (context, state) {
-                      NotificationCubit cubit = context.read<NotificationCubit>();
+                      NotificationCubit cubit =
+                          context.read<NotificationCubit>();
                       if (state is NotificationPageError) {
                         return NoDataWidget(
                           onclick: () => cubit.getAllNotification(),
@@ -60,80 +59,100 @@ class NotificationScreen extends StatelessWidget {
                               child: Stack(
                                 children: [
                                   Padding(
-                                    padding:  EdgeInsets.only(top: getSize(context)*0.45),
-                                    child: cubit.data!.length>0?
-                                    Column(
-                                      children: [
-                                        Expanded(
-                                          child: ListView(
+                                    padding: EdgeInsets.only(
+                                        top: getSize(context) * 0.45),
+                                    child: cubit.data!.length > 0
+                                        ? Column(
                                             children: [
-                                              ...List.generate(
-                                                cubit.data != null
-                                                    ? cubit.data!.length
-                                                    : 0,
-                                                   (index){
-                                                //  randomNumber = random.nextInt(3);
-                                                  return InkWell(
-                                                    onTap: () async {
-                                                      ///seen notification
-                                                    await cubit.notificationUpdate(index,context);
-                                                    ////navigate
-                                                    //   if(cubit.data![index].type=='text'){
-                                                    //     ///show pop
-                                                    //   }else if(){
+                                              Expanded(
+                                                child: ListView(
+                                                  children: [
+                                                    ...List.generate(
+                                                        cubit.data != null
+                                                            ? cubit.data!.length
+                                                            : 0, (index) {
+                                                      //  randomNumber = random.nextInt(3);
+                                                      return InkWell(
+                                                        onTap: () async {
+                                                          ///seen notification
+                                                          await cubit
+                                                              .notificationUpdate(
+                                                                  index,
+                                                                  context);
+                                                          ////navigate
+                                                          //   if(cubit.data![index].type=='text'){
+                                                          //     ///show pop
+                                                          //   }else if(){
 
-
-                                                        /*
+                                                          /*
                                                             Navigator.pushNamed(context, Routes.videoDetailsScreenRoute,
                     arguments: {
                       'type': 'video_resource',
                       'videoId': model.id!,
                     })
                                                         * */
-                                                   //   }
+                                                          //   }
 
-                                                    /////
-                                                    },
-                                                    child: NotificationDetailsWidget(
-                                                     // index: randomNumber,
-                                                      index: index%3,
-                                                      seen: cubit.data![index].seen!,
-                                                      notificationModel:
-                                                      cubit.data!.elementAt(index),
-                                                    ),
-                                                  );
-                                                }
+                                                          /////
+                                                        },
+                                                        child:
+                                                            NotificationDetailsWidget(
+                                                          // index: randomNumber,
+                                                          index: index % 3,
+                                                          seen: cubit
+                                                              .data![index]
+                                                              .seen!,
+                                                          notificationModel:
+                                                              cubit.data!
+                                                                  .elementAt(
+                                                                      index),
+                                                        ),
+                                                      );
+                                                    }),
+                                                  ],
+                                                ),
                                               ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8.0,
+                                                        vertical: 15),
+                                                child: CustomButton(
+                                                  text: "notification_settings"
+                                                      .tr(),
+                                                  color: AppColors.primary,
+                                                  onClick: () {
+                                                    Navigator.pushNamed(
+                                                        context,
+                                                        Routes
+                                                            .settingsNotificationScreen);
+                                                  },
+                                                  height:
+                                                      getSize(context) / 6.5,
+                                                  borderRadius: 50,
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        : Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                  ImageAssets.sleepyImage),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Text(
+                                                "no_notifications",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 20),
+                                              ).tr()
                                             ],
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 15),
-                                          child: CustomButton(
-
-                                              text: "notification_settings".tr(),
-                                              color: AppColors.primary, onClick: (){
-                                            Navigator.pushNamed(context, Routes.settingsNotificationScreen);
-                                          },
-                                          height: getSize(context) / 6.5,
-
-                                          borderRadius: 50,),
-                                        )
-                                      ],
-                                    ):
-                                    Column(
-                                      mainAxisAlignment:MainAxisAlignment.center,
-                                      crossAxisAlignment:CrossAxisAlignment.center,
-                                      children: [
-                                        Image.asset(ImageAssets.sleepyImage),
-                                        SizedBox(height: 20,),
-                                        Text("no_notifications",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 20
-                                        ),).tr()
-                                      ],
-                                    ),
                                   ),
                                   // Positioned(
                                   //   top: 0,
@@ -192,11 +211,18 @@ class NotificationScreen extends StatelessWidget {
                 top: 0,
                 right: 0,
                 left: 0,
-                child: HomePageAppBarWidget(isNotification: true,isHome: false,),
+                child: HomePageAppBarWidget(
+                  isNotification: true,
+                  isHome: false,
+                ),
               ),
               Positioned(
-                top: getSize(context)*0.27,
-                child: TitleWithCircleBackgroundWidget(title: 'notifications'),)
+                top: getSize(context) * 0.27,
+                child: TitleWithCircleBackgroundWidget(
+                  title: 'notifications',
+                  width: double.infinity,
+                ),
+              )
             ])));
   }
 }

@@ -20,6 +20,7 @@ class VideoDetailsLikeError extends VideoDetailsState {}
 class VideoDetailsLikeLoading extends VideoDetailsState {}
 
 class CommentsLoaded extends VideoDetailsState {}
+class UpdateTimeDoneLoaded extends VideoDetailsState {}
 
 class CommentsError extends VideoDetailsState {}
 

@@ -9,6 +9,7 @@ import '../../../../core/widgets/network_image.dart';
 import '../../../../core/widgets/painting.dart';
 import '../../../config/routes/app_routes.dart';
 import '../../lessonExamScreen/cubit/questionlessonexamcubit.dart';
+import '../../lessons_of_class/cubit/lessons_class_cubit.dart';
 import '../../navigation_bottom/cubit/navigation_cubit.dart';
 import '../../notificationpage/presentation/screens/notification_page.dart';
 import '../../sources_and_references/cubit/source_references_cubit.dart';
@@ -186,7 +187,8 @@ class HomePageAppBarWidget extends StatelessWidget {
                                 SizedBox(width: getSize(context) / 24),
                                 //info
                                 Visibility(
-                                  visible: isHome! || isNotification || isFavourite!,
+                                  visible:
+                                      isHome! || isNotification || isFavourite!,
                                   child: InkWell(
                                     onTap: () {
                                       Navigator.pushNamed(
