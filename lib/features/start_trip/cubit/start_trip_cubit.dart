@@ -19,12 +19,13 @@ class StartTripCubit extends Cubit<StartTripState> {
     getExplanationData();
     getFinalReviewData();
     getExamClassesData();
-
   }
-  getDirectionPath() async{
+  getDirectionPath() async {
     dirpath = await (Platform.isIOS
         ? getApplicationSupportDirectory()
-        : getApplicationDocumentsDirectory());}
+        : getApplicationDocumentsDirectory());
+  }
+
   var dirpath;
 
   final ServiceApi api;

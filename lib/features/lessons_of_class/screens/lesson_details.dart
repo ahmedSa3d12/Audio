@@ -72,9 +72,8 @@ class _LessonDetailsState extends State<LessonDetails>
                           ...List.generate(
                             titles.length,
                             (index) => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8.0,
-                                vertical: 8,
+                              padding: const EdgeInsets.all(
+                                8,
                               ),
                               child: InkWell(
                                 onTap: () {
@@ -102,7 +101,7 @@ class _LessonDetailsState extends State<LessonDetails>
                                                   ? AppColors.white
                                                   : AppColors.black,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: getSize(context) / 30),
+                                          fontSize: getSize(context) / 24),
                                     ),
                                   ),
                                 ),
@@ -117,7 +116,7 @@ class _LessonDetailsState extends State<LessonDetails>
                         controller: _tabController,
                         physics: NeverScrollableScrollPhysics(),
                         children: [
-                          VideoLessonScreen(),
+                          VideoLessonScreen(model: widget.model),
                           LessonExamScreen(model: widget.model),
                         ],
                       ),

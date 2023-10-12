@@ -52,10 +52,7 @@ class _StartTripScreenState extends State<StartTripScreen>
                     ...List.generate(
                       titles.length,
                       (index) => Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0,
-                          vertical: 8,
-                        ),
+                        padding: const EdgeInsets.all(8),
                         child: InkWell(
                           onTap: () {
                             cubit.selectTap(index);
@@ -64,7 +61,7 @@ class _StartTripScreenState extends State<StartTripScreen>
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
-                              horizontal: 30,
+                              horizontal: getSize(context) / 10,
                               vertical: 10,
                             ),
                             decoration: BoxDecoration(
@@ -81,7 +78,7 @@ class _StartTripScreenState extends State<StartTripScreen>
                                         ? AppColors.white
                                         : AppColors.black,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: getSize(context) / 30),
+                                    fontSize: getSize(context) / 24),
                               ),
                             ),
                           ),
