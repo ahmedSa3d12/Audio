@@ -103,16 +103,11 @@ class _FavouriteScreenState extends State<FavouriteScreen>
                         ],
                       ),
                     ),
-                    Expanded(
-                        child: RefreshIndicator(
-                      onRefresh: () async {
-                        print(55555555);
-                      },
-                      child: TabBarView(
-                        controller: tabController,
-                        physics: NeverScrollableScrollPhysics(),
-                        children: [videosScreen(), ExamsScreen()],
-                      ),
+                    Flexible(
+                        child: TabBarView(
+                      controller: tabController,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: [videosScreen(), ExamsScreen()],
                     ))
                   ],
                 ),

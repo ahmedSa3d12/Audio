@@ -262,13 +262,15 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                             backgroundColor: AppColors.grey2,
                                             percent: double.parse(cubit
                                                         .videosofLessons[index]
-                                                        .progress) <=
+                                                        .progress
+                                                        .toString()) <=
                                                     0
                                                 ? 0.0
                                                 : double.parse(cubit
                                                             .videosofLessons[
                                                                 index]
-                                                            .progress) >=
+                                                            .progress
+                                                            .toString()) >=
                                                         1
                                                     ? 1
                                                     : double.parse(cubit
@@ -281,24 +283,21 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                             progressColor: (double.parse(cubit
                                                                 .videosofLessons[
                                                                     index]
-                                                                .progress)
+                                                                .progress
+                                                                .toString())
                                                             .round() >
                                                         0 &&
-                                                    double.parse(cubit
-                                                                .videosofLessons[
-                                                                    index]
-                                                                .progress)
+                                                    double.parse(cubit.videosofLessons[index].progress.toString())
                                                             .round() <=
                                                         30)
                                                 ? AppColors.red
-                                                : (double.parse(cubit.videosofLessons[index].progress)
+                                                : (double.parse(cubit
+                                                                    .videosofLessons[index]
+                                                                    .progress
+                                                                    .toString())
                                                                 .round() >
                                                             30 &&
-                                                        double.parse(cubit
-                                                                    .videosofLessons[index]
-                                                                    .progress)
-                                                                .round() <
-                                                            65)
+                                                        double.parse(cubit.videosofLessons[index].progress).round() < 65)
                                                     ? AppColors.orange
                                                     : AppColors.greenDownloadColor,
                                           ),
@@ -306,7 +305,8 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                         SizedBox(width: getSize(context) / 18),
                                         double.parse(cubit
                                                         .videosofLessons[index]
-                                                        .progress)
+                                                        .progress
+                                                        .toString())
                                                     .round() >=
                                                 100
                                             ? CircleAvatar(

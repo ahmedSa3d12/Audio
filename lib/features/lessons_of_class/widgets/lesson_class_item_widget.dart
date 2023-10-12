@@ -116,7 +116,7 @@ class LessonClassItemWidget extends StatelessWidget {
                     annotations: <CircularChartAnnotation>[
                       CircularChartAnnotation(
                         widget: Text(
-                          '${model.totalWatch.toString() == "0" ? '0' : (double.parse(model.totalWatch.toString()).round() * 100 ~/ double.parse(model.totalTimes.toString()).round() * 100).toString().substring(0, 3)}%',
+                          '${model.totalWatch.toString() == "0" ? '0' : (double.parse(model.totalWatch.toString()) / double.parse(model.totalTimes.toString()) * 100).round()}%',
                           style: TextStyle(
                             color:
                                 darken(HexColor(model.backgroundColor!), 0.3),
@@ -131,20 +131,15 @@ class LessonClassItemWidget extends StatelessWidget {
                         maximumValue: 100,
                         innerRadius: '22',
                         dataSource: [
-                          model.totalWatch.toString() == "0"
-                              ? 0
-                              : model.totalWatch.toString() == "1"
-                                  ? 1
-                                  : (double.parse(model.totalWatch.toString()) /
-                                          double.parse(
-                                              model.totalTimes.toString()))
-                                      .round()
+                          (double.parse(model.totalWatch.toString()) /
+                                  double.parse(model.totalTimes.toString()) *
+                                  100)
+                              .round()
                         ],
-                        trackBorderColor: Colors.red,
-                        trackColor:
-                            darken(HexColor(model.backgroundColor!), 0.3),
                         cornerStyle: CornerStyle.endCurve,
-                        // cornerStyle: CornerStyle.endCurve,
+                        // trackColor:
+                        //     darken(HexColor(model.backgroundColor!), 0.3),
+
                         xValueMapper: (int data, _) => data.toString(),
                         yValueMapper: (int data, _) =>
                             double.parse(data.toString()),

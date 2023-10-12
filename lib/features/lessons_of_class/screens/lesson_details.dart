@@ -115,7 +115,7 @@ class _LessonDetailsState extends State<LessonDetails>
                     Flexible(
                       child: TabBarView(
                         controller: _tabController,
-                        physics: BouncingScrollPhysics(),
+                        physics: NeverScrollableScrollPhysics(),
                         children: [
                           VideoLessonScreen(),
                           LessonExamScreen(model: widget.model),

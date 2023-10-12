@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/features/favourites/cubit/favourite_cubit.dart';
-
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/utils/getsize.dart';
@@ -43,6 +42,13 @@ class FavoriteVideoWidget extends StatelessWidget {
                       cubit.allFavourite!.data.allVideoFavorites![index].image,
                       height: getSize(context) * 0.35,
                       fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          ImageAssets.videoImage,
+                          height: getSize(context) * 0.35,
+                          fit: BoxFit.cover,
+                        );
+                      },
                     ),
                   ),
                 ),
