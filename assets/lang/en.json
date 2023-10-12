@@ -285,11 +285,12 @@
   "student_report_des": "student report doesn't exist now",
   "have_exams": "your exam time is passed",
   "success_download": "The pdf has been downloaded successfully",
-  "dowanloded":"Dowanloded",
+  "dowanloded": "Dowanloded",
   "success_download_v": "The video has been downloaded successfully",
   "deleted_success": "Deleted successfully",
   "no_internet": "not Internet",
   "welcome": "ًwelcome ",
-  "see_more":"Show more",
-  "see_less":"Show less"
+  "see_more": "Show more",
+  "see_less": "Show less",
+  "working_on_it": "Working on it"
 }

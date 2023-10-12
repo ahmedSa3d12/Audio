@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class HotRestartController extends StatefulWidget {
@@ -8,7 +7,7 @@ class HotRestartController extends StatefulWidget {
 
   static performHotRestart(BuildContext context) {
     final _HotRestartControllerState? state =
-    context.findAncestorStateOfType<_HotRestartControllerState>();
+        context.findAncestorStateOfType<_HotRestartControllerState>();
     state?.performHotRestart();
   }
 

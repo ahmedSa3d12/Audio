@@ -94,13 +94,13 @@ class LessonClassItemWidget extends StatelessWidget {
                         Icons.check,
                         color: AppColors.white,
                       ),
-                      Text(
-                        '100 %',
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: getSize(context) / 18,
-                        ),
-                      ),
+                      // Text(
+                      //   '100 %',
+                      //   style: TextStyle(
+                      //     color: AppColors.white,
+                      //     fontSize: getSize(context) / 18,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -116,12 +116,12 @@ class LessonClassItemWidget extends StatelessWidget {
                     annotations: <CircularChartAnnotation>[
                       CircularChartAnnotation(
                         widget: Text(
-                          '${model.totalWatch.toString() == "0" ? '0' : (double.parse(model.totalWatch.toString()).round() ~/ double.parse(model.totalTimes.toString()).round()).toString()}%',
+                          '${model.totalWatch.toString() == "0" ? '0' : (double.parse(model.totalWatch.toString()).round() * 100 ~/ double.parse(model.totalTimes.toString()).round() * 100).toString().substring(0, 3)}%',
                           style: TextStyle(
                             color:
                                 darken(HexColor(model.backgroundColor!), 0.3),
-                            fontSize: getSize(context) / 22,
-                            fontWeight: FontWeight.bold,
+                            fontSize: getSize(context) / 24,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
@@ -133,10 +133,16 @@ class LessonClassItemWidget extends StatelessWidget {
                         dataSource: [
                           model.totalWatch.toString() == "0"
                               ? 0
-                              : (double.parse(model.totalWatch.toString()) /
-                                      double.parse(model.totalTimes.toString()))
-                                  .round()
+                              : model.totalWatch.toString() == "1"
+                                  ? 1
+                                  : (double.parse(model.totalWatch.toString()) /
+                                          double.parse(
+                                              model.totalTimes.toString()))
+                                      .round()
                         ],
+                        trackBorderColor: Colors.red,
+                        trackColor:
+                            darken(HexColor(model.backgroundColor!), 0.3),
                         cornerStyle: CornerStyle.endCurve,
                         // cornerStyle: CornerStyle.endCurve,
                         xValueMapper: (int data, _) => data.toString(),

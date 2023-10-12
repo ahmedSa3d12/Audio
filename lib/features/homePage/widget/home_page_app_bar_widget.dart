@@ -8,6 +8,7 @@ import '../../../../core/widgets/my_svg_widget.dart';
 import '../../../../core/widgets/network_image.dart';
 import '../../../../core/widgets/painting.dart';
 import '../../../config/routes/app_routes.dart';
+import '../../../core/utils/dialogs.dart';
 import '../../lessonExamScreen/cubit/questionlessonexamcubit.dart';
 import '../../lessons_of_class/cubit/lessons_class_cubit.dart';
 import '../../navigation_bottom/cubit/navigation_cubit.dart';
@@ -131,10 +132,11 @@ class HomePageAppBarWidget extends StatelessWidget {
                                   visible: !isNotification,
                                   child: InkWell(
                                     onTap: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  NotificationScreen()));
+                                      errorGetBar('working_on_it'.tr());
+                                      // Navigator.of(context).push(
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             NotificationScreen()));
                                     },
                                     child: Stack(
                                       children: [

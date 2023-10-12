@@ -38,151 +38,142 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
         return Scaffold(
           body: isLoading
               ? Center(child: ShowLoadingIndicator())
-              : ListView.builder(
-                  itemCount:
-                      cubit.videosofLessons.length, //cubit.lessons.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        ///
-                        if (cubit.videosofLessons[index].status == 'lock') {
-                          toastMessage(
-                            'open_lesson'.tr(),
-                            context,
-                            color: AppColors.error,
-                          );
-                        } else {
-                          Navigator.pushNamed(
-                              context, Routes.videoDetailsScreenRoute,
-                              arguments: {
-                                "videoId": cubit.videosofLessons[index].id,
-                                "type": "video_part"
-                              });
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            // color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(12)),
-                        margin: EdgeInsets.all(5),
-                        height: MediaQuery.of(context).size.width / 3,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              flex: 4,
-                              child: Row(
-                                children: [
-                                  Container(
-                                    alignment: Alignment.topCenter,
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 5),
-                                    child: Text(
-                                      '${index < 9 ? 0 : ""}${index + 1}',
-                                      style: TextStyle(
-                                          fontSize: getSize(context) / 22,
-                                          fontWeight: FontWeight.w700,
-                                          color: AppColors.unselectedTabColor),
-                                    ),
-                                  ),
-                                  Stack(
+              : cubit.videosofLessons.isEmpty
+                  ? Center(
+                      child: Text(
+                        'no_data'.tr(),
+                        style: TextStyle(fontSize: getSize(context) / 22),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount:
+                          cubit.videosofLessons.length, //cubit.lessons.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            ///
+                            if (cubit.videosofLessons[index].status == 'lock') {
+                              toastMessage(
+                                'open_lesson'.tr(),
+                                context,
+                                color: AppColors.error,
+                              );
+                            } else {
+                              Navigator.pushNamed(
+                                  context, Routes.videoDetailsScreenRoute,
+                                  arguments: {
+                                    "videoId": cubit.videosofLessons[index].id,
+                                    "type": "video_part"
+                                  });
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                // color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(12)),
+                            margin: EdgeInsets.all(5),
+                            height: MediaQuery.of(context).size.width / 3,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  flex: 4,
+                                  child: Row(
                                     children: [
                                       Container(
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                              getSize(context) / 44),
-                                          child: Image.network(
-                                            ///
-                                            cubit.videosofLessons[index]
-                                                .background_image,
-                                            width: getSize(context) / 3,
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                              return Image.asset(
-                                                ImageAssets.videoImage,
-                                                width: getSize(context) / 3,
-                                              );
-                                            },
-                                          ),
+                                        alignment: Alignment.topCenter,
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 10, horizontal: 5),
+                                        child: Text(
+                                          '${index < 9 ? 0 : ""}${index + 1}',
+                                          style: TextStyle(
+                                              fontSize: getSize(context) / 22,
+                                              fontWeight: FontWeight.w700,
+                                              color:
+                                                  AppColors.unselectedTabColor),
                                         ),
                                       ),
-                                      Positioned(
-                                        bottom: getSize(context) / 38,
-                                        left: getSize(context) / 38,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: AppColors.black,
+                                      Stack(
+                                        children: [
+                                          Container(
+                                            child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(
-                                                      getSize(context) / 100)),
-                                          padding: EdgeInsets.all(
-                                              getSize(context) / 100),
-                                          child: Text(
-                                            cubit.videosofLessons[index]
-                                                .videoMinutes,
-                                            style: TextStyle(
-                                                color: AppColors.white,
-                                                fontSize:
-                                                    getSize(context) / 44),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Flexible(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Flexible(
-                                          fit: FlexFit.tight,
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                                top: getSize(context) / 88,
-                                                left: getSize(context) / 100,
-                                                right: getSize(context) / 100),
-                                            child: Text(
-                                              cubit.videosofLessons[index].name,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontSize: getSize(context) / 26,
-                                                fontWeight: FontWeight.w700,
+                                                      getSize(context) / 44),
+                                              child: Image.network(
+                                                ///
+                                                cubit.videosofLessons[index]
+                                                    .background_image,
+                                                width: getSize(context) / 3,
+                                                errorBuilder: (context, error,
+                                                    stackTrace) {
+                                                  return Image.asset(
+                                                    ImageAssets.videoImage,
+                                                    width: getSize(context) / 3,
+                                                  );
+                                                },
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: getSize(context) / 22,
-                                              horizontal:
+                                          Positioned(
+                                            bottom: getSize(context) / 38,
+                                            left: getSize(context) / 38,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: AppColors.black,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          getSize(context) /
+                                                              100)),
+                                              padding: EdgeInsets.all(
                                                   getSize(context) / 100),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                  child: Row(
+                                              child: Text(
+                                                cubit.videosofLessons[index]
+                                                    .videoMinutes,
+                                                style: TextStyle(
+                                                    color: AppColors.white,
+                                                    fontSize:
+                                                        getSize(context) / 44),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Flexible(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Flexible(
+                                              fit: FlexFit.tight,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: getSize(context) / 88,
+                                                    left:
+                                                        getSize(context) / 100,
+                                                    right:
+                                                        getSize(context) / 100),
+                                                child: Text(
+                                                  cubit.videosofLessons[index]
+                                                      .name,
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                        getSize(context) / 26,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical:
+                                                      getSize(context) / 22,
+                                                  horizontal:
+                                                      getSize(context) / 100),
+                                              child: Row(
                                                 children: [
-                                                  Text(
-                                                    cubit.videosofLessons[index]
-                                                        .totalWatch
-                                                        .toString(),
-                                                    // cubit.videoModel!.totalWatch.toString(),
-                                                    style: TextStyle(
-                                                        color: AppColors.gray1,
-                                                        fontSize: 14),
-                                                  ),
-                                                  SizedBox(
-                                                    width:
-                                                        getSize(context) / 88,
-                                                  ),
-                                                  MySvgWidget(
-                                                    path: ImageAssets.eyeIcon,
-                                                    imageColor: AppColors.gray1,
-                                                    size: getSize(context) / 18,
-                                                  ),
-                                                  SizedBox(
-                                                    width:
-                                                        getSize(context) / 44,
-                                                  ),
                                                   Container(
                                                       child: Row(
                                                     children: [
@@ -190,8 +181,9 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                                         cubit
                                                             .videosofLessons[
                                                                 index]
-                                                            .totalLike
+                                                            .totalWatch
                                                             .toString(),
+                                                        // cubit.videoModel!.totalWatch.toString(),
                                                         style: TextStyle(
                                                             color:
                                                                 AppColors.gray1,
@@ -203,115 +195,157 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                                                 88,
                                                       ),
                                                       MySvgWidget(
-                                                        path: ImageAssets
-                                                            .like1Icon,
-                                                        imageColor: AppColors
-                                                            .greenDownloadColor,
+                                                        path:
+                                                            ImageAssets.eyeIcon,
+                                                        imageColor:
+                                                            AppColors.gray1,
                                                         size: getSize(context) /
                                                             18,
-                                                      )
+                                                      ),
+                                                      SizedBox(
+                                                        width:
+                                                            getSize(context) /
+                                                                44,
+                                                      ),
+                                                      Container(
+                                                          child: Row(
+                                                        children: [
+                                                          Text(
+                                                            cubit
+                                                                .videosofLessons[
+                                                                    index]
+                                                                .totalLike
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                                color: AppColors
+                                                                    .gray1,
+                                                                fontSize: 14),
+                                                          ),
+                                                          SizedBox(
+                                                            width: getSize(
+                                                                    context) /
+                                                                88,
+                                                          ),
+                                                          MySvgWidget(
+                                                            path: ImageAssets
+                                                                .like1Icon,
+                                                            imageColor: AppColors
+                                                                .greenDownloadColor,
+                                                            size: getSize(
+                                                                    context) /
+                                                                18,
+                                                          )
+                                                        ],
+                                                      )),
                                                     ],
                                                   )),
                                                 ],
-                                              )),
-                                            ],
-                                          ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: getSize(context) / 44),
-                                child: Row(
-                                  children: [
-                                    Flexible(
-                                      child: LinearPercentIndicator(
-                                        lineHeight: getSize(context) / 66,
-                                        barRadius: Radius.circular(
-                                            getSize(context) / 22),
-                                        backgroundColor: AppColors.grey2,
-                                        percent: double.parse(cubit
-                                                    .videosofLessons[index]
-                                                    .progress) <=
-                                                0
-                                            ? 0.0
-                                            : double.parse(cubit
-                                                    .videosofLessons[index]
-                                                    .progress
-                                                    .toString()) /
-                                                100,
-                                        isRTL: true,
-                                        progressColor: (double.parse(cubit
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: getSize(context) / 44),
+                                    child: Row(
+                                      children: [
+                                        Flexible(
+                                          child: LinearPercentIndicator(
+                                            lineHeight: getSize(context) / 66,
+                                            barRadius: Radius.circular(
+                                                getSize(context) / 22),
+                                            backgroundColor: AppColors.grey2,
+                                            percent: double.parse(cubit
+                                                        .videosofLessons[index]
+                                                        .progress) <=
+                                                    0
+                                                ? 0.0
+                                                : double.parse(cubit
                                                             .videosofLessons[
                                                                 index]
-                                                            .progress)
-                                                        .round() >
-                                                    0 &&
-                                                double.parse(cubit
+                                                            .progress) >=
+                                                        1
+                                                    ? 1
+                                                    : double.parse(cubit
                                                             .videosofLessons[
                                                                 index]
-                                                            .progress)
-                                                        .round() <=
-                                                    30)
-                                            ? AppColors.red
-                                            : (double.parse(cubit.videosofLessons[index].progress)
+                                                            .progress
+                                                            .toString()) /
+                                                        100,
+                                            isRTL: true,
+                                            progressColor: (double.parse(cubit
+                                                                .videosofLessons[
+                                                                    index]
+                                                                .progress)
                                                             .round() >
-                                                        30 &&
+                                                        0 &&
                                                     double.parse(cubit
                                                                 .videosofLessons[
                                                                     index]
                                                                 .progress)
-                                                            .round() <
-                                                        65)
-                                                ? AppColors.orange
-                                                : AppColors.greenDownloadColor,
-                                      ),
-                                    ),
-                                    SizedBox(width: getSize(context) / 18),
-                                    double.parse(cubit.videosofLessons[index]
-                                                    .progress)
-                                                .round() >=
-                                            100
-                                        ? CircleAvatar(
-                                            backgroundColor:
-                                                AppColors.greenDownloadColor,
-                                            child:
-                                                MySvgWidget(
+                                                            .round() <=
+                                                        30)
+                                                ? AppColors.red
+                                                : (double.parse(cubit.videosofLessons[index].progress)
+                                                                .round() >
+                                                            30 &&
+                                                        double.parse(cubit
+                                                                    .videosofLessons[index]
+                                                                    .progress)
+                                                                .round() <
+                                                            65)
+                                                    ? AppColors.orange
+                                                    : AppColors.greenDownloadColor,
+                                          ),
+                                        ),
+                                        SizedBox(width: getSize(context) / 18),
+                                        double.parse(cubit
+                                                        .videosofLessons[index]
+                                                        .progress)
+                                                    .round() >=
+                                                100
+                                            ? CircleAvatar(
+                                                backgroundColor: AppColors
+                                                    .greenDownloadColor,
+                                                child: MySvgWidget(
                                                     path: ImageAssets.doneIcon,
                                                     imageColor: AppColors.white,
-                                                    size: getSize(
-                                                            context) /
-                                                        28))
-                                        : cubit.videosofLessons[index].status ==
-                                                'lock'
-                                            ? CircleAvatar(
-                                                backgroundColor:
-                                                    AppColors.primary,
-                                                child: MySvgWidget(
-                                                  path: ImageAssets.lockIcon,
-                                                  imageColor: AppColors.white,
-                                                  size: getSize(context) / 28,
-                                                ),
-                                              )
-                                            : CircleAvatar(
-                                                backgroundColor:
-                                                    AppColors.transparent,
-                                                child: Container())
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                                                    size:
+                                                        getSize(context) / 28))
+                                            : cubit.videosofLessons[index]
+                                                        .status ==
+                                                    'lock'
+                                                ? CircleAvatar(
+                                                    backgroundColor:
+                                                        AppColors.primary,
+                                                    child: MySvgWidget(
+                                                      path:
+                                                          ImageAssets.lockIcon,
+                                                      imageColor:
+                                                          AppColors.white,
+                                                      size:
+                                                          getSize(context) / 28,
+                                                    ),
+                                                  )
+                                                : CircleAvatar(
+                                                    backgroundColor:
+                                                        AppColors.transparent,
+                                                    child: Container())
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
         );
       },
     );

@@ -136,8 +136,9 @@ class MenuScreenWidget extends StatelessWidget {
                               title: 'language'.tr(),
                               iconPath: ImageAssets.languageIcon,
                               onclick: () {
-                                Navigator.pushNamed(
-                                    context, Routes.changeLanguageScreen);
+                                errorGetBar('working_on_it'.tr());
+                                // Navigator.pushNamed(
+                                //     context, Routes.changeLanguageScreen);
                               },
                             ),
                             MenuListTileWidget(
@@ -188,7 +189,9 @@ class MenuScreenWidget extends StatelessWidget {
                             MenuListTileWidget(
                               title: 'live'.tr(),
                               iconPath: ImageAssets.liveIcon,
-                              onclick: () {},
+                              onclick: () {
+                                errorGetBar('working_on_it'.tr());
+                              },
                             ),
                             MenuListTileWidget(
                               title: 'time_count'.tr(),
@@ -257,6 +260,7 @@ class MenuScreenWidget extends StatelessWidget {
                                 openBottomSheet();
                               },
                             ),
+                            //logout
                             MenuListTileWidget(
                               title: 'logout'.tr(),
                               iconPath: ImageAssets.logoutIcon,
@@ -271,7 +275,7 @@ class MenuScreenWidget extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 20),
                               child: Container(
-                                width: 20,
+                                // width: getSize(context) / 12,
                                 height: 2,
                                 padding: EdgeInsets.symmetric(horizontal: 12),
                                 color: AppColors.white,
@@ -293,8 +297,8 @@ class MenuScreenWidget extends StatelessWidget {
                                     },
                                     child: Image.asset(
                                       ImageAssets.facebookImage,
-                                      width: 40.0,
-                                      height: 40.0,
+                                      width: getSize(context) / 9,
+                                      height: getSize(context) / 9,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -305,8 +309,8 @@ class MenuScreenWidget extends StatelessWidget {
                                     },
                                     child: Image.asset(
                                       ImageAssets.twitterImage,
-                                      width: 40.0,
-                                      height: 40.0,
+                                      width: getSize(context) / 9,
+                                      height: getSize(context) / 9,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -317,8 +321,8 @@ class MenuScreenWidget extends StatelessWidget {
                                     },
                                     child: Image.asset(
                                       ImageAssets.instagramImage,
-                                      width: 40.0,
-                                      height: 40.0,
+                                      width: getSize(context) / 9,
+                                      height: getSize(context) / 9,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -329,8 +333,8 @@ class MenuScreenWidget extends StatelessWidget {
                                     },
                                     child: Image.asset(
                                       ImageAssets.websiteImage,
-                                      width: 40.0,
-                                      height: 40.0,
+                                      width: getSize(context) / 9,
+                                      height: getSize(context) / 9,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -341,8 +345,8 @@ class MenuScreenWidget extends StatelessWidget {
                                     },
                                     child: Image.asset(
                                       ImageAssets.youtubeImage,
-                                      width: 40.0,
-                                      height: 40.0,
+                                      width: getSize(context) / 9,
+                                      height: getSize(context) / 9,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -364,10 +368,10 @@ class MenuScreenWidget extends StatelessWidget {
             right: lang == 'en' ? -40 : null,
             left: lang == 'ar' ? -40 : null,
             child: Container(
-              width: 130,
-              height: 80,
+              width: getSize(context) / 2.8,
+              height: getSize(context) / 4,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(getSize(context) / 8),
                 color: AppColors.white,
               ),
               child: Row(
@@ -378,10 +382,11 @@ class MenuScreenWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Center(
                         child: Container(
-                          width: 60,
-                          height: 60,
+                          width: getSize(context) / 6.2,
+                          height: getSize(context) / 6.2,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(60),
+                            borderRadius:
+                                BorderRadius.circular(getSize(context) / 6.2),
                             color: AppColors.orangeThirdPrimary,
                           ),
                           child: Center(

@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/config/routes/app_routes.dart';
@@ -368,8 +367,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     paddingHorizontal: getSize(context) / 20,
                                     borderRadius: getSize(context) / 24,
                                     onClick: () {
-                                      Navigator.pushNamed(context,
-                                          Routes.selectMonthPlanPayment);
+                                      errorGetBar('working_on_it'.tr());
+
+                                      // Navigator.pushNamed(context,
+                                      //     Routes.selectMonthPlanPayment);
 
                                       ///renew
                                     }),

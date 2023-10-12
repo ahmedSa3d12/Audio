@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:new_mazoon/core/widgets/youtube_video_view.dart';
-
 import '../../../core/widgets/video_widget.dart';
 
 class AnswerVideoViewScreen extends StatefulWidget {
