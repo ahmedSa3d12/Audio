@@ -61,7 +61,7 @@ class _PaperExmRegisterPageState extends State<PaperExmRegisterPage> {
                           padding: const EdgeInsets.all(25.0),
                           child: Column(
                             children: [
-                              SizedBox(height: getSize(context) / 3.5),
+                              SizedBox(height: getSize(context) / 3),
                               Center(
                                 child: Image.asset(
                                   ImageAssets.userExamImage,

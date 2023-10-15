@@ -10,9 +10,7 @@ import '../../../../core/widgets/painting.dart';
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/dialogs.dart';
 import '../../lessonExamScreen/cubit/questionlessonexamcubit.dart';
-import '../../lessons_of_class/cubit/lessons_class_cubit.dart';
 import '../../navigation_bottom/cubit/navigation_cubit.dart';
-import '../../notificationpage/presentation/screens/notification_page.dart';
 import '../../sources_and_references/cubit/source_references_cubit.dart';
 
 class HomePageAppBarWidget extends StatelessWidget {
@@ -60,11 +58,16 @@ class HomePageAppBarWidget extends StatelessWidget {
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        ManageNetworkImage(
-                          imageUrl: cubit.userModel!.data!.image,
-                          width: getSize(context) / 7.8,
-                          height: getSize(context) / 7.8,
-                          borderRadius: 90,
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, Routes.profileScreen);
+                          },
+                          child: ManageNetworkImage(
+                            imageUrl: cubit.userModel!.data!.image,
+                            width: getSize(context) / 7.8,
+                            height: getSize(context) / 7.8,
+                            borderRadius: 90,
+                          ),
                         ),
                         SizedBox(width: getSize(context) / 44),
                         //info column
@@ -171,7 +174,7 @@ class HomePageAppBarWidget extends StatelessWidget {
                                                 color: AppColors.white),
                                             child: Center(
                                               child: Text(
-                                                '2',
+                                                '3',
                                                 style: TextStyle(
                                                   fontSize:
                                                       getSize(context) / 28,

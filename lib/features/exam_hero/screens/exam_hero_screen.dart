@@ -57,7 +57,7 @@ class _ExamHeroScreenState extends State<ExamHeroScreen>
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: getSize(context) / 3.5),
+                          SizedBox(height: getSize(context) / 3),
                           TitleWithCircleBackgroundWidget(
                             title: 'exam_hero'.tr(),
                             width: double.infinity,

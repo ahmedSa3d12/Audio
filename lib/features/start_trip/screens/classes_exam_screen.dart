@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
-
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/pdf_screen.dart';

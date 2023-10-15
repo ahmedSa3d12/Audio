@@ -77,12 +77,11 @@ class _VideoDetailsState extends State<VideoDetails> {
                 } else {
                   return WillPopScope(
                     onWillPop: () async {
-                      Navigator.pop(context);
                       cubit.updateTime(context);
+                      //////
                       context
                           .read<LessonsClassCubit>()
                           .getVideosofLessonsData(cubit.lessonId);
-
                       context.read<LessonsClassCubit>().getLessonsClassData(
                           context.read<LessonsClassCubit>().oneClass!.id!,
                           cubit.lessonId,
@@ -91,6 +90,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                           false,
                           false);
                       cubit.stopRecord();
+                      Navigator.pop(context);
                       return Future(() => true);
                     },
                     child: Scaffold(
@@ -100,12 +100,10 @@ class _VideoDetailsState extends State<VideoDetails> {
                           : AppBar(
                               leading: IconButton(
                                   onPressed: () async {
-                                    Navigator.pop(context);
                                     cubit.updateTime(context);
                                     context
                                         .read<LessonsClassCubit>()
                                         .getVideosofLessonsData(cubit.lessonId);
-
                                     context
                                         .read<LessonsClassCubit>()
                                         .getLessonsClassData(
@@ -119,6 +117,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                             false,
                                             false);
                                     cubit.stopRecord();
+                                    Navigator.pop(context);
                                   },
                                   icon: Icon(Icons.arrow_back_ios)),
                               backgroundColor: AppColors.primary,

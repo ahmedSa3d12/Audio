@@ -14,9 +14,11 @@ class AnswerVideoViewScreen extends StatefulWidget {
 class _AnswerVideoViewScreenState extends State<AnswerVideoViewScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: VideoWidget(videoLink: widget.videoLink),
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: VideoWidget(videoLink: widget.videoLink),
+        ),
       ),
     );
   }

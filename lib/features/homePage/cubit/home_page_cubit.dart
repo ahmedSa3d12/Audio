@@ -26,7 +26,7 @@ class HomePageCubit extends Cubit<HomePageState> {
   List<SliderModel> sliders = [];
   List<HomePageVideosModel> videosBasics = [];
   List<FinalReviewModel> videosResources = [];
-
+  dynamic lifeExam;
   getHomePageData() async {
     emit(HomePageLoading());
     final response = await api.getHomePageData();
@@ -37,7 +37,7 @@ class HomePageCubit extends Cubit<HomePageState> {
         sliders = res.data!.sliders!;
         videosBasics = res.data!.videosBasics!;
         videosResources = res.data!.videosResources!;
-
+        lifeExam = res.data!.lifeExam;
         emit(HomePageLoaded(res));
       },
     );

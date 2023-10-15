@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../config/routes/app_routes.dart';
 import '../../../core/models/user_model.dart';
 import '../../../core/preferences/preferences.dart';
 import '../../../core/remote/service.dart';
@@ -31,22 +32,18 @@ class LoginCubit extends Cubit<LoginState> {
       (error) => emit(userError()),
       (response) {
         if (response.code == 407) {
-          // Navigator.pop(context);
           errorGetBar('code_not_found'.tr());
-          // toastMessage(
-          //   'code_not_found'.tr(),
-          //   context,
-          //   color: AppColors.error,
-          // );
           emit(userError());
         } else if (response.code == 408) {
-          // Navigator.pop(context);
           errorGetBar('code_not_subscribe'.tr());
           toastMessage(
             'code_not_subscribe'.tr(),
             context,
             color: AppColors.error,
           );
+          emit(userError());
+        } else if (response.code == 403) {
+          errorGetBar('code_not_subscribe'.tr());
           emit(userError());
         } else {
           // Navigator.pop(context);
@@ -55,6 +52,11 @@ class LoginCubit extends Cubit<LoginState> {
             emit(userInitial());
           });
           Preferences.instance.setUser(response);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            Routes.homePageScreenRoute,
+            (route) => false,
+          );
           emit(userLoaded(response));
         }
       },

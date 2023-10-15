@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/widgets/title_with_circle_background_widget.dart';
 import 'package:new_mazoon/features/lessons_of_class/screens/videosoflessonscreen.dart';
-import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
 
 import '../../../core/models/lessons_model.dart';
 import '../../../core/utils/getsize.dart';
@@ -60,7 +59,7 @@ class _LessonDetailsState extends State<LessonDetails>
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: getSize(context) / 3.5),
+                    SizedBox(height: getSize(context) / 3),
                     TitleWithCircleBackgroundWidget(
                         width: double.infinity,
                         /////////////

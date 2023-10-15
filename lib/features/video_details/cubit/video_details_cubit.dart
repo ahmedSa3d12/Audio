@@ -408,8 +408,7 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
       (r) {
         print("<<<<<<<<<<<< updateTime >>>>>>>>>>>>>>");
         getVideoDetails(video_id!, type!);
-        successGetBar(r.message +
-            "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}");
+        // successGetBar(r.message);
         // context
         //     .read<LessonsClassCubit>()
         //     .getVideosofLessonsData(r.data!.videoOpened.LessonId);

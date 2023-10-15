@@ -24,9 +24,10 @@ class _HomePageState extends State<HomePage> {
   bool isLoading = true;
   @override
   void initState() {
-    context.read<HomePageCubit>().getUserData().then(
-          (value) => context.read<HomePageCubit>().getHomePageData(),
-        );
+    context
+        .read<HomePageCubit>()
+        .getUserData()
+        .then((value) => context.read<HomePageCubit>().getHomePageData());
     // context.read<HomePageCubit>().openFirstClass();
     super.initState();
   }
@@ -38,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           child: Text(
             'no_internet'.tr(),
             style: TextStyle(
-              fontSize: 22,
+              fontSize: getSize(context) / 22,
               color: Color.fromARGB(255, 255, 255, 255),
               shadows: [
                 Shadow(
@@ -53,64 +54,65 @@ class _HomePageState extends State<HomePage> {
             final bool connected = connectivity != ConnectivityResult.none;
             if (connected) {
               context.read<HomePageCubit>().getHomePageData();
-
-              return BlocBuilder<HomePageCubit, HomePageState>(
+              return BlocConsumer<HomePageCubit, HomePageState>(
+                listener: (context, state) {
+                  if (state is HomePageLoading) {
+                    isLoading = true;
+                  } else {
+                    isLoading = false;
+                  }
+                },
                 builder: (context, state) {
                   HomePageCubit cubit = context.read<HomePageCubit>();
-                  if (state is HomePageLoading) {
-                    return ShowLoadingIndicator();
-                  } else if (state is HomePageLoaded) {
-                    return RefreshIndicator(
-                      onRefresh: () async {
-                        cubit.getHomePageData();
-                      },
-                      color: AppColors.white,
-                      backgroundColor: AppColors.secondPrimary,
-                      child: ListView(
-                        physics: const BouncingScrollPhysics(),
-                        children: [
-                          SizedBox(height: getSize(context) / 3.5),
-                          BannerWidget(sliderData: state.model.data!.sliders!),
-                          //
-                          state.model.data!.lifeExam != null
-                              ? LiveExamWarningWidget()
-                              : SizedBox(
-                                  height: 30,
-                                ),
-                          cubit.videosBasics.isEmpty
-                              ? Container()
-                              : HomePageVideoWidget(
-                                  videosBasics: cubit.videosBasics,
-                                  title: 'train_yourself'.tr(),
-                                ),
-                          cubit.classes.isEmpty
-                              ? Container()
-                              : HomePageStartStudyWidget(
-                                  classes: cubit.classes),
-                          cubit.videosResources.isEmpty
-                              ? Container()
-                              : FinalReviewWidget(
-                                  model: cubit.videosResources,
-                                  title: 'all_exams'.tr(),
-                                ),
-                        ],
-                      ),
-                    );
-                  } else if (state is HomePageError) {
-                    return NoDataWidget(
-                      onclick: () {
-                        context.read<HomePageCubit>().getHomePageData();
-                      },
-                      title: 'no_data'.tr(),
-                    );
-                  } else {
-                    return NoDataWidget(
-                      onclick: () {
-                        context.read<HomePageCubit>().getHomePageData();
-                      },
-                      title: 'no_data'.tr(),
-                    );
-                  }
+                  return isLoading
+                      ? ShowLoadingIndicator()
+                      : RefreshIndicator(
+                          onRefresh: () async {
+                            cubit.getHomePageData();
+                          },
+                          color: AppColors.white,
+                          backgroundColor: AppColors.secondPrimary,
+                          child: ListView(
+                            physics: const BouncingScrollPhysics(),
+                            children: [
+                              SizedBox(height: getSize(context) / 3),
+                              BannerWidget(sliderData: cubit.sliders),
+                              //
+                              cubit.lifeExam != null
+                                  ? LiveExamWarningWidget()
+                                  : SizedBox(
+                                      height: 30,
+                                    ),
+                              cubit.videosBasics.isEmpty
+                                  ? Container()
+                                  : HomePageVideoWidget(
+                                      videosBasics: cubit.videosBasics,
+                                      title: 'train_yourself'.tr(),
+                                    ),
+                              cubit.classes.isEmpty
+                                  ? Container()
+                                  : HomePageStartStudyWidget(
+                                      classes: cubit.classes),
+                              cubit.videosResources.isEmpty
+                                  ? Container()
+                                  : FinalReviewWidget(
+                                      model: cubit.videosResources,
+                                      title: 'all_exams'.tr(),
+                                    ),
+                            ],
+                          ),
+                        );
+                  // if (state is HomePageLoading) {
+                  //   return ShowLoadingIndicator();
+                  // }
+                  // else if (state is HomePageError) {
+                  //   return NoDataWidget(
+                  //     onclick: () {
+                  //       context.read<HomePageCubit>().getHomePageData();
+                  //     },
+                  //     title: 'no_data'.tr(),
+                  //   );
+                  // }
                 },
               );
             } else {

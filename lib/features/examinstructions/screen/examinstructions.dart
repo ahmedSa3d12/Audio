@@ -71,14 +71,18 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(height: getSize(context) / 3.5),
-                              Text(
-                                examinstructions.data!.details!.name ?? '',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                              SizedBox(height: getSize(context) / 3),
+                              TitleWithCircleBackgroundWidget(
+                                  title: examinstructions.data!.details!.name ??
+                                      '',
+                                  width: double.infinity),
+                              // Text(
+                              //   examinstructions.data!.details!.name ?? '',
+                              //   style: TextStyle(
+                              //       fontSize: getSize(context) / 28,
+                              //       color: AppColors.black,
+                              //       fontWeight: FontWeight.bold),
+                              // ),
                               SizedBox(
                                 height: 20,
                               ),
@@ -472,7 +476,7 @@ class _ExamInstructionsState extends State<ExamInstructions> {
               top: 0,
               right: 0,
               left: 0,
-              child: HomePageAppBarWidget(),
+              child: HomePageAppBarWidget(isHome: false),
             ),
           ],
         ),

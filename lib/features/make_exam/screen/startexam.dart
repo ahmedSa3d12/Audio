@@ -9,7 +9,6 @@ import 'package:percent_indicator/percent_indicator.dart';
 import '../../../core/models/applaymakeexammodel.dart';
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/getsize.dart';
-import '../../homePage/widget/home_page_app_bar_widget.dart';
 
 class StartMakeExamScreen extends StatefulWidget {
   const StartMakeExamScreen({super.key});

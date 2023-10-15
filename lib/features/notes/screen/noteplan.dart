@@ -100,7 +100,7 @@ class _NoteState extends State<NotePlan> {
         child: MySvgWidget(
             path: ImageAssets.addIcon,
             imageColor: AppColors.white,
-            size: getSize(context)/18),
+            size: getSize(context) / 18),
         onPressed: () {
           showDialog(
             barrierDismissible: false,
@@ -438,21 +438,23 @@ class _NoteState extends State<NotePlan> {
               child: BlocBuilder<NoteCubit, NoteState>(
                 builder: (context, state) {
                   return Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(0.0),
                     child: Container(
-                        padding: EdgeInsets.all(getSize(context) / 32),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: getSize(context) / 32),
                         child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: [
-                              SizedBox(height: getSize(context) / 3.5),
+                              SizedBox(height: getSize(context) / 3),
                               BlocBuilder<NoteCubit, NoteState>(
                                 builder: (context, state) {
                                   return ListView(
                                       shrinkWrap: true,
                                       physics: const BouncingScrollPhysics(),
                                       children: [
-                                        TitleWithCircleBackgroundWidget(    width: double.infinity,
+                                        TitleWithCircleBackgroundWidget(
+                                            width: double.infinity,
                                             title: 'add_note'.tr()),
                                         SizedBox(height: getSize(context) / 44),
                                         Padding(
@@ -565,7 +567,7 @@ class _NoteState extends State<NotePlan> {
                                 },
                               ),
                               SizedBox(height: getSize(context) / 44),
-////////////////////////////////////////
+                              ////////////////////////////////////////
                               BlocBuilder<NoteCubit, NoteState>(
                                 builder: (context, state) {
                                   if (state is NoteLoading) {

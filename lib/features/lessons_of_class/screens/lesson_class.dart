@@ -68,7 +68,7 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                           physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
                           children: [
-                            SizedBox(height: getSize(context) / 3.5),
+                            SizedBox(height: getSize(context) / 3),
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: getSize(context) / 22),
@@ -135,19 +135,22 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                       Positioned(
                                         right: getSize(context) / 32,
                                         top: getSize(context) / 15,
-                                        child: Text(
-                                          cubit.oneClass!.title!,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: getSize(context) / 18,
+                                        child: Container(
+                                          width: getSize(context) / 3,
+                                          child: Text(
+                                            cubit.oneClass!.title!,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: getSize(context) / 18,
+                                            ),
                                           ),
                                         ),
                                       ),
                                       Positioned(
-                                        top: getSize(context) / 3.5,
+                                        top: getSize(context) / 2.8,
                                         right: getSize(context) / 32,
                                         child: Container(
-                                          width: getSize(context) / 2,
+                                          width: getSize(context) / 3,
                                           child: Text(
                                             cubit.oneClass!.name!,
                                             maxLines: 2,

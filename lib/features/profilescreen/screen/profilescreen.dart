@@ -8,6 +8,7 @@ import 'package:new_mazoon/core/utils/assets_manager.dart';
 import 'package:new_mazoon/core/utils/dialogs.dart';
 import 'package:new_mazoon/core/widgets/custom_button.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/utils/getsize.dart';
 import '../../homePage/cubit/home_page_cubit.dart';
@@ -86,8 +87,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   right: getSize(context) / 22,
                                   top: getSize(context) / 22,
                                   child: InkWell(
-                                    onTap: () {
-                                      errorGetBar('student_report_des'.tr());
+                                    onTap: () async {
+                                      // errorGetBar('student_report_des'.tr());
+                                      await launchUrl(
+                                          Uri.parse(
+                                              cubit.userModel!.data!.report),
+                                          mode: LaunchMode.externalApplication);
                                       // cubit.downloadReport(
                                       //     "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
                                       //     context);

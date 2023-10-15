@@ -42,9 +42,13 @@ class _StartTripScreenState extends State<StartTripScreen>
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: getSize(context) / 3.5),
-              TitleWithCircleBackgroundWidget(
-                  width: double.infinity, title: 'start_trip'),
+              SizedBox(height: getSize(context) / 3),
+              Container(
+                padding:
+                    EdgeInsets.symmetric(horizontal: getSize(context) / 32),
+                child: TitleWithCircleBackgroundWidget(
+                    width: double.infinity, title: 'start_trip'),
+              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(

@@ -261,16 +261,16 @@ class MenuScreenWidget extends StatelessWidget {
                               },
                             ),
                             //logout
-                            MenuListTileWidget(
-                              title: 'logout'.tr(),
-                              iconPath: ImageAssets.logoutIcon,
-                              onclick: () {
-                                Preferences.instance.clearUserData().then(
-                                      (value) => HotRestartController
-                                          .performHotRestart(context),
-                                    );
-                              },
-                            ),
+                            // MenuListTileWidget(
+                            //   title: 'logout'.tr(),
+                            //   iconPath: ImageAssets.logoutIcon,
+                            //   onclick: () {
+                            //     Preferences.instance.clearUserData().then(
+                            //           (value) => HotRestartController
+                            //               .performHotRestart(context),
+                            //         );
+                            //   },
+                            // ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 20),

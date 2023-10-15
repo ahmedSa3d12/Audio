@@ -76,7 +76,7 @@ class _MakeYourExamScreenState extends State<MakeYourExamScreen> {
                         child: ListView(
                           physics: const BouncingScrollPhysics(),
                           children: [
-                            SizedBox(height: getSize(context) / 3.5),
+                            SizedBox(height: getSize(context) / 3),
                             TitleWithCircleBackgroundWidget(
                               title: 'make_exam'.tr(),
                             ),
@@ -451,9 +451,7 @@ class _MakeYourExamScreenState extends State<MakeYourExamScreen> {
                   top: 0,
                   right: 0,
                   left: 0,
-                  child: HomePageAppBarWidget(
-                    isHome: true,
-                  ),
+                  child: HomePageAppBarWidget(isHome: false),
                 ),
               ],
             )),

@@ -46,7 +46,7 @@ class CountdownScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: getSize(context) / 3.5),
+                        SizedBox(height: getSize(context) / 3),
                         TitleWithCircleBackgroundWidget(
                           title: 'countdown',
                           width: double.infinity,

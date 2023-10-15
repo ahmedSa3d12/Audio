@@ -74,8 +74,8 @@ class _StudentReportScreenState extends State<StudentReportScreen> {
                                       shrinkWrap: true,
                                       physics: const BouncingScrollPhysics(),
                                       children: [
-                                        SizedBox(
-                                            height: getSize(context) / 3.5),
+                                        SizedBox(height: getSize(context) / 3),
+
                                         ListView.builder(
                                           shrinkWrap: true,
                                           physics:

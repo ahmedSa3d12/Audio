@@ -35,7 +35,6 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
       },
       builder: (context, state) {
         var cubit = context.read<LessonsClassCubit>();
-
         return Scaffold(
           body: isLoading
               ? Center(child: ShowLoadingIndicator())
@@ -114,12 +113,14 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                                   cubit.videosofLessons[index]
                                                       .background_image,
                                                   width: getSize(context) / 3,
+                                                  fit: BoxFit.cover,
                                                   errorBuilder: (context, error,
                                                       stackTrace) {
                                                     return Image.asset(
                                                       ImageAssets.videoImage,
                                                       width:
                                                           getSize(context) / 3,
+                                                      fit: BoxFit.cover,
                                                     );
                                                   },
                                                 ),

@@ -33,9 +33,13 @@ class SourcesAndReferencesMainScreen extends StatelessWidget {
             child: ListView(
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: getSize(context) / 3.5),
-                TitleWithCircleBackgroundWidget(
-                    width: double.infinity, title: 'sources_and_references'),
+                SizedBox(height: getSize(context) / 3),
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: getSize(context) / 32),
+                  child: TitleWithCircleBackgroundWidget(
+                      width: double.infinity, title: 'sources_and_references'),
+                ),
                 SizedBox(height: getSize(context) / 18),
                 BlocBuilder<SourceReferencesCubit, SourceReferencesState>(
                   builder: (context, state) {

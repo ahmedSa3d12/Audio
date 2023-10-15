@@ -90,6 +90,7 @@ class StartTripCubit extends Cubit<StartTripState> {
     );
   }
 
+  startTripAllExamClassesData() {}
   dowanload(FinalReviewModel model) async {
     int index = finalReview.indexOf(model);
     final dio = Dio();
