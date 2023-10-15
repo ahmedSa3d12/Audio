@@ -64,7 +64,7 @@
         	<key>NSCameraUsageDescription</key>
         	<string>The Camera will be used if you would like to update profile picture and share photos.</string>
         	<key>NSMicrophoneUsageDescription</key>
-        	<string>flutter pub run flutter_launcher_iconsTo capture audio for pick image plugin</string>
+        	<string>The Microphone Used for upload audio comments , audio replies , audio solution for exam and audio suggest </string>
         	<key>NSPhotoLibraryUsageDescription</key>
         	<string>The Photo Gallery will be used if you would like to update profile picture and share photos.</string>
 </dict>
