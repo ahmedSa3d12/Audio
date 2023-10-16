@@ -31,6 +31,12 @@ class StartTripExamsClassByIdLoaded extends StartTripState {}
 
 class StartTripExamsClassByIdError extends StartTripState {}
 
+class StartTripExamsClassLoading extends StartTripState {}
+
+class StartTripExamsClassLoaded extends StartTripState {}
+
+class StartTripExamsClassError extends StartTripState {}
+
 class ErrorAddHomeWorkToFavorite extends StartTripState {}
 
 class LoadedAddHomeWorkToFavorite extends StartTripState {}

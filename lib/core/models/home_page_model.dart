@@ -181,7 +181,7 @@ class FinalReviewModel {
   final String? image;
   final String? time;
   final String? pathFile;
-  final int? size;
+  final double? size;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   double progress = 0;
@@ -243,7 +243,7 @@ class AllExams {
   final int? id;
   final String? name;
   final int? numOfQuestion;
-  final double? totalTime;
+  final dynamic totalTime;
 
   factory AllExams.fromJson(Map<String, dynamic> json) => AllExams(
         id: json["id"],

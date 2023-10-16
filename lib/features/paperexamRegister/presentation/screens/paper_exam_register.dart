@@ -1,13 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
-
 import '../../../../core/models/TimeModel.dart';
 import '../../../../core/models/paper_exam_details_model.dart';
-
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/widgets/custom_button.dart';

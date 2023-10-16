@@ -97,7 +97,7 @@ class ClassesExamItemWidget extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: ClassExamIconWidget(
-                                textData: '${model.numOfQuestion}',
+                                textData: '${model.numOfQuestion.toString()}',
                                 type: 'text',
                                 iconColor: AppColors.gray7,
                                 onclick: () {},
@@ -106,7 +106,7 @@ class ClassesExamItemWidget extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: ClassExamIconWidget(
-                                textData: ' ${model.totalTime}',
+                                textData: ' ${model.totalTime.toString()}',
                                 type: 'text',
                                 iconColor: AppColors.gray7,
                                 onclick: () {},

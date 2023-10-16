@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/features/sources_and_references/cubit/source_references_cubit.dart';
 import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
 
@@ -115,8 +117,8 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                                               : AppColors.white,
                                   fontSize:
                                       title == cubit.examClasses[index].title!
-                                          ? 20
-                                          : 16,
+                                          ? getSize(context) / 24
+                                          : getSize(context) / 28,
                                   fontWeight:
                                       title == cubit.examClasses[index].title!
                                           ? FontWeight.bold
@@ -164,7 +166,7 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                                                     ? AppColors.white
                                                     : AppColors
                                                         .orangeThirdPrimary,
-                                                fontSize: 14,
+                                                fontSize: getSize(context) / 32,
                                               ),
                                             ),
                                           ),
@@ -187,7 +189,6 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                                         );
                                   } else {
                                     if (widget.isHaveLesson) {
-                                      print('dlldldl');
                                       cubit2.getLessonsClassData(
                                           cubit.examClasses[index].id!,
                                           cubit2.lessons.isEmpty
@@ -197,7 +198,6 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                                           widget.isGray,
                                           widget.isLesson,
                                           widget.isClass);
-
                                       //
                                     } else {
                                       cubit.getExamsClassByIdData(
@@ -228,22 +228,25 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                           ),
                           ListTile(
                             title: Text(
-                              'امتحانات شاملة على الفصول',
+                              'all_exam'.tr(),
                               style: TextStyle(
-                                color: title == 'امتحانات شاملة على الفصول'
+                                color: title == 'all_exam'.tr()
                                     ? AppColors.primary
                                     : AppColors.liveExamGrayTextColor,
-                                fontSize: title == 'امتحانات شاملة على الفصول'
-                                    ? 20
-                                    : 18,
+                                fontSize: title == 'all_exam'.tr()
+                                    ? getSize(context) / 24
+                                    : getSize(context) / 28,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             onTap: () {
                               isExpanded ? shrinkTile() : expandTile();
-                              title = 'امتحانات شاملة على الفصول';
+                              title = 'all_exam'.tr();
                               setState(() {
-                                title = 'امتحانات شاملة على الفصول';
+                                cubit.startTripAllExamClassesData();
+
+                                ///
+                                title = 'all_exam'.tr();
                               });
                             },
                           )

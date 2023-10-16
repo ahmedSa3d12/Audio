@@ -80,6 +80,19 @@ class ClassesExamsScreen extends StatelessWidget {
                                         cubit.examClassList[index].id,
                                         "online_exam"
                                       ]);
+                                } else if (cubit.examClassList[index].type ==
+                                    'all_exam') {
+                                  context
+                                      .read<ExaminstructionsCubit>()
+                                      .examInstructions(
+                                          cubit.examClassList[index].id!,
+                                          "all_exam");
+                                  Navigator.pushNamed(
+                                      context, Routes.examInstructionsRoute,
+                                      arguments: [
+                                        cubit.examClassList[index].id!,
+                                        "all_exam"
+                                      ]);
                                 } else {
                                   Navigator.push(
                                     context,

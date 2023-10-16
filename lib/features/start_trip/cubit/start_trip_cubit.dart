@@ -90,7 +90,39 @@ class StartTripCubit extends Cubit<StartTripState> {
     );
   }
 
-  startTripAllExamClassesData() {}
+  startTripAllExamClassesData() async {
+    examClassList = [];
+    emit(StartTripExamsClassLoading());
+    final response = await api.StartTripAllExamClassesData();
+    response.fold(
+      (l) => emit(StartTripExamsClassError()),
+      (r) {
+        if (r.data!.isNotEmpty) {
+          for (int i = 0; i < r.data!.length; i++) {
+            examClassList.add(ClassesExamDatumModel(
+                answerPdfFile: null,
+                answerPdfSize: 0,
+                answerVideoFile: null,
+                answerVideoSize: 0,
+                backgroundColor: null,
+                examPdfSize: 0,
+                examsFavorite: null,
+                id: r.data![i].id,
+                name: r.data![i].title,
+                numOfQuestion: null,
+                pdfExamUpload: null,
+                totalTime: 0,
+                type: 'all_exam'));
+          }
+        } else {
+          examClassList = [];
+        }
+        emit(StartTripExamsClassLoaded());
+      },
+    );
+  }
+
+  //////
   dowanload(FinalReviewModel model) async {
     int index = finalReview.indexOf(model);
     final dio = Dio();
