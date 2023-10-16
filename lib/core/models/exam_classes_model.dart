@@ -1,15 +1,3 @@
-// To parse this JSON data, do
-//
-//     final startTripExamClassesModel = startTripExamClassesModelFromJson(jsonString);
-
-import 'dart:convert';
-
-StartTripExamClassesModel startTripExamClassesModelFromJson(String str) =>
-    StartTripExamClassesModel.fromJson(json.decode(str));
-
-String startTripExamClassesModelToJson(StartTripExamClassesModel data) =>
-    json.encode(data.toJson());
-
 class StartTripExamClassesModel {
   StartTripExamClassesModel({
     this.data,

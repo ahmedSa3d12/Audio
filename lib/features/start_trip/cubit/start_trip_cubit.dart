@@ -97,26 +97,8 @@ class StartTripCubit extends Cubit<StartTripState> {
     response.fold(
       (l) => emit(StartTripExamsClassError()),
       (r) {
-        if (r.data!.isNotEmpty) {
-          for (int i = 0; i < r.data!.length; i++) {
-            examClassList.add(ClassesExamDatumModel(
-                answerPdfFile: null,
-                answerPdfSize: 0,
-                answerVideoFile: null,
-                answerVideoSize: 0,
-                backgroundColor: null,
-                examPdfSize: 0,
-                examsFavorite: null,
-                id: r.data![i].id,
-                name: r.data![i].title,
-                numOfQuestion: null,
-                pdfExamUpload: null,
-                totalTime: 0,
-                type: 'all_exam'));
-          }
-        } else {
-          examClassList = [];
-        }
+        examClassList = r.data;
+
         emit(StartTripExamsClassLoaded());
       },
     );

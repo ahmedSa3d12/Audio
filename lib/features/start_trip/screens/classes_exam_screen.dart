@@ -21,6 +21,7 @@ class ClassesExamsScreen extends StatelessWidget {
         StartTripCubit cubit = context.read<StartTripCubit>();
         return Container(
           decoration: (state is StartTripExamsClassByIdLoading ||
+                  state is StartTripExamsClassLoading ||
                   cubit.examClassList.isNotEmpty)
               ? null
               : BoxDecoration(
@@ -42,7 +43,8 @@ class ClassesExamsScreen extends StatelessWidget {
                   type: 'classes_exam',
                 ),
                 SizedBox(height: 20),
-                state is StartTripExamsClassByIdLoading
+                state is StartTripExamsClassByIdLoading ||
+                        state is StartTripExamsClassLoading
                     ? SizedBox(
                         height: getSize(context) / 2,
                         child: Center(
