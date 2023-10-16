@@ -1,12 +1,4 @@
-// To parse this JSON data, do
-//
-//     final homePageModel = homePageModelFromJson(jsonString);
-
-import 'dart:convert';
-
 import 'class_data.dart';
-
-String homePageModelToJson(HomePageModel data) => json.encode(data.toJson());
 
 class HomePageModel {
   HomePageModel({
@@ -181,7 +173,7 @@ class FinalReviewModel {
   final String? image;
   final String? time;
   final String? pathFile;
-  final double? size;
+  final dynamic size;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   double progress = 0;
