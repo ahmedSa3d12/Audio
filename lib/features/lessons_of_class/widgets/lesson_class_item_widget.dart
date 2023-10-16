@@ -131,10 +131,13 @@ class LessonClassItemWidget extends StatelessWidget {
                         maximumValue: 100,
                         innerRadius: '22',
                         dataSource: [
-                          (double.parse(model.totalWatch.toString()) /
-                                  double.parse(model.totalTimes.toString()) *
-                                  100)
-                              .round()
+                          model.totalTimes == 0
+                              ? 0
+                              : (double.parse(model.totalWatch.toString()) /
+                                      double.parse(
+                                          model.totalTimes.toString()) *
+                                      100)
+                                  .round()
                         ],
                         cornerStyle: CornerStyle.endCurve,
                         // trackColor:

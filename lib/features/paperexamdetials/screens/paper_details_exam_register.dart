@@ -185,7 +185,7 @@ class _PaperDetailsExmRegisterPageState
                 top: 0,
                 right: 0,
                 left: 0,
-                child: HomePageAppBarWidget(),
+                child: HomePageAppBarWidget(isHome: false),
               ),
             ])));
   }

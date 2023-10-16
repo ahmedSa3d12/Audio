@@ -139,6 +139,8 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                           width: getSize(context) / 3,
                                           child: Text(
                                             cubit.oneClass!.title!,
+                                            maxLines: 3,
+                                            overflow: TextOverflow.fade,
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: getSize(context) / 18,
@@ -153,7 +155,7 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
                                           width: getSize(context) / 3,
                                           child: Text(
                                             cubit.oneClass!.name!,
-                                            maxLines: 2,
+                                            maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
                                               color: AppColors.white,

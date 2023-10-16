@@ -77,18 +77,21 @@ class _VideoDetailsState extends State<VideoDetails> {
                 } else {
                   return WillPopScope(
                     onWillPop: () async {
-                      cubit.updateTime(context);
-                      //////
-                      context
-                          .read<LessonsClassCubit>()
-                          .getVideosofLessonsData(cubit.lessonId);
-                      context.read<LessonsClassCubit>().getLessonsClassData(
-                          context.read<LessonsClassCubit>().oneClass!.id!,
-                          cubit.lessonId,
-                          context,
-                          false,
-                          false,
-                          false);
+                      if (widget.type == 'video_part') {
+                        cubit.updateTime(context);
+                        context.read<LessonsClassCubit>().videosofLessons = [];
+                        context
+                            .read<LessonsClassCubit>()
+                            .getVideosofLessonsData(cubit.lessonId);
+                        context.read<LessonsClassCubit>().getLessonsClassData(
+                            context.read<LessonsClassCubit>().oneClass!.id!,
+                            cubit.lessonId,
+                            context,
+                            false,
+                            false,
+                            false);
+                      }
+
                       cubit.stopRecord();
                       Navigator.pop(context);
                       return Future(() => true);
@@ -100,22 +103,29 @@ class _VideoDetailsState extends State<VideoDetails> {
                           : AppBar(
                               leading: IconButton(
                                   onPressed: () async {
-                                    cubit.updateTime(context);
-                                    context
-                                        .read<LessonsClassCubit>()
-                                        .getVideosofLessonsData(cubit.lessonId);
-                                    context
-                                        .read<LessonsClassCubit>()
-                                        .getLessonsClassData(
-                                            context
-                                                .read<LessonsClassCubit>()
-                                                .oneClass!
-                                                .id!,
-                                            cubit.lessonId,
-                                            context,
-                                            false,
-                                            false,
-                                            false);
+                                    if (widget.type == 'video_part') {
+                                      cubit.updateTime(context);
+                                      context
+                                          .read<LessonsClassCubit>()
+                                          .videosofLessons = [];
+                                      context
+                                          .read<LessonsClassCubit>()
+                                          .getVideosofLessonsData(
+                                              cubit.lessonId);
+                                      context
+                                          .read<LessonsClassCubit>()
+                                          .getLessonsClassData(
+                                              context
+                                                  .read<LessonsClassCubit>()
+                                                  .oneClass!
+                                                  .id!,
+                                              cubit.lessonId,
+                                              context,
+                                              false,
+                                              false,
+                                              false);
+                                    }
+
                                     cubit.stopRecord();
                                     Navigator.pop(context);
                                   },
