@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -9,7 +8,6 @@ import 'package:new_mazoon/injector.dart' as injector;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
-import 'package:showcaseview/showcaseview.dart';
 import 'dart:async';
 import 'app.dart';
 import 'app_bloc_observer.dart';
@@ -19,7 +17,6 @@ import 'core/preferences/preferences.dart';
 import 'core/utils/app_colors.dart';
 import 'core/utils/restart_app_class.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
 import 'firebase_options.dart';
 
 //call MakeYourExam before apply exam
@@ -80,18 +77,16 @@ Future<void> main() async {
   await injector.setup();
   Bloc.observer = AppBlocObserver();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  runApp(ShowCaseWidget(
-    builder: Builder(builder: (context) {
-      return EasyLocalization(
-        supportedLocales: [Locale('ar', ''), Locale('en', '')],
-        path: 'assets/lang',
-        saveLocale: true,
-        startLocale: Locale('ar', ''),
-        fallbackLocale: Locale('ar', ''),
-        child: HotRestartController(child: const Elmazoon()),
-      );
-    }),
-  ));
+  runApp(
+    EasyLocalization(
+      supportedLocales: [Locale('ar', ''), Locale('en', '')],
+      path: 'assets/lang',
+      saveLocale: true,
+      startLocale: Locale('ar', ''),
+      fallbackLocale: Locale('ar', ''),
+      child: HotRestartController(child: const Elmazoon()),
+    ),
+  );
 }
 
 void getToken() async {
