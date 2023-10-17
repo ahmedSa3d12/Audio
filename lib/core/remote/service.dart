@@ -253,7 +253,7 @@ class ServiceApi {
     }
   }
 
-  Future<Either<Failure, StartTripExamClassesModel>>
+  Future<Either<Failure, ClassesExamDataModel>>
       StartTripAllExamClassesData() async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
@@ -267,7 +267,7 @@ class ServiceApi {
           },
         ),
       );
-      return Right(StartTripExamClassesModel.fromJson(response));
+      return Right(ClassesExamDataModel.fromJson(response));
     } on ServerException {
       return Left(ServerFailure());
     }

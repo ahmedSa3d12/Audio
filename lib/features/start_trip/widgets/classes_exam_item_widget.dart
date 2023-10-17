@@ -97,7 +97,7 @@ class ClassesExamItemWidget extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: ClassExamIconWidget(
-                                textData: '${model.numOfQuestion}',
+                                textData: '${model.numOfQuestion.toString()}',
                                 type: 'text',
                                 iconColor: AppColors.gray7,
                                 onclick: () {},
@@ -106,33 +106,38 @@ class ClassesExamItemWidget extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: ClassExamIconWidget(
-                                textData: ' ${model.totalTime}',
+                                textData: ' ${model.totalTime.toString()}',
                                 type: 'text',
                                 iconColor: AppColors.gray7,
                                 onclick: () {},
                               ),
                             ),
-                            Expanded(
-                              flex: 1,
-                              child: ClassExamIconWidget(
-                                radius: 1000,
-                                type: ImageAssets.loveIcon,
-                                iconLoveColor:
-                                    model.examsFavorite == 'un_favorite'
-                                        ? AppColors.white
-                                        : AppColors.red,
-                                iconColor: HexColor(model.backgroundColor!),
-                                onclick: () {
-                                  cubit.favourite(
-                                      'online_exam',
-                                      model.examsFavorite == 'un_favorite'
-                                          ? 'favorite'
-                                          : 'un_favorite',
-                                      model.id!,
-                                      index);
-                                },
-                              ),
-                            ),
+                            model.examsFavorite == null
+                                ? Container()
+                                : Expanded(
+                                    flex: 1,
+                                    child: ClassExamIconWidget(
+                                      radius: 1000,
+                                      type: ImageAssets.loveIcon,
+                                      iconLoveColor:
+                                          model.examsFavorite == 'un_favorite'
+                                              ? AppColors.white
+                                              : AppColors.red,
+                                      iconColor:
+                                          HexColor(model.backgroundColor!),
+                                      onclick: () {
+                                        cubit.favourite(
+                                            model.type == 'all_exam'
+                                                ? 'all_exam'
+                                                : 'online_exam',
+                                            model.examsFavorite == 'un_favorite'
+                                                ? 'favorite'
+                                                : 'un_favorite',
+                                            model.id!,
+                                            index);
+                                      },
+                                    ),
+                                  ),
                             model.answerPdfFile == null
                                 ? Container()
                                 : Expanded(

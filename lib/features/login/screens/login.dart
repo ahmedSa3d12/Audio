@@ -23,7 +23,7 @@ class LoginScreen extends StatefulWidget {
 
 class _userScreenState extends State<LoginScreen> {
   final keyForm = GlobalKey<FormState>();
-
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     timeDilation = 1.5;
@@ -49,146 +49,140 @@ class _userScreenState extends State<LoginScreen> {
                     ),
                   ),
 
-                  BlocBuilder<LoginCubit, LoginState>(
-                    builder: (context, state) {
+                  BlocConsumer<LoginCubit, LoginState>(
+                    listener: (context, state) {
                       if (state is userLoading) {
-                        return SizedBox(
-                          height: getSize(context) / 3,
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.primary,
-                            ),
-                          ),
-                        );
+                        isLoading = true;
+                      } else {
+                        isLoading = false;
                       }
-                      if (state is userLoaded) {
-                        Future.delayed(
-                          Duration(milliseconds: 300),
-                          () {
-                            Future.delayed(
-                              Duration(milliseconds: 500),
-                              () {
-                                // toastMessage(
-                                //   'user_success'.tr(),
-                                //   context,
-                                //   color: AppColors.success,
-                                // );
-                              },
-                            );
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              Routes.homePageScreenRoute,
-                              (route) => false,
-                            );
-                            // }
-                          },
-                        );
-                      }
-                      return Form(
-                        key: keyForm,
-                        child: Center(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 20.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.primary,
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
-                                child: Column(
-                                  children: [
-                                    SizedBox(height: getSize(context) / 32),
-                                    Text(
-                                      'user_account'.tr(),
-                                      style: TextStyle(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: getSize(context) / 24),
+                    },
+                    builder: (context, state) {
+                      return isLoading
+                          ? SizedBox(
+                              height: getSize(context) / 3,
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                      color: AppColors.primary)))
+                          : Form(
+                              key: keyForm,
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primary,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(20),
+                                      ),
                                     ),
-                                    SizedBox(height: getSize(context) / 32),
-                                    Text(
-                                      'please_write_code'.tr(),
-                                      style: TextStyle(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: getSize(context) / 32),
-                                    ),
-                                    Container(
-                                      child: Row(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20.0),
+                                      child: Column(
                                         children: [
-                                          const SizedBox(width: 25),
-                                          Expanded(
-                                            child: TextFormField(
-                                              maxLines: 1,
-                                              autofocus: false,
-                                              textAlign: TextAlign.center,
-                                              controller: context
-                                                  .read<LoginCubit>()
-                                                  .codeController,
-                                              cursorColor: AppColors.primary,
-                                              keyboardType: TextInputType.text,
-                                              obscureText: true,
-                                              textInputAction:
-                                                  TextInputAction.done,
-                                              decoration: InputDecoration(
-                                                hintText: 'enter_code'.tr(),
-                                                hintStyle: TextStyle(
-                                                  fontFamily: 'Cairo',
-                                                  fontSize:
-                                                      getSize(context) / 34,
-                                                  color: AppColors
-                                                      .unselectedTabColor,
-                                                  fontWeight: FontWeight.w100,
+                                          SizedBox(
+                                              height: getSize(context) / 32),
+                                          Text(
+                                            'user_account'.tr(),
+                                            style: TextStyle(
+                                                color: AppColors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize:
+                                                    getSize(context) / 24),
+                                          ),
+                                          SizedBox(
+                                              height: getSize(context) / 32),
+                                          Text(
+                                            'please_write_code'.tr(),
+                                            style: TextStyle(
+                                                color: AppColors.white,
+                                                fontWeight: FontWeight.normal,
+                                                fontSize:
+                                                    getSize(context) / 32),
+                                          ),
+                                          Container(
+                                            child: Row(
+                                              children: [
+                                                const SizedBox(width: 25),
+                                                Expanded(
+                                                  child: TextFormField(
+                                                    maxLines: 1,
+                                                    autofocus: false,
+                                                    textAlign: TextAlign.center,
+                                                    controller: context
+                                                        .read<LoginCubit>()
+                                                        .codeController,
+                                                    cursorColor:
+                                                        AppColors.primary,
+                                                    keyboardType:
+                                                        TextInputType.text,
+                                                    obscureText: true,
+                                                    textInputAction:
+                                                        TextInputAction.done,
+                                                    decoration: InputDecoration(
+                                                      hintText:
+                                                          'enter_code'.tr(),
+                                                      hintStyle: TextStyle(
+                                                        fontFamily: 'Cairo',
+                                                        fontSize:
+                                                            getSize(context) /
+                                                                34,
+                                                        color: AppColors
+                                                            .unselectedTabColor,
+                                                        fontWeight:
+                                                            FontWeight.w100,
+                                                      ),
+                                                      border: InputBorder.none,
+                                                    ),
+                                                    validator: (value) {
+                                                      if (value == null ||
+                                                          value.isEmpty) {
+                                                        return 'field_required'
+                                                            .tr();
+                                                      } else {
+                                                        return null;
+                                                      }
+                                                    },
+                                                  ),
                                                 ),
-                                                border: InputBorder.none,
-                                              ),
-                                              validator: (value) {
-                                                if (value == null ||
-                                                    value.isEmpty) {
-                                                  return 'field_required'.tr();
-                                                } else {
-                                                  return null;
-                                                }
-                                              },
+                                              ],
                                             ),
                                           ),
+                                          Divider(
+                                            color: AppColors.white,
+                                            height: 3,
+                                            thickness: 3,
+                                          ),
+                                          SizedBox(
+                                              height: getSize(context) / 32),
+                                          CustomButton(
+                                            text: 'user'.tr(),
+                                            textcolor: AppColors.white,
+                                            color: AppColors.orangeThirdPrimary,
+                                            onClick: () {
+                                              if (keyForm.currentState!
+                                                  .validate()) {
+                                                // loadingDialog();
+                                                context
+                                                    .read<LoginCubit>()
+                                                    .userWithCode(context);
+                                              }
+                                            },
+                                            paddingHorizontal:
+                                                getSize(context) / 14,
+                                            borderRadius: getSize(context) / 12,
+                                          ),
+                                          SizedBox(
+                                              height: getSize(context) / 32),
                                         ],
                                       ),
                                     ),
-                                    Divider(
-                                      color: AppColors.white,
-                                      height: 3,
-                                      thickness: 3,
-                                    ),
-                                    SizedBox(height: getSize(context) / 32),
-                                    CustomButton(
-                                      text: 'user'.tr(),
-                                      textcolor: AppColors.white,
-                                      color: AppColors.orangeThirdPrimary,
-                                      onClick: () {
-                                        if (keyForm.currentState!.validate()) {
-                                          // loadingDialog();
-                                          context
-                                              .read<LoginCubit>()
-                                              .userWithCode(context);
-                                        }
-                                      },
-                                      paddingHorizontal: getSize(context) / 14,
-                                      borderRadius: getSize(context) / 12,
-                                    ),
-                                    SizedBox(height: getSize(context) / 32),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
-                      );
+                            );
                     },
                   ),
                   SizedBox(height: 30),
@@ -479,99 +473,112 @@ class _userScreenState extends State<LoginScreen> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            content: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 8),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: AppColors.secondPrimary,
+                  ),
+                  width: double.infinity,
+                  child: Center(
+                    child: Text(
+                      'contact_us_from'.tr(),
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontSize: getSize(context) / 22,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                    height: getSize(context) / 22,
+                    width: getSize(context) - 50),
+                // ...List.generate(
+                //   cubit.communicationData!.phones!.length,
+                //   (index) =>
+                //   ),
+                // ),
+                Flexible(
+                  child: Container(
+                    height: getSize(context) / 1.8,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: cubit.communicationData!.phones!.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                            onTap: () {
+                              phoneCallMethod(
+                                cubit.communicationData!.phones![index].phone,
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.call,
+                                    color: AppColors.blueLiteColor,
+                                    size: getSize(context) / 12,
+                                  ),
+                                  SizedBox(width: 20),
+                                  Flexible(
+                                    fit: FlexFit.tight,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          cubit.communicationData!
+                                              .phones![index].phone,
+                                          style: TextStyle(
+                                            fontSize: getSize(context) / 24,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          cubit.communicationData!
+                                              .phones![index].note,
+                                          style: TextStyle(
+                                              fontSize: getSize(context) / 28),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ));
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(height: getSize(context) / 22),
+                InkWell(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: Container(
+                    height: getSize(context) / 8,
+                    padding: EdgeInsets.symmetric(vertical: 0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: AppColors.secondPrimary,
+                      color: AppColors.orangeThirdPrimary,
                     ),
                     width: double.infinity,
                     child: Center(
                       child: Text(
-                        'contact_us_from'.tr(),
+                        'close'.tr(),
                         style: TextStyle(
                           color: AppColors.white,
-                          fontSize: getSize(context) / 22,
+                          fontSize: 20,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
-                      height: getSize(context) / 22,
-                      width: MediaQuery.of(context).size.width - 50),
-                  ...List.generate(
-                    cubit.communicationData!.phones!.length,
-                    (index) => InkWell(
-                      onTap: () {
-                        phoneCallMethod(
-                          cubit.communicationData!.phones![index].phone,
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.call,
-                              color: AppColors.blueLiteColor,
-                              size: getSize(context) / 12,
-                            ),
-                            SizedBox(width: 20),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    cubit.communicationData!.phones![index]
-                                        .phone,
-                                    style: TextStyle(
-                                      fontSize: getSize(context) / 24,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Text(
-                                    cubit
-                                        .communicationData!.phones![index].note,
-                                    style: TextStyle(
-                                        fontSize: getSize(context) / 28),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 25),
-                  InkWell(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: Container(
-                      height: 60,
-                      padding: EdgeInsets.symmetric(vertical: 0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: AppColors.orangeThirdPrimary,
-                      ),
-                      width: double.infinity,
-                      child: Center(
-                        child: Text(
-                          'close'.tr(),
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

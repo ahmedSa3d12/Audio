@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/config/routes/app_routes.dart';
+import 'package:new_mazoon/core/utils/assets_manager.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:wave_linear_progress_indicator/wave_linear_progress_indicator.dart';
 import '../../../core/models/applylessonexammodel.dart';
@@ -117,9 +118,9 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                                                     lineWidth: 15.0,
                                                     percent: resultOfProgress(
                                                         widget.model.degree),
-                                                    center: new Text(
+                                                    center: Text(
                                                       widget.model.degree,
-                                                      style: new TextStyle(
+                                                      style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           fontSize:
@@ -440,9 +441,12 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                                               child:
                                                   WaveLinearProgressIndicator(
                                                 waveStep: 2,
-                                                value: (widget
-                                                        .model.totalTimeTake /
-                                                    widget.model.totalTimeExam),
+                                                value: (int.parse(widget
+                                                        .model.totalTimeTake
+                                                        .toString()) /
+                                                    int.parse(widget
+                                                        .model.totalTimeExam
+                                                        .toString())),
                                                 enableBounceAnimation: true,
                                                 waveColor: AppColors.blue6,
                                                 waveBackgroundColor:
@@ -475,6 +479,7 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                           child: Row(
                             children: [
                               Flexible(
+                                fit: FlexFit.tight,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -482,15 +487,19 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                                     Text(
                                       widget.model.titleResult,
                                       textAlign: TextAlign.right,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         color: AppColors.orange,
-                                        fontSize: getSize(context) / 24,
+                                        fontSize: getSize(context) / 22,
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
                                     Text(
                                       widget.model.descriptionResult,
                                       textAlign: TextAlign.right,
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
                                         color: AppColors.liveExamGrayTextColor,
                                         fontSize: getSize(context) / 28,
@@ -503,6 +512,10 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                               Image.network(
                                 widget.model.imageResult,
                                 width: getSize(context) / 4,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Image.asset(ImageAssets.examPaperImage,
+                                      width: getSize(context) / 4);
+                                },
                               ),
                             ],
                           ),
@@ -550,7 +563,7 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                                   cubit.appendDegreeLessonExam(
                                       lessonId: widget.model.examId,
                                       context: context,
-                                      exam_type: 'lesson');
+                                      exam_type: widget.model.examType);
                                 },
                                 child: Container(
                                     height: getSize(context) / 8,

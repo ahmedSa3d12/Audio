@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:new_mazoon/config/routes/app_routes.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
 
 import '../../../../core/models/home_page_model.dart';
@@ -40,8 +42,8 @@ class HomePageVideoWidget extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Container(
-                      height: 120,
-                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: getSize(context) / 3,
+                      width: getSize(context) * 0.45,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
                         color: HexColor(
@@ -49,43 +51,49 @@ class HomePageVideoWidget extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          Spacer(),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(
-                              videosBasics[index].name!,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: AppColors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          Row(
-                            children: [
-                              // Spacer(),
-                              SizedBox(width: 16),
-                              MySvgWidget(
-                                path: ImageAssets.clockIcon,
-                                imageColor: AppColors.white,
-                                size: 16,
-                              ),
-                              SizedBox(width: 10),
-                              // Spacer(),
-                              Text(
-                                '${videosBasics[index].time!} ساعه ',
+                          Flexible(
+                            fit: FlexFit.tight,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: getSize(context) / 32,
+                                  vertical: getSize(context) / 22),
+                              child: Text(
+                                videosBasics[index].name ?? '',
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: getSize(context) / 26,
                                   color: AppColors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Spacer(),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(getSize(context) / 32),
+                                child: MySvgWidget(
+                                  path: ImageAssets.clockIcon,
+                                  imageColor: AppColors.white,
+                                  size: getSize(context) / 22,
+                                ),
+                              ),
+                              Flexible(
+                                child: Text(
+                                  '${videosBasics[index].time!} ' +
+                                      'hours'.tr(),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: getSize(context) / 32,
+                                    color: AppColors.white,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
-                          Spacer(),
                         ],
                       ),
                     ),

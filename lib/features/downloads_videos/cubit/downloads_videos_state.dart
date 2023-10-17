@@ -1,16 +1,16 @@
-part of 'downloads_videos_cubit.dart';
+// part of 'downloads_videos_cubit.dart';
 
-@immutable
-abstract class DownloadsVideosState {}
+// @immutable
+// abstract class DownloadsVideosState {}
 
-class DownloadsVideosInitial extends DownloadsVideosState {}
+// class DownloadsVideosInitial extends DownloadsVideosState {}
 
-class DownloadsVideosList extends DownloadsVideosState {
-  final List<FileSystemEntity> files;
+// class DownloadsVideosList extends DownloadsVideosState {
+//   final List<FileSystemEntity> files;
 
-  DownloadsVideosList(this.files);
-}
+//   DownloadsVideosList(this.files);
+// }
 
-class DownloadsVideosLoading extends DownloadsVideosState {}
+// class DownloadsVideosLoading extends DownloadsVideosState {}
 
-class DownloadsVideosError extends DownloadsVideosState {}
+// class DownloadsVideosError extends DownloadsVideosState {}

@@ -53,7 +53,7 @@ class _DownloadedFilesScreenState extends State<DownloadedFilesScreen>
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: getSize(context) / 3.5),
+                            SizedBox(height: getSize(context) / 3),
                             TitleWithCircleBackgroundWidget(
                               title: 'downloads'.tr(),
                               width: double.infinity,

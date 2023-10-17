@@ -82,7 +82,9 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
       (r) {
         if (r.code == 200) {
           if (r.data[0].status == 'lock') {
+            ///
             openLessonAndClass(id: lessonId);
+            //
           } else {}
           videosofLessons = r.data;
           emit(VideoLessonsLoaded());

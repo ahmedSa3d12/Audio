@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart' as easy;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 
 import '../../../../core/utils/app_colors.dart';
@@ -55,9 +54,7 @@ class _PaperDetailsExmRegisterPageState
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         children: [
-                          SizedBox(
-                            height: getSize(context) / 3.5,
-                          ),
+                          SizedBox(height: getSize(context) / 3),
                           TextFormField(
                             controller: context.read<PaperDetialsCubit>().name,
                             enabled: false,
@@ -188,7 +185,7 @@ class _PaperDetailsExmRegisterPageState
                 top: 0,
                 right: 0,
                 left: 0,
-                child: HomePageAppBarWidget(),
+                child: HomePageAppBarWidget(isHome: false),
               ),
             ])));
   }

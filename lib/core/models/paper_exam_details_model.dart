@@ -1,24 +1,20 @@
 import 'package:new_mazoon/core/models/paper_exam_data_model.dart';
 
-import 'TimeModel.dart';
-
-class PaperExamDetialsModel{
+class PaperExamDetialsModel {
   PaperExam? data;
   String? message;
   int? code;
 
-
-  PaperExamDetialsModel(
-      {this.data,
-        this.message,
-        this.code,
-       });
+  PaperExamDetialsModel({
+    this.data,
+    this.message,
+    this.code,
+  });
 
   PaperExamDetialsModel.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? new PaperExam.fromJson(json['data']) : null;
     message = json['message'];
     code = json['code'];
-
   }
 
   Map<String, dynamic> toJson() {
@@ -32,7 +28,3 @@ class PaperExamDetialsModel{
     return data;
   }
 }
-
-
-
-

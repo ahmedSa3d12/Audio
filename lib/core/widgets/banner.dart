@@ -45,8 +45,8 @@ class _BannerWidgetState extends State<BannerWidget> {
                 builder: (BuildContext context) {
                   return InkWell(
                     onTap: () async {
-                      // String url = i.image.toString();
-                      // await launchUrl(Uri.parse(url));
+                      await launchUrl(Uri.parse(i.link.toString()),
+                          mode: LaunchMode.externalApplication);
                     },
                     child: ManageNetworkImage(
                       imageUrl: i.file!,

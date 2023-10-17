@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
-
 import '../../../config/routes/app_routes.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/pdf_screen.dart';
@@ -22,6 +21,7 @@ class ClassesExamsScreen extends StatelessWidget {
         StartTripCubit cubit = context.read<StartTripCubit>();
         return Container(
           decoration: (state is StartTripExamsClassByIdLoading ||
+                  state is StartTripExamsClassLoading ||
                   cubit.examClassList.isNotEmpty)
               ? null
               : BoxDecoration(
@@ -43,7 +43,8 @@ class ClassesExamsScreen extends StatelessWidget {
                   type: 'classes_exam',
                 ),
                 SizedBox(height: 20),
-                state is StartTripExamsClassByIdLoading
+                state is StartTripExamsClassByIdLoading ||
+                        state is StartTripExamsClassLoading
                     ? SizedBox(
                         height: getSize(context) / 2,
                         child: Center(
@@ -80,6 +81,19 @@ class ClassesExamsScreen extends StatelessWidget {
                                       arguments: [
                                         cubit.examClassList[index].id,
                                         "online_exam"
+                                      ]);
+                                } else if (cubit.examClassList[index].type ==
+                                    'all_exam') {
+                                  context
+                                      .read<ExaminstructionsCubit>()
+                                      .examInstructions(
+                                          cubit.examClassList[index].id!,
+                                          "all_exam");
+                                  Navigator.pushNamed(
+                                      context, Routes.examInstructionsRoute,
+                                      arguments: [
+                                        cubit.examClassList[index].id!,
+                                        "all_exam"
                                       ]);
                                 } else {
                                   Navigator.push(

@@ -90,6 +90,21 @@ class StartTripCubit extends Cubit<StartTripState> {
     );
   }
 
+  startTripAllExamClassesData() async {
+    examClassList = [];
+    emit(StartTripExamsClassLoading());
+    final response = await api.StartTripAllExamClassesData();
+    response.fold(
+      (l) => emit(StartTripExamsClassError()),
+      (r) {
+        examClassList = r.data;
+
+        emit(StartTripExamsClassLoaded());
+      },
+    );
+  }
+
+  //////
   dowanload(FinalReviewModel model) async {
     int index = finalReview.indexOf(model);
     final dio = Dio();

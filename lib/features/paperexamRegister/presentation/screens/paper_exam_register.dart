@@ -1,13 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
-
 import '../../../../core/models/TimeModel.dart';
 import '../../../../core/models/paper_exam_details_model.dart';
-
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/widgets/custom_button.dart';
@@ -61,7 +58,7 @@ class _PaperExmRegisterPageState extends State<PaperExmRegisterPage> {
                           padding: const EdgeInsets.all(25.0),
                           child: Column(
                             children: [
-                              SizedBox(height: getSize(context) / 3.5),
+                              SizedBox(height: getSize(context) / 3),
                               Center(
                                 child: Image.asset(
                                   ImageAssets.userExamImage,
@@ -99,7 +96,7 @@ class _PaperExmRegisterPageState extends State<PaperExmRegisterPage> {
                                             backgroundColor:
                                                 AppColors.transparent,
                                             color: AppColors.gray6,
-                                            fontSize: 15,
+                                            fontSize: getSize(context) / 32,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
@@ -136,7 +133,7 @@ class _PaperExmRegisterPageState extends State<PaperExmRegisterPage> {
                                             backgroundColor:
                                                 AppColors.transparent,
                                             color: AppColors.gray6,
-                                            fontSize: 15,
+                                            fontSize: getSize(context) / 32,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
@@ -158,7 +155,7 @@ class _PaperExmRegisterPageState extends State<PaperExmRegisterPage> {
                                             path: ImageAssets.lockNumIcon,
                                             imageColor:
                                                 AppColors.liveExamGrayTextColor,
-                                            size: 20)),
+                                            size: getSize(context) / 24)),
                                     const SizedBox(width: 25),
                                     Expanded(
                                       child: TextFormField(
@@ -173,7 +170,7 @@ class _PaperExmRegisterPageState extends State<PaperExmRegisterPage> {
                                             backgroundColor:
                                                 AppColors.transparent,
                                             color: AppColors.gray6,
-                                            fontSize: 15,
+                                            fontSize: getSize(context) / 32,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     )
@@ -190,14 +187,14 @@ class _PaperExmRegisterPageState extends State<PaperExmRegisterPage> {
                                         BorderRadius.all(Radius.circular(15))),
                                 child: Row(
                                   children: [
-                                    const SizedBox(width: 25),
+                                    SizedBox(width: getSize(context) / 24),
                                     Center(
                                         child: MySvgWidget(
                                             path: ImageAssets.timesIcon,
                                             imageColor:
                                                 AppColors.liveExamGrayTextColor,
-                                            size: 20)),
-                                    const SizedBox(width: 25),
+                                            size: getSize(context) / 24)),
+                                    SizedBox(width: getSize(context) / 24),
                                     Expanded(
                                       child: DropdownButton(
                                         isExpanded: true,
@@ -205,7 +202,7 @@ class _PaperExmRegisterPageState extends State<PaperExmRegisterPage> {
                                         value: context
                                             .read<PaperExamRegisterCubit>()
                                             .dropdownValue,
-                                        iconSize: 40,
+                                        iconSize: getSize(context) / 12,
                                         elevation: 16,
                                         style:
                                             TextStyle(color: AppColors.gray6),
@@ -238,10 +235,12 @@ class _PaperExmRegisterPageState extends State<PaperExmRegisterPage> {
                                                             value.to.length - 3,
                                                             value.to.length,
                                                             ''),
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 15),
+                                                        fontSize:
+                                                            getSize(context) /
+                                                                32),
                                                   )));
                                         }).toList(),
                                       ),
@@ -274,7 +273,7 @@ class _PaperExmRegisterPageState extends State<PaperExmRegisterPage> {
                 top: 0,
                 right: 0,
                 left: 0,
-                child: HomePageAppBarWidget(),
+                child: HomePageAppBarWidget(isHome: false),
               ),
             ])));
   }

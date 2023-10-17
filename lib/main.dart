@@ -9,6 +9,7 @@ import 'package:new_mazoon/injector.dart' as injector;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'dart:async';
 import 'app.dart';
 import 'app_bloc_observer.dart';
@@ -79,16 +80,18 @@ Future<void> main() async {
   await injector.setup();
   Bloc.observer = AppBlocObserver();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  runApp(
-    EasyLocalization(
-      supportedLocales: [Locale('ar', ''), Locale('en', '')],
-      path: 'assets/lang',
-      saveLocale: true,
-      startLocale: Locale('ar', ''),
-      fallbackLocale: Locale('ar', ''),
-      child: HotRestartController(child: const Elmazoon()),
-    ),
-  );
+  runApp(ShowCaseWidget(
+    builder: Builder(builder: (context) {
+      return EasyLocalization(
+        supportedLocales: [Locale('ar', ''), Locale('en', '')],
+        path: 'assets/lang',
+        saveLocale: true,
+        startLocale: Locale('ar', ''),
+        fallbackLocale: Locale('ar', ''),
+        child: HotRestartController(child: const Elmazoon()),
+      );
+    }),
+  ));
 }
 
 void getToken() async {

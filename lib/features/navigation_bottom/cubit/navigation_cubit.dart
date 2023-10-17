@@ -27,10 +27,16 @@ class NavigationCubit extends Cubit<NavigationState> {
   }
 
   getTimes(BuildContext context) async {
+    emit(ExamRegisterLoadingState());
+
     createProgressDialog(context, 'wait'.tr());
     final response = await api.paperExamDetails();
     response.fold(
-      (error) => Navigator.of(context).pop(),
+      (error) {
+        Navigator.of(context).pop();
+
+        emit(ExamRegisterErrorState());
+      },
       (response) {
         Navigator.of(context).pop();
         PaperExamDetialsModel data = response;
@@ -47,6 +53,7 @@ class NavigationCubit extends Cubit<NavigationState> {
             color: AppColors.error,
           );
         }
+        emit(ExamRegisterLoadedState());
         //data = response.data;
         //  emit(NotificationPageLoaded());
       },

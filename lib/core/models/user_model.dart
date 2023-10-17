@@ -36,6 +36,7 @@ class User {
     required this.term,
     required this.dateStartCode,
     required this.dateEndCode,
+    required this.report,
     required this.center,
     this.country,
     this.city,
@@ -45,6 +46,7 @@ class User {
   });
 
   int id;
+  String report;
   String name;
   dynamic email;
   String phone;
@@ -68,6 +70,7 @@ class User {
         id: json["id"],
         name: json["name"],
         center: json['center'],
+        report: json['report'],
         email: json["email"],
         phone: json["phone"] ?? 'no phone',
         fatherPhone: json["father_phone"] ?? 'no father phone',
@@ -103,6 +106,7 @@ class User {
         "name": name,
         "email": email,
         "phone": phone,
+        "report": report,
         "father_phone": fatherPhone,
         "image": image,
         "user_status": userStatus,

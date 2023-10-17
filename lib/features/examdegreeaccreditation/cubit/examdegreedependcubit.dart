@@ -7,9 +7,9 @@ import 'examdegreedependstate.dart';
 class ExamDegreeAccreditationCubit extends Cubit<ExamDegreeAccreditationState> {
   final ServiceApi api;
   ExamDegreeAccreditationCubit(this.api) : super(InitExamDegreeAccreditation());
-int lessonHomeid=0;
-int lessonsExamGradeid=0;
-int classid=0;
+  int lessonHomeid = 0;
+  int lessonsExamGradeid = 0;
+  int classid = 0;
   int currentIndex = 0;
 
   selectTap(int index) {
@@ -17,10 +17,10 @@ int classid=0;
     emit(ChangeCurrentIndexTap());
   }
 
-  GradeAndRateModelData? homeworksGrade=GradeAndRateModelData();
+  GradeAndRateModelData? homeworksGrade = GradeAndRateModelData();
 
   homeworkGradeAndRate({required int lessonId}) async {
-    this.lessonHomeid=lessonId;
+    this.lessonHomeid = lessonId;
     if (homeworksGrade != null) {
       homeworksGrade!.degrees = [];
     }
@@ -35,9 +35,9 @@ int classid=0;
     );
   }
 
-  GradeAndRateModelData?  lessonsExamGrade=GradeAndRateModelData();
+  GradeAndRateModelData? lessonsExamGrade = GradeAndRateModelData();
   lessonsExamGradeAndRate({required int lessonId}) async {
-    this.lessonsExamGradeid=lessonId;
+    this.lessonsExamGradeid = lessonId;
 
     if (lessonsExamGrade != null) {
       lessonsExamGrade!.degrees = [];
@@ -53,9 +53,9 @@ int classid=0;
     );
   }
 
-  GradeAndRateModelData?classesExamGrade=GradeAndRateModelData();
+  GradeAndRateModelData? classesExamGrade = GradeAndRateModelData();
   classesExamGradeAndRate({required int classId}) async {
-this.classid=classId;
+    this.classid = classId;
     if (classesExamGrade != null) {
       classesExamGrade!.degrees = [];
     }
@@ -70,9 +70,8 @@ this.classid=classId;
     );
   }
 
-  GradeAndRateModelData?  comprehensiveExamsGrade=GradeAndRateModelData();
+  GradeAndRateModelData? comprehensiveExamsGrade = GradeAndRateModelData();
   comprehensiveExamsGradeAndRate() async {
-
     if (comprehensiveExamsGrade != null) {
       comprehensiveExamsGrade!.degrees = [];
     }
@@ -90,12 +89,10 @@ this.classid=classId;
   void setlesson() {
     lessonsExamGrade!.degrees = [];
     emit(SuccessGetLessonExamGrade());
-
   }
 
   void setHomeGrade() {
     homeworksGrade!.degrees = [];
     emit(SuccessGetHomeworkGrade());
-
   }
 }

@@ -127,7 +127,7 @@ class _MyGradeAndRatingState extends State<MyGradeAndRating>
                   top: 0,
                   right: 0,
                   left: 0,
-                  child: HomePageAppBarWidget(),
+                  child: HomePageAppBarWidget(isHome: false),
                 ),
               ],
             ),

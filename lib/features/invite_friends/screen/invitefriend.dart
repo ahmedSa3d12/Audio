@@ -44,7 +44,7 @@ class _InviteFreiendsScreenState extends State<InviteFreiendsScreen> {
                 isLoading
                     ? ListView(
                         children: [
-                          SizedBox(height: getSize(context) / 3.5),
+                          SizedBox(height: getSize(context) / 3),
                           Container(
                               child: NoDataWidget(
                                   onclick: () {

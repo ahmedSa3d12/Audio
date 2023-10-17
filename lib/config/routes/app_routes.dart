@@ -136,7 +136,6 @@ class AppRoutes {
         );
       case Routes.paperdetialsexamRegisterRoute:
         PaperExam paperExamModel = settings.arguments as PaperExam;
-
         return MaterialPageRoute(
           builder: (context) =>
               PaperDetailsExmRegisterPage(paperExamModel: paperExamModel),

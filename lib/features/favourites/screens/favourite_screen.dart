@@ -43,68 +43,78 @@ class _FavouriteScreenState extends State<FavouriteScreen>
             toolbarHeight: 0,
           ),
           body: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Stack(
+              // alignment: Alignment.center,
               children: [
-                HomePageAppBarWidget(
-                  isFavourite: true,
-                  isHome: false,
-                ),
-                TitleWithCircleBackgroundWidget(
-                  title: 'favourite'.tr(),
-                  width: double.infinity,
-                ),
-                SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ...List.generate(
-                          titles.length,
-                          (index) => Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: InkWell(
-                              onTap: () {
-                                cubit.selectTap(index);
-                                print('................................');
-                                print(cubit.currentIndex);
-                                print('................................');
-                                tabController.animateTo(index);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: getSize(context) / 7,
-                                  vertical: 10,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: cubit.currentIndex == index
-                                      ? AppColors.orangeThirdPrimary
-                                      : AppColors.unselectedTabColor,
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    titles[index],
-                                    style: TextStyle(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: getSize(context) / 3),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: getSize(context) / 32),
+                      child: TitleWithCircleBackgroundWidget(
+                        title: 'favourite'.tr(),
+                        width: double.infinity,
+                      ),
+                    ),
+                    SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            ...List.generate(
+                              titles.length,
+                              (index) => Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: InkWell(
+                                  onTap: () {
+                                    cubit.selectTap(index);
+                                    print('................................');
+                                    print(cubit.currentIndex);
+                                    print('................................');
+                                    tabController.animateTo(index);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: getSize(context) / 7,
+                                      vertical: 10,
+                                    ),
+                                    decoration: BoxDecoration(
                                       color: cubit.currentIndex == index
-                                          ? AppColors.white
-                                          : AppColors.black,
-                                      fontSize: getSize(context) / 24,
-                                      fontWeight: FontWeight.bold,
+                                          ? AppColors.orangeThirdPrimary
+                                          : AppColors.unselectedTabColor,
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        titles[index],
+                                        style: TextStyle(
+                                          color: cubit.currentIndex == index
+                                              ? AppColors.white
+                                              : AppColors.black,
+                                          fontSize: getSize(context) / 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                        )
-                      ],
-                    )),
-                Flexible(
-                    child: TabBarView(
-                  controller: tabController,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: [videosScreen(), ExamsScreen()],
-                ))
+                            )
+                          ],
+                        )),
+                    Flexible(
+                        child: TabBarView(
+                      controller: tabController,
+                      physics: NeverScrollableScrollPhysics(),
+                      children: [videosScreen(), ExamsScreen()],
+                    ))
+                  ],
+                ),
+                HomePageAppBarWidget(
+                  isFavourite: true,
+                  isHome: false,
+                ),
               ],
             ),
           ),

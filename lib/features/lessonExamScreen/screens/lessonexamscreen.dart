@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_mazoon/config/routes/app_routes.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/widgets/music_animation.dart';
-import 'package:new_mazoon/features/homePage/widget/home_page_app_bar_widget.dart';
 import '../../../core/models/applylessonexammodel.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/audio_player_widget.dart';
@@ -760,18 +757,13 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                                         width: getSize(context) /
                                                                             88,
                                                                       ),
-                                                                      Text(
-                                                                          cubit
-                                                                              .questionOfLessonData!
-                                                                              .questions[
-                                                                                  index]
-                                                                              .answers[
-                                                                                  index2]
-                                                                              .answer,
-                                                                          style: TextStyle(
-                                                                              fontSize: getSize(context) / 24,
-                                                                              fontWeight: FontWeight.w900,
-                                                                              color: AppColors.black)),
+                                                                      Flexible(
+                                                                        fit: FlexFit
+                                                                            .tight,
+                                                                        child: Text(
+                                                                            cubit.questionOfLessonData!.questions[index].answers[index2].answer,
+                                                                            style: TextStyle(fontSize: getSize(context) / 24, fontWeight: FontWeight.w900, color: AppColors.black)),
+                                                                      ),
                                                                     ],
                                                                   ),
                                                                 ));
