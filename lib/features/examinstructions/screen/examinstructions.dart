@@ -172,7 +172,8 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                       ),
                                               ),
                                               SizedBox(width: 16),
-                                              Expanded(
+                                              Flexible(
+                                                fit: FlexFit.tight,
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
@@ -183,7 +184,9 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                       style: TextStyle(
                                                           color:
                                                               AppColors.black,
-                                                          fontSize: 16,
+                                                          fontSize:
+                                                              getSize(context) /
+                                                                  28,
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
@@ -221,10 +224,12 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                                   color:
                                                                       AppColors
                                                                           .black,
-                                                                  fontSize: 10,
+                                                                  fontSize:
+                                                                      getSize(context) /
+                                                                          32,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .bold),
+                                                                          .w400),
                                                             ),
                                                           ),
                                                           Row(
@@ -235,7 +240,9 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                                   imageColor:
                                                                       AppColors
                                                                           .blue,
-                                                                  size: 20),
+                                                                  size: getSize(
+                                                                          context) /
+                                                                      22),
                                                               SizedBox(
                                                                 width: 3,
                                                               ),
@@ -251,7 +258,8 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                                         AppColors
                                                                             .blue,
                                                                     fontSize:
-                                                                        10,
+                                                                        getSize(context) /
+                                                                            32,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold),
@@ -267,8 +275,8 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                 ),
                                               ),
                                               Container(
-                                                width: 90,
-                                                height: 90,
+                                                width: getSize(context) / 4,
+                                                height: getSize(context) / 4,
                                                 child: SfCircularChart(
                                                   palette: [AppColors.blue],
                                                   annotations: <CircularChartAnnotation>[
@@ -350,7 +358,9 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                               .timeIcon,
                                                           imageColor:
                                                               AppColors.blue,
-                                                          size: 20),
+                                                          size:
+                                                              getSize(context) /
+                                                                  22),
                                                       SizedBox(
                                                         width: 3,
                                                       ),

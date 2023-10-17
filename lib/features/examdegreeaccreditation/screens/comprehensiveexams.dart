@@ -28,7 +28,7 @@ class _ComprehensiveExamGradeAccreditionState
     super.initState();
   }
 
-  bool isLoading = false;
+  bool isLoading = true;
 
   @override
   Widget build(BuildContext context) {

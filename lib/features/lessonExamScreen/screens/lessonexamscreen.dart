@@ -757,18 +757,13 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                                         width: getSize(context) /
                                                                             88,
                                                                       ),
-                                                                      Text(
-                                                                          cubit
-                                                                              .questionOfLessonData!
-                                                                              .questions[
-                                                                                  index]
-                                                                              .answers[
-                                                                                  index2]
-                                                                              .answer,
-                                                                          style: TextStyle(
-                                                                              fontSize: getSize(context) / 24,
-                                                                              fontWeight: FontWeight.w900,
-                                                                              color: AppColors.black)),
+                                                                      Flexible(
+                                                                        fit: FlexFit
+                                                                            .tight,
+                                                                        child: Text(
+                                                                            cubit.questionOfLessonData!.questions[index].answers[index2].answer,
+                                                                            style: TextStyle(fontSize: getSize(context) / 24, fontWeight: FontWeight.w900, color: AppColors.black)),
+                                                                      ),
                                                                     ],
                                                                   ),
                                                                 ));

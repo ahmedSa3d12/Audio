@@ -65,14 +65,21 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
       (r) {
         if (r.code == 200) {
           responseOfApplyLessonExmamData = r.data;
+          print(r.data.degree);
+          print('.................................');
           Navigator.pushReplacementNamed(
               context, arguments: r.data, Routes.resultOfLessonExam);
           details.clear();
           toastMessage(r.message, context);
+        } else if (r.code == 415) {
+          toastMessage(r.message, context);
+          Navigator.pop(context);
         } else if (r.code == 416) {
           toastMessage(r.message, context);
+          Navigator.pop(context);
         } else {
           toastMessage(r.message, context);
+          Navigator.pop(context);
         }
         emit(LoadedApplyLessonExam());
       },
@@ -158,9 +165,14 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
         lessonId: lessonId, exam_type: exam_type);
 
     response.fold((l) => emit(ErrorAppendLessonExam()), (r) {
-      toastMessage(r.message, context);
-      Navigator.pop(context);
-      Navigator.pushReplacementNamed(context, Routes.myGradeAndRating);
+      if (r.code == 200) {
+        toastMessage(r.message, context);
+        Navigator.pop(context);
+        Navigator.pushReplacementNamed(context, Routes.myGradeAndRating);
+      } else {
+        Navigator.pop(context);
+        toastMessage(r.message, context);
+      }
 //nav
       emit(LoadedAppendLessonExam());
     });
@@ -178,7 +190,7 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
     final response =
         await api.tryAtEndOfExam(lessonId: lessonId, time: time, type: type);
     response.fold((l) => emit(ErrorAddNewtryExamLessonExam()), (r) {
-      toastMessage(r.message, context);
+      // toastMessage(r.message, context);
 //nav
       emit(LoadedAddNewtryExamLessonExam());
     });
