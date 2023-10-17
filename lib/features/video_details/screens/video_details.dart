@@ -36,16 +36,16 @@ class VideoDetails extends StatefulWidget {
 }
 
 class _VideoDetailsState extends State<VideoDetails> {
-  GlobalKey _one = GlobalKey();
-  GlobalKey _two = GlobalKey();
+  final GlobalKey _one = GlobalKey();
+  final GlobalKey _two = GlobalKey();
   @override
   void initState() {
+    super.initState();
     context.read<VideoDetailsCubit>().getDirectionPath();
     context.read<VideoDetailsCubit>().videoModel = null;
     context
         .read<VideoDetailsCubit>()
         .getVideoDetails(widget.videoId!, widget.type!);
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _isFirstLanuch().then((value) {
         if (value) {
@@ -53,7 +53,6 @@ class _VideoDetailsState extends State<VideoDetails> {
         }
       });
     });
-    super.initState();
   }
 
   @override
@@ -70,10 +69,6 @@ class _VideoDetailsState extends State<VideoDetails> {
 
   @override
   Widget build(BuildContext context) {
-    ///////////
-
-    /////////
-
     return BlocBuilder<LessonsClassCubit, LessonsClassState>(
         builder: (context, state) {
       return BlocBuilder<HomePageCubit, HomePageState>(

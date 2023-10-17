@@ -18,6 +18,7 @@ import 'core/utils/app_colors.dart';
 import 'core/utils/restart_app_class.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'firebase_options.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 //call MakeYourExam before apply exam
 //make exam
@@ -77,16 +78,18 @@ Future<void> main() async {
   await injector.setup();
   Bloc.observer = AppBlocObserver();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  runApp(
-    EasyLocalization(
-      supportedLocales: [Locale('ar', ''), Locale('en', '')],
-      path: 'assets/lang',
-      saveLocale: true,
-      startLocale: Locale('ar', ''),
-      fallbackLocale: Locale('ar', ''),
-      child: HotRestartController(child: const Elmazoon()),
-    ),
-  );
+  runApp(ShowCaseWidget(
+    builder: Builder(builder: (context) {
+      return EasyLocalization(
+        supportedLocales: [Locale('ar', ''), Locale('en', '')],
+        path: 'assets/lang',
+        saveLocale: true,
+        startLocale: Locale('ar', ''),
+        fallbackLocale: Locale('ar', ''),
+        child: HotRestartController(child: const Elmazoon()),
+      );
+    }),
+  ));
 }
 
 void getToken() async {
@@ -105,7 +108,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   print("Handling a background message:");
-
   AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');
   final DarwinInitializationSettings initializationSettingsDarwin =
