@@ -31,55 +31,62 @@ class ClassesScreen extends StatelessWidget {
           );
         }
 
-        return RefreshIndicator(
-          onRefresh: () async {
-            cubit.getExplanationData();
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: cubit.classesData.length,
-              itemBuilder: (BuildContext context, int index) {
-                print(cubit.classesData[index].totalTimes);
-                return InkWell(
-                  onTap: () {
-                    if (cubit.classesData[index].status == 'lock') {
-                      toastMessage(
-                        'open_class'.tr(),
-                        context,
-                        color: AppColors.error,
-                      );
-                    } else {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LessonsClassScreen(
-                            classId: cubit.classesData[index].id!,
-                          ),
+        return cubit.classesData.isEmpty
+            ? Center(
+                child: Text('no_date'.tr()),
+              )
+            : RefreshIndicator(
+                onRefresh: () async {
+                  cubit.getExplanationData();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: cubit.classesData.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      print(cubit.classesData[index].totalTimes);
+                      return InkWell(
+                        onTap: () {
+                          if (cubit.classesData[index].status == 'lock') {
+                            toastMessage(
+                              'open_class'.tr(),
+                              context,
+                              color: AppColors.error,
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LessonsClassScreen(
+                                  classId: cubit.classesData[index].id!,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        child: ItemOfOneClassWidget(
+                          classId: cubit.classesData[index].id!,
+                          classNum: cubit.classesData[index].title!,
+                          classTitle: cubit.classesData[index].name!,
+                          classPresentFinished:
+                              cubit.classesData[index].totalWatch.toString(),
+                          lessonNum:
+                              cubit.classesData[index].numOfLessons.toString(),
+                          videoNum:
+                              cubit.classesData[index].numOfVideos.toString(),
+                          hourNum:
+                              cubit.classesData[index].totalTimes.toString(),
+                          mainColor: HexColor(
+                              cubit.classesData[index].backgroundColor!),
+                          imagePath: cubit.classesData[index].image!,
+                          status: cubit.classesData[index].status!,
                         ),
                       );
-                    }
-                  },
-                  child: ItemOfOneClassWidget(
-                    classId: cubit.classesData[index].id!,
-                    classNum: cubit.classesData[index].title!,
-                    classTitle: cubit.classesData[index].name!,
-                    classPresentFinished:
-                        cubit.classesData[index].totalWatch.toString(),
-                    lessonNum: cubit.classesData[index].numOfLessons.toString(),
-                    videoNum: cubit.classesData[index].numOfVideos.toString(),
-                    hourNum: cubit.classesData[index].totalTimes.toString(),
-                    mainColor:
-                        HexColor(cubit.classesData[index].backgroundColor!),
-                    imagePath: cubit.classesData[index].image!,
-                    status: cubit.classesData[index].status!,
+                    },
                   ),
-                );
-              },
-            ),
-          ),
-        );
+                ),
+              );
       },
     );
   }
