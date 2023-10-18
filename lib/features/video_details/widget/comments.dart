@@ -113,20 +113,24 @@ class _CommentsState extends State<Comments> {
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
-                                                    Text(
-                                                      cubit.comments!.data
-                                                          .elementAt(index)
-                                                          .user
-                                                          .name,
-                                                      overflow:
-                                                          TextOverflow.clip,
-                                                      maxLines: 1,
-                                                      style: TextStyle(
-                                                          color:
-                                                              AppColors.blue3,
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w700),
+                                                    Flexible(
+                                                      fit: FlexFit.tight,
+                                                      child: Text(
+                                                        cubit.comments!.data
+                                                            .elementAt(index)
+                                                            .user
+                                                            .name,
+                                                        overflow:
+                                                            TextOverflow.clip,
+                                                        maxLines: 1,
+                                                        style: TextStyle(
+                                                            color:
+                                                                AppColors.blue3,
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w700),
+                                                      ),
                                                     ),
                                                     Align(
                                                         alignment:
