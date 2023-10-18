@@ -39,7 +39,7 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
           body: isLoading
               ? Center(child: ShowLoadingIndicator())
               : cubit.videosofLessons.isEmpty
-                  ? Center(child: Text('_'))
+                  ? Center(child: ShowLoadingIndicator())
                   : RefreshIndicator(
                       onRefresh: () async {
                         cubit.videosofLessons = [];

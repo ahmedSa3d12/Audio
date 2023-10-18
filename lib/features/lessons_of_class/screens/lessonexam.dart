@@ -9,6 +9,7 @@ import '../../../core/models/lessons_model.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/utils/getsize.dart';
 import '../../../core/widgets/pdf_screen.dart';
+import '../../../core/widgets/show_loading_indicator.dart';
 import '../../examinstructions/cubit/examinstructions_cubit.dart';
 import '../cubit/lessons_class_cubit.dart';
 import '../cubit/lessons_class_state.dart';
@@ -70,12 +71,7 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                         ),
                       )
                     : cubit.examsofLessons.isEmpty
-                        ? Center(
-                            child: Text(
-                              'no_data'.tr(),
-                              style: TextStyle(fontSize: getSize(context) / 22),
-                            ),
-                          )
+                        ? Center(child: ShowLoadingIndicator())
                         : Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 8.0),
