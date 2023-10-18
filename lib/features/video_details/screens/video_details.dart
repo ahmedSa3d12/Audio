@@ -71,6 +71,8 @@ class _VideoDetailsState extends State<VideoDetails> {
   Widget build(BuildContext context) {
     return BlocBuilder<LessonsClassCubit, LessonsClassState>(
         builder: (context, state) {
+      LessonsClassCubit cubit2 = context.read<LessonsClassCubit>();
+
       return BlocBuilder<HomePageCubit, HomePageState>(
         builder: (context, state) {
           var controller = context.read<HomePageCubit>();
@@ -93,17 +95,10 @@ class _VideoDetailsState extends State<VideoDetails> {
                   onWillPop: () async {
                     if (widget.type == 'video_part') {
                       cubit.updateTime(context);
-                      context.read<LessonsClassCubit>().videosofLessons = [];
-                      context
-                          .read<LessonsClassCubit>()
-                          .getVideosofLessonsData(cubit.lessonId);
-                      context.read<LessonsClassCubit>().getLessonsClassData(
-                          context.read<LessonsClassCubit>().oneClass!.id!,
-                          cubit.lessonId,
-                          context,
-                          false,
-                          false,
-                          false);
+                      cubit2.videosofLessons = [];
+                      cubit2.getVideosofLessonsData(cubit.lessonId);
+                      cubit2.getLessonsClassData(cubit2.oneClass!.id!,
+                          cubit.lessonId, context, false, false, false);
                     }
 
                     cubit.stopRecord();
@@ -119,28 +114,19 @@ class _VideoDetailsState extends State<VideoDetails> {
                                 onPressed: () async {
                                   if (widget.type == 'video_part') {
                                     cubit.updateTime(context);
-                                    context
-                                        .read<LessonsClassCubit>()
-                                        .videosofLessons = [];
-                                    context
-                                        .read<LessonsClassCubit>()
+                                    cubit2.videosofLessons = [];
+                                    cubit.stopRecord();
+                                    Navigator.pop(context);
+                                    cubit2
                                         .getVideosofLessonsData(cubit.lessonId);
-                                    context
-                                        .read<LessonsClassCubit>()
-                                        .getLessonsClassData(
-                                            context
-                                                .read<LessonsClassCubit>()
-                                                .oneClass!
-                                                .id!,
-                                            cubit.lessonId,
-                                            context,
-                                            false,
-                                            false,
-                                            false);
+                                    cubit2.getLessonsClassData(
+                                        cubit2.oneClass!.id!,
+                                        cubit.lessonId,
+                                        context,
+                                        false,
+                                        false,
+                                        false);
                                   }
-
-                                  cubit.stopRecord();
-                                  Navigator.pop(context);
                                 },
                                 icon: Icon(Icons.arrow_back_ios)),
                             backgroundColor: AppColors.primary,
