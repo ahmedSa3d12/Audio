@@ -52,8 +52,11 @@ class ExamsScreen extends StatelessWidget {
                 return InkWell(
                   onTap: () {
                     if (cubit.allFavourite?.data.allExamFavorites![index]
-                            .examType ==
-                        'online') {
+                                .examType ==
+                            'online' ||
+                        cubit.allFavourite?.data.allExamFavorites![index]
+                                .examType ==
+                            'all_exam') {
                       context.read<ExaminstructionsCubit>().examInstructions(
                           cubit.allFavourite!.data.allExamFavorites![index]
                               .examId,

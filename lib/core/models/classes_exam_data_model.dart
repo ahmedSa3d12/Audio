@@ -40,6 +40,7 @@ class ClassesExamDatumModel {
   final int? id;
   final String? name;
   final String? type;
+  final String? examType;
   final String? backgroundColor;
   String? examsFavorite;
   final dynamic pdfExamUpload;
@@ -54,6 +55,7 @@ class ClassesExamDatumModel {
 
   ClassesExamDatumModel({
     this.id,
+    this.examType,
     this.name,
     this.type,
     this.backgroundColor,
@@ -72,6 +74,7 @@ class ClassesExamDatumModel {
       ClassesExamDatumModel(
         id: json["id"],
         name: json["name"],
+        examType: json['exam_type'],
         type: json["type"],
         backgroundColor: json["background_color"],
         examsFavorite: json["exams_favorite"],
@@ -88,6 +91,7 @@ class ClassesExamDatumModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
+        "exam_type": examType,
         "type": type,
         "background_color": backgroundColor,
         "exams_favorite": examsFavorite,

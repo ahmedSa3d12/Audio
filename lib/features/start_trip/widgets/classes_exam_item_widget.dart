@@ -127,9 +127,9 @@ class ClassesExamItemWidget extends StatelessWidget {
                                           HexColor(model.backgroundColor!),
                                       onclick: () {
                                         cubit.favourite(
-                                            model.type == 'all_exam'
-                                                ? 'all_exam'
-                                                : 'online_exam',
+                                            model.examType == 'online'
+                                                ? "online_exam"
+                                                : "all_exam",
                                             model.examsFavorite == 'un_favorite'
                                                 ? 'favorite'
                                                 : 'un_favorite',
