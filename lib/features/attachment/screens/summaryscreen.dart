@@ -36,7 +36,11 @@ class _SummaryScreenState extends State<SummaryScreen> {
 
         return isLoading
             ? Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
+            :  cubit.pdfLessonData.isEmpty
+                ? Center(
+                    child: Text('no_data'.tr()),
+                  )
+                :SingleChildScrollView(
                 child: Column(
                   children: [
                     Container(
