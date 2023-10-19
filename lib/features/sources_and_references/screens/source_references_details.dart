@@ -17,7 +17,6 @@ import '../../../core/widgets/pdf_screen.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 import '../../start_trip/widgets/expansion_tile_widget.dart';
 import '../widgets/source_references_details_item_widget.dart';
-import 'video_view.dart';
 
 class SourceReferencesDetails extends StatelessWidget {
   SourceReferencesDetails({Key? key}) : super(key: key);
@@ -48,7 +47,6 @@ class SourceReferencesDetails extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           print(cubit.referenceModel.filePath);
-                          print('0.....................');
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -122,7 +120,8 @@ class SourceReferencesDetails extends StatelessWidget {
                                                 ),
                                               ),
                                       ),
-                                Expanded(
+                                Flexible(
+                                  fit: FlexFit.tight,
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Column(
@@ -132,8 +131,8 @@ class SourceReferencesDetails extends StatelessWidget {
                                         Text(
                                           'click_to_download'.tr(),
                                           style: TextStyle(
-                                            color: AppColors.white,
-                                          ),
+                                              color: AppColors.white,
+                                              fontSize: getSize(context) / 22),
                                         ),
                                         Text(
                                           changeToMegaByte(
@@ -141,8 +140,8 @@ class SourceReferencesDetails extends StatelessWidget {
                                           ),
                                           textDirection: TextDirection.ltr,
                                           style: TextStyle(
-                                            color: AppColors.white,
-                                          ),
+                                              color: AppColors.white,
+                                              fontSize: getSize(context) / 24),
                                         ),
                                       ],
                                     ),
@@ -155,7 +154,7 @@ class SourceReferencesDetails extends StatelessWidget {
                                     ManageNetworkImage(
                                       imageUrl: cubit.referenceModel.icon!,
                                       height: getSize(context) / 6,
-                                      width: getSize(context) / 4,
+                                      width: getSize(context) / 3,
                                       borderRadius: 8,
                                     ),
                                   ],
