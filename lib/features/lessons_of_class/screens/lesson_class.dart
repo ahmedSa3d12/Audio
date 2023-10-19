@@ -32,7 +32,6 @@ class _LessonsClassScreenState extends State<LessonsClassScreen> {
     context
         .read<LessonsClassCubit>()
         .getLessonsClassData(widget.classId, 1, context, false, false, false);
-
     context.read<HomePageCubit>().openFirstClass(widget.classId);
   }
 
