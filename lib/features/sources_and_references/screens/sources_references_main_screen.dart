@@ -57,26 +57,30 @@ class SourcesAndReferencesMainScreen extends StatelessWidget {
                     }
                     print('cubit.sourcesReferencesList.length');
                     print(cubit.sourcesReferencesList.length);
-                    return Column(
-                      children: [
-                        ...List.generate(
-                          cubit.sourcesReferencesList.length,
-                          (index) => InkWell(
-                            onTap: () {
-                              cubit.referenceModel =
-                                  cubit.sourcesReferencesList[index];
-                              Navigator.pushNamed(
-                                context,
-                                Routes.sourceReferencesDetailsRoute,
-                              );
-                            },
-                            child: MainScreenItemWidget(
-                              model: cubit.sourcesReferencesList[index],
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
+                    return cubit.sourcesReferencesList.isEmpty
+                        ? Center(
+                            child: Text('no_data'.tr()),
+                          )
+                        : Column(
+                            children: [
+                              ...List.generate(
+                                cubit.sourcesReferencesList.length,
+                                (index) => InkWell(
+                                  onTap: () {
+                                    cubit.referenceModel =
+                                        cubit.sourcesReferencesList[index];
+                                    Navigator.pushNamed(
+                                      context,
+                                      Routes.sourceReferencesDetailsRoute,
+                                    );
+                                  },
+                                  child: MainScreenItemWidget(
+                                    model: cubit.sourcesReferencesList[index],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
                   },
                 ),
               ],
