@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
 import '../../features/video_details/cubit/video_details_cubit.dart';
 
 ///https://www.youtube.com/watch?v=ODoquUbOXxw
@@ -35,8 +33,10 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
       initialVideoId: id,
       flags: YoutubePlayerFlags(
         autoPlay: false,
+        // forceHD: true,
         mute: false,
         loop: false,
+        hideThumbnail: true,
       ),
     );
     youtubePlayer = YoutubePlayer(
