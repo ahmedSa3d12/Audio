@@ -35,9 +35,12 @@ class _LessonDetailsState extends State<LessonDetails>
     _tabController = TabController(length: titles.length, vsync: this);
     _tabController.animateTo(context.read<LessonsClassCubit>().currentIndex);
     //get data and open first lesson video
+
+    BlocProvider.of<LessonsClassCubit>(context).videosofLessons = [];
     BlocProvider.of<LessonsClassCubit>(context)
         .getVideosofLessonsData(widget.model.id!);
     //need handle in UI
+    context.read<LessonsClassCubit>().examsofLessons = [];
     BlocProvider.of<LessonsClassCubit>(context)
         .getExamsofLessonsData(widget.model.id!);
   }
