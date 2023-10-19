@@ -94,15 +94,15 @@ class _VideoDetailsState extends State<VideoDetails> {
                 return WillPopScope(
                   onWillPop: () async {
                     if (widget.type == 'video_part') {
-                      cubit.updateTime(context);
-                      cubit2.videosofLessons = [];
-                      cubit2.getVideosofLessonsData(cubit.lessonId);
-                      cubit2.getLessonsClassData(cubit2.oneClass!.id!,
-                          cubit.lessonId, context, false, false, false);
+                      cubit.updateTime(context).then((value) {
+                        Navigator.pop(context);
+                        cubit2.videosofLessons = [];
+                        cubit.stopRecord();
+                        cubit2.getVideosofLessonsData(cubit.lessonId);
+                        cubit2.getLessonsClassData(cubit2.oneClass!.id!,
+                            cubit.lessonId, context, false, false, false);
+                      });
                     }
-
-                    cubit.stopRecord();
-                    Navigator.pop(context);
                     return Future(() => true);
                   },
                   child: Scaffold(
@@ -113,19 +113,20 @@ class _VideoDetailsState extends State<VideoDetails> {
                             leading: IconButton(
                                 onPressed: () async {
                                   if (widget.type == 'video_part') {
-                                    cubit.updateTime(context);
-                                    cubit2.videosofLessons = [];
-                                    cubit.stopRecord();
-                                    Navigator.pop(context);
-                                    cubit2
-                                        .getVideosofLessonsData(cubit.lessonId);
-                                    cubit2.getLessonsClassData(
-                                        cubit2.oneClass!.id!,
-                                        cubit.lessonId,
-                                        context,
-                                        false,
-                                        false,
-                                        false);
+                                    cubit.updateTime(context).then((value) {
+                                      Navigator.pop(context);
+                                      cubit2.videosofLessons = [];
+                                      cubit.stopRecord();
+                                      cubit2.getVideosofLessonsData(
+                                          cubit.lessonId);
+                                      cubit2.getLessonsClassData(
+                                          cubit2.oneClass!.id!,
+                                          cubit.lessonId,
+                                          context,
+                                          false,
+                                          false,
+                                          false);
+                                    });
                                   }
                                 },
                                 icon: Icon(Icons.arrow_back_ios)),
