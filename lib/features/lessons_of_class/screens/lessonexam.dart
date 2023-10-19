@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/utils/dialogs.dart';
-
 import '../../../config/routes/app_routes.dart';
 import '../../../core/models/lessons_model.dart';
 import '../../../core/utils/assets_manager.dart';
-import '../../../core/utils/getsize.dart';
 import '../../../core/widgets/pdf_screen.dart';
-import '../../../core/widgets/show_loading_indicator.dart';
 import '../../examinstructions/cubit/examinstructions_cubit.dart';
 import '../cubit/lessons_class_cubit.dart';
 import '../cubit/lessons_class_state.dart';
@@ -24,7 +21,7 @@ class LessonExamScreen extends StatefulWidget {
 }
 
 class _LessonExamScreenState extends State<LessonExamScreen> {
-  bool isloading = false;
+  bool isloading = true;
   @override
   void initState() {
     context.read<LessonsClassCubit>().getExamsofLessonsData(widget.model.id!);
@@ -70,64 +67,61 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                           ),
                         ),
                       )
-                    : cubit.examsofLessons.isEmpty
-                        ? Center(child: ShowLoadingIndicator())
-                        : Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: GridView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                childAspectRatio: 0.70,
-                                mainAxisSpacing: 12,
-                                crossAxisSpacing: 20,
-                                crossAxisCount: 2,
-                              ),
-                              itemCount: cubit.examsofLessons.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return InkWell(
-                                  onTap: () {
-                                    if (cubit.examsofLessons[index].type ==
-                                        'online') {
-                                      context
-                                          .read<ExaminstructionsCubit>()
-                                          .examInstructions(
-                                              cubit.examsofLessons[index].id,
-                                              "online_exam");
-                                      Navigator.pushNamed(
-                                          context, Routes.examInstructionsRoute,
-                                          arguments: [
-                                            cubit.examsofLessons[index].id,
-                                            "lesson"
-                                          ]);
-                                    } else if (cubit.examsofLessons[index]
-                                            .answerPdfFile ==
-                                        null) {
-                                      errorGetBar('no_date'.tr());
-                                    } else {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => PdfScreen(
-                                            pdfTitle: cubit
-                                                .examsofLessons[index].name,
-                                            pdfLink: cubit.examsofLessons[index]
-                                                .pdfExamUpload!,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                  },
-                                  child: LessonsExamItemWidget(
-                                    index: index,
-                                    model: cubit.examsofLessons[index],
-                                  ),
-                                );
-                              },
-                            ),
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            childAspectRatio: 0.70,
+                            mainAxisSpacing: 12,
+                            crossAxisSpacing: 20,
+                            crossAxisCount: 2,
                           ),
+                          itemCount: cubit.examsofLessons.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return InkWell(
+                              onTap: () {
+                                if (cubit.examsofLessons[index].type ==
+                                    'online') {
+                                  context
+                                      .read<ExaminstructionsCubit>()
+                                      .examInstructions(
+                                          cubit.examsofLessons[index].id,
+                                          "online_exam");
+                                  Navigator.pushNamed(
+                                      context, Routes.examInstructionsRoute,
+                                      arguments: [
+                                        cubit.examsofLessons[index].id,
+                                        "lesson"
+                                      ]);
+                                } else if (cubit
+                                        .examsofLessons[index].answerPdfFile ==
+                                    null) {
+                                  errorGetBar('no_date'.tr());
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PdfScreen(
+                                        pdfTitle:
+                                            cubit.examsofLessons[index].name,
+                                        pdfLink: cubit.examsofLessons[index]
+                                            .pdfExamUpload!,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              child: LessonsExamItemWidget(
+                                index: index,
+                                model: cubit.examsofLessons[index],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
               ],
             ),
           ),
