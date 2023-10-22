@@ -102,11 +102,11 @@ class _VideoDetailsState extends State<VideoDetails> {
                             cubit.lessonId, context, false, false, false);
                       });
                     } else {
-                      Navigator.pop(context);
                       cubit2.videosofLessons = [];
                       cubit.stopRecord();
+                      Navigator.pop(context);
                     }
-                    return Future(() => true);
+                    return Future(() => false);
                   },
                   child: Scaffold(
                     appBar: MediaQuery.of(context).orientation ==
