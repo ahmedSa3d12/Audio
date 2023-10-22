@@ -3,7 +3,6 @@ import 'package:audioplayers/audioplayers.dart' as ap;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
-import 'package:siri_wave/siri_wave.dart';
 import '../../../core/utils/app_colors.dart';
 
 class AudioPlayer2 extends StatefulWidget {

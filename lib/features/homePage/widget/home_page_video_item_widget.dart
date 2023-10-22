@@ -9,6 +9,7 @@ import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/assets_manager.dart';
 import '../../../../core/widgets/my_svg_widget.dart';
 import '../../../core/widgets/title_with_circle_background_widget.dart';
+import '../../lessons_of_class/widgets/time.dart';
 
 class HomePageVideoWidget extends StatelessWidget {
   const HomePageVideoWidget(
@@ -81,8 +82,8 @@ class HomePageVideoWidget extends StatelessWidget {
                               ),
                               Flexible(
                                 child: Text(
-                                  '${videosBasics[index].time!} ' +
-                                      'hours'.tr(),
+                                  myTime(videosBasics[index].time!),
+                                  // 'hours'.tr(),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
