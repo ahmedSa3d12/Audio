@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -131,27 +132,6 @@ class FavExamItemWidget extends StatelessWidget {
                                     ),
                                   )
                                 : SizedBox(),
-                            // Expanded(
-                            //   flex: 1,
-                            //   child: ClassExamIconWidget(
-                            //     radius: 1000,
-                            //     type: ImageAssets.loveIcon,
-                            //     iconLoveColor:
-                            //         model.examsFavorite == 'un_favorite'
-                            //             ? AppColors.white
-                            //             : AppColors.red,
-                            //     iconColor: HexColor(model.backgroundColor!),
-                            //     onclick: () {
-                            //       cubit.favourite(
-                            //           'online_exam',
-                            //           model.examsFavorite == 'un_favorite'
-                            //               ? 'favorite'
-                            //               : 'un_favorite',
-                            //           model.id!,
-                            //           index);
-                            //     },
-                            //   ),
-                            // ),
                             model.answerPdfFile == null
                                 ? Container()
                                 : Expanded(
@@ -167,7 +147,8 @@ class FavExamItemWidget extends StatelessWidget {
                                                 builder: (context) => PdfScreen(
                                                       pdfLink:
                                                           model.answerPdfFile!,
-                                                      pdfTitle: model.name,
+                                                      pdfTitle:
+                                                          'model_answer'.tr(),
                                                     )));
                                       },
                                     ),

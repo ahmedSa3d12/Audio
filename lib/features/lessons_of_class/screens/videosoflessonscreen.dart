@@ -12,6 +12,7 @@ import '../../../core/widgets/my_svg_widget.dart';
 import '../../../core/widgets/show_loading_indicator.dart';
 import '../cubit/lessons_class_cubit.dart';
 import '../cubit/lessons_class_state.dart';
+import '../widgets/time.dart';
 
 ///الشرح الخاص بالدروس need make get data
 class VideoLessonScreen extends StatefulWidget {
@@ -92,8 +93,7 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                             style: TextStyle(
                                                 fontSize: getSize(context) / 22,
                                                 fontWeight: FontWeight.w700,
-                                                color: AppColors
-                                                    .unselectedTabColor),
+                                                color: AppColors.gray4),
                                           ),
                                         ),
                                         Stack(
@@ -134,8 +134,9 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                                 padding: EdgeInsets.all(
                                                     getSize(context) / 100),
                                                 child: Text(
-                                                  cubit.videosofLessons[index]
-                                                      .videoMinutes,
+                                                  myTime(cubit
+                                                      .videosofLessons[index]
+                                                      .videoMinutes),
                                                   style: TextStyle(
                                                       color: AppColors.white,
                                                       fontSize:
