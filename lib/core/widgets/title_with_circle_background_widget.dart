@@ -32,7 +32,7 @@ class TitleWithCircleBackgroundWidget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 6.0),
                   child: Container(
-                    width: 50,
+                    width: getSize(context) / 12,
                     height: 1,
                     color: AppColors.primary,
                   ),

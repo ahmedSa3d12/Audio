@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
@@ -128,7 +129,7 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                                                   .sourcesReferencesByIdList[
                                                       index]
                                                   .filePathSize!),
-                                              textDirection: TextDirection.ltr,
+                                              // textDirection: TextDirection.ltr,
                                             )
                                           : SizedBox(
                                               height: null,
@@ -258,10 +259,9 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                                                               builder:
                                                                   (context) =>
                                                                       PdfScreen(
-                                                                pdfTitle: cubit
-                                                                    .sourcesReferencesByIdList[
-                                                                        index]
-                                                                    .title!,
+                                                                pdfTitle:
+                                                                    'model_answer'
+                                                                        .tr(),
                                                                 pdfLink: cubit
                                                                     .sourcesReferencesByIdList[
                                                                         index]

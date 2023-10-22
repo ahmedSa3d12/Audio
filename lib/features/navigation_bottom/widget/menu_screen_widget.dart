@@ -56,11 +56,17 @@ class MenuScreenWidget extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SizedBox(height: getSize(context) / 44),
-                                    ManageNetworkImage(
-                                      imageUrl: cubit.userModel!.data!.image,
-                                      width: getSize(context) / 5,
-                                      height: getSize(context) / 5,
-                                      borderRadius: 90,
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, Routes.profileScreen);
+                                      },
+                                      child: ManageNetworkImage(
+                                        imageUrl: cubit.userModel!.data!.image,
+                                        width: getSize(context) / 5,
+                                        height: getSize(context) / 5,
+                                        borderRadius: 90,
+                                      ),
                                     ),
                                     SizedBox(height: getSize(context) / 44),
                                     Padding(
@@ -70,10 +76,12 @@ class MenuScreenWidget extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Align(
+                                          Container(
                                             alignment: lang == 'ar'
                                                 ? Alignment.topRight
                                                 : Alignment.topLeft,
+                                            padding: EdgeInsets.only(
+                                                left: getSize(context) / 5),
                                             child: Text(
                                               cubit.userModel!.data!.name,
                                               maxLines: 1,
@@ -81,7 +89,7 @@ class MenuScreenWidget extends StatelessWidget {
                                               style: TextStyle(
                                                   color: AppColors.white,
                                                   fontSize:
-                                                      getSize(context) / 22,
+                                                      getSize(context) / 24,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
@@ -152,9 +153,8 @@ class LessonsExamItemWidget extends StatelessWidget {
                                                       pdfLink: cubit
                                                           .examsofLessons[index]
                                                           .answerPdfFile,
-                                                      pdfTitle: cubit
-                                                          .examsofLessons[index]
-                                                          .name,
+                                                      pdfTitle:
+                                                          'model_answer'.tr(),
                                                     )));
 
                                         ///open pdf answer

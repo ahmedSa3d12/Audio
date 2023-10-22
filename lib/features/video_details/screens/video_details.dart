@@ -101,6 +101,10 @@ class _VideoDetailsState extends State<VideoDetails> {
                         cubit2.getLessonsClassData(cubit2.oneClass!.id!,
                             cubit.lessonId, context, false, false, false);
                       });
+                    } else {
+                      Navigator.pop(context);
+                      cubit2.videosofLessons = [];
+                      cubit.stopRecord();
                     }
                     return Future(() => true);
                   },
@@ -126,6 +130,10 @@ class _VideoDetailsState extends State<VideoDetails> {
                                           false,
                                           false);
                                     });
+                                  } else {
+                                    cubit2.videosofLessons = [];
+                                    cubit.stopRecord();
+                                    Navigator.pop(context);
                                   }
                                 },
                                 icon: Icon(Icons.arrow_back_ios)),
@@ -175,8 +183,8 @@ class _VideoDetailsState extends State<VideoDetails> {
                                               fit: FlexFit.tight,
                                               child: Text(
                                                 cubit.videoModel!.name,
-                                                maxLines: 2,
-                                                overflow: TextOverflow.clip,
+                                                // maxLines: 2,
+                                                // overflow: TextOverflow.clip,
                                                 style: TextStyle(
                                                   color: AppColors.black,
                                                   fontFamily: 'Cairo',
@@ -198,7 +206,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                width: 7,
+                                                width: 2,
                                               ),
                                               MySvgWidget(
                                                 path: ImageAssets.eyeIcon,
@@ -208,7 +216,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                             ],
                                           )),
                                           SizedBox(
-                                            width: getSize(context) / 14,
+                                            width: getSize(context) / 32,
                                           ),
                                           Container(
                                               child: Row(
@@ -223,7 +231,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                width: 7,
+                                                width: 2,
                                               ),
                                               MySvgWidget(
                                                 path: ImageAssets.like1Icon,

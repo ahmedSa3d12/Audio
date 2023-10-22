@@ -24,7 +24,7 @@ class LessonClassItemWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(8),
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.width / 3.5,
+        height: MediaQuery.of(context).size.width / 2.8,
         decoration: BoxDecoration(
           color: HexColor(model.backgroundColor!),
           borderRadius: BorderRadius.circular(10),
@@ -45,17 +45,18 @@ class LessonClassItemWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: darken(HexColor(model.backgroundColor!), 0.3),
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w800,
                       fontSize: getSize(context) / 24,
                     ),
                   ),
                   Text(
                     model.name!,
-                    maxLines: 2,
+                    maxLines: 4,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: AppColors.grayLite,
-                      fontSize: getSize(context) / 26,
+                      fontWeight: FontWeight.w600,
+                      fontSize: getSize(context) / 24,
                     ),
                   ),
                 ],

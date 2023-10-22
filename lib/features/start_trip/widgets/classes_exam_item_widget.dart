@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -153,7 +154,8 @@ class ClassesExamItemWidget extends StatelessWidget {
                                                 builder: (context) => PdfScreen(
                                                       pdfLink:
                                                           model.answerPdfFile,
-                                                      pdfTitle: model.name!,
+                                                      pdfTitle:
+                                                          'model_answer'.tr(),
                                                     )));
                                       },
                                     ),
