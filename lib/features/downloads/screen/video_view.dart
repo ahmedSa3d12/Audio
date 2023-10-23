@@ -1,10 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
-import 'package:new_mazoon/features/downloads/cubit/downloadsstate.dart';
 
-import '../cubit/downloadscubit.dart';
 import '../widget/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {

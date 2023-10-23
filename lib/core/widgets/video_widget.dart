@@ -1,5 +1,6 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart';
@@ -68,6 +69,10 @@ class _VideoWidgetState extends State<VideoWidget> {
     //     .setduration(_videoPlayerController!.value.duration);
     _videoPlayerController!.dispose();
     // _chewieController!.dispose();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     super.dispose();
   }
 

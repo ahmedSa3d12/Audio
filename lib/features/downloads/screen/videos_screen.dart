@@ -5,9 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/app_colors.dart';
-import 'package:new_mazoon/core/utils/assets_manager.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
-import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 import 'package:new_mazoon/features/downloads/screen/video_view.dart';
 
 import '../cubit/downloadscubit.dart';
