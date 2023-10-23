@@ -1,6 +1,6 @@
 class EndPoints {
   static const String baseUrl =
-      'http://192.168.1.7:8000/api/'; //'https://elmazone.topbusiness.io/api/';
+'https://elmazone.topbusiness.io/api/';
   static const String userUrl = '${baseUrl}auth/login';
   static const String onBoardingUrl = '${baseUrl}on-boarding';
   static const String homePageUrl = '${baseUrl}auth/home-page';
