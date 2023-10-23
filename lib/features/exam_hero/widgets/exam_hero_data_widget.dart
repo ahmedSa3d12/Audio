@@ -12,7 +12,6 @@ import 'order_item_widget.dart';
 
 class ExamHeroDataWidget extends StatelessWidget {
   ExamHeroDataWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ExamHeroCubit, ExamHeroState>(

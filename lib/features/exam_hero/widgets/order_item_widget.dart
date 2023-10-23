@@ -44,23 +44,27 @@ class OrderItemWidget extends StatelessWidget {
                       children: [
                         Text(
                           model.name,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: getSize(context) / 22,
-                            fontWeight: FontWeight.bold,
+                            fontSize: getSize(context) / 28,
+                            fontWeight: FontWeight.w800,
                           ),
                         ),
                         Text(
                           model.country,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: getSize(context) / 22,
-                            fontWeight: FontWeight.bold,
+                            fontSize: getSize(context) / 32,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                         Text(
                           '${model.studentTotalDegrees} / ${model.examsTotalDegree}',
                           style: TextStyle(
                             color: AppColors.orangeThirdPrimary,
-                            fontSize: getSize(context) / 24,
+                            fontSize: getSize(context) / 28,
                           ),
                         ),
                       ],
@@ -90,7 +94,7 @@ class OrderItemWidget extends StatelessWidget {
                 child: Text(
                   model.ordered.toString(),
                   style: TextStyle(
-                      color: AppColors.white, fontSize: getSize(context) / 22),
+                      color: AppColors.white, fontSize: getSize(context) / 24),
                 ),
               ),
             ))
