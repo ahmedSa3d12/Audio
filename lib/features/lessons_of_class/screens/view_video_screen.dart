@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/utils/getsize.dart';
 import '../../../core/widgets/video_widget.dart';
 
 class AnswerVideoViewScreen extends StatefulWidget {
@@ -17,7 +18,10 @@ class _AnswerVideoViewScreenState extends State<AnswerVideoViewScreen> {
     return SafeArea(
       child: Scaffold(
         body: Center(
-          child: VideoWidget(videoLink: widget.videoLink),
+          child: VideoWidget(
+            videoLink: widget.videoLink,
+            isTablet: getSize(context) >= 700 ? true : false,
+          ),
         ),
       ),
     );

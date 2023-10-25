@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../features/video_details/cubit/video_details_cubit.dart';
 
 ///https://www.youtube.com/watch?v=ODoquUbOXxw
 class YoutubeVideoPlayer extends StatefulWidget {
-  YoutubeVideoPlayer({required this.videoLinkId, super.key});
+  YoutubeVideoPlayer(
+      {required this.videoLinkId, required this.isTablet, super.key});
   String videoLinkId;
+  bool isTablet;
   @override
   State<YoutubeVideoPlayer> createState() => _YoutubeVideoPlayerState();
 }
@@ -29,21 +32,24 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
 
   @override
   void initState() {
+    // isTablet = MediaQuery.of(context).size.width >= 700.0;
     id = YoutubePlayer.convertUrlToId(widget.videoLinkId)!;
     _controller = YoutubePlayerController(
       initialVideoId: id,
       flags: YoutubePlayerFlags(
         autoPlay: false,
-        // forceHD: true,
+        forceHD: true,
         mute: false,
         loop: false,
         hideThumbnail: true,
+        hideControls: false,
       ),
     );
     youtubePlayer = YoutubePlayer(
+      actionsPadding: EdgeInsets.zero,
       controller: _controller,
-      aspectRatio: 2.06,
       showVideoProgressIndicator: true,
+      aspectRatio: widget.isTablet ? 16 / 9 : 2.06,
     );
     print('.............................................');
     print(youtubePlayer.controller.value);
@@ -70,11 +76,11 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: YoutubePlayerBuilder(
-        builder: (context, player) => player,
-        player: youtubePlayer,
-      ),
+    return YoutubePlayerBuilder(
+      builder: (context, player) {
+        return player;
+      },
+      player: youtubePlayer,
     );
   }
 }
