@@ -411,7 +411,9 @@ class _CommentsState extends State<Comments> {
     context.read<VideoDetailsCubit>().commentsModel = commentsModel;
 
     git.Get.bottomSheet(
-      Replies(),
+      Replies(
+        loginModel: loginModel,
+      ),
       backgroundColor: Colors.white,
       elevation: 8,
       // shape: RoundedRectangleBorder(
