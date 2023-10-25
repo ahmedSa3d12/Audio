@@ -44,6 +44,7 @@ class ClassesExamDatumModel {
   final String? backgroundColor;
   String? examsFavorite;
   final dynamic pdfExamUpload;
+  final int? youtubeAnswer;
   final dynamic answerPdfFile;
   final dynamic answerVideoFile;
   final int? numOfQuestion;
@@ -60,6 +61,7 @@ class ClassesExamDatumModel {
     this.type,
     this.backgroundColor,
     this.examsFavorite,
+    this.youtubeAnswer,
     this.pdfExamUpload,
     this.answerPdfFile,
     this.answerVideoFile,
@@ -76,6 +78,7 @@ class ClassesExamDatumModel {
         name: json["name"],
         examType: json['exam_type'],
         type: json["type"],
+        youtubeAnswer: json['answer_video_is_youtube'],
         backgroundColor: json["background_color"],
         examsFavorite: json["exams_favorite"],
         pdfExamUpload: json["pdf_exam_upload"],
@@ -99,6 +102,7 @@ class ClassesExamDatumModel {
         "answer_pdf_file": answerPdfFile,
         "answer_video_file": answerVideoFile,
         "num_of_question": numOfQuestion,
+        "answer_video_is_youtube": youtubeAnswer,
         "total_time": totalTime,
         "exam_pdf_size": examPdfSize,
         "answer_pdf_size": answerPdfSize,

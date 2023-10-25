@@ -95,7 +95,6 @@ class LessonsClassCubit extends Cubit<LessonsClassState> {
 
   ///need handle
   List<LessonExamData> examsofLessons = [];
-
   getExamsofLessonsData(int lessonId) async {
     emit(ExamLessonsLoading());
     final response = await api.examOfLessonData(lessonId);

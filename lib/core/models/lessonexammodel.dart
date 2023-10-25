@@ -33,6 +33,7 @@ class LessonExamData {
   dynamic pdfExamUpload;
   dynamic answerPdfFile;
   dynamic answerVideoFile;
+  int youtubeAnswer;
   int? numOfQuestion;
   int totalTime;
   int examPdfSize;
@@ -43,6 +44,7 @@ class LessonExamData {
     required this.id,
     required this.name,
     required this.type,
+    required this.youtubeAnswer,
     required this.backgroundColor,
     required this.examsFavorite,
     this.pdfExamUpload,
@@ -59,6 +61,7 @@ class LessonExamData {
         id: json["id"],
         name: json["name"],
         type: json["type"],
+        youtubeAnswer: json['answer_video_is_youtube'],
         backgroundColor: json["background_color"],
         examsFavorite: json["exams_favorite"],
         pdfExamUpload: json["pdf_exam_upload"],
@@ -78,6 +81,7 @@ class LessonExamData {
         "background_color": backgroundColor,
         "exams_favorite": examsFavorite,
         "pdf_exam_upload": pdfExamUpload,
+        "answer_video_is_youtube": youtubeAnswer,
         "answer_pdf_file": answerPdfFile,
         "answer_video_file": answerVideoFile,
         "num_of_question": numOfQuestion,
