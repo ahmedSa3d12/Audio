@@ -27,9 +27,7 @@ class LessonsExamItemWidget extends StatelessWidget {
     LessonsClassCubit cubit = context.read<LessonsClassCubit>();
     return Card(
       elevation: 5,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Stack(
         children: [
           Column(
@@ -174,6 +172,10 @@ class LessonsExamItemWidget extends StatelessWidget {
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     AnswerVideoViewScreen(
+                                                        isYoutube: cubit
+                                                            .examsofLessons[
+                                                                index]
+                                                            .youtubeAnswer,
                                                         videoLink: cubit
                                                             .examsofLessons[
                                                                 index]

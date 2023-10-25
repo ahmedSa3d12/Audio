@@ -64,6 +64,7 @@ class AllExamFavorite {
   String name;
   String examCategoryType;
   double progress;
+  int youtubeAnswer;
   String? pdfFileUpload;
   String type;
   String backgroundColor;
@@ -73,6 +74,7 @@ class AllExamFavorite {
 
   AllExamFavorite({
     required this.id,
+    required this.youtubeAnswer,
     required this.examCategoryType,
     required this.image,
     required this.numOfQuestions,
@@ -91,6 +93,7 @@ class AllExamFavorite {
   factory AllExamFavorite.fromJson(Map<String, dynamic> json) =>
       AllExamFavorite(
         id: json["id"],
+        youtubeAnswer: json['answer_video_is_youtube'],
         examCategoryType: json['exam_category_type'],
         pdfFileUpload: json['pdf_file_upload'],
         image: json["image"],
@@ -110,6 +113,7 @@ class AllExamFavorite {
         'pdf_file_upload': pdfFileUpload,
         "image": image,
         "exam_category_type": examCategoryType,
+        "answer_video_is_youtube": youtubeAnswer,
         "num_of_questions": numOfQuestions,
         "answer_pdf_file": answerPdfFile,
         "answer_video_file": answerVideoFile,

@@ -1,16 +1,13 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:meta/meta.dart';
 import 'package:new_mazoon/core/remote/service.dart';
 import 'package:path_provider/path_provider.dart';
-
 import '../../../core/models/sources_references_model.dart';
 import '../../../core/models/sources_referenes_by_id_model.dart';
 import '../../../core/utils/dialogs.dart';
-
 part 'source_references_state.dart';
 
 class SourceReferencesCubit extends Cubit<SourceReferencesState> {
