@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../../core/utils/assets_manager.dart';
 import '../../../../../core/widgets/circle_image_widget.dart';
@@ -24,6 +26,26 @@ class LoginScreen extends StatefulWidget {
 class _userScreenState extends State<LoginScreen> {
   final keyForm = GlobalKey<FormState>();
   bool isLoading = false;
+  final GlobalKey _one = GlobalKey();
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _isFirstLanuch().then((value) {
+        if (value) {
+          ShowCaseWidget.of(context).startShowCase([_one]);
+        }
+      });
+    });
+    super.initState();
+  }
+
+  Future<bool> _isFirstLanuch() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    bool isFirstLanched = sharedPreferences.getBool('login_call') ?? true;
+    if (isFirstLanched) sharedPreferences.setBool('login_call', false);
+    return isFirstLanched;
+  }
+
   @override
   Widget build(BuildContext context) {
     timeDilation = 1.5;
@@ -392,34 +414,42 @@ class _userScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 const SizedBox(width: 16.0),
-                                InkWell(
-                                  onTap: () {
-                                    if (state is userCommunicationError) {
-                                      createProgressDialog(
-                                          context, 'wait'.tr());
-                                      cubit.getCommunicationData().whenComplete(
-                                        () {
-                                          Navigator.of(context).pop();
-                                          if (cubit.isCommunicationData) {
-                                            getCommunicationTab('call', cubit);
-                                          } else {
-                                            toastMessage(
-                                              'error_to_get_data'.tr(),
-                                              context,
-                                              color: AppColors.error,
-                                            );
-                                          }
-                                        },
-                                      );
-                                    } else {
-                                      getCommunicationTab('call', cubit);
-                                    }
-                                  },
-                                  child: Image.asset(
-                                    ImageAssets.callImage,
-                                    width: getSize(context) / 12,
-                                    height: getSize(context) / 12,
-                                    fit: BoxFit.cover,
+                                Showcase(
+                                  key: _one,
+                                  title: "call_us".tr(),
+                                  description: 'click_call'.tr(),
+                                  child: InkWell(
+                                    onTap: () {
+                                      if (state is userCommunicationError) {
+                                        createProgressDialog(
+                                            context, 'wait'.tr());
+                                        cubit
+                                            .getCommunicationData()
+                                            .whenComplete(
+                                          () {
+                                            Navigator.of(context).pop();
+                                            if (cubit.isCommunicationData) {
+                                              getCommunicationTab(
+                                                  'call', cubit);
+                                            } else {
+                                              toastMessage(
+                                                'error_to_get_data'.tr(),
+                                                context,
+                                                color: AppColors.error,
+                                              );
+                                            }
+                                          },
+                                        );
+                                      } else {
+                                        getCommunicationTab('call', cubit);
+                                      }
+                                    },
+                                    child: Image.asset(
+                                      ImageAssets.callImage,
+                                      width: getSize(context) / 12,
+                                      height: getSize(context) / 12,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ],

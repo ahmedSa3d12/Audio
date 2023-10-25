@@ -7,8 +7,10 @@ import 'package:new_mazoon/features/video_details/cubit/video_details_cubit.dart
 import 'package:video_player/video_player.dart';
 
 class VideoWidget extends StatefulWidget {
-  const VideoWidget({Key? key, required this.videoLink}) : super(key: key);
+  VideoWidget({Key? key, required this.isTablet, required this.videoLink})
+      : super(key: key);
   final String videoLink;
+  bool isTablet;
 
   @override
   State<VideoWidget> createState() => _VideoWidgetState();
@@ -55,7 +57,7 @@ class _VideoWidgetState extends State<VideoWidget> {
       videoPlayerController: _videoPlayerController!,
       autoPlay: false,
       allowFullScreen: true,
-      aspectRatio: 2.06,
+      aspectRatio: widget.isTablet ? 16 / 9 : 2.06,
       controlsSafeAreaMinimum: EdgeInsets.all(getSize(context) / 88),
       looping: false,
       hideControlsTimer: const Duration(seconds: 3),

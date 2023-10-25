@@ -109,12 +109,16 @@ class _VideoDetailsState extends State<VideoDetails> {
                     return Future(() => false);
                   },
                   child: Scaffold(
+                    backgroundColor: MediaQuery.of(context).orientation ==
+                            Orientation.landscape
+                        ? AppColors.black
+                        : AppColors.white,
                     appBar: MediaQuery.of(context).orientation ==
                             Orientation.landscape
                         ? null
                         : AppBar(
-                            leading: IconButton(
-                                onPressed: () async {
+                            leading: InkWell(
+                                onTap: () async {
                                   if (widget.type == 'video_part') {
                                     cubit.updateTime(context).then((value) {
                                       Navigator.pop(context);
@@ -136,7 +140,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                     Navigator.pop(context);
                                   }
                                 },
-                                icon: Icon(Icons.arrow_back_ios)),
+                                child: Icon(Icons.arrow_back_ios)),
                             backgroundColor: AppColors.primary,
                             title: Text(
                                 cubit.videoModel != null
@@ -144,6 +148,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                                     : '',
                                 style: TextStyle(
                                     color: AppColors.white,
+                                    fontSize: getSize(context) / 24,
                                     fontFamily: 'Cairo'))),
                     body: Stack(
                       alignment: Alignment.bottomCenter,
@@ -158,12 +163,19 @@ class _VideoDetailsState extends State<VideoDetails> {
                               : cubit.pos,
                           child: ListView(
                             shrinkWrap: true,
+                            padding: EdgeInsets.zero,
                             children: [
                               cubit.videoModel!.isYoutube == 1
                                   ? YoutubeVideoPlayer(
+                                      isTablet: getSize(context) >= 700
+                                          ? true
+                                          : false,
                                       videoLinkId: cubit.videoModel!.link,
                                     )
                                   : VideoWidget(
+                                      isTablet: getSize(context) >= 700
+                                          ? true
+                                          : false,
                                       videoLink: cubit.videoModel!.link,
                                     ),
                               MediaQuery.of(context).orientation ==
