@@ -1,29 +1,27 @@
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/features/sources_and_references/cubit/source_references_cubit.dart';
-
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/utils/change_to_mega_byte.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../../core/widgets/pdf_screen.dart';
+import '../../../core/widgets/youtube_video_view.dart';
 import '../../start_trip/widgets/class_exam_icon_widget.dart';
 import '../screens/video_view.dart';
 
 class SourceReferenceDetailsItemWidget extends StatelessWidget {
   SourceReferenceDetailsItemWidget({Key? key}) : super(key: key);
-
   List<Color> colors = [
     AppColors.purple1,
     AppColors.orange,
     AppColors.blue,
   ];
-  int i = 0;
 
+  int i = 0;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SourceReferencesCubit, SourceReferencesState>(
@@ -42,17 +40,29 @@ class SourceReferenceDetailsItemWidget extends StatelessWidget {
                         vertical: 8.0, horizontal: 4.0),
                     child: InkWell(
                       onTap: () {
-                        print('aaaaaaaa');
                         cubit.sourcesReferencesByIdList[index].fileType != 'pdf'
-                            ? Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => VideoWidgetLink(
-                                      videoLink: cubit
-                                          .sourcesReferencesByIdList[index]
-                                          .filePath!),
-                                ),
-                              )
+                            ? cubit.sourcesReferencesByIdList[index]
+                                        .youtubeAnswer ==
+                                    1
+                                ? Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => YoutubeVideoPlayer(
+                                          isTablet: getSize(context) >= 700,
+                                          videoLinkId: cubit
+                                              .sourcesReferencesByIdList[index]
+                                              .filePath!),
+                                    ),
+                                  )
+                                : Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => VideoWidgetLink(
+                                          videoLink: cubit
+                                              .sourcesReferencesByIdList[index]
+                                              .filePath!),
+                                    ),
+                                  )
                             : Navigator.push(
                                 context,
                                 MaterialPageRoute(
