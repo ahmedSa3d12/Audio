@@ -1557,5 +1557,24 @@ class ServiceApi {
       return Left(ServerFailure());
     }
   }
-  //openFirstLesson
+  //userScreenshot
+
+  Future<Either<Failure, StatusResponseModel>> userScreenshot() async {
+    UserModel loginModel = await Preferences.instance.getUserModel();
+    String lan = await Preferences.instance.getSavedLang();
+    try {
+      final response = await dio.post(
+        EndPoints.userScreenshot,
+        options: Options(
+          headers: {
+            'Authorization': loginModel.data!.token,
+            'Accept-Language': lan
+          },
+        ),
+      );
+      return Right(StatusResponseModel.fromJson(response));
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }

@@ -13,6 +13,7 @@ import 'package:new_mazoon/features/make_exam/cubit/cubit.dart';
 import 'package:new_mazoon/features/monthplan/cubit/month_cubit.dart';
 import 'package:new_mazoon/features/profilescreen/cubit/state.dart';
 import 'package:quick_actions/quick_actions.dart';
+import 'package:screenshot_callback/screenshot_callback.dart';
 // import 'package:screenshot_callback/screenshot_callback.dart';
 
 import 'config/routes/app_routes.dart';
@@ -70,10 +71,13 @@ class _ElmazoonState extends State<Elmazoon> {
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
   bool isThemes = false;
   String shortcut = 'no action set';
-
+  ScreenshotCallback screenshotCallback = ScreenshotCallback();
   @override
   void initState() {
     super.initState();
+    // screenshotCallback.addListener(() {
+    //   BlocProvider.of<HomePageCubit>(context as BuildContext).userScreenshot();
+    // });
     FlutterNativeSplash.remove();
     initConnectivity();
     _connectivitySubscription =
@@ -142,6 +146,7 @@ class _ElmazoonState extends State<Elmazoon> {
 
   @override
   void dispose() {
+    screenshotCallback.dispose();
     _connectivitySubscription.cancel();
     super.dispose();
   }

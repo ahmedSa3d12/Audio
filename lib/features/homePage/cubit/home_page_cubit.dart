@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:new_mazoon/core/utils/dialogs.dart';
 
 import '../../../../core/models/user_model.dart';
 import '../../../../core/preferences/preferences.dart';
@@ -50,6 +51,17 @@ class HomePageCubit extends Cubit<HomePageState> {
         await api.openLessonAndClass(id: classId, type: 'subject_class');
     response.fold((l) => emit(HomePageErrorClass()), (r) {
       emit(HomePageLoadedClass());
+    });
+  }
+
+  userScreenshot() async {
+    emit(UserScreenshotLoadingClass());
+    final response = await api.userScreenshot();
+    response.fold((l) {
+      emit(UserScreenshotErrorClass());
+    }, (r) {
+      errorGetBar(r.message);
+      emit(UserScreenshotLoadedClass());
     });
   }
 }
