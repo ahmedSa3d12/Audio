@@ -55,12 +55,15 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                           return InkWell(
                             onTap: () {
                               ///
-                              if ((cubit.videosofLessons[index].status ==
-                                          'opened' ||
-                                      cubit.videosofLessons[index].status ==
-                                          'watched') &&
-                                  cubit.videosofLessons[index].subscribe ==
-                                      'access') {
+                              if (cubit.videosofLessons[index].status ==
+                                  'loack') {
+                                toastMessage('open_video'.tr(), context,
+                                    color: AppColors.error);
+                              } else if (cubit.videosofLessons[index].status ==
+                                  'not_access') {
+                                toastMessage('expire_subscribe'.tr(), context,
+                                    color: AppColors.error);
+                              } else {
                                 Navigator.pushNamed(
                                     context, Routes.videoDetailsScreenRoute,
                                     arguments: {
@@ -68,12 +71,6 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                           cubit.videosofLessons[index].id,
                                       "type": "video_part"
                                     });
-                              } else {
-                                toastMessage(
-                                  'open_video'.tr(),
-                                  context,
-                                  color: AppColors.error,
-                                );
                               }
                             },
                             child: Container(
@@ -339,9 +336,9 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                                           AppColors.white,
                                                       size: getSize(context) /
                                                           28))
-                                              : cubit.videosofLessons[index]
+                                              : (cubit.videosofLessons[index]
                                                           .status ==
-                                                      'lock'
+                                                      'loack')
                                                   ? CircleAvatar(
                                                       backgroundColor:
                                                           AppColors.primary,
@@ -354,10 +351,29 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                                             28,
                                                       ),
                                                     )
-                                                  : CircleAvatar(
-                                                      backgroundColor:
-                                                          AppColors.transparent,
-                                                      child: Container())
+                                                  : (cubit
+                                                              .videosofLessons[
+                                                                  index]
+                                                              .status ==
+                                                          'not_access')
+                                                      ? CircleAvatar(
+                                                          backgroundColor:
+                                                              AppColors.primary,
+                                                          child: MySvgWidget(
+                                                            path: ImageAssets
+                                                                .subIcon,
+                                                            imageColor:
+                                                                AppColors.white,
+                                                            size: getSize(
+                                                                    context) /
+                                                                28,
+                                                          ),
+                                                        )
+                                                      : CircleAvatar(
+                                                          backgroundColor:
+                                                              AppColors
+                                                                  .transparent,
+                                                          child: Container())
                                         ],
                                       ),
                                     ),
