@@ -131,6 +131,7 @@ class ImageAssets {
   static const String vector = '$iconsPath/vector.svg';
   static const String cityIcon = '$iconsPath/city.svg';
   static const String codeIcon = '$iconsPath/code.svg';
+  static const String subIcon = '$iconsPath/sub.svg';
 
   //Lottie
   static const String noItems = '$lottiePath/no_item.json';
