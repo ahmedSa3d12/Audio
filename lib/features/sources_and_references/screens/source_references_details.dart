@@ -43,6 +43,7 @@ class SourceReferencesDetails extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           print(cubit.referenceModel.filePath);
+                          print("cubit.referenceModel.filePath");
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -87,8 +88,6 @@ class SourceReferencesDetails extends StatelessWidget {
                                         ))
                                     : InkWell(
                                         onTap: () {
-                                          //ckeck if exist show dowloaded
-                                          // print('download');
                                           cubit.downloadPdf(
                                               cubit.referenceModel);
                                         },

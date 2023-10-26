@@ -1,15 +1,3 @@
-// To parse this JSON data, do
-//
-//     final sourcesReferencesByIdModel = sourcesReferencesByIdModelFromJson(jsonString);
-
-import 'dart:convert';
-
-SourcesReferencesByIdModel sourcesReferencesByIdModelFromJson(String str) =>
-    SourcesReferencesByIdModel.fromJson(json.decode(str));
-
-String sourcesReferencesByIdModelToJson(SourcesReferencesByIdModel data) =>
-    json.encode(data.toJson());
-
 class SourcesReferencesByIdModel {
   final List<SourcesReferencesByIdDatum>? data;
   final String? message;
@@ -48,6 +36,7 @@ class SourcesReferencesByIdDatum {
   final String? fileTime;
   final String? filePathSize;
   final String? answerPdfFile;
+  final int? youtubeAnswer;
   double progress = 0;
   final String? answerPdfFileSize;
   final String? answerVideoFile;
@@ -57,6 +46,7 @@ class SourcesReferencesByIdDatum {
   SourcesReferencesByIdDatum({
     this.id,
     this.title,
+    this.youtubeAnswer,
     this.filePath,
     this.fileType,
     this.fileTime,
@@ -73,6 +63,7 @@ class SourcesReferencesByIdDatum {
         id: json["id"],
         title: json["title"],
         filePath: json["file_path"],
+        youtubeAnswer: json['answer_video_is_youtube'],
         fileType: json["file_type"],
         fileTime: json["file_time"],
         filePathSize: json["file_path_size"],
@@ -93,6 +84,7 @@ class SourcesReferencesByIdDatum {
         "file_time": fileTime,
         "file_path_size": filePathSize,
         "answer_pdf_file": answerPdfFile,
+        "answer_video_is_youtube": youtubeAnswer,
         "answer_pdf_file_size": answerPdfFileSize,
         "answer_video_file": answerVideoFile,
         "answer_video_file_time": answerVideoFileTime,

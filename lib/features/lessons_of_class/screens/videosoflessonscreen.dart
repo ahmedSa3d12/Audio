@@ -55,14 +55,12 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                           return InkWell(
                             onTap: () {
                               ///
-                              if (cubit.videosofLessons[index].status ==
-                                  'lock') {
-                                toastMessage(
-                                  'open_lesson'.tr(),
-                                  context,
-                                  color: AppColors.error,
-                                );
-                              } else {
+                              if ((cubit.videosofLessons[index].status ==
+                                          'opened' ||
+                                      cubit.videosofLessons[index].status ==
+                                          'watched') &&
+                                  cubit.videosofLessons[index].subscribe ==
+                                      'access') {
                                 Navigator.pushNamed(
                                     context, Routes.videoDetailsScreenRoute,
                                     arguments: {
@@ -70,6 +68,12 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                           cubit.videosofLessons[index].id,
                                       "type": "video_part"
                                     });
+                              } else {
+                                toastMessage(
+                                  'open_video'.tr(),
+                                  context,
+                                  color: AppColors.error,
+                                );
                               }
                             },
                             child: Container(
