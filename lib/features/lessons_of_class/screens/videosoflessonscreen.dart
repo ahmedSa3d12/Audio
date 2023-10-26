@@ -363,7 +363,7 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                                             path: ImageAssets
                                                                 .subIcon,
                                                             imageColor:
-                                                                AppColors.white,
+                                                                AppColors.yellowColor,
                                                             size: getSize(
                                                                     context) /
                                                                 28,
