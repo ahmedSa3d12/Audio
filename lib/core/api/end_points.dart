@@ -97,4 +97,5 @@ class EndPoints {
 
   static const String addNewSuggest = '${baseUrl}auth/add-suggest';
   static const String openFirstLesson = '${baseUrl}lesson/';
+  static const String userScreenshot = '${baseUrl}auth/user-add-screenshot';
 }
