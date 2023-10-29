@@ -767,22 +767,22 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                                   },
                                                                   title: Row(
                                                                     children: [
-                                                                      Text(
-                                                                          cubit
-                                                                              .questionOfLessonData!
-                                                                              .questions[
-                                                                                  index]
-                                                                              .answers[
-                                                                                  index2]
-                                                                              .answerNumber,
-                                                                          style: TextStyle(
-                                                                              fontSize: getSize(context) / 28,
-                                                                              fontWeight: FontWeight.w900,
-                                                                              color: AppColors.black)),
-                                                                      SizedBox(
-                                                                        width: getSize(context) /
-                                                                            88,
-                                                                      ),
+                                                                      // Text(
+                                                                      //     cubit
+                                                                      //         .questionOfLessonData!
+                                                                      //         .questions[
+                                                                      //             index]
+                                                                      //         .answers[
+                                                                      //             index2]
+                                                                      //         .answerNumber,
+                                                                      //     style: TextStyle(
+                                                                      //         fontSize: getSize(context) / 28,
+                                                                      //         fontWeight: FontWeight.w900,
+                                                                      //         color: AppColors.black)),
+                                                                      // SizedBox(
+                                                                      //   width: getSize(context) /
+                                                                      //       88,
+                                                                      // ),
                                                                       Flexible(
                                                                         fit: FlexFit
                                                                             .tight,
