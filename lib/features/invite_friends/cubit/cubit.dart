@@ -31,16 +31,14 @@ class IniviteFreiendsCubit extends Cubit<InviteFreiendsState> {
 
   void shareApp() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
     String url = '';
     String packageName = packageInfo.packageName;
-
     if (Platform.isAndroid) {
       url = "https://play.google.com/store/apps/details?id=${packageName}";
     } else if (Platform.isIOS) {
       url = 'https://apps.apple.com/us/app/${packageName}';
     }
-    await FlutterShare.share(title: 'mazoon', linkUrl: url);
+    await FlutterShare.share(
+        title: 'mazoon', linkUrl: url, text: 'invite_msg'.tr());
   }
 }
-//.tr()

@@ -64,7 +64,7 @@ class Elmazoon extends StatefulWidget {
   State<Elmazoon> createState() => _ElmazoonState();
 }
 
-class _ElmazoonState extends State<Elmazoon> {
+class _ElmazoonState extends State<Elmazoon> with WidgetsBindingObserver {
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
 
   final Connectivity _connectivity = Connectivity();
@@ -75,10 +75,9 @@ class _ElmazoonState extends State<Elmazoon> {
   @override
   void initState() {
     super.initState();
-    // screenshotCallback.addListener(() {
-    //   BlocProvider.of<HomePageCubit>(context as BuildContext).userScreenshot();
-    // });
+    WidgetsBinding.instance.addObserver(this);
     FlutterNativeSplash.remove();
+    init();
     initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen((event) {
@@ -97,7 +96,6 @@ class _ElmazoonState extends State<Elmazoon> {
       }
       _updateConnectionStatus(event);
     });
-
     const QuickActions quickActions = QuickActions();
     quickActions.initialize((String shortcutType) {
       setState(() {
@@ -144,8 +142,26 @@ class _ElmazoonState extends State<Elmazoon> {
     });
   }
 
+  void init() async {
+    await initScreenshotCallback();
+  }
+
+  //It must be created after permission is granted.
+  Future<void> initScreenshotCallback() async {
+    screenshotCallback = ScreenshotCallback();
+    screenshotCallback.addListener(() {
+      setState(() {
+        print('detect screenshot');
+      });
+    });
+    screenshotCallback.addListener(() {
+      print("We can add multiple listeners ");
+    });
+  }
+
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     screenshotCallback.dispose();
     _connectivitySubscription.cancel();
     super.dispose();
@@ -174,13 +190,16 @@ class _ElmazoonState extends State<Elmazoon> {
   @override
   Widget build(BuildContext context) {
     // print(text);
-
     Preferences.instance.savedLang(
       EasyLocalization.of(context)!.locale.languageCode,
     );
 
     ProfileCubit.getSavedMode().then((value) {
       ProfileCubit.mode = value;
+    });
+    screenshotCallback.addListener(() {
+      print('make screen shot');
+      // BlocProvider.of<HomePageCubit>(context).userScreenshot();
     });
     return MultiBlocProvider(
       providers: [

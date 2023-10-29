@@ -8,8 +8,8 @@ class ShowLoadingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(height: MediaQuery.of(context).size.height / 2 - 50),
         Center(
           child: CircularProgressIndicator(
             color: AppColors.primary,

@@ -12,7 +12,6 @@ import '../../../core/widgets/my_svg_widget.dart';
 import '../../video_details/widget/choose_icon_dialog.dart';
 import '../cubit/lessonexamstate.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-
 import '../../../core/utils/app_colors.dart';
 import '../cubit/questionlessonexamcubit.dart';
 
@@ -358,19 +357,46 @@ class _LessonExamScreenState extends State<LessonExamScreen> {
                                                               FontWeight.w900,
                                                           color:
                                                               AppColors.black)),
-                                                  Text(
+                                                  Column(
+                                                    children: [
+                                                      Text(
+                                                          cubit
+                                                              .questionOfLessonData!
+                                                              .questions[index]
+                                                              .question,
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  getSize(context) /
+                                                                      24,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w900,
+                                                              color: AppColors
+                                                                  .black)),
                                                       cubit
-                                                          .questionOfLessonData!
-                                                          .questions[index]
-                                                          .question,
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              getSize(context) /
-                                                                  24,
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                          color:
-                                                              AppColors.black)),
+                                                                  .questionOfLessonData!
+                                                                  .questions[
+                                                                      index]
+                                                                  .image ==
+                                                              null
+                                                          ? Container()
+                                                          : Image.network(
+                                                              cubit
+                                                                  .questionOfLessonData!
+                                                                  .questions[
+                                                                      index]
+                                                                  .image!,
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                              width: getSize(
+                                                                      context) /
+                                                                  1.3,
+                                                              height: getSize(
+                                                                      context) /
+                                                                  1.3,
+                                                            )
+                                                    ],
+                                                  ),
                                                   SizedBox(
                                                       height: getSize(context) /
                                                           44),

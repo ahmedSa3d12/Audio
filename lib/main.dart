@@ -29,22 +29,18 @@ import 'package:showcaseview/showcaseview.dart';
 //make exam
 //TODO HWB=> step 4)a
 FirebaseMessaging messaging = FirebaseMessaging.instance;
-
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
-
 NotificationDetails notificationDetails = NotificationDetails(
     android: AndroidNotificationDetails(channel.id, channel.name,
         channelDescription: channel.description,
         importance: Importance.max,
         icon: '@mipmap/ic_launcher'));
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -54,7 +50,6 @@ Future<void> main() async {
   print("settings of permission : ${settings.authorizationStatus}");
   //TODO HWB=> step 5)
   getToken();
-
   // await PushNotificationService.instance.initialise();
   if (Platform.isAndroid) {
     await FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
@@ -67,7 +62,6 @@ Future<void> main() async {
   }
   // await FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   AppColors.getPrimaryColor();
-
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   // await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
   //   alert: true,
@@ -84,25 +78,23 @@ Future<void> main() async {
   Bloc.observer = AppBlocObserver();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 ////////////DeviceOrientation Landscape
-
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  runApp(ShowCaseWidget(
-    builder: Builder(builder: (context) {
-      ScreenshotCallback().addListener(() {
-        BlocProvider.of<HomePageCubit>(context).userScreenshot();
-      });
-      return EasyLocalization(
-        supportedLocales: [Locale('ar', ''), Locale('en', '')],
-        path: 'assets/lang',
-        saveLocale: true,
-        startLocale: Locale('ar', ''),
-        fallbackLocale: Locale('ar', ''),
-        child: HotRestartController(child: const Elmazoon()),
-      );
-    }),
-  ));
+  runApp(
+    ShowCaseWidget(
+      builder: Builder(builder: (context) {
+        return EasyLocalization(
+          supportedLocales: [Locale('ar', ''), Locale('en', '')],
+          path: 'assets/lang',
+          saveLocale: true,
+          startLocale: Locale('ar', ''),
+          fallbackLocale: Locale('ar', ''),
+          child: HotRestartController(child: const Elmazoon()),
+        );
+      }),
+    ),
+  );
 }
 
 void getToken() async {

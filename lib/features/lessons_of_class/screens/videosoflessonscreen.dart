@@ -10,6 +10,7 @@ import '../../../core/utils/getsize.dart';
 import '../../../core/utils/toast_message_method.dart';
 import '../../../core/widgets/my_svg_widget.dart';
 import '../../../core/widgets/show_loading_indicator.dart';
+import '../../video_details/cubit/video_details_cubit.dart';
 import '../cubit/lessons_class_cubit.dart';
 import '../cubit/lessons_class_state.dart';
 import '../widgets/time.dart';
@@ -28,7 +29,7 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<LessonsClassCubit, LessonsClassState>(
       listener: (context, state) {
-        if (state is VideoLessonsLoading) {
+        if (state is VideoLessonsLoading || state is VideoUpdateTimeLoading) {
           isLoading = true;
         } else {
           isLoading = false;
@@ -362,8 +363,8 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                                           child: MySvgWidget(
                                                             path: ImageAssets
                                                                 .subIcon,
-                                                            imageColor:
-                                                                AppColors.yellowColor,
+                                                            imageColor: AppColors
+                                                                .yellowColor,
                                                             size: getSize(
                                                                     context) /
                                                                 28,
