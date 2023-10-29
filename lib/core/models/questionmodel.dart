@@ -71,6 +71,7 @@ class QuestionModel {
   String fileType;
   int degree;
   bool isSolving;
+  String? image;
   String note;
   final answerController = TextEditingController();
   String? imagePath;
@@ -85,6 +86,7 @@ class QuestionModel {
     required this.questionType,
     required this.fileType,
     required this.degree,
+    required this.image,
     required this.note,
     required this.answers,
     this.isSolving = false,
@@ -101,6 +103,7 @@ class QuestionModel {
         questionType: json["question_type"],
         fileType: json["file_type"],
         degree: json["degree"],
+        image: json['image'],
         note: json["note"],
         answers: List<AnswersModel>.from(
             json["answers"].map((x) => AnswersModel.fromJson(x))),
@@ -114,6 +117,7 @@ class QuestionModel {
         "question_type": questionType,
         "file_type": fileType,
         "degree": degree,
+        "image": image,
         "note": note,
         "answers": List<dynamic>.from(answers.map((x) => x.toJson())),
         "created_at":
@@ -182,6 +186,7 @@ class EnumValues<T> {
 class QuestionOfLessonStatus extends QuestionModel {
   QuestionOfLessonStatus({required this.questionModel, this.isSolving = false})
       : super(
+          image: questionModel.image,
           question: questionModel.question,
           answers: questionModel.answers,
           createdAt: questionModel.createdAt,

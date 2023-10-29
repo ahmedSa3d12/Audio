@@ -133,7 +133,6 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
     print('type');
     print(type);
     print(video_id);
-
     final response = await api.getcomments(video_id: video_id, type: type);
     response.fold(
       (l) {
@@ -143,7 +142,6 @@ class VideoDetailsCubit extends Cubit<VideoDetailsState> {
       (r) {
         print("loaded comment");
         comments = r.comments;
-
         print(comments!.data.length);
         emit(CommentsLoaded());
       },

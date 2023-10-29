@@ -26,46 +26,46 @@ class videosScreen extends StatelessWidget {
               },
               title: "No Data");
         }
-        return RefreshIndicator(
-          onRefresh: () async {
-            cubit.getAllFavourite();
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: getSize(context) / 22,
-                vertical: getSize(context) / 32),
-            child: GridView.builder(
-              itemCount: cubit.allFavourite!.data.allVideoFavorites!.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: .82,
-                  mainAxisSpacing: getSize(context) / 20,
-                  crossAxisSpacing: getSize(context) / 32,
-                  crossAxisCount: 2),
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => VideoDetails(
-                                  type: cubit.allFavourite!.data
-                                      .allVideoFavorites![index].type,
-                                  videoId: cubit.allFavourite!.data
-                                      .allVideoFavorites![index].videoId,
-                                )));
-                    ////////
-                  },
-                  child: FavoriteVideoWidget(
-                    index: index,
+        return cubit.allFavourite!.data.allVideoFavorites!.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : RefreshIndicator(
+                onRefresh: () async {
+                  cubit.getAllFavourite();
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: getSize(context) / 22,
+                      vertical: getSize(context) / 32),
+                  child: GridView.builder(
+                    itemCount:
+                        cubit.allFavourite!.data.allVideoFavorites!.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio: .82,
+                        mainAxisSpacing: getSize(context) / 20,
+                        crossAxisSpacing: getSize(context) / 32,
+                        crossAxisCount: 2),
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => VideoDetails(
+                                        type: cubit.allFavourite!.data
+                                            .allVideoFavorites![index].type,
+                                        videoId: cubit.allFavourite!.data
+                                            .allVideoFavorites![index].videoId,
+                                      )));
+                          ////////
+                        },
+                        child: FavoriteVideoWidget(
+                          index: index,
+                        ),
+                      );
+                    },
                   ),
-                );
-                //   SizedBox(height: 10,)
-                //   ],
-                // );
-              },
-            ),
-          ),
-        );
+                ),
+              );
       },
     );
   }

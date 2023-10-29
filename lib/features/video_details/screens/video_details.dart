@@ -91,7 +91,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                     title: 'no_date');
               } else {
                 return WillPopScope(
-                  onWillPop: () async {
+                  onWillPop: () {
                     if (widget.type == 'video_part') {
                       cubit.updateTime(context).then((value) {
                         Navigator.pop(context);
@@ -102,9 +102,9 @@ class _VideoDetailsState extends State<VideoDetails> {
                             cubit.lessonId, context, false, false, false);
                       });
                     } else {
+                      Navigator.pop(context);
                       cubit2.videosofLessons = [];
                       cubit.stopRecord();
-                      Navigator.pop(context);
                     }
                     return Future(() => false);
                   },
@@ -118,7 +118,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                         ? null
                         : AppBar(
                             leading: InkWell(
-                                onTap: () async {
+                                onTap: () {
                                   if (widget.type == 'video_part') {
                                     cubit.updateTime(context).then((value) {
                                       Navigator.pop(context);
@@ -135,9 +135,9 @@ class _VideoDetailsState extends State<VideoDetails> {
                                           false);
                                     });
                                   } else {
+                                    Navigator.pop(context);
                                     cubit2.videosofLessons = [];
                                     cubit.stopRecord();
-                                    Navigator.pop(context);
                                   }
                                 },
                                 child: Icon(Icons.arrow_back_ios)),

@@ -55,9 +55,7 @@ import '../preferences/preferences.dart';
 
 class ServiceApi {
   final BaseApiConsumer dio;
-
   ServiceApi(this.dio);
-
   Future<Either<Failure, UserModel>> postUser(String code) async {
     String lan = await Preferences.instance.getSavedLang();
     try {
@@ -81,6 +79,7 @@ class ServiceApi {
   Future<Either<Failure, HomePageModel>> getHomePageData() async {
     UserModel loginModel = await Preferences.instance.getUserModel();
     String lan = await Preferences.instance.getSavedLang();
+
     try {
       final response = await dio.get(
         EndPoints.homePageUrl,
