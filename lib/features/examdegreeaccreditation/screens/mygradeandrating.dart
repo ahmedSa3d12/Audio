@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/getsize.dart';
 import '../../../core/widgets/title_with_circle_background_widget.dart';
 import '../../homePage/widget/home_page_app_bar_widget.dart';
 
@@ -58,7 +59,7 @@ class _MyGradeAndRatingState extends State<MyGradeAndRating>
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 105),
+                    SizedBox(height: getSize(context) / 3),
                     TitleWithCircleBackgroundWidget(
                       title: 'grade_rate',
                       width: double.infinity,
