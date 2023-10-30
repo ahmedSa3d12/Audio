@@ -253,21 +253,24 @@ class _ElMazoonInfoState extends State<ElMazoonInfo>
                           children: [
                             IconButton(
                                 onPressed: () async {
-                                  await _launchUrl(cubit.data!.facebookLink);
+                                  await _launchUrl(cubit.data!.facebookLink ??
+                                      'https://www.youtube.com/watch?v=SXXl_snvJmg');
                                 },
                                 icon: FaIcon(FontAwesomeIcons.facebook,
                                     color: AppColors.blueColor3,
                                     size: getSize(context) / 12)),
                             IconButton(
                                 onPressed: () async {
-                                  await _launchUrl(cubit.data!.youtubeLink);
+                                  await _launchUrl(cubit.data!.youtubeLink ??
+                                      'https://www.youtube.com/watch?v=SXXl_snvJmg');
                                 },
                                 icon: FaIcon(FontAwesomeIcons.youtube,
                                     color: AppColors.red,
                                     size: getSize(context) / 12)),
                             IconButton(
                                 onPressed: () async {
-                                  await _launchUrl(cubit.data!.instagramLink);
+                                  await _launchUrl(cubit.data!.instagramLink ??
+                                      'https://www.youtube.com/watch?v=SXXl_snvJmg');
                                 },
                                 icon: SvgPicture.asset(
                                   ImageAssets.instgramIcon,
