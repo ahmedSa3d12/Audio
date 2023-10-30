@@ -57,7 +57,7 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                             onTap: () {
                               ///
                               if (cubit.videosofLessons[index].status ==
-                                  'loack') {
+                                  'lock') {
                                 toastMessage('open_video'.tr(), context,
                                     color: AppColors.error);
                               } else if (cubit.videosofLessons[index].status ==
@@ -339,7 +339,7 @@ class _VideoLessonScreenState extends State<VideoLessonScreen> {
                                                           28))
                                               : (cubit.videosofLessons[index]
                                                           .status ==
-                                                      'loack')
+                                                      'lock')
                                                   ? CircleAvatar(
                                                       backgroundColor:
                                                           AppColors.primary,

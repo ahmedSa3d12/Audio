@@ -29,9 +29,9 @@ class ELmazoonModelData {
   List<ELmazoonModelDataExperience> qualifications;
   List<ELmazoonModelDataExperience> experiences;
   List<ELmazoonModelDataExperience> skills;
-  String facebookLink;
-  String youtubeLink;
-  String instagramLink;
+  String? facebookLink;
+  String? youtubeLink;
+  String? instagramLink;
 
   ELmazoonModelData({
     required this.teacherName,

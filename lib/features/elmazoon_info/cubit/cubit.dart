@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:new_mazoon/core/models/elmazoon_model.dart';
 import 'package:new_mazoon/core/remote/service.dart';
 import 'package:new_mazoon/features/elmazoon_info/cubit/state.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ElMazoonCubit extends Cubit<ElMazoonState> {
   ElMazoonCubit(this.api) : super(ElMazoonInitial());
