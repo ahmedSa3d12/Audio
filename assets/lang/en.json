@@ -175,7 +175,8 @@
   "hour": "Hour",
   "exam_cancel_suc": "The paper exam has been successfully cancelled",
   "try": "Trying",
-  "q": "Q",
+  "q": "Q",  "h":"min",
+
   "time_count": "Time Count",
   "test_yourself": "Test Yourself",
   "current_month": "Current Month",
