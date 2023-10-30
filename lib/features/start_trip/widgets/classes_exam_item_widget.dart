@@ -1,16 +1,13 @@
 import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:new_mazoon/core/utils/app_colors.dart';
 import 'package:new_mazoon/core/utils/change_to_mega_byte.dart';
 import 'package:new_mazoon/core/utils/getsize.dart';
 import 'package:new_mazoon/core/utils/hex_color.dart';
 import 'package:new_mazoon/features/lessons_of_class/screens/view_video_screen.dart';
 import 'package:new_mazoon/features/start_trip/cubit/start_trip_cubit.dart';
-
 import '../../../core/models/classes_exam_data_model.dart';
 import '../../../core/utils/assets_manager.dart';
 import '../../../core/widgets/download_icon_widget.dart';
@@ -23,7 +20,6 @@ class ClassesExamItemWidget extends StatelessWidget {
       : super(key: key);
   final int index;
   final ClassesExamDatumModel model;
-
   @override
   Widget build(BuildContext context) {
     StartTripCubit cubit = context.read<StartTripCubit>();
@@ -76,8 +72,8 @@ class ClassesExamItemWidget extends StatelessWidget {
                           maxLines: 2,
                           style: TextStyle(
                             color: AppColors.black,
-                            fontSize: getSize(context) / 24,
-                            fontWeight: FontWeight.w700,
+                            fontSize: getSize(context) / 32,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
@@ -90,7 +86,6 @@ class ClassesExamItemWidget extends StatelessWidget {
                               fontSize: getSize(context) / 26),
                         ),
                       ),
-                      // SizedBox(height: model.type == 'pdf'?10: 35),
                       SizedBox(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,7 +93,8 @@ class ClassesExamItemWidget extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: ClassExamIconWidget(
-                                textData: '${model.numOfQuestion.toString()}',
+                                textData:
+                                    '${'q'.tr()} ${model.numOfQuestion.toString()}',
                                 type: 'text',
                                 iconColor: AppColors.gray7,
                                 onclick: () {},
@@ -107,7 +103,8 @@ class ClassesExamItemWidget extends StatelessWidget {
                             Expanded(
                               flex: 1,
                               child: ClassExamIconWidget(
-                                textData: ' ${model.totalTime.toString()}',
+                                textData:
+                                    '${'h'.tr()} ${model.totalTime.toString()}',
                                 type: 'text',
                                 iconColor: AppColors.gray7,
                                 onclick: () {},
