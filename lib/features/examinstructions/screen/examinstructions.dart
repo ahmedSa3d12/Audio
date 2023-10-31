@@ -387,54 +387,64 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                       ),
                                     ),
                               SizedBox(height: getSize(context) / 22),
-                              ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: examinstructions
-                                    .data!.details!.instruction!.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 0,
-                                        vertical: getSize(context) / 44),
-                                    child: Row(
-                                      children: [
-                                        Padding(
+                              examinstructions
+                                      .data!.details!.instruction!.isEmpty
+                                  ? Container()
+                                  : ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      itemCount: examinstructions
+                                          .data!.details!.instruction!.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Container(
                                           padding: EdgeInsets.symmetric(
-                                              horizontal:
-                                                  getSize(context) / 44),
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            child: Center(
+                                              horizontal: 0,
+                                              vertical: getSize(context) / 44),
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal:
+                                                        getSize(context) / 44),
+                                                child: Container(
+                                                  alignment: Alignment.center,
+                                                  child: Center(
+                                                      child: Text(
+                                                    (index + 1).toString(),
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            getSize(context) /
+                                                                22,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: AppColors.blue),
+                                                  )),
+                                                  decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color:
+                                                          AppColors.bluelight),
+                                                  width: getSize(context) / 14,
+                                                  height: getSize(context) / 14,
+                                                ),
+                                              ),
+                                              Flexible(
                                                 child: Text(
-                                              (index + 1).toString(),
-                                              style: TextStyle(
-                                                  fontSize:
-                                                      getSize(context) / 22,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: AppColors.blue),
-                                            )),
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: AppColors.bluelight),
-                                            width: getSize(context) / 14,
-                                            height: getSize(context) / 14,
+                                                  examinstructions
+                                                      .data!
+                                                      .details!
+                                                      .instruction![index],
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          getSize(context) / 24,
+                                                      color: AppColors.black),
+                                                ),
+                                              )
+                                            ],
                                           ),
-                                        ),
-                                        Flexible(
-                                          child: Text(
-                                            examinstructions.data!.details!
-                                                .instruction![index],
-                                            style: TextStyle(
-                                                fontSize: getSize(context) / 24,
-                                                color: AppColors.black),
-                                          ),
-                                        )
-                                      ],
+                                        );
+                                      },
                                     ),
-                                  );
-                                },
-                              ),
                               // SizedBox(
                               //   height: getSize(context) / 32,
                               // ),

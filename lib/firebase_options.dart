@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '815170067345',
     projectId: 'elmazon',
     storageBucket: 'elmazon.appspot.com',
-    iosClientId: '815170067345-p03cdoe09s7b143hn5dejenamj4cgbo2.apps.googleusercontent.com',
+    iosClientId:
+        '815170067345-p03cdoe09s7b143hn5dejenamj4cgbo2.apps.googleusercontent.com',
     iosBundleId: 'com.topbusiness.newMazoon',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '815170067345',
     projectId: 'elmazon',
     storageBucket: 'elmazon.appspot.com',
-    iosClientId: '815170067345-p03cdoe09s7b143hn5dejenamj4cgbo2.apps.googleusercontent.com',
+    iosClientId:
+        '815170067345-p03cdoe09s7b143hn5dejenamj4cgbo2.apps.googleusercontent.com',
     iosBundleId: 'com.topbusiness.newMazoon',
   );
 }
