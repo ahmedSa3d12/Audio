@@ -54,7 +54,6 @@ class QuestionsLessonExamCubit extends Cubit<QuestionsOfLessonExamState> {
       required int minutesLeft,
       required BuildContext context}) async {
     createProgressDialog(context, 'wait'.tr());
-
     ////////////////////
     emit(LoadingApplyLessonExam());
     await setDetailsList(minutesLeft);

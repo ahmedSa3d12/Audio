@@ -32,7 +32,6 @@ class QuestionDateModel {
   DateTime dateExam;
   int quizMinute;
   List<QuestionModel> questions;
-
   QuestionDateModel({
     required this.id,
     required this.name,
@@ -66,13 +65,13 @@ class QuestionDateModel {
 
 class QuestionModel {
   int id;
-  String question;
-  String questionType;
-  String fileType;
+  dynamic question;
+  dynamic questionType;
+  dynamic fileType;
   int degree;
   bool isSolving;
-  String? image;
-  String note;
+  dynamic image;
+  dynamic note;
   final answerController = TextEditingController();
   String? imagePath;
   String? recordPath;
@@ -129,12 +128,12 @@ class QuestionModel {
 
 class AnswersModel {
   int id;
-  String answer;
-  String answerNumber;
+  dynamic answer;
+  dynamic answerNumber;
   AnswerStatus answerStatus;
   DateTime createdAt;
   DateTime updatedAt;
-  String selectedValue;
+  dynamic selectedValue;
   AnswersModel({
     required this.id,
     required this.answer,

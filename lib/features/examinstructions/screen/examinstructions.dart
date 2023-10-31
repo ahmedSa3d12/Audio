@@ -465,17 +465,18 @@ class _ExamInstructionsState extends State<ExamInstructions> {
                                                       : "lesson");
                                 },
                                 child: Container(
-                                    width: getSize(context) / 1.1,
-                                    height: getSize(context) / 7,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.orange,
-                                        borderRadius: BorderRadius.circular(
-                                            getSize(context) / 22)),
-                                    child: Text(
-                                      'ready_exam'.tr(),
-                                      style: TextStyle(color: AppColors.white),
-                                    )),
+                                  width: getSize(context) / 1.1,
+                                  height: getSize(context) / 7,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.orange,
+                                      borderRadius: BorderRadius.circular(
+                                          getSize(context) / 22)),
+                                  child: Text(
+                                    'ready_exam'.tr(),
+                                    style: TextStyle(color: AppColors.white),
+                                  ),
+                                ),
                               )
                             ],
                           ),

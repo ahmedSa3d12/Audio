@@ -37,7 +37,7 @@ class _YoutubeVideoPlayerState extends State<YoutubeVideoPlayer> {
     _controller = YoutubePlayerController(
       initialVideoId: id,
       flags: YoutubePlayerFlags(
-        autoPlay: false,
+        autoPlay: true,
         forceHD: true,
         mute: false,
         loop: false,
