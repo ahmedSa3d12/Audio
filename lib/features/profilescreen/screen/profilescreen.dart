@@ -9,7 +9,6 @@ import 'package:new_mazoon/core/utils/dialogs.dart';
 import 'package:new_mazoon/core/widgets/custom_button.dart';
 import 'package:new_mazoon/core/widgets/my_svg_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../core/utils/getsize.dart';
 import '../../homePage/cubit/home_page_cubit.dart';
 import '../../navigation_bottom/cubit/navigation_cubit.dart';
@@ -348,11 +347,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ProfileDataItem(
                                     title: 'governorate'.tr(),
                                     data:
-                                        '${Preferences.instance.getSavedLang() == 'en' ? cubit.userModel!.data!.country!.nameEn : cubit.userModel!.data!.country!.nameAr}'),
+                                        '${Preferences.instance.getSavedLang() == 'en' ? cubit.userModel!.data!.city!.nameEn : cubit.userModel!.data!.city!.nameAr}'),
                                 ProfileDataItem(
                                     title: 'city'.tr(),
                                     data:
-                                        '${Preferences.instance.getSavedLang() == 'en' ? cubit.userModel!.data!.city!.nameEn : cubit.userModel!.data!.city!.nameAr}'),
+                                        '${Preferences.instance.getSavedLang() == 'en' ? cubit.userModel!.data!.country!.nameEn : cubit.userModel!.data!.country!.nameAr}'),
                                 ProfileDataItem(
                                     title: 'subtype'.tr(),
                                     data: cubit.userModel!.data!.center),
