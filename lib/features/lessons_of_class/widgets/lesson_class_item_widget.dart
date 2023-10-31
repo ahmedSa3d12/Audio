@@ -49,14 +49,16 @@ class LessonClassItemWidget extends StatelessWidget {
                       fontSize: getSize(context) / 24,
                     ),
                   ),
-                  Text(
-                    model.name!,
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: AppColors.grayLite,
-                      fontWeight: FontWeight.w600,
-                      fontSize: getSize(context) / 24,
+                  Flexible(
+                    child: Text(
+                      model.name!,
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: AppColors.grayLite,
+                        fontWeight: FontWeight.w500,
+                        fontSize: getSize(context) / 28,
+                      ),
                     ),
                   ),
                 ],
