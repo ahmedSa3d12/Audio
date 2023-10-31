@@ -55,7 +55,7 @@ class _VideoWidgetState extends State<VideoWidget> {
   void _createChewieController() {
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController!,
-      autoPlay: false,
+      autoPlay: true,
       allowFullScreen: true,
       aspectRatio: widget.isTablet ? 16 / 9 : 2.06,
       controlsSafeAreaMinimum: EdgeInsets.all(getSize(context) / 88),
