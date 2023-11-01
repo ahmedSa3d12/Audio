@@ -27,7 +27,7 @@ class MainQuestionModel {
 
 class QuestionDateModel {
   int id;
-  String name;
+  dynamic name;
   dynamic note;
   DateTime dateExam;
   int quizMinute;
@@ -71,13 +71,13 @@ class QuestionModel {
   int degree;
   bool isSolving;
   dynamic image;
-  dynamic note;
+  // dynamic note;
   final answerController = TextEditingController();
-  String? imagePath;
-  String? recordPath;
+  dynamic imagePath;
+  dynamic recordPath;
   List<AnswersModel> answers;
-  DateTime createdAt;
-  DateTime updatedAt;
+  // DateTime createdAt;
+  // DateTime updatedAt;
 
   QuestionModel({
     required this.id,
@@ -86,14 +86,14 @@ class QuestionModel {
     required this.fileType,
     required this.degree,
     required this.image,
-    required this.note,
+    // required this.note,
     required this.answers,
     this.isSolving = false,
     // this.answerController
     this.imagePath,
     this.recordPath,
-    required this.createdAt,
-    required this.updatedAt,
+    // required this.createdAt,
+    // required this.updatedAt,
   });
 
   factory QuestionModel.fromJson(Map<String, dynamic> json) => QuestionModel(
@@ -102,12 +102,12 @@ class QuestionModel {
         questionType: json["question_type"],
         fileType: json["file_type"],
         degree: json["degree"],
-        image: json['image'],
-        note: json["note"],
+        image: json['image'] ?? '',
+        // note: json["note"] ?? '',
         answers: List<AnswersModel>.from(
             json["answers"].map((x) => AnswersModel.fromJson(x))),
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        // createdAt: DateTime.parse(json["created_at"]),
+        // updatedAt: DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -117,12 +117,12 @@ class QuestionModel {
         "file_type": fileType,
         "degree": degree,
         "image": image,
-        "note": note,
+        // "note": note,
         "answers": List<dynamic>.from(answers.map((x) => x.toJson())),
-        "created_at":
-            "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
-        "updated_at":
-            "${updatedAt.year.toString().padLeft(4, '0')}-${updatedAt.month.toString().padLeft(2, '0')}-${updatedAt.day.toString().padLeft(2, '0')}",
+        // "created_at":
+        //     "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
+        // "updated_at":
+        //     "${updatedAt.year.toString().padLeft(4, '0')}-${updatedAt.month.toString().padLeft(2, '0')}-${updatedAt.day.toString().padLeft(2, '0')}",
       };
 }
 
@@ -131,17 +131,14 @@ class AnswersModel {
   dynamic answer;
   dynamic answerNumber;
   AnswerStatus answerStatus;
-  DateTime createdAt;
-  DateTime updatedAt;
+
   dynamic selectedValue;
   AnswersModel({
     required this.id,
     required this.answer,
     required this.answerNumber,
     required this.answerStatus,
-    required this.createdAt,
     this.selectedValue = '',
-    required this.updatedAt,
   });
 
   factory AnswersModel.fromJson(Map<String, dynamic> json) => AnswersModel(
@@ -149,8 +146,6 @@ class AnswersModel {
         answer: json["answer"],
         answerNumber: json["answer_number"],
         answerStatus: answerStatusValues.map[json["answer_status"]]!,
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -158,10 +153,6 @@ class AnswersModel {
         "answer": answer,
         "answer_number": answerNumber,
         "answer_status": answerStatusValues.reverse[answerStatus],
-        "created_at":
-            "${createdAt.year.toString().padLeft(4, '0')}-${createdAt.month.toString().padLeft(2, '0')}-${createdAt.day.toString().padLeft(2, '0')}",
-        "updated_at":
-            "${updatedAt.year.toString().padLeft(4, '0')}-${updatedAt.month.toString().padLeft(2, '0')}-${updatedAt.day.toString().padLeft(2, '0')}",
       };
 }
 
@@ -188,13 +179,13 @@ class QuestionOfLessonStatus extends QuestionModel {
           image: questionModel.image,
           question: questionModel.question,
           answers: questionModel.answers,
-          createdAt: questionModel.createdAt,
+          // createdAt: questionModel.createdAt,
           degree: questionModel.degree,
           fileType: questionModel.fileType,
           id: questionModel.id,
-          note: questionModel.note,
+          // note: questionModel.note,
           questionType: questionModel.questionType,
-          updatedAt: questionModel.updatedAt,
+          // updatedAt: questionModel.updatedAt,
         );
   QuestionModel questionModel;
   bool isSolving;
