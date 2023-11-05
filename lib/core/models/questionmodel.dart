@@ -70,7 +70,7 @@ class QuestionModel {
   dynamic fileType;
   int degree;
   bool isSolving;
-  dynamic image;
+  String? image;
   // dynamic note;
   final answerController = TextEditingController();
   dynamic imagePath;
@@ -102,7 +102,7 @@ class QuestionModel {
         questionType: json["question_type"],
         fileType: json["file_type"],
         degree: json["degree"],
-        image: json['image'] ?? '',
+        image: json['image'],
         // note: json["note"] ?? '',
         answers: List<AnswersModel>.from(
             json["answers"].map((x) => AnswersModel.fromJson(x))),

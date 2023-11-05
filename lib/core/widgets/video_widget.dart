@@ -66,11 +66,9 @@ class _VideoWidgetState extends State<VideoWidget> {
 
   @override
   void dispose() {
-    // context
-    //     .read<VideoDetailsCubit>()
-    //     .setduration(_videoPlayerController!.value.duration);
     _videoPlayerController!.dispose();
-    // _chewieController!.dispose();
+    _chewieController!.dispose();
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

@@ -196,13 +196,16 @@ class _ResultExamLessonScreenState extends State<ResultExamLessonScreen> {
                                                       ),
                                                     ),
                                                   ),
-                                                  Text(
-                                                    '${widget.model.motivationalWord}',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                            getSize(context) /
-                                                                28,
-                                                        color: AppColors.black),
+                                                  Flexible(
+                                                    child: Text(
+                                                      '${widget.model.motivationalWord}',
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              getSize(context) /
+                                                                  28,
+                                                          color:
+                                                              AppColors.black),
+                                                    ),
                                                   ),
                                                 ],
                                               ),
