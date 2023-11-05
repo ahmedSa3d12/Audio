@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,6 @@ import 'package:new_mazoon/features/profilescreen/cubit/state.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:screenshot_callback/screenshot_callback.dart';
 // import 'package:screenshot_callback/screenshot_callback.dart';
-
 import 'config/routes/app_routes.dart';
 import 'config/themes/app_theme.dart';
 import 'core/preferences/preferences.dart';
@@ -24,7 +22,6 @@ import 'core/utils/app_strings.dart';
 import 'package:new_mazoon/injector.dart' as injector;
 import 'dart:developer' as developer;
 import 'package:path/path.dart';
-
 import 'core/utils/toast_message_method.dart';
 // import 'features/downloads_videos/cubit/downloads_videos_cubit.dart';
 import 'features/change_lang/cubit/lang_cubit.dart';
@@ -52,7 +49,6 @@ import 'features/paperexamdetials/cubit/paper_detials_cubit.dart';
 import 'features/splash/presentation/cubit/splash_cubit.dart';
 import 'features/start_trip/cubit/start_trip_cubit.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
 import 'features/student_reports/cubit/student_reports_cubit.dart';
 import 'features/video_details/cubit/video_details_cubit.dart';
 import 'features/your_suggest/cubit/your_suggest_cubit.dart';
