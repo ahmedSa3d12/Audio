@@ -1,9 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../models/home_page_model.dart';
-import '../utils/assets_manager.dart';
 import 'dotes.dart';
 import 'network_image.dart';
 
@@ -23,7 +21,7 @@ class _BannerWidgetState extends State<BannerWidget> {
   @override
   Widget build(BuildContext context) {
     if (widget.sliderData.isEmpty) {
-      return Image.asset(ImageAssets.logoImage);
+      return Container();
     } else {
       return Column(
         children: [
